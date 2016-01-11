@@ -1,6 +1,7 @@
 \documentclass[12pt]{ociamthesis}
 
-\include{definitions}
+\include{auxiliary/definitions}
+\include{auxiliary/tikz}
 
 \title{Hypergraph categories and \\ their applications}   %note \\[1ex] is a line break in the title
 \author{Brendan Fong}     
@@ -21,10 +22,9 @@
 
 \begin{romanpages} 
 \tableofcontents
-\include{overview}
+\include{chapters/overview}
+\include{chapters/introduction}
 \end{romanpages}
-
-\include{introduction}
 
 \part{Mathematical Foundations}
 
@@ -38,10 +38,10 @@
 \include{chapters/chapter5}
 %\include{chapters/chapter6}
 
-%\phantomsection
+\phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
 %\renewcommand{\bibname}{References} %uncomment to change bibliography name to references
-\bibliography{dphilrefs}
+\bibliography{auxiliary/dphilrefs}
 \bibliographystyle{alpha}  %use the plain bibliography style
 
 \end{document}
