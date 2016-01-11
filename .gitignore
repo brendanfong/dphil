@@ -30,7 +30,7 @@
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
-
+*.tex.swp
 ## Auxiliary and intermediate files from other packages:
 
 # algorithms
