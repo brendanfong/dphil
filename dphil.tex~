@@ -15,9 +15,9 @@
 \setcounter{tocdepth}{3}
 
 \maketitle                 
-\include{frontmatter/dedication} 
-\include{frontmatter/acknowledgements}  
-\include{frontmatter/abstract} 
+\include{dedication} 
+\include{acknowledgements}  
+\include{abstract} 
 
 \begin{romanpages} 
 \tableofcontents
@@ -28,15 +28,15 @@
 
 \part{Mathematical Foundations}
 
-\include{chapters/chapter1}
-\include{chapters/chapter2}
-\include{chapters/chapter3}
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
 
 \part{Applications}
 
-\include{chapters/chapter4}
-\include{chapters/chapter5}
-%\include{chapters/chapter6}
+\include{chapter4}
+\include{chapter5}
+%\include{chapter6}
 
 %\phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
