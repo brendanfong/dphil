@@ -1,0 +1,48 @@
+%% packages
+\usepackage[centertags,sumlimits,intlimits,namelimits,reqno]{amsmath}
+\usepackage{latexsym,amsfonts,amssymb,exscale,enumerate,amsthm}
+\usepackage[colorlinks,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkblue,breaklinks=true,pagebackref]{hyperref}
+\usepackage{tikz}
+\usepackage{float,color,multirow,array,multicol}
+\usepackage[all,cmtip,2cell]{xy}
+
+
+%% citations
+\definecolor{darkblue}{rgb}{0,0,0.7} 
+\renewcommand*{\backref}[1]{(Referred to on page #1.)}
+
+%% theorem environments
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+%\newtheorem{conjecture}{Conjecture}
+%%\renewcommand{\theconj}{\Alph{conjecture}}  % numbered A, B, C etc
+%
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{defns}[theorem]{Definitions}
+%
+%\theoremstyle{remark} 
+\newtheorem{example}[theorem]{Example}
+%\newtheorem{exs}[theorem]{Examples}
+%\newtheorem{question}[theorem]{Question}
+\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{notn}[theorem]{Notation}
+
+%% 
+\newcommand\maps{{\colon}}
+\newcommand{\define}[1]{{\bf \boldmath #1}}
+
+%% from decorated cospans
+
+  \newcommand{\R}{{\mathbb{R}}}
+  \newcommand{\hooklongrightarrow}{\lhook\joinrel\longrightarrow}
+  \newcommand{\linsub}{\operatorname{LinSub}}
+  \newcommand{\lgraph}{\operatorname{Graph}}
+  \newcommand{\res}{\operatorname{Res}}
+  \newcommand{\FinSet}{\mathrm{FinSet}}
+  \newcommand{\Set}{\mathrm{Set}}
+  \newcommand{\opp}{\mathrm{opp}}
