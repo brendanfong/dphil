@@ -1,1 +1,228 @@
 \chapter{Hypergraph categories}
+
+
+\subsection{Hypergraph categories.}
+
+A \define{Frobenius monoid} $(X,\mu,\delta,\eta,\epsilon)$ in a monoidal
+category $(\mathcal C, \otimes)$ is an object $X$ together with monoid $(X,\mu,
+\eta)$ and comonoid $(X,\delta,\epsilon)$ structures such that
+\[
+  (1 \otimes \mu) \circ (\delta \otimes 1) = \delta \circ \mu = (\mu \otimes 1)
+  \circ (1 \otimes \delta)\colon  X \otimes X \longrightarrow X \otimes X.
+\]
+A Frobenius monoid is further called \define{special} if 
+\[
+  \mu \circ \delta = 1\colon  X \longrightarrow X,
+\]
+and further called \define{commutative} if the ambient monoidal category is symmetric
+and the monoid and comonoid structures that comprise the Frobenius monoid are
+commutative and cocommutative respectively. Note that for Frobenius monoids
+commutativity of the monoid structure implies cocommutativity of the comoniod
+structure, and vice versa, so the use of the term `commutativity' for both the
+Frobenius monoid and the constituent monoid is not ambiguous.
+
+A \define{hypergraph category} is a
+symmetric monoidal category in which each object is equipped with a special
+commutative Frobenius structure $(X,\mu_X,\delta_X,\eta_X,\epsilon_X)$ such that 
+\[
+  \begin{array}{cc}
+    \mu_{X\otimes Y} = (\mu_X \otimes \mu_Y)\circ(1_X \otimes \sigma_{YX}\otimes
+    1_Y) \qquad&
+    \eta_{X\otimes Y} = \eta_X \otimes \eta_Y \\
+    \delta_{X\otimes Y} = (1_X \otimes \sigma_{XY}\otimes 1_Y)\circ(\delta_X
+    \otimes \delta_Y) \qquad&
+    \epsilon_{X\otimes Y} = \epsilon_X \otimes \epsilon_Y.
+  \end{array}
+\]
+A functor $(F,\varphi)$ of hypergraph categories, or \define{hypergraph
+functor}, is a strong symmetric monoidal functor $(F,\varphi)$ that preserves
+the hypergraph structure. More precisely, the latter condition means that given
+an object $X$, the special commutative Frobenius structure on $FX$ must be 
+\[
+  (FX,\enspace F\mu_X \circ \varphi_{X,X},\enspace  \varphi^{-1} \circ F\delta_X,\enspace  F\eta_X \circ
+\varphi_1,\enspace  \varphi_1 \circ \epsilon_X).
+\]
+
+This terminology was introduced recently \cite{Ki}, in reference to the fact
+that these special commutative Frobenius monoids provide precisely the structure
+required to draw graphs with `hyperedges': wires connecting any number of
+inputs to any number of outputs. Commutative special Frobenius monoids are also
+known as commutative separable algebras \cite{RSW}, and hypergraph categories as
+well-supported compact closed categories \cite{Ca}.
+
+Note that if an object $X$ is equipped with a Frobenius monoid structure then
+the maps $\epsilon \circ \mu\colon  X \otimes X \longrightarrow 1$ and $\delta \circ
+\eta\colon  1 \longrightarrow X \otimes X$ obey 
+\[
+  \big(1 \otimes (\epsilon \circ \mu)\big) \circ \big((\delta \circ \eta)
+  \otimes 1\big) = 1_X = \big((\epsilon \circ \mu) \otimes 1\big) \circ \big(1
+  \otimes (\delta \circ \eta)\big)\colon X \longrightarrow X.
+\]
+Thus if an object carries a Frobenius monoid it is also self-dual, and any
+hypergraph category is a fortiori self-dual compact closed. Mapping each
+morphism $f\colon  X \to Y$ to its dual morphism
+\[
+  \big((\epsilon_Y \circ \mu_Y) \otimes 1_X\big) \circ \big( 1_Y \otimes f
+  \otimes 1_X \big) \circ \big(1_Y \otimes (\delta_X \circ \eta_X)\big)\colon  Y
+  \longrightarrow X
+\]
+further equips each hypergraph category with a so-called dagger functor---an
+involutive contravariant endofunctor that is the identity on objects---such that
+the category is a dagger compact category. Dagger compact categories were first
+introduced in the context of categorical quantum mechanics \cite{AC}, under the
+name strongly compact closed category, and have been demonstrated to be a key
+structure in diagrammatic reasoning and the logic of quantum mechanics.
+
+We shall see that every decorated cospan category is a hypergraph category, and
+hence also a dagger compact category.
+
+\begin{example}
+  A central example of a hypergraph category is the category
+  $\mathrm{Cospan(\mathcal C)}$ of cospans in any category $\mathcal C$ with
+  finite colimits. We will later see that decorated cospan categories are a
+  generalisation of such categories, and each inherits a hypergraph structure
+  from such. 
+
+  First, $\mathrm{Cospan(\mathcal C)}$ inherits a symmetric monoidal structure
+  from $\mathcal C$. We call a subcategory $\mathcal C$ of a category $\mathcal
+  D$ \define{wide} if $\mathcal C$ contains all objects of $\mathcal D$, and
+  call a functor that is faithful and bijective-on-objects a \define{wide
+  embedding}. Note then that we have a wide embedding
+  \[
+    \mathcal C \hooklongrightarrow \mathrm{Cospan(\mathcal C)}
+  \]
+  that takes each object of $\mathcal C$ to itself as an object of
+  $\mathrm{Cospan(\mathcal C)}$, and each morphism $f\colon  X \to Y$ in $\mathcal C$
+  to the cospan
+  \[
+    \xymatrix{
+      & Y \\
+      X \ar[ur]^{f} && Y, \ar@{=}[ul]
+    }
+  \]
+  where the extended `equals' sign denotes an identity morphism. This allows us
+  to view $\mathcal C$ as a wide subcategory of $\mathrm{Cospan(\mathcal C)}$.
+
+  Now as $\mathcal C$ has finite colimits, it can be given a symmetric monoidal
+  structure with the coproduct the monoidal product; we write this monoidal
+  category $(\mathcal C,+)$, and write $\varnothing$ for the initial object, the
+  monoidal unit of this category. Then $\mathrm{Cospan(\mathcal C)}$ inherits
+  the same symmetric monoidal structure: since the monoidal product $+\colon \mathcal
+  C \times \mathcal C \to \mathcal C$ is left adjoint to the diagram functor, it
+  preserves colimits, and so extends to a functor $+\colon
+  \mathrm{Cospan(\mathcal C)} \times \mathrm{Cospan(\mathcal C)} \to
+  \mathrm{Cospan(\mathcal C)}$. The remainder of the monoidal structure is
+  inherited because $\mathcal C$ is a wide subcategory of
+  $\mathrm{Cospan(\mathcal C)}$.
+
+  Next, the Frobenius structure comes from copairings of identity morphisms. We
+  call cospans 
+  \[
+    \xymatrix{
+      & N \\
+      X \ar[ur]^{i} && Y \ar[ul]_{o}
+    }
+    \qquad \xymatrix@R=8pt{\\\textrm{and}} \qquad 
+    \xymatrix{
+      & N \\
+      Y \ar[ur]^{o} && X \ar[ul]_{i}
+    }
+  \]
+  that are reflections of each other \define{opposite} cospans. Given any object
+  $X$ in $\mathcal C$, the copairing $[1_X,1_X]\colon  X + X \to X$ of two identity
+  maps on $X$, together with the unique map $!\colon  \varnothing \to X$ from the
+  initial object to $X$, define a monoid structure on $X$. Considering these
+  maps as morphisms in $\mathrm{Cospan(\mathcal C)}$, we may take them together
+  with their opposites to give a special commutative Frobenius structure on $X$.
+  In this way we consider each category $\mathrm{Cospan(\mathcal C)}$ a
+  hypergraph category.
+
+  It is a simple computation to check that the resulting dagger functor simply
+  takes a cospan $X \stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow}
+  Y$ to its opposite cospan $Y \stackrel{o}{\longrightarrow} N
+  \stackrel{i}{\longleftarrow} X$.
+\end{example}
+
+\subsection{Dagger compact categories} \label{subsec:dagger}
+
+In a dagger category, the distinction between the source and target of a morphism is arbitrary, and can be reversed. This is true of electrical circuits: if we like we may treat the set of inputs as the set of outputs instead, and the set of outputs as the set of inputs.
+
+Recall that a \define{dagger category} is a category equipped with an
+involutive, contravariant endofunctor that is the identity on objects
+\cite{AC,Se}. In other words, a \define{dagger structure} on a category $\mc C$
+is a contravariant functor $(-)^\dagger\maps \mc C \to \mc C$ such that
+$A^\dagger = A$ for all objects $A \in \ob \mc C$ and $(f^\dagger)^\dagger = f$
+for all morphisms $f$ in $\mc C$.  A dagger category is then a category equipped
+with a dagger structure.
+
+When other structure is present, we prefer this dagger to be compatible with it.
+We say that a morphism $f$ is \define{unitary} if its dagger provides it with an
+inverse morphism. A \define{symmetric monoidal dagger category} is a symmetric
+monoidal category equipped with a \define{symmetric monoidal dagger
+structure}---that is, a dagger structure that coherently preserves the symmetric
+monoidal structure. Concretely, this requires that the functor $(-)^\dagger\maps
+\mc C \to \mc C^{\mathrm op}$ be symmetric monoidal, and that the associator,
+unitors, and braiding of $\mc C$ be unitary. Furthermore, letting $L$ and $R$ be
+dual objects of a symmetric monoidal dagger category, with monoidal unit $I$,
+braiding $\s_{L,R}\maps L \ot R \to R \ot L$, and unit $\eta\maps I \to R
+\otimes L$ and counit $\eps\maps L \otimes R \to I$, we say that $L$ and $R$ are
+\define{dagger dual} if $\eta = \s \circ \eps^\dagger$.  A \define{dagger
+compact category} is a symmetric monoidal dagger category in which every object
+has a dagger dual, while a \define{dagger functor} is a functor $F$ between
+dagger compact categories that preserves the dagger structures: $F((-)^\dagger)
+= (F(-))^\dagger$.
+
+Importantly for our applications, dagger compact categories come with a
+graphical calculus, where each morphism is represented by a diagram such that
+two diagrams are considered equal by the rules of this calculus if and only if
+they are equal according to the defining laws of dagger compact categories
+\cite{Se}. In brief, to set up our conventions, we represent a morphism $f\maps X_1
+\otimes \dots \otimes X_n \to Y_1 \otimes \dots \otimes Y_m$ as a `downwards
+flow chart':
+\[
+  \begin{tikzpicture}
+	  \begin{pgfonlayer}{nodelayer}
+		  \node [style=none] (0) at (-0.75, 0.25) {};
+		  \node [style=none] (1) at (0.75, 0.25) {};
+		  \node [style=none] (2) at (-0.75, -0.25) {};
+		  \node [style=none] (3) at (0.75, -0.25) {};
+		  \node [style=none] (4) at (0, 0.25) {};
+		  \node [style=none] (5) at (0, -0.25) {};
+		  \node [style=none] (6) at (0, -0) {$f$};
+		  \node [style=none] (7) at (-0.5, 0.25) {};
+		  \node [style=none] (8) at (0.5, 0.25) {};
+		  \node [style=none] (9) at (-0.5, -0.25) {};
+		  \node [style=none] (10) at (0.5, -0.25) {};
+		  \node [style=none] (11) at (-0.5, 0.75) {};
+		  \node [style=none] (12) at (0.5, 0.75) {};
+		  \node [style=none] (13) at (-0.5, -0.75) {};
+		  \node [style=none] (14) at (0.5, -0.75) {};
+		  \node [style=none] (15) at (0, 0.5) {$\dots$};
+		  \node [style=none] (16) at (0, -0.5) {$\dots$};
+		  \node [style=none] (17) at (-0.5, 1) {$X_1$};
+		  \node [style=none] (18) at (0.5, 1) {$X_n$};
+		  \node [style=none] (19) at (-0.5, -1) {$Y_1$};
+		  \node [style=none] (20) at (0.5, -1) {$Y_m$};
+	  \end{pgfonlayer}
+	  \begin{pgfonlayer}{edgelayer}
+		  \draw (0.center) to (1.center);
+		  \draw (1.center) to (3.center);
+		  \draw (3.center) to (2.center);
+		  \draw (2.center) to (0.center);
+		  \draw (7.center) to (11.center);
+		  \draw (8.center) to (12.center);
+		  \draw (9.center) to (13.center);
+		  \draw (10.center) to (14.center);
+	  \end{pgfonlayer}
+  \end{tikzpicture}
+\]
+Composition is then represented by connecting the lines (or wires) representing
+the codomain of one morphism with the domain of the another placed below it,
+the monoidal product of two morphisms is represented by their side-by-side
+juxtaposition, the swap map by crossing two wires, the compact structure by
+bending a wire 180 degrees, and the dagger functor by flipping a diagram in the
+horizontal axis. We believe these operations on diagrams---placing diagrams on
+the same page, rearranging their wires/flipping them, and then connecting their
+wires to form a larger diagram---represents the collection of operations used
+for reasoning with circuit diagrams, and hence that dagger compact categories
+are an appropriate structure for the formalization of such.
