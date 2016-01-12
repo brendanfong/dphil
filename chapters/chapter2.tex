@@ -236,8 +236,7 @@ The structure of this paper is straightforward: in the following section we
 review some basic background material, which then allows us to give the
 constructions of decorated cospan categories and their functors in Sections
 \ref{sec:dcc} and \ref{sec:dcf} respectively. We then explicate these
-definitions through some examples in Section \ref{sec:ex}. For completeness, we
-supply further details of our proofs in the Appendix \ref{sec:proofs}.
+definitions through some examples in Section \ref{sec:ex}. 
 
 \subsection{Notation.}
 We shall assume the following standard names for certain distinguished objects
@@ -530,8 +529,160 @@ We now detail our central construction and state the main theorem.
   classes, is associative, and, with the above identity maps, obeys the
   unitality axiom. These are straightforward, but lengthy, exercises in
   using the available colimits and monoidal structure to show that
-  the relevant diagrams of decorations commute. The interested reader can find
-  details in the appendix (\ref{app:welldefined}--\ref{app:identities}).
+  the relevant diagrams of decorations commute.
+
+\paragraph{Representation independence for composition of isomorphism
+classes of decorated cospans.}
+Let 
+\[
+  n\colon  \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow Y,\enspace 1
+\stackrel{s}\longrightarrow FN\big) \longrightarrow \big(X \stackrel{i'_X}\longrightarrow N'
+\stackrel{o'_Y}\longleftarrow Y,\enspace 1 \stackrel{s'}\longrightarrow FN'\big)
+\]
+and
+\[
+  m\colon  \big(Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z,\enspace 1
+\stackrel{t}\longrightarrow FM\big) \longrightarrow \big(Y \stackrel{i'_Y}\longrightarrow M'
+\stackrel{o'_Z}\longleftarrow Z,\enspace 1 \stackrel{t'}\longrightarrow FM'\big)
+\]
+be isomorphisms of decorated cospans. We wish to show that the composite of the
+decorated cospans on the left is isomorphic to the composite of the decorated
+cospans on the right. As discussed, it is well-known that the composite cospans
+are isomorphic, and it remains to us to check the decorations agree too. Let $p\colon 
+N+_YM \to N'+_YM'$ be the isomorphism given by the universal property of the
+pushout and the isomorphisms $n\colon N \to N'$ and $m\colon  M \to M'$. Then the two
+decorations in question are given by the top and bottom rows of the following
+diagram.
+\[
+  \xymatrixrowsep{1pc}
+  \xymatrixcolsep{1pc}
+  \xymatrix{
+    &&&& FN \otimes FM \ar[dd]^{Fn \otimes Fm}_\sim
+    \ar[rr]^{\varphi_{N,M}} && F(N+M) \ar[dd]^{F(n+m)}_\sim
+    \ar[rr]^{F[j_N,j_M]} && F(N+_YM) \ar[dd]^{Fp}_\sim \\ 
+    1 \ar[rr]^(.4){\lambda^{-1}} && 1\otimes 1 \ar[urr]^{s \otimes t}
+    \ar[drr]_{s' \otimes t'} &
+    \qquad\textrm{\tiny(I)} && \textrm{\tiny(F)} && \textrm{\tiny(C)}\\ 
+    &&&& FN' \otimes FM' \ar[rr]_{\varphi_{N',M'}} && F(N'+M')
+    \ar[rr]_{F[j_{N'},j_{M'}]} && F(N'+_YM')
+  }
+\]
+The triangle (I) commutes as $n$ and $m$ are morphisms of decorated cospans and
+$- \otimes -$ is functorial, (F) commutes by the monoidality of $F$, and (C)
+commutes by properties of colimits in $\mathcal C$ and the functoriality of $F$.
+This proves the claim.
+
+\paragraph{Associativity.}
+Suppose we have morphisms
+\[
+  (X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow Y,\enspace 1
+  \stackrel{s}\longrightarrow FN),
+\]
+\[
+  (Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z,\enspace 1
+  \stackrel{t}\longrightarrow FM), 
+\]
+\[
+  (Z \stackrel{i_Z}\longrightarrow P \stackrel{o_W}\longleftarrow W,\enspace 1
+  \stackrel{u}\longrightarrow FP).
+\]
+It is well-known that composition of isomorphism classes of cospans via
+pushout of representatives is associative; this follows from the universal
+properties of the relevant colimit. We must check that the pushforward of the
+decorations is also an associative process. Write 
+\[
+  \tilde a\colon  (N+_YM)+_ZP \longrightarrow N+_Y(M+_ZP)
+\]
+for the unique isomorphism between the two pairwise pushouts constructions
+from the above three cospans. Consider then the following diagram, with leftmost
+column the decoration obtained by taking the composite of the first two morphisms
+first, and the rightmost column the decoration obtained by taking the composite
+of the last two morphisms first.
+\[
+  \xymatrixcolsep{-.6pc}
+  \xymatrix{ 
+    \scriptstyle F((N+_YM)+_ZP) \ar[rrrrrrrr]^{F\tilde a} &&&&&&&&
+    \scriptstyle F(N+_Y(M+_ZP)) \\
+    &&&& \textrm{\tiny(C)} \\
+    \scriptstyle F((N+_YM)+P) \ar[uu]^{F[j_{N+_YM},j_P]} &&&&&&&& \scriptstyle
+    F(N+(M+_ZP)) \ar[uu]_{F[j_N,j_{M+_ZP}]} \\
+    && \scriptstyle F((N+M)+P) \ar[ull]_(.35)*+<6pt>_{\scriptstyle F([j_N,J_M]+1_P)}
+    \ar[rrrr]^{Fa} &&&& \scriptstyle F(N+(M+P))
+    \ar[urr]^(.35)*+<6pt>^{\scriptstyle F(1_N+[j_M,j_P])} \\
+    & \textrm{\tiny(F2)} &&&&&& \textrm{\tiny(F3)} \\
+    \scriptstyle F(N+_YM)\otimes FP \ar[uuu]^{\varphi_{N+_YM,P}} &&&& 
+    \textrm{\tiny(F1)} &&&& \scriptstyle FN\otimes F(M+_ZP)
+    \ar[uuu]_{\varphi_{N,M+_ZP}} \\
+    && \scriptstyle F(N+M)\otimes FP \ar[ull]^(.6)*+<6pt>^{\scriptstyle
+      F[j_N,j_M] \otimes 1_{FP}} \ar[uuu]_{\varphi_{N+M,P}} &&&& \scriptstyle
+      FN \otimes F(M+P) \ar[urr]_(.6)*+<6pt>_{\scriptstyle 1_{FN} \otimes
+    F[j_M,j_P]} \ar[uuu]^{\varphi_{N,M+P}} \\
+    &&& \scriptstyle (FN \otimes FM) \otimes FP \ar[ul]^{\varphi_{N,M} \otimes
+    1_{FP}} \ar[rr]^{a} && \scriptstyle FN \otimes (FM \otimes FP)
+    \ar[ur]_{\phantom{1}1_{FN} \otimes \varphi_{M,P}} \\ 
+    &&&& \textrm{\tiny(D2)} \\
+    &&& \scriptstyle (1 \otimes 1) \otimes 1 \ar[uu]^{(s \otimes t) \otimes u}
+    \ar[rr]^{a} && \scriptstyle 1 \otimes (1 \otimes 1) \ar[uu]_{s
+    \otimes (t \otimes u)} \\
+    &&&& \textrm{\tiny(D1)} \\
+    &&&& \scriptstyle 1 \otimes 1 \ar[uul]^{\rho^{-1} \otimes 1} \ar[uur]_{1
+      \otimes \lambda^{-1}} \\
+      &&&& \scriptstyle 1 \ar[u]^{\lambda^{-1}}
+  }
+\]
+This diagram commutes as (D1) is the triangle coherence equation for the
+monoidal category $(\mathcal D,\otimes)$, (D2) is naturality for the associator
+$a$, (F1) is the associativity condition for the monoidal functor $F$, (F2)
+and (F3) commute by the naturality of $\varphi$, and (C) commutes as it is the
+$F$-image of a hexagon describing the associativity of the pushout.  This
+shows that the two decorations obtained by the two different orders of
+composition of our three morphisms are equal up to the unique isomorphism
+$\tilde a$ between the two different pushouts that may be obtained. Our
+composition rule is hence associative.
+
+\paragraph{Identity morphisms.} 
+We shall show that the claimed identity morphism on $Y$, the decorated cospan
+\[
+  (Y \stackrel{1_Y}\longrightarrow Y \stackrel{1_Y}\longleftarrow Y,\enspace 1
+\stackrel{F!\circ \varphi_1}\longrightarrow FY),
+\]
+is an identity for composition
+on the right; the case for composition on the left is similar. The cospan in
+this pair is known to be the identity cospan in $\mathrm{Cospan}(\mathcal C)$.
+We thus need to check that, given a morphism 
+\[
+  (X \stackrel{i}\longrightarrow N
+\stackrel{o}\longleftarrow Y,\enspace 1 \stackrel{s}\longrightarrow FN),
+\] 
+the composite of the product $s \otimes (F! \circ \varphi_1)$ with the $F$-image
+of the copairing $[1_N,i_Y]\colon  N+Y \to N$ of the pushout maps is again the same
+element $s$; this composite being, by definition, the decoration of the
+composite of the given morphism and the claimed identity map. This is shown by
+the commutativity of the diagram below, with the path along the lower edge equal
+to the aforementioned pushforward.
+\[
+  \xymatrixcolsep{1.1pc}
+  \xymatrix{
+    1 \ar[rrrrrrrrrr]^s \ar[ddrr]_{\rho_1^{-1}} &&&&&&&&&& FN \\
+    &&&& \textrm{\tiny(D1)} &&&& \textrm{\tiny(F1)}\\
+    && 1 \otimes 1 \ar[rr]^{s\otimes 1} \ar[ddrrrr]_{s \otimes (F! \circ
+    \varphi_1)} && FN \otimes 1 \ar[uurrrrrr]^{\rho_{FN}} \ar[rr]^(.57){1_{FN}
+  \otimes \varphi_1}
+    && FN \otimes F\varnothing \ar[rr]^{\varphi_{N,\varnothing}} \ar[dd]_{1_{FN}
+  \otimes F!} && F(N+\varnothing) \ar[uurr]^(.2){F\rho_N=F[1_N,!]}
+      \ar[dd]_{F(1_N+!)} \quad \textrm{\tiny(C)}\\
+      &&&&& \textrm{\tiny(D2)} && \textrm{\tiny(F2)}\\
+      &&&&&& FN \otimes FY \ar[rr]_{\varphi_{N,M}} && F(N+Y)
+      \ar[uuuurr]_{F[1_N,i_Y]}
+  }
+\]
+This diagram commutes as each subdiagram commutes: (D1) commutes by the
+naturality of $\rho$, (D2) by the functoriality of the monoidal product in
+$\mathcal D$, (F1) by the unit axiom for the monoidal functor $F$, (F2) by the
+naturality of $\varphi$, and (C) due to the properties of colimits in $\mathcal
+C$ and the functoriality of $F$.
+
+We thus have a category.
 \end{proof}
 
 \begin{remark}
@@ -568,15 +719,73 @@ motivates the monoidal and hypergraph structures we put on $F\mathrm{Cospan}$.
   \stackrel{\varphi_1}\longrightarrow F\varnothing \stackrel{F!}\longrightarrow
   FX$. Given any cospan $X \to N \leftarrow Y$, we call the decoration $1
   \stackrel{\varphi_1}\longrightarrow F\varnothing \stackrel{F!}\longrightarrow
-  FN$ the \define{empty decoration} on $N$. We define a functor 
+  FN$ the \define{empty decoration} on $N$. 
+  
+\paragraph{Embedding.} 
+  We define a functor 
   \[
     \mathrm{Cospan(\mathcal C)} \hooklongrightarrow F\mathrm{Cospan}.
   \]
   mapping each object of $\mathrm{Cospan(\mathcal C)}$ to itself as an object
   of $F\mathrm{Cospan}$, and each cospan in $\mathcal C$ to the same cospan
-  decorated with the empty decoration on its apex. As the composite of two
-  empty-decorated cospans is again empty-decorated (see Appendix
-  \ref{app:emptydecorations}), this defines a functor.
+  decorated with the empty decoration on its apex. Should this functor be
+  well-defined, it is evidently a wide embedding.
+  
+  To see that the embedding is
+  well-defined, we must check that the composite of two empty-decorated cospans
+  is again empty-decorated. To do this, generalise the previous observation for
+  identity morphisms. 
+  
+  Let
+\[
+  (X \stackrel{i_X}\longrightarrow N
+\stackrel{o_Y}\longleftarrow Y,\enspace 1 \stackrel{s}\longrightarrow FN),
+\]
+be a decorated cospan, and suppose we have an empty-decorated cospan 
+\[
+  (Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z,\enspace 1
+  \stackrel{\varphi\circ F!}\longrightarrow FM).
+\]
+Here we show that the composite of these decorated cospans is 
+\[
+  \big(X \stackrel{j_N \circ i_X}\longrightarrow N+_YM \stackrel{j_M \circ
+  o_Z}\longleftarrow Z,\enspace 1 \stackrel{Fj_N \circ s}\longrightarrow
+  F(N+_YM)\big).
+\]
+In particular, the decoration on the composite is the decoration $s$ pushed
+forward along the $F$-image of the map $j_N\colon N \to N+_YM$ to become an
+$F$-decoration on $N+_YM$. We say that the empty decoration acts trivially on
+other decorations. The analogous statement holds for composition with an
+empty-decorated cospan on the left.
+
+As is now familiar, a statement of this sort is proved by a large commutative
+diagram:
+\[
+  \xymatrixcolsep{.63pc}
+  \xymatrix{
+    1 \ar[rrrrrr]^s \ar[ddrr]_{\rho_1^{-1}} &&&&&& FN \ar[rrrr]^{Fj_N} &&&& F(N+_YM) \\
+    &&& \textrm{\tiny(D1)} &&& \textrm{\tiny(F1)} && \textrm{\tiny(C1)} \\
+    && 1 \otimes 1 \ar[rr]^{s\otimes 1} \ar[ddrrrr]_{s \otimes (F! \circ
+    \varphi_1)} && FN \otimes 1 \ar[uurr]^{\rho_{FN}} \ar[rr]^{1_{FN}
+  \otimes \varphi_1}
+    && FN \otimes F\varnothing \ar[rr]^{\varphi_{N,\varnothing}} \ar[dd]_{1_{FN}
+  \otimes F!} && F(N+\varnothing) \ar[uull]_{F\rho_N=F[1_N,!]}
+  \ar[uurr]^{F[j_N,!]}
+      \ar[dd]_{F(1_N+!)} \quad \textrm{\tiny(C2)}\\
+      &&&&& \textrm{\tiny(D2)} && \textrm{\tiny(F2)}\\
+      &&&&&& FN \otimes FM \ar[rr]_{\varphi_{N,M}} && F(N+M)
+      \ar[uuuurr]_{F[j_N,j_M]}
+  }
+\]
+The subdiagrams in this diagram commute for the same reasons as their
+corresponding regions in the previous diagram for identity morphisms. 
+
+A consequence of the trivial action of the empty decoration is that the
+composite of two empty-decorated cospans is again empty-decorated. This implies
+the functoriality of the embedding $\mathrm{Cospan(\mathcal{C})} \hookrightarrow
+F\mathrm{Cospan}$.
+
+\paragraph{Monoidal structure.} 
 
   We define the monoidal product of objects $X$ and $Y$ of $F\mathrm{Cospan}$ to
   be their coproduct $X+Y$ in $\mathcal C$, and define the monoidal product of
@@ -606,13 +815,131 @@ motivates the monoidal and hypergraph structures we put on $F\mathrm{Cospan}$.
     \right).
   \]
   Using the braiding in $\mathcal D$, we can show that this proposed monoidal
-  product is functorial (Appendix \ref{app:monoidality}). Choosing associator,
-  unitors, and braiding in $F\mathrm{Cospan}$ to be the images of those in
-  $\mathrm{Cospan(\mathcal{C})}$, we have a symmetric monoidal category. These
-  transformations remain natural transformations when viewed in the category of
-  $F$-decorated cospans as they have empty decorations (see Appendix
-  \ref{app:naturality}), and obey the required coherence laws as they are
-  images of maps that obey these laws in $\mathrm{Cospan(\mathcal{C})}$. 
+  product is functorial. 
+ 
+  Indeed, suppose we have decorated cospans
+\[
+  (X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow Y,\enspace 1
+  \stackrel{s}\longrightarrow FN),
+  \qquad
+  (Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z,\enspace 1
+  \stackrel{t}\longrightarrow FM), 
+\]
+\[
+  (U \stackrel{i_U}\longrightarrow P \stackrel{o_V}\longleftarrow V,\enspace 1
+  \stackrel{u}\longrightarrow FP),
+  \qquad
+  (V \stackrel{i_V}\longrightarrow Q \stackrel{o_W}\longleftarrow W,\enspace 1
+  \stackrel{v}\longrightarrow FQ). 
+\]
+We must check the so-called interchange law: that the composite of the
+column-wise monoidal products is equal to the monoidal product of the row-wise
+composites.
+
+Again, for the cospans we take this equality as familiar fact. Write 
+\[
+  b\colon  (N+P)+_{(Y+V)}(M+Q) \stackrel{\sim}{\longrightarrow} (N+_YM)+(P+_{V}Q).
+\]
+for the isomorphism between the two resulting representatives of the isomorphism
+class of cospans. The two resulting decorations are then given by the leftmost 
+and rightmost columns respectively of the diagram below.
+\[
+  \xymatrixcolsep{1.4pc}
+  \xymatrix{ 
+    \scriptstyle F((N+P)+_{(Y+V)}(M+Q)) \ar[rrrr]^{Fb}_{\sim} &&&&
+    \scriptstyle F((N+_YM)+(P+_VQ)) \\
+    & \textsc{\tiny(C)} \\
+    \scriptstyle F((N+P)+(M+Q)) \ar[uu]^{F[j_{N+P},j_{M+Q}]} \ar@{.>}[uurrrr] &&&
+    \textsc{\tiny(F2)} & \scriptstyle F(N+_YM)\otimes F(P+_VQ)
+    \ar[uu]_{\varphi_{N+_YM,P+_VQ}} \\
+    \\
+    \scriptstyle F(N+P)\otimes F(M+Q) \ar[uu]^{\varphi_{N+P,M+Q}} &&&&
+    \scriptstyle F(N+M)\otimes F(P+Q) \ar@{.>}[uullll]
+    \ar[uu]_{F[j_N,j_M] \otimes F[j_P,j_Q]} \\
+    && \textsc{\tiny(F1)} \\
+    \scriptstyle (FN \otimes FP) \otimes (FM \otimes FQ) \ar[uu]^{\varphi_{N,P} \otimes
+    \varphi_{M,Q}} \ar@{.>}[rrrr] &&&& \scriptstyle (FN \otimes FM) \otimes (FP \otimes FQ)
+    \ar[uu]_{\varphi_{N,M} \otimes \varphi_{P,Q}} \\
+    && \textsc{\tiny(D)} \\
+    && \scriptstyle (1\otimes1)\otimes(1\otimes1) \ar[uull]^{(s\otimes u) \otimes (t \otimes
+    v)} \ar[uurr]_{(s \otimes t) \otimes (u \otimes v)} \\
+    && \scriptstyle 1 \ar[u]_{(\lambda^{-1}\otimes\lambda^{-1})\circ\lambda^{-1}}
+  }
+\]
+These two decorations are related by the isomorphism $b$ as the diagram
+commutes. We argue this more briefly than before, as the basic structure of
+these arguments is now familiar to us. Briefly then, there exist dotted arrows
+of the above types such that the subdiagram (D) commutes by the naturality of
+the associators and braiding in $\mathcal D$, (F1) commutes by the coherence
+diagrams for the braided monoidal functor $F$, (F2) commutes by the naturality of
+the coherence map $\varphi$ for $F$, and (C) commutes by the properties of
+colimits in $\mathcal C$ and the functoriality of $F$. 
+
+Using now routine methods, it also is straightforward to show that the monoidal
+product of identity decorated cospans on objects $X$ and $Y$ is the identity
+decorated cospan on $X+Y$; for the decorations this amounts to the observation
+that the monoidal product of empty decorations is again an empty decoration.
+
+  Choosing associator, unitors, and braiding in $F\mathrm{Cospan}$ to be the
+  images of those in $\mathrm{Cospan(\mathcal{C})}$, we have a symmetric
+  monoidal category. These transformations remain natural transformations when
+  viewed in the category of $F$-decorated cospans as they have empty
+  decorations.
+  
+We consider the case of the left unitor in detail; the naturality of the right unitor,
+associator, and braiding follows similarly, using the relevant axiom where here
+we use the left unitality axiom.
+
+Given a decorated cospan $(X \stackrel{i}\longrightarrow N
+\stackrel{o}\longleftarrow Y,\enspace 1 \stackrel{s}\longrightarrow FN)$, we
+must show that the diagram of decorated cospans
+\[
+  \xymatrix{
+    X+\varnothing \ar[r]^{i+1} \ar[d]_{\lambda_{\mathcal C}} & N+\varnothing & Y+\varnothing
+    \ar[l]_{i+1} \ar[d]^{\lambda_{\mathcal C}} \\
+    X \ar[r]_{i} & N & Y \ar[l]^{o} 
+  }
+\]
+commutes, where the $\lambda_{\mathcal C}$ are the maps of the left unitor in $\mathcal C$
+considered as empty-decorated cospans, and where the top cospan has decoration 
+\[
+  1 \stackrel{\lambda^{-1}_{\mathcal D}}{\longrightarrow} 1 \otimes 1 \stackrel{s \otimes
+  \varphi_1}\longrightarrow FN \otimes F\varnothing
+  \stackrel{\varphi_{N,\varnothing}}\longrightarrow F(N+\varnothing),
+\]
+and the lower cospan simply has decoration $1 \stackrel{s}{\longrightarrow} FN$. 
+
+Now as the $\lambda$ are isomorphisms in $\mathcal C$ and have empty
+decorations, the composite through the upper right corner is isomorphic to the
+decorated cospan
+\[
+  \big(X+\varnothing \stackrel{i+1}\longrightarrow N+\varnothing
+  \stackrel{(o+1)\circ \lambda^{-1}_{\mathcal C}}\longleftarrow Y,\enspace 1
+  \stackrel{\varphi_{N,\varnothing} \circ (s \otimes \varphi_1) \circ
+  \lambda^{-1}_{\mathcal D}}{\xrightarrow{\hspace*{2.5cm}}} F(N+\varnothing)\big),
+\]
+while the composite through the lower left corner is isomorphic to the decorated
+cospan
+\[
+  (X+\varnothing \stackrel{[i,!]}\longrightarrow N
+\stackrel{o}\longleftarrow Y,\enspace 1 \stackrel{s}\longrightarrow FN).
+\]
+Furthermore, $\lambda_{\mathcal C}\colon  N+\varnothing \rightarrow N$ gives an isomorphism
+between these two cospans, and the naturality of the left unitor and the left
+unitality axiom in $\mathcal D$ imply that this is in fact an isomorphism of
+decorated cospans:
+\[
+  \xymatrix{
+    1 \ar[rrr]^{s} \ar[d]_{\lambda^{-1}_{\mathcal D}} &&& FN \\
+    1 \otimes 1 \ar[r]_{s \otimes 1} & FN \otimes 1 \ar[r]_{1 \otimes \varphi_1}
+    \ar[urr]^{\lambda_{\mathcal D}} & FN \otimes F\varnothing
+    \ar[r]_{\varphi_{N,\varnothing}} & F(N+\varnothing).
+    \ar[u]_{F\lambda_{\mathcal C}}
+  }
+\]
+This the coherence maps are indeed natural transformations. Moreover, they obey
+the required coherence laws as they are images of maps that obey these laws in
+$\mathrm{Cospan(\mathcal{C})}$. 
 
   Similarly, to arrive at the hypergraph structure on $F\mathrm{Cospan}$, we
   simply equip each object $X$ with the image of the special commutative
@@ -734,9 +1061,106 @@ operations.
   Checking the functoriality of $T$ is again an exercise in applying the
   properties of structure available---in this case the colimit-preserving nature
   of $A$ and the monoidality of $(\mathcal D,\boxtimes)$, $(B,\beta)$, and
-  $\theta$---to show that the relevant diagrams of decorations commute. Again,
-  the interested reader may find details in the appendix (\ref{app:functors}).
+  $\theta$---to show that the relevant diagrams of decorations commute. 
   
+  In detail, let 
+\[
+  (X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow Y, \enspace 1
+  \stackrel{s}\longrightarrow FN)
+  \qquad \mbox{and} \qquad
+  (Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z, \enspace 1
+  \stackrel{t}\longrightarrow FM), 
+\]
+be morphisms in $F\mathrm{Cospan}$. As the composition of the cospan part is by
+pushout in $\mathcal C$ in both cases, and as $T$ acts as the colimit preserving
+functor $A$ on these cospans, it is clear that $T$ preserves composition of
+isomorphism classes of cospans. Write
+\[
+  c\colon  AX+_{AY}AZ \stackrel\sim\longrightarrow A(X+_YZ)
+\]
+for the isomorphism from the cospan obtained by composing the $A$-images of the
+above two decorated cospans to the cospan obtained by taking the $A$-image of their
+composite. To see that this extends to an isomorphism of decorated cospans,
+observe that the decorations of these two cospans are given by the rightmost and
+leftmost columns respectively in the following diagram:
+\[
+  \xymatrixcolsep{.5pc}
+  \xymatrixrowsep{.9pc}
+  \xymatrix{ 
+    GA(N+_YM) &&&&&&&& \ar[llllllll]_{Gc}^{\sim} G(AN+_{AY}AM) \\
+    &&&&& \textsc{\tiny(A)} \\
+    BF(N+_YM) \ar[uu]^{\theta_{N+YM}} && \textsc{\tiny(T2)} && GA(N+M)
+    \ar[uullll]_{GA[j_N,j_M]} &&&& G(AN+AM) \ar[uu]_{G[j_{AN},j_{AM}]}
+    \ar[llll]^{\sim}_{G\alpha} \\
+    \\
+    BF(N+M) \ar[uu]^{BF[j_N,j_M]} \ar[uurrrr]_{\theta_{N,M}} &&&&
+    \textsc{\tiny(T1)} &&&& GAN \boxtimes GAM \ar[uu]_{\gamma_{AN,AM}} \\
+    \\
+    B(FN \otimes FM) \ar[uu]^{B\varphi_{N,M}} &&&&&&&& BFN \boxtimes BFM
+    \ar[uu]_{\theta_N \boxtimes \theta_M} \ar[llllllll]_{\beta_{FN,FM}} \\
+    &&&& \textsc{\tiny(B2)} \\
+    B(1_{\mathcal D} \otimes 1_{\mathcal D}) \ar[uu]^{B(s \otimes t)} &&&&&&&&
+    B1_{\mathcal D} \boxtimes B1_{\mathcal D} \ar[uu]_{Bs \boxtimes Bt}
+    \ar[llllllll]_{\beta_{1,1}} \\
+    &&& \textsc{\tiny(B1)} &&&& \textsc{\tiny(D2)} \\
+    B1_{\mathcal D} \ar[uu]^{\beta\lambda^{-1}_1} \ar[rrrr]^{\lambda^{-1}_{B1}}
+    &&&& 1_{\mathcal D'} \boxtimes B1_{\mathcal D} \ar[uurrrr]^{\beta_1 \boxtimes 1}
+    &&&& 1_{\mathcal D'} \boxtimes 1_{\mathcal D'} \ar[uu]^{\beta_1 \boxtimes \beta_1}
+    \ar[llll]_{1 \boxtimes \beta_1} \\
+    &&&& \textsc{\tiny(D1)} \\
+    &&&& 1_{\mathcal D'} \ar[uullll]^{\beta_1} \ar[uurrrr]_{\lambda^{-1}_1}
+  }
+\]
+From bottom to top, \textsc{(D1)} commutes by the naturality of $\lambda$,
+\textsc{(D2)} by the functoriality of the monoidal product $-\boxtimes-$,
+\textsc{(B1)} by the unit law for $(B,\beta)$, \textsc{(B2)} by the
+naturality of $\beta$, \textsc{(T1)} by the monoidality of the natural
+transformation $\theta$, \textsc{(T2)} by the naturality of $\theta$, and
+\textsc{(A)} by the colimit preserving property of $A$ and the functoriality of
+$G$.
+
+
+We must also show that identity morphisms are mapped to identity morphisms. Let 
+\[
+  (X \stackrel{1_X}\longrightarrow X \stackrel{1_X}\longleftarrow X, \enspace 1
+  \stackrel{F!\circ \varphi_1}\longrightarrow FX)
+\]
+be the identity morphism on some object $X$ in the category of $F$-decorated
+cospans. Now this morphism has $T$-image
+\[
+  (AX \stackrel{1_{AX}}\longrightarrow AX \stackrel{1_{AX}}\longleftarrow AX, \enspace 1
+  \stackrel{\theta_X \circ B(F!\circ \varphi_1) \circ
+  \beta_1}{\xrightarrow{\hspace*{2.3cm}}} GAX).
+\]
+But we have the following diagram
+\[
+  \xymatrixcolsep{2pc}
+  \xymatrixrowsep{.3pc}
+  \xymatrix{ 
+    &&&& BF\varnothing_{\mathcal C} \ar[ddrr]^{BF!}
+    \ar[dddd]^{\theta_\varnothing} \\
+    \\
+    && B1_{\mathcal D} \ar[uurr]^{B\varphi_1} &&&& BFX \ar[ddrr]^{\theta_X} \\
+    &&& \textsc{\tiny (T1)} && \textsc{\tiny (T2)} \\
+    1_{\mathcal D'} \ar[uurr]^{\beta_1} \ar[rr]_{\gamma_1}
+    \ar[ddddrrrr]_{\gamma_1} && G\varnothing_{\mathcal C'} \ar[rr]_{G\alpha_1}
+    && GA\varnothing_{\mathcal C} \ar[rrrr]_{GA!} &&&& GAX \\
+    &&& \textsc{\tiny (A1)} && \textsc{\tiny (A2)} \\
+    \\
+    \\
+    &&&& G\varnothing_{\mathcal C'} \ar[uuuu]^{\sim}_{G!} \ar[uuuurrrr]_{G!}
+  }
+\]
+Here \textsc{(A1)} and \textsc{(A2)} commute by the fact $A$ preserves colimits,
+\textsc{(T1)} commutes by the unit law for the monoidal natural transformation
+$\theta$, and \textsc{(T2)} commutes by the naturality of $\theta$.
+
+Thus
+we have the equality of decorations $\theta_X \circ B(F! \circ \varphi_1) \circ
+\beta_1
+= G! \circ \gamma_1\colon  1 \to GAX$, and so $T$ sends identity morphisms to
+identity morphisms.
+
   The coherence maps of the functor are given by the coherence maps for the
   monoidal functor $A$, viewed now as cospans with the empty decoration. That
   is, we define the coherence maps $\tau$ to be the collection of isomorphisms
@@ -787,7 +1211,56 @@ operations.
   strong symmetric monoidal and $\tau$ merely views these maps in $\mathcal C$
   as empty-decorated cospans in $G\mathrm{Cospan}$, $\tau$ is natural in $X$ and
   $Y$, and obeys the required coherence axioms for $(T,\tau)$ to also be strong
-  symmetric monoidal (Appendix \ref{app:naturality2}). Moreover, as $A$ is
+  symmetric monoidal. 
+
+  Indeed, the monoidality of a functor $(T,\tau)$ has two aspects: the naturality
+of the transformation $\tau$, and the coherence axioms. We discuss the former;
+since $\tau$ is just an empty-decorated version of $\alpha$, the latter then
+immediately follow from the coherence of $\alpha$.
+
+The naturality of $\tau$ may be proved via the same method as that employed for
+the naturality of the coherence maps of decorated cospan categories: we first
+use the composition of empty decorations to compute the two paths around the
+naturality square, and then use the naturality of the coherence map $\alpha$ to
+show that these two decorated cospans are isomorphic.
+
+In slightly more detail, suppose we have decorated cospans
+\[
+  (X \stackrel{i_X}\longrightarrow N
+\stackrel{o_Z}\longleftarrow Z,\enspace 1 \stackrel{s}\longrightarrow FN) \quad
+\textrm{and} \quad (Y \stackrel{i_Y}\longrightarrow M
+\stackrel{o_W}\longleftarrow W,\enspace 1 \stackrel{t}\longrightarrow FM).
+\]
+Then naturality demands that the cospans
+\[
+ AX+AY \stackrel{Ai_X+Ai_Y}{\xrightarrow{\hspace*{1.5cm}}} AN+AM
+ \stackrel{(o_Z+o_W)\circ\alpha^{-1}}{\xleftarrow{\hspace*{1.5cm}}} A(Z+W)
+\]
+and
+\[
+ AX+AY \stackrel{A(i_X+i_Y)\circ\alpha}{\xrightarrow{\hspace*{1.5cm}}} A(N+M)
+ \stackrel{A(o_Z+o_W)}{\xleftarrow{\hspace*{1.5cm}}} A(Z+W)
+\]
+are isomorphic as decorated cospans, with decorations the top and bottom rows of
+the diagram below respectively.
+\[
+  \xymatrixrowsep{0.5pc}
+  \xymatrix{
+    & 1 \otimes 1 \ar[r]^(.4){\beta_1 \otimes \beta_1} & B1 \otimes B1 \ar[r]^(.4){Bs
+    \otimes Bt} & BFN \otimes BFM \ar[r]^{\theta_N \otimes \theta_M} & GAN \otimes
+    GAM \ar[r]^{\gamma_{AN,AM}} & G(AN+AM) \ar[dd]^{G\alpha_{N,M}} \\
+    1 \ar[ur]^{\lambda^{-1}} \ar[dr]_{\beta_1} \\
+    & B1 \ar[r]_(.4){B\lambda^{-1}} & B(1 \otimes 1) \ar[r]_(.4){B(s\otimes t)} & B(FN
+    \otimes FM) \ar[r]_{B\varphi_{N,M}} & B(F(N+M))
+    \ar[r]_{\theta_{N,M}} & G(A(N+M)).
+  }
+\]
+As it is a subdiagram of the large functoriality commutative diagram, this
+diagram commutes. The diagrams required for $\alpha_{N,M}$ to be a morphism of
+cospans also commute, so our decorated cospans are indeed isomorphic. This
+proves $\tau$ is a natural tranfomation.  
+  
+  Moreover, as $A$ is
   coproduct-preserving and the Frobenius structures on $F\mathrm{Cospan}$ and
   $G\mathrm{Cospan}$ are built using various copairings of the identity map,
   $(T,\tau)$ preserves the hypergraph structure.
@@ -868,4 +1341,6 @@ lax braided monoidal functors, follow from the universal property of the coprodu
 Theorem \ref{thm:fcospans} thus allows us to construct a hypergraph category
 $\mathrm{GraphCospan}$.  For an intuitive visual understanding of the morphisms
 of this category and its composition rule, see this paper's introduction.
+
+
 
