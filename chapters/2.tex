@@ -1,4 +1,4 @@
-\chapter{Decorated cospans: from closed systems to open}
+\chapter[Decorated cospans]{Decorated cospans: from closed systems to open}
 
 This chapter is based on \cite{fong_decorated_2015}
 
@@ -251,49 +251,6 @@ that the extra clarity is worth the clutter. We write:
   \item $!$ for the unique map from the initial object to a given object.
 \end{itemize}
 
-\section{Background}
-\subsection{Cospan categories.}
-Recall that a \define{cospan} from $X$ to $Y$ in a category $\mathcal C$ is an
-object $N$ in $\mathcal C$ with a pair of morphisms $(i\colon  X \to N$, $o\colon  Y \to
-N$):
-\[
-  \xymatrix{
-    & N \\
-    X \ar[ur]^{i} && Y. \ar[ul]_{o}
-  }
-\]
-We shall refer to $X$ and $Y$ as the \define{feet}, and $N$ as the
-\define{apex} of the cospan.  Cospans may be composed using the pushout from
-the common foot, when such a pushout exists: given cospans $X
-\stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y$ from $X$ to
-$Y$ and $Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Z}{\longleftarrow} Z$
-from $Y$ to $Z$, their composite cospan is $X \stackrel{j \circ
-i_X}{\longrightarrow} P \stackrel{j'\circ i_Z}{\longleftarrow} Z$, where $P$,
-$(j\colon  N \to P)$, and $(j'\colon  M \to P)$ form the top half of the pushout square
-\[
-  \xymatrix{
-    && P \\
-    & N \ar[ur]^j && M \ar[ul]_{j'} \\
-    X \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && Z. \ar[ul]_{o_Z}
-  }
-\]
-A \define{map of cospans} is a morphism $n\colon  N \to N'$ in $\mathcal C$ between
-the apices of two cospans $X \stackrel{i}{\longrightarrow} N
-\stackrel{o}{\longleftarrow} Y$ and $X \stackrel{i'}{\longrightarrow} N'
-\stackrel{o'}{\longleftarrow} Y$ with the same feet, such that both triangles 
-\[
-  \xymatrix{
-    & N \ar[dd]^n  \\
-    X \ar[ur]^{i} \ar[dr]_{i'} && Y \ar[ul]_{o} \ar[dl]^{o'}\\
-    & N'
-  }
-\]
-commute. Given a category $\mathcal C$ with pushouts, we may define a category
-$\mathrm{Cospan}(\mathcal C)$ with objects the objects of $\mathcal C$ and
-morphisms isomorphism classes of cospans \cite{Be}. We will often abuse our
-terminology and refer to cospans themselves as morphisms in some cospan
-category $\mathrm{Cospan}(\mathcal C)$; we of course refer instead to the
-isomorphism class of the said cospan.
 
 \section{Decorated cospan categories} \label{sec:dcc}
 

@@ -5,7 +5,16 @@
 \usepackage{tikz}
 \usepackage{float,color,multirow,array,multicol}
 \usepackage[all,cmtip,2cell]{xy}
+\usepackage{fancyhdr}
 
+%% headers
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[LO]{\textsc\rightmark}
+\fancyhead[RE]{\textsc\leftmark}
+\renewcommand{\headrulewidth}{0.5pt}
+
+%% chapter titles
 
 %% citations
 \definecolor{darkblue}{rgb}{0,0,0.7} 
