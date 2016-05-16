@@ -7,6 +7,10 @@
 \usepackage[all,cmtip,2cell]{xy}
 \usepackage{fancyhdr}
 
+\usepackage{stmaryrd,mathrsfs}
+\usepackage{anyfontsize}
+
+
 %% headers
 \fancyfoot{}
 \fancyhead[RO,LE]{\thepage}
@@ -64,16 +68,69 @@
   \DeclareMathOperator\cospan{{Cospan}}
 
 
+%% from sigflow
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+
+
+\newcommand\z{{\mathbb Z}}
+\renewcommand\k{\mathsf{k}}   
+\newcommand\nn{{\mathbb N}}
+\newcommand\bb{{\mathscr B}}
+\newcommand{\idn}{\mathrm{id}}
+\newcommand{\tw}{\mathrm{tw}}
+\newcommand{\tm}{\tau}
+\newcommand\pr{{\R[s,s^{-1}]}}
+\newcommand\pk{{\k[s,s^{-1}]}}
+\newcommand\pkhom[1]{{\k^{#1}[s,s^{-1}]}}
+\newcommand{\Defeq}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\vectfun}{\theta}
+\newcommand{\cospanfun}{\Theta}
+\newcommand{\cospanfunrest}{\overline{\Theta}}
+\newcommand{\ha}{\mathbb{HA}}
+\newcommand{\ih}{\mathbb{IH}}
+\newcommand{\ihcsp}{\ih^{\mathsf{Csp}}}
+\newcommand{\ihcor}{\ih^{\mathsf{Cor}}}
+\DeclareMathOperator{\mat}{\mathsf{Mat}}
+\DeclareMathOperator{\vect}{\mathsf{Vect}}
+\DeclareMathOperator{\ltids}{\mathsf{LTI}}
+\DeclareMathOperator{\Span}{\mathsf{Span}}
+\DeclareMathOperator{\rel}{\mathsf{Rel}}
+\DeclareMathOperator{\linrel}{\mathsf{LinRel}}
+\DeclareMathOperator{\fmod}{\mathsf{FMod}}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\bit}{bit}
+
+\newcommand\addgen{\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/add.pdf}$}}
+\newcommand\zerogen{\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/zero.pdf}$}}
+\newcommand\copygen{\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/copy.pdf}$}}
+\newcommand\discardgen{\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/discard.pdf}$}}
+\newcommand\delaygen{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delay.pdf}$}}
+\newcommand\minonegen{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/minone.pdf}$}}
+\newcommand\delayopgen{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayop.pdf}$}}
+\newcommand\scalargen{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/scalar.pdf}$}}
+\newcommand\addopgen{\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/addop.pdf}$}}
+\newcommand\zeroopgen{\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/zeroop.pdf}$}}
+\newcommand\copyopgen{\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/copyop.pdf}$}}
+\newcommand\discardopgen{\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/discardop.pdf}$}}
+\newcommand\scalaropgen{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/scalarop.pdf}$}}
+\newcommand\delaygenl{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayl.pdf}$}}
+\newcommand\delayopgenl{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayopl.pdf}$}}
+\newcommand\delaygenk{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayk.pdf}$}}
+\newcommand\delayopgenk{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayopk.pdf}$}}
+\newcommand\twist{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/twist.pdf}$}}
+\newcommand\id{\lower3pt\hbox{$\includegraphics[height=0.3cm]{pics/id.pdf}$}}
+\newcommand\syntax{\mathbb{S}}
+  
+
 %% from circuits
 
 \newcommand\Z{{\mathbb Z}}   
 \newcommand\C{{\mathbb C}}
 \newcommand\F{{\mathbb F}}
-\newcommand{\vect}[1]{{\F^{#1} \oplus {(\F^{#1})}^\ast}}
+\newcommand{\vectf}[1]{{\F^{#1} \oplus {(\F^{#1})}^\ast}}
 \renewcommand{\twoheadrightarrow}{\to \hspace{-8pt} \to}
 \newcommand{\mc}{\mathcal}
 \renewcommand{\a}{\alpha}
-\newcommand{\id}{\mathrm{id}}
 \newcommand{\s}{\sigma}
 \newcommand{\ot}{\otimes}
 \newcommand{\eps}{\epsilon}
