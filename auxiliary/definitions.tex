@@ -1,6 +1,6 @@
 %% packages
 \usepackage[centertags,sumlimits,intlimits,namelimits,reqno]{amsmath}
-\usepackage{latexsym,amsfonts,amssymb,exscale,enumerate,amsthm}
+\usepackage{latexsym,amsfonts,amssymb,exscale,enumerate,amsthm,breakcites}
 \usepackage[colorlinks,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkblue,breaklinks=true,pagebackref]{hyperref}
 \usepackage{tikz}
 \usepackage{float,color,multirow,array,multicol}
@@ -27,10 +27,10 @@
 %
 %\theoremstyle{remark} 
 \newtheorem{example}[theorem]{Example}
-%\newtheorem{exs}[theorem]{Examples}
+\newtheorem{examples}[theorem]{Examples}
 %\newtheorem{question}[theorem]{Question}
 \newtheorem{remark}[theorem]{Remark}
-%\newtheorem{notn}[theorem]{Notation}
+\newtheorem{notation}[theorem]{Notation}
 
 %% 
 \newcommand\maps{{\colon}}
@@ -46,6 +46,14 @@
   \newcommand{\FinSet}{\mathrm{FinSet}}
   \newcommand{\Set}{\mathrm{Set}}
   \newcommand{\opp}{\mathrm{opp}}
+
+%% from decorated corelations
+  \newcommand{\FinVect}{\mathrm{FinVect}}
+  \newcommand{\Vect}{\mathrm{Vect}}
+  \newcommand{\LinRel}{\mathrm{LinRel}}
+  \DeclareMathOperator\corel{{Corel}}
+  \DeclareMathOperator\cospan{{Cospan}}
+
 
 %% from circuits
 
@@ -67,3 +75,5 @@
 \newcommand{\fgraph}{\operatorname{\mathbb{F}-Graph}}
 \newcommand{\Circ}{\mathrm{Circ}}
 \newcommand{\LagrRel}{\mathrm{LagrRel}}
+
+

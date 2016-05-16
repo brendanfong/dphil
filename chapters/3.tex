@@ -1,1 +1,1983 @@
 \chapter{Corelations: a tool for black boxing}
+
+\section{Introduction}
+
+Consider a circuit diagram.
+\[
+  \begin{tikzpicture}
+    \draw (0,0) -- (0,4.5) -- (8,4.5) -- (8,0) -- (0,0);
+  \end{tikzpicture}
+\]
+We often view such diagrams atomically, representing the complete physical
+system built as specified. Yet the very process of building such a system
+involves assembling it from its parts, each of which we might diagram in the
+same way. The goal of this paper is to develop formal category-theoretic tools
+for describing and interpreting this process of assembly.
+
+Our interest will be in diagrammatic languages that can be formalised as
+hypergraph categories, with the diagrams themselves morphisms in such a
+category. A hypergraph category is a symmetric monoidal category in which every
+object is equipped with a special Frobenius commutative monoid in a coherent
+way. In this diagrammatic picture, the objects are types of interconnection. In
+the case of the electrical circuit above, The Frobenius structure
+
+In decorated cospans we saw a good way to construct these categories.
+
+Circuits are constructed to get at some behaviour, with two circuits equivalent
+if they specify the same behaviour. Here we focus on this `black boxing' aspect.
+
+
+
+In this paper, we introduce a new framework for working with hypergraph
+categories: decorated corelations. This extends the decorated cospans framework
+introduced in a previous paper \cite{F}. Decorated cospans have been
+used \cite{BF, BFP, Po}. Bicategory \cite{Co}.
+
+Semantics live on boundaries only.
+
+Corelations \cite{CF}.
+
+Decorated corelations adds compositional operations to network-diagram
+representations, and handles composition of semantics too. 
+
+Two main theorems: 
+\begin{theorem}
+Given a category $\mc C$ with finite colimits, factorisation system $(\mc E,\mc
+M)$ such that $\mc M$ is stable under pushouts, and a symmetric lax monoidal functor 
+\[
+  \mc C; \mc M^\opp \longrightarrow \Set,
+\]
+we may define a hypergraph category of with morphisms decorated corelations.
+\end{theorem}
+\begin{theorem}
+Every hypergraph category can be constructed in this way.
+\end{theorem}
+
+They apply to functors too.
+
+
+\subsection{Outline.}
+\subsection{Notation.}
+We shall assume the following standard names for certain distinguished objects
+and morphisms, only disambiguating the symbols with subscripts when we judge
+that the extra clarity is worth the clutter. We write: 
+\begin{itemize} 
+  \item $1$ for both identity morphisms and monoidal units, leaving context to
+    determine which one we mean.
+  \item $\lambda$, $\rho$, $a$, and $\sigma$ for respectively the left unitor, right unitor,
+    associator, and, if present, braiding, in a monoidal category.
+  \item $\varnothing$ for the initial object in a category.
+  \item $!$ for the unique map from the initial object to a given object.
+  \item Given a category $\mc C$, write $\mc C^\opp$ for the opposite category.
+    Given a morphism $f\maps A \to B \in \mc C$, write $f^\opp\maps B \to A \in
+    \mc C^\opp$ for the corresponding morphism in the opposite category.
+\end{itemize}
+
+If a monoidal structure on $\Set$ is not specified, we assume it is the
+cartesian product. 
+
+If a monoidal structure on $\FinSet$ is not specified, we assume it is the
+disjoint union. 
+
+\section{Background}
+
+\subsection{Hypergraph categories.}
+We introduce special commutative Frobenius monoids, writing
+our axioms using the string calculus for monoidal categories introduced by Joyal
+and Street \cite{JS}. Diagrams will be read left to right, and we shall suppress
+the labels as we deal with a unique generating object and a unique generator of
+each type. 
+
+\begin{definition}
+  A \define{special commutative Frobenius monoid} $(X,\mu,\eta,\delta,\epsilon)$
+  in a monoidal category $(\mathcal C, \otimes)$ is an object $X$ of $\mathcal
+  C$ together with maps 
+\[
+  \xymatrixrowsep{1pt}
+  \xymatrix{
+    \mult{.075\textwidth} & & \unit{.075\textwidth} & & 
+    \comult{.075\textwidth} & & \counit{.075\textwidth} \\
+    \mu\maps X\otimes X \to X & & \eta\maps I \to X & & 
+    \delta\maps X\to X \otimes X & & \epsilon\maps X \to I
+  }
+\]
+obeying the commutative monoid axioms
+\[
+  \xymatrixrowsep{1pt}
+  \xymatrixcolsep{25pt}
+  \xymatrix{
+    \assocl{.1\textwidth} = \assocr{.1\textwidth} & \unitl{.1\textwidth} =
+    \idone{.1\textwidth} & \commute{.1\textwidth} = \mult{.07\textwidth} \\
+    \textrm{(associativity)} & \textrm{(unitality)} & \textrm{(commutativity)}
+  }
+\]
+the cocommutative comonoid axioms
+\[
+  \xymatrixrowsep{1pt}
+  \xymatrixcolsep{25pt}
+  \xymatrix{
+    \coassocl{.1\textwidth} = \coassocr{.1\textwidth} & \counitl{.1\textwidth} =
+    \idone{.1\textwidth} & \cocommute{.1\textwidth} = \comult{.07\textwidth} \\
+    \textrm{(coassociativity)} & \textrm{(counitality)} &
+    \textrm{(cocommutativity)}
+  }
+\]
+and the Frobenius and special axioms
+  \[
+  \xymatrixrowsep{1pt}
+  \xymatrixcolsep{25pt}
+  \xymatrix{
+    \frobs{.1\textwidth} = \frobx{.1\textwidth} = \frobz{.1\textwidth} & \spec{.1\textwidth} =
+    \idone{.1\textwidth} \\
+    \textrm{(Frobenius)} & \textrm{(special)} 
+  }
+  \]
+where $\swap{1em}$ is the braiding on $X \otimes X$.   
+\end{definition}
+
+
+\begin{definition}
+  A \define{hypergraph category} is a symmetric monoidal category in which each
+  object $X$ is equipped with a special commutative Frobenius structure
+  $(X,\mu_X,\delta_X,\eta_X,\epsilon_X)$ such that 
+\[
+  \begin{array}{cc}
+    \mu_{X\otimes Y} = (\mu_X \otimes \mu_Y)\circ(1_X \otimes \sigma_{YX}\otimes
+    1_Y) \qquad&
+    \eta_{X\otimes Y} = \eta_X \otimes \eta_Y \\
+    \delta_{X\otimes Y} = (1_X \otimes \sigma_{XY}\otimes 1_Y)\circ(\delta_X
+    \otimes \delta_Y) \qquad&
+    \epsilon_{X\otimes Y} = \epsilon_X \otimes \epsilon_Y.
+  \end{array}
+\]
+A functor $(F,\varphi)$ of hypergraph categories, or \define{hypergraph
+functor}, is a strong symmetric monoidal functor $(F,\varphi)$ that preserves
+the hypergraph structure. More precisely, the latter condition means that given
+an object $X$, the special commutative Frobenius structure on $FX$ must be 
+\[
+  (FX,\enspace F\mu_X \circ \varphi_{X,X},\enspace  \varphi^{-1} \circ F\delta_X,\enspace  F\eta_X \circ
+\varphi_1,\enspace  \varphi_1 \circ \epsilon_X).
+\]
+\end{definition}
+
+Write $\mathrm{HypCat}$ for the category of hypergraph categories. Hypergraph
+natural transformations are just monoidal natural transformations?
+
+Hypergraph categories have also been called well-supported compact closed
+categories \cite{Ca}, dungeon categories \cite{Mo}, dgs-monoidal categories. 
+
+Hypergraph categories are self-dual compact closed. We draw cups and caps for
+shorthand.
+
+\begin{proposition}
+  Let $\mc H \to \mc H'$ be a fully faithful, essentially surjective, hypergraph
+  functor. Then $\mc H$ and $\mc H'$ are equivalent as hypergraph categories.
+\end{proposition}
+
+We say that a monoidal category is objectwise-free if the object set is freely
+generated by a some set under tensor products.
+
+\begin{proposition}
+  Coherence theorem: Every hypergraph category is equivalent as a hypergraph category to a
+  objectwise-free strict hypergraph category.
+\end{proposition}
+\begin{proof}
+  Mac Lane's celebrated coherence theorem states that every monoidal category is
+  monoidally equivalent to a objectwise-free strict monoidal category. On each
+  object of this strictification define the obvious Frobenius structure. Then
+  we have a hypergraph category, and the strong monoidal equivalence is a
+  hypergraph functor.
+\end{proof}
+
+
+\begin{proposition}
+  Graphical calculus for hypergraph categories: two morphisms are equal if and
+  only if their string diagrams are equivalent via Frobenius laws and
+  topological deformation.
+\end{proposition}
+\begin{proof}
+  Use coherence theorem and spider theorem.
+\end{proof}
+
+\subsection{Cospans}
+We give a fundamental example of hypergraph categories.
+
+  Hypergraph categories are closely related to cospans. The free hypergraph
+  category on a single object in the category of cospans in the category of
+  finite sets. SpivakVagner?
+  
+  Let $\mc C$ be a category with finite colimits.
+Recall that a \define{cospan} $X \stackrel{i}{\longrightarrow} N
+\stackrel{o}{\longleftarrow} Y$  from $X$ to $Y$ in $\mathcal C$ is a pair of
+morphisms with common codomain. We refer to $X$ and $Y$ as the \define{feet},
+and $N$ as the \define{apex}.  Given two cospans $X
+\stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y$ and $X
+\stackrel{i'}{\longrightarrow} N' \stackrel{o'}{\longleftarrow} Y$ with the same
+feet, a \define{map of cospans} is a morphism $n\colon  N \to N'$ in $\mathcal
+C$ between the apices such that
+\[
+  \xymatrix{
+    & N \ar[dd]^n  \\
+    X \ar[ur]^{i} \ar[dr]_{i'} && Y \ar[ul]_{o} \ar[dl]^{o'}\\
+    & N'
+  }
+\]
+commutes.
+
+Cospans may be composed, up to isomorphism, using the pushout from the common
+foot: given cospans $X \stackrel{i_X}{\longrightarrow} N
+\stackrel{o_Y}{\longleftarrow} Y$ and $Y \stackrel{i_Y}{\longrightarrow} M
+\stackrel{o_Z}{\longleftarrow} Z$, their composite cospan is $X \stackrel{j_N
+  \circ i_X}{\longrightarrow} N+_YM \stackrel{j_M\circ i_Z}{\longleftarrow} Z$,
+  where 
+\[
+  \xymatrix{
+    && N+_YM \\
+    & N \ar[ur]^{j_N} && M \ar[ul]_{j_M} \\
+    \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z \quad \ar[ul]_{o_Z}
+  }
+\]
+is a pushout square. 
+
+We consider any category $\mathcal C$ as a symmetric monoidal category with
+monoidal product given by the coproduct, written $+$, and braiding given by the
+maps $A+B \to B+A$ by copairing identity maps. 
+
+Given maps $f \maps A \to C$, $g \maps B \to C$ with common codomain, the
+universal property of the coproduct gives a unique map $\maps A+B \to C$. We
+call this the \define{copairing} of $f$ and $g$, and write it $[f,g]$. 
+
+\begin{definition} \label{thm.cospanwelldef}
+  Let $\mc C$ be a category with finite colimits. We define the hypergraph
+  category $\mathrm{Cospan}(\mathcal C)$ to comprise:
+  
+  \begin{tabular}{ r p{.6\textwidth}}
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & isomorphism classes of cospans in
+    $\mathcal C$\\ 
+  \textbf{composition} & given by pushout \\
+  \textbf{tensor product} & the coproduct in $\mathcal C$. \\
+  \textbf{coherence maps} & inherited from $(\mc C,+)$ $\sigma_{X,Y} = [\iota_Y,\iota_X] \maps X+Y
+      \to Y+X$\\
+  \textbf{hypergraph maps} & $\mu_X = [1_X,1_X]$, $\eta_X = !$,
+      $\delta_X = \mu_X^\opp$, $\epsilon_X = \eta_X^\opp$.
+  \end{tabular}
+\end{definition}
+
+\begin{notation}
+Note that we have committed the following common abuses of notation in the above
+definition: by referring to cospans themselves as
+  morphisms in some cospan category $\mathrm{Cospan}(\mathcal C)$; this of
+  course refers instead to the isomorphism class of the said cospan.
+
+  Given $f \maps X \to Y$ in $\mc C$, we also abuse notation by writing $f \in
+  \mathrm{Cospan}(\mc C)$ for the cospan $X \stackrel{f}\to Y
+  \stackrel{1_Y}\leftarrow Y$, and $f^\opp$ for the cospan $Y \stackrel{1_Y}\to
+  Y \stackrel{f}\leftarrow X$.
+\end{notation}
+
+FinCocompleteCat faithfully embeds into HyperCat. ie any monoidal category of
+cospans has a hypergraph structure inherited from the identity morphisms.
+
+\subsection{Decorated cospans}
+
+Above we learned that the category of finite complete categories embeds
+faithfully into the category of hypergraph categories.
+
+\begin{theorem}
+  The category of symmetric lax monoidal presheaves over finitely complete categories embeds
+  faithfully into $\mathrm{HypCat}$.
+\end{theorem}
+
+Write $(\Set,\times)$ for the
+symmetric monoidal category of finite sets where the monoidal product is the
+categorical product and the braiding is pairings of the identity maps.
+
+\begin{definition} \label{def:fcospanss}
+  Let $\mathcal C$ be a category with finite colimits, and
+  \[
+    (F,\varphi): (\mathcal C,+) \longrightarrow (\Set, \times)
+  \]
+  be a symmetric lax monoidal functor. We define a \define{decorated cospan}, or more
+  precisely an $F$-decorated cospan, to be a pair 
+  \[
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& N \\  
+	X \ar[ur]^{i} && Y \ar[ul]_{o}
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	FN \\
+	1 \ar[u]_{s}
+      }
+    \end{aligned}
+    \right)
+  \]
+  comprising a cospan $X \stackrel{i}\rightarrow N \stackrel{o}\leftarrow Y$ in
+  $\mathcal C$ together with an element $1 \stackrel{s}\rightarrow FN$ of
+  the $F$-image $FN$ of the apex of the cospan. The element $1
+  \stackrel{s}\rightarrow FN$ is known as the \define{decoration} of the decorated
+  cospan. A morphism of decorated cospans 
+  \[
+    n: \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow
+    Y,\enspace 1 \stackrel{s}\longrightarrow FN\big) \longrightarrow \big(X
+    \stackrel{i'_X}\longrightarrow N' \stackrel{o'_Y}\longleftarrow Y,\enspace 1
+    \stackrel{s'}\longrightarrow FN'\big)
+  \]
+  is a morphism $n: N \to N'$ of cospans such that $Fn \circ s = s'$.
+\end{definition}
+
+In previous expositions of decorated cospans we have let decorations lie in any
+braided monoidal category. In conversations with the author, Sam Staton pointed
+out that it is general enough to let decorations lie in the symmetric monoidal
+category $(\Set,\times)$, where the braiding is the map $X \times Y \to Y \times
+X$ that swaps coordinates. See Appendix \ref{ssec.setdecorations} for more details.
+
+
+On representatives of the isomorphism classes, composition of decorated
+cospans is given by the usual composite cospan decorated with the composite
+\[
+  1 \stackrel{\lambda^{-1}}\longrightarrow 1 \otimes 1 \stackrel{s \otimes
+  t}\longrightarrow FN \otimes FM \stackrel{\varphi_{N,M}}\longrightarrow
+  F(N+M) \stackrel{F[j_N,j_M]}\longrightarrow F(N+_YM)
+\]
+of the tensor product of the decorations with the $F$-image of the copairing
+of the pushout maps.
+
+Each cospan may be given the empty decoration. The \define{empty decoration} is the
+decoration $1 \stackrel{\varphi_1}{\rightarrow} F\varnothing
+\stackrel{F!}{\rightarrow} FN$.
+
+\begin{definition} \label{thm:fcospanss}
+  Let $\mathcal C$ be a category with finite colimits and $(F,\varphi):
+  (\mathcal C,+) \to (\Set, \times)$ a symmetric lax monoidal functor. We define
+  the hypergraph category $F\mathrm{Cospan}$ to comprise:
+
+  \begin{tabular}{ r p{.6\textwidth}}
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & isomorphism classes of $F$-decorated cospans in
+    $\mathcal C$\\ 
+  \textbf{composition} & given by pushout \\
+  \textbf{tensor product} & the coproduct in $\mathcal C$. \\
+  \textbf{coherence maps} & empty decorated maps from $\cospan(\mc C)$ \\
+  \textbf{hypergraph maps} & empty decorated maps from $\cospan(\mc C)$
+  \end{tabular}
+\end{definition}
+
+This is well-defined \cite{F}.
+
+\subsection{Factorisation systems.}
+
+\begin{definition}
+  A \define{factorisation system} $(\mathcal E,\mathcal M)$ in a category $\mathcal C$
+  comprises subcategories $\mathcal E$, $\mathcal M$ of $\mathcal C$ such that
+  \begin{enumerate}[(i)]
+    \item $\mathcal E$ and $\mathcal M$ contain all isomorphisms of $\mathcal
+      C$.
+    \item  every morphism $f \in \mathcal C$ admits a factorisation $f=m \circ e$, $e \in
+  \mathcal E$, $m \in \mathcal M$
+\item given morphisms $f,f'$, with factorisations $f = m \circ e$, $f' = m' \circ
+  e'$ of the above sort, for every $u$, $v$ such that the square
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+       \ar[r]^f \ar[d]_u &  \ar[d]^v \\
+       \ar[r]_{f'} & 
+    }
+  \]
+  commutes, there exists a unique morphism $s$ such that
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      \ar[r]^e \ar[d]_u & \ar[r]^m \ar@{.>}[d]^{\exists! s} &  \ar[d]^v \\
+       \ar[r]_{e'}& \ar[r]_{m'} & 
+    }
+  \]
+  commutes.
+  \end{enumerate}
+\end{definition}
+
+\begin{examples}
+  \begin{itemize}
+    \item Write $\mathcal I_{\mathcal C}$ for the wide subcategory of $\mathcal
+      C$ containing exactly the isomorphisms of $\mathcal C$. Then $(\mathcal
+      I_{\mathcal C}, \mathcal C)$ and $(\mathcal C, \mathcal I_{\mathcal C})$
+      are both factorisation systems in $\mathcal C$. 
+    
+    \item The prototypical example of a factorisation system is the epi-mono
+  factorisation system in $\Set$.
+
+    \item This follows from a more general fact, true in any category, that if every arrow can be factorised
+as an epi followed by a split mono, then this results in a factorisation system.
+The only non-trivial part to check is the uniqueness condition: given epi $e_1,e_2$, 
+split mono $m_1,m_2$ and commutative diagram
+    \[
+      \xymatrixcolsep{3pc}
+      \xymatrixrowsep{3pc}
+      \xymatrix{
+  \ar[r]^{e_1} \ar[d]_u & \ar[r]^{m_1} \ar@{.>}[d]^{\exists! t} &  \ar[d]^v \\
+  \ar[r]_{e_2}& \ar[r]_{m_2} & 
+      }
+    \]
+we must show that there is a unique $t$ that makes the diagram commute.
+Indeed let $t= m_2'vm_1$ where $m_2'$ satisfies $m_2'm_2=id$. 
+To see that the right square commutes, first
+\[
+m_2 t e_1 =  m_2 m_2' v m_1 e_1 = m_2 m_2' m_2 e_2 u = m_2 e_2 u = v m_1 e_1
+\]
+and since $e_1$ is epi we have $m_2 t = v m_1$. For the left square,
+$t e_1 = m_2' v m_1 e_1 = m_2' m_2 e_2 u = e_2 u$. Uniqueness is immediate,
+since, e.g.\ $m_2$ is mono. 
+\end{itemize}
+\end{examples}
+
+See \cite[\textsection 14]{AHS} for more details.
+
+\section{Corelations}
+
+Given sets $X$, $Y$, a relation $X \leadsto Y$ is a subset of the product $X
+\times Y$. More abstractly, we might say a relation is an isomorphism class of
+jointly-monic spans in the category of sets. We generalise the dual concept.
+
+\subsection{Corelations.}
+\begin{definition}
+  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
+  \mathcal M)$ be a factorisation system on $\mathcal C$. An \define{$(\mathcal
+  E,\mathcal M)$-corelation} $X \leadsto Y$, is an isomorphism class of cospans
+  such that for each representative $X \stackrel{i}\longrightarrow N
+  \stackrel{o}\longleftarrow Y$ of the corelation, the copairing $[i,o]\maps X+Y
+  \to N$ lies in $\mathcal E$.
+\end{definition}
+
+Note that if any cospan $X \stackrel{i}\longrightarrow N
+\stackrel{o}\longleftarrow Y$ has the property that the copairing $[i,o]\maps
+X+Y \to N$ lies in $\mathcal E$, then all isomorphic cospans have the same
+property. Thus to specify a corelation one may simply choose any cospan with
+this property. We say that the cospan is \define{jointly $\mathcal E$-like}.
+
+When the factorisation system is clear from context, we simply call $(\mathcal
+E,\mathcal M)$-corelations `corelations'. We shall also take the freedom to be
+lazy with our language, and often refer to jointly $\mathcal E$-like cospans
+themselves as corelations---of course we mean the corelation given by its
+isomorphism class.
+
+If $f\maps A \to N$ is a morphism with factorisation $f = m \circ e$, write
+$\widetilde N$ for the object such that $e\maps A \to \widetilde N$ and $m\maps
+\widetilde N \to N$. Now, given a cospan $X \stackrel{i_X}{\longrightarrow} N
+\stackrel{o_Y}{\longleftarrow} Y$, we may use the factorisation system to write
+the copairing $[i_X,o_Y]\maps X+Y \to N$ as
+\[
+  X+Y \stackrel{e}{\longrightarrow} \widetilde{N} \stackrel{m}{\longrightarrow}
+  N.
+\]
+From the universal property of the coproduct, we also have maps $\iota_X\maps X
+\to X+Y$ and $\iota_Y\maps Y \to X+Y$. We then call the jointly $\mathcal
+E$-like cospan, or corelation,
+\[
+  X \stackrel{e\circ \iota_X}{\longrightarrow} \widetilde{N} \stackrel{e \circ
+  \iota_Y}{\longleftarrow} Y
+\]
+the \define{$\mathcal E$-part} of the above cospan. On occasion we will also
+write $e\maps X+Y \to \widetilde N$ for the same corelation.
+
+\begin{examples}
+  \begin{itemize}
+    \item $\Set$ with morphism-isomorphism factorisation. Corelations are just cospans.
+    \item $\Set$ with isomorphism-morphism factorisation. Objects are sets. There exists
+      a unique morphism between any two objects. Note hypergraph structure is very
+      trivial.
+    \item Set has colimits. Set also has epi-mono factorisations. This is stable under
+  pushout. Corelations in $\mathrm{Set}$ are equivalence relations. Also the free
+  extraspecial commutative Frobenius monoid on one object \cite{CF}.
+  \end{itemize}
+\end{examples}
+
+\subsection{Categories of corelations.}
+
+We compose two corelations by choosing representative jointly $\mathcal E$-like
+cospans and taking the isomorphism class of the $\mathcal E$-part of their
+composite cospan.  This is well-defined.
+
+\begin{proposition}
+  Composition of corelations is well-defined.
+\end{proposition}
+\begin{proof}
+  Let
+    $(X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y)$ and 
+    $(X \stackrel{i_X'}{\longrightarrow} N' \stackrel{o_Y'}{\longleftarrow} Y)$,
+%  \[
+%    X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y 
+%    \qquad \mbox{and} \qquad 
+%    X \stackrel{i_X'}{\longrightarrow} N' \stackrel{o_Y'}{\longleftarrow} Y
+%  \]
+  and
+    $(Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Z}{\longleftarrow} Z)$ and 
+    $(Y \stackrel{i_Y'}{\longrightarrow} M' \stackrel{o_Z'}{\longleftarrow} Z)$
+%  \[
+%    Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Z}{\longleftarrow} Z 
+%    \qquad \mbox{and} \qquad 
+%    Y \stackrel{i_Y'}{\longrightarrow} M' \stackrel{o_Z'}{\longleftarrow} Z
+%  \]
+  be pairs of isomorphic jointly $\mathcal E$-like cospans. As composites
+  of isomorphic cospans are isomorphic, their composites \emph{as cospans}
+    $(X \longrightarrow N+_YM \longleftarrow Z)$ and 
+    $(X \longrightarrow N'+_YM' \longleftarrow Z)$
+%  \[
+%    X \longrightarrow N+_YM \longleftarrow Z 
+%    \qquad \mbox{and} \qquad 
+%    X \longrightarrow N'+_YM' \longleftarrow Z
+%  \]
+  are isomorphic. Thus, by the properties of factorisation systems, there exists
+  an isomorphism $s$ such that the diagram
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      X+Z \ar[r]^e \ar@{=}[d] & \widetilde{N+_YM} \ar[r]^m \ar@{.>}[d]^{s}_\sim & N+_YM
+      \ar[d]^\sim \\
+      X+Z \ar[r]_{e'}&\widetilde{N'+_YM'} \ar[r]_{m'} & N'+_YM'
+    }
+  \]
+  commutes, where we write $m\circ e\maps X+Z \to N+_YM$ and $m'\circ e'\maps
+  X+Z \to N'+_YM'$ for the maps obtained from the above composite cospans. This
+  is an isomorphism of the composite corelations, as required.
+\end{proof}
+
+This composition is not associative in general. It is, however, associative when
+$\mathcal M$ is \define{stable under pushout}: that is, when for any pushout square
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      & \ar[l]^j \\
+      \ar[u] &  \ar[u] \ar[l]_m 
+    }
+  \]
+such that $m \in \mathcal M$, we also have that $j \in \mathcal M$. 
+
+The fact that it forms a category is well-known. Moreover, corelations form a
+hypergraph category. For us it will be the consequence of a general fact
+regarding functors between corelation categories.
+
+\begin{lemma}
+  Let $\mc C$ be a category with finite coproducts, and let $(\mc E, \mc M)$ be a
+  factorisation system on $\mc C$. Write $+$ for the coproduct in $\mc C$. Then
+  $(\mc E,+)$ is a symmetric monoidal category.
+\end{lemma}
+\begin{proof}
+  The only thing to check is that $\mc E$ is closed under $+$. That is, given
+  $f\maps A \to B$ and $g\maps C \to D$ in $\mc E$, we wish to show that
+  $f+g\maps A+C \to B+D$, defined in $\mc C$, is also a morphism in $\mc E$. 
+
+  Let $f+g$ have factorisation $A+C \stackrel{e}\longrightarrow \widetilde{B+D}
+  \stackrel{m}\longrightarrow B+D$, where $e \in \mc E$ and $m \in \mc
+  M$. We will prove that $m$ is an isomorphism. To construct an inverse, recall
+  that by definition, as $f$ and $g$ lie in $\mc E$, there exist morphisms
+  $x\maps B \to \widetilde{B+D}$ and $y\maps D \to \widetilde{B+D}$ such that
+  \[ \label{eq.coreltensor}
+    \xymatrixcolsep{2pc}
+    \xymatrixrowsep{2pc}
+    \xymatrix{
+      A \ar[r]^f \ar[d] & B \ar@{=}[r] \ar@{.>}[d]^x & B
+      \ar[d] \\
+      A+C \ar[r]_{e}&\widetilde{B+D} \ar[r]_{m} & B+D
+    }
+    \qquad \mbox{and} \qquad
+    \xymatrixcolsep{2pc}
+    \xymatrixrowsep{2pc}
+    \xymatrix{
+      C \ar[r]^g \ar[d] & D \ar@{=}[r] \ar@{.>}[d]^y & D
+      \ar[d] \\
+      A+C \ar[r]_{e}&\widetilde{B+D} \ar[r]_{m} & B+D
+    }
+    \tag{1}
+  \]
+  The copairing $[x,y]$ is an inverse to $m$. 
+  
+  Indeed, taking the coproduct of the top rows of the two diagrams above and the
+  copairings of the vertical maps gives the commutative diagram
+  \[
+    \xymatrix{
+      A+C \ar[r]^{f+g} \ar@{=}[d] & B+D \ar@{=}[r] \ar[d]_{[x,y]} & B+D \ar@{=}[d] \\
+      A+C \ar[r]^{e} & \widetilde{B+D} \ar[r]^{m} & B+D
+    }
+  \]
+  Reading the right-hand square immediately gives $m \circ [x,y] =1$.
+  
+  Conversely, to see that $[x,y] \circ m = 1$, remember that by definition $f+g
+  = m \circ e$. So the left-hand square above implies that
+  \[
+    \xymatrixcolsep{2pc}
+    \xymatrixrowsep{2pc}
+    \xymatrix{
+      A+C \ar[r]^e \ar@{=}[d] & \widetilde{B+D} \ar[d]^{[x,y] \circ m} \\
+      A+C \ar[r]_{e}&\widetilde{B+D} 
+    }
+  \]
+  commutes. But by the universal property of factorisation systems, there is a
+  unique map $\widetilde{B+D} \to \widetilde{B+D}$ such that this diagram
+  commutes, and clearly the identity map also suffices. Thus $[x,y] \circ m =
+  1$.
+\end{proof}
+
+This implies that every factorisation system on a monoidal category in which the
+monoidal product is the coproduct is a so-called monoidal factorisation system,
+as defined by Ambler \cite{Am}.
+\begin{corollary}
+  Monoidal composition of corelations is well-defined.
+\end{corollary}
+
+%We sketch an
+%elementary argument. A bicategorical version of the dual argument, for spans and
+%relations, can be found in \cite{JW}.
+
+
+
+  Recall that $\cospan(\mathcal C)$ is a hypergraph category, with unit
+  $\epsilon_X$ on each object $X$ given by the map $0 \to X$ from the initial
+  object $0$ in $\mathcal C$, the multiplication $\mu_X$ given by the map $X+X
+  \to X$ in $\mathcal C$, and the comonoid maps analogous maps in the opposite
+  category. These maps all represent corelations, and so we may use the same maps as
+  hypergraph structure on $\corel(\mathcal C)$.   
+
+\begin{theorem} \label{thm.cospantocorel}
+  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
+  \mathcal M)$ be factorisation system on $\mathcal C$ such that $\mathcal M$ is
+  stable under pushout. Then there exists a hypergraph category
+  $\mathrm{Corel}(\mathcal C)$ with 
+  
+  \begin{tabular}{ r p{.6\textwidth}}
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & $(\mc E,\mc M)$-corelations in $\mathcal C$\\ 
+  \textbf{composition} & given by $\mc E$-part of pushout \\
+  \textbf{tensor product} & the coproduct in $\mathcal C$ of objects and cospans. \\
+  \textbf{coherence maps} & maps from $\cospan(\mc C)$  \\
+  \textbf{hypergraph maps} & maps from $\cospan(\mc C)$
+  \end{tabular}
+\end{theorem}
+
+To check this is well-defined we need to show that these structures obey the
+necessary axioms: associativity, the identity laws, the monoidal coherence laws,
+the special commutative Frobenius monoid laws. Instead of proving each axiom
+directly, we will leverage the fact that we already know $\cospan(\mc C)$ is a
+hypergraph category (Definition \ref{thm.cospanwelldef}), and show that
+$\corel(\mc C)$ is the image of $\cospan(\mc C)$ under a composition-preserving
+map that also respects the monoidal and hypergraph structure.
+
+This is a proof strategy we will employ a number of times in this paper.
+
+Before completing this proof in the next section, we note a few examples.
+\begin{examples}
+  In the factorisation systems above the right factor $\mathcal M$ is stable
+  under pushout.  Thus we have hypergraph categories of cospans, equivalence
+  relations, and trivial maps.  
+\end{examples}
+
+\subsection{Functors between corelation categories.}
+
+\begin{proposition} \label{prop.corelfunctors}
+  Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
+  factorisation systems $(\mathcal E, \mathcal M)$, $(\mathcal E', \mathcal M')$,
+  such that $\mathcal M$ and $\mathcal M'$ are stable under pushout. Further let
+  $A\maps \mathcal C \to \mathcal C'$ be a functor that preserves finite colimits
+  and such that the image of $\mathcal M$ lies in $\mathcal M'$.
+
+  Then we may define a hypergraph functor $\square\maps \corel(\mathcal C) \to
+  \corel(\mathcal C')$ sending each object $X$ in $\corel(\mathcal C)$ to $AX$ in
+  $\corel(\mc C')$ and each corelation 
+  \[
+    X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y 
+  \]
+  to the jointly-$\mc E'$-part
+  \[
+    AX \stackrel{Ai_X}{\longrightarrow} \widetilde{AN} \stackrel{Ao_Y}{\longleftarrow} AY.
+  \]
+  of the image cospan. The coherence maps are the isomorphisms
+  $\kappa_{X,Y}\maps AX+AY \to A(X+Y)$ given as $A$ preserves colimits.
+\end{proposition}
+
+\begin{proof}
+  Note that we still have not proved that $\corel(\mc C)$ is a category, let
+  alone a hypergraph category. To begin, we will simply show that the map
+  $\square$ is composition-preserving, and then that $\square$ respects the
+  monoidal and hypergraph structure. Finally, specialising to the case where $A$
+  is the identity functor on $\mc C$ and $(\mc E,\mc M)$ is the factorisation
+  system $(\mc C, \mc I_{\mc C})$, we observe that the domain of $\square$ is
+  then $\cospan(\mc C)$, and that $\square$ maps it fully
+  (surjectively-on-morphisms) and bijectively-on-objects onto $\corel(\mc C')$.
+  This shows that all corelation categories are indeed deserving of the name
+  category and moreover hypergraph category, and hence that $\square$ is
+  deserving of the name hypergraph functor.
+
+  First, that $\square$ preserves composition. Let
+  \[
+    \alpha = (X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y)
+    \qquad \mbox{and} \qquad 
+    \beta = (Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Z}{\longleftarrow} Z)
+  \]
+  be corelations in $\mathcal C$. By definition, the corelation $\square(\beta)
+  \circ \square(\alpha)$ is given by the $\mathcal E$-part of the top row of the
+  diagram below, while $\square(\beta \circ \alpha)$ is given by the $\mathcal
+  E$-part of the bottom row:
+  \[ \label{diag.eparts}
+    \begin{aligned}
+      \xymatrixcolsep{3pc}
+      \xymatrixrowsep{2pc}
+      \xymatrix{
+	AX+AZ \ar[r]^{\mc E'} \ar@{=}[dd] & \widetilde{\widetilde{AN}+_{AY}\widetilde{AM}}
+	\ar[rr]^{\mc M'} \ar@{<.>}[dd]^{n} && \widetilde{AN}+_{AY}\widetilde{AM}
+	\ar[d]^{m'_{AN}+_{AY}m'_{AM}} \\
+	&&& AN+_{AY}AM \\
+	AX+AZ \ar[r]^{\mc E'} & \widetilde{A(\widetilde{N+_YM})} \ar[r]^{\mc M'} &
+	A(\widetilde{N+_YM}) \ar[r]^{Am_{N+_YM}} & A(N+_YM) \ar@{<->}[u]_{\sim}
+      }
+    \end{aligned}
+    \tag{$\ast$}
+  \]
+  In the above, the morphisms labelled $\mc E'$ lie in $\mc E'$, and similarly
+  for $\mc M'$; these are given by the factorisation system on $\mc C'$.  The
+  remaining three maps in the lower right hand corner lie in $\mc M'$ too:
+  $Am_{N+_YM}$ as it is in the image of $\mc M$, $m'_{AN}+_{AY}m'_{AM}$ as $\mc
+  M'$ is stable under pushout, and the morphism labelled $\sim$ as $A$ preserves
+  pushouts and $\mc M'$ contains all isomorphisms. 
+
+  Moreover, the diagram commutes as both maps $AX+AZ \to AN+_{AY}AM$ compose to
+  that given by the pushout of the images of $\alpha$ and $\beta$ over $AY$.
+  Thus the diagram represents two $(\mc E', \mc M')$ factorisations of the same
+  morphism, and there exists an isomorphism $n$ between the corelations
+  $\square(\beta) \circ \square(\alpha)$ and $\square(\beta\circ\alpha)$. This
+  proves that $\square$ preserves composition.
+
+  As $A$ preserves colimits, it follows immediately that $\square$ respects the
+  monoidal and hypergraph structure. Indeed, the coherence maps are natural by
+  the properties of coproducts, the symmetric monoidal coherence laws are each
+  diagrams of isomorphisms of coproducts, and for example the Frobenius
+  multiplication $[1_X,1_X]$ on an object $X$ of $\mc C$ obeys $A[1_X,1_X] \circ
+  \kappa_{X,X}= [1_{AX},1_{AX}]$, as required. 
+  
+  To complete the proof then, consider the case with $\mc C = \mc C'$, $(\mc
+  E,\mc M) = (\mc C, \mc I_{\mc C})$, and $A = 1_{\mc C}$. Then the domain of
+  $\square$ is $\cospan(\mc C)$ by definition. In this case, the functor
+  $\square\maps \cospan(\mc C) \to \corel(\mc C)$ is bijective-on-objects and
+  surjective-on-morphisms. As $\cospan(\mc C)$ is a hypergraph category, and
+  $\square$ preserves composition and respects the monoidal and hypergraph
+  structure, $\corel(\mc C)$ is also a hypergraph category. Moreover, thus
+  $\square$ is a hypergraph functor.
+\end{proof}
+
+\begin{corollary}
+  There is a hypergraph functor 
+  \[
+    \square\maps \mathrm{Cospan}(\mathcal C) \longrightarrow \mathrm{Corel}(\mathcal C)
+  \]
+  that takes each object of $\cospan(\mathcal C)$ to itself as an object of
+  $\corel(\mathcal C)$ and each cospan to its $\mathcal E$-part.
+\end{corollary}
+
+
+\subsection{Linear relations as corelations in $\Vect$.}
+
+\begin{example}
+  \textbf{Linear relations.} 
+  Recall that a linear relation $L\maps U \leadsto V$ is a subspace $L \subseteq
+  U \oplus V$. We compose linear relations as we do relations, and vector spaces
+  and linear relations form a category $\LinRel$. This category can be
+  constructed as the category of relations in the category $\Vect$ of
+  vector spaces and linear maps with respect to epi-mono factorisations. We show
+  that they may also be constructed as corelations in $\Vect$ with respect to
+  epi-mono factorisations.
+  
+  If we restrict to the full subcategory $\FinVect$ of finite dimensional vector
+  spaces this is easy to see: after picking a basis for each vector space the
+  transpose yields an equivalence of $\FinVect$ with its opposite category, so
+  the category of $(\mathcal E,\mathcal M)$-corelations (jointly-epic cospans)
+  is isomorphic to the category of $(\mathcal E,\mathcal M)$-relations
+  (jointly-monic spans) in $\FinVect$. This fact has been fundamental in work on
+  finite dimensional linear systems and signal flow diagrams \cite{BE,BSZ,FRS}.
+  
+  We prove the general case in detail. To begin, note $\mathrm{Vect}$ has an
+  epi-mono factorisation system with monos stable under pushouts. This
+  factorisation system is inherited from $\Set$: the epimorphisms in $\Vect$ are
+  precisely the surjective linear maps, the monomorphisms are the injective
+  linear maps, and the image of a linear map is always a subspace of the
+  codomain, and so itself a vector space. Monos are stable under pushout as the
+  pushout of a diagram $V \stackrel{f}{\leftarrow} U \stackrel{m}{\rightarrow}
+  W$ is $V \oplus W/\im[f\; -g]$. The map $m'\maps V \to V \oplus W/\im[f\; -g]$
+  into the pushout has kernel $f(\ker m)$. Thus when $m$ is a monomorphism, $m'$
+  is too.
+ 
+  Thus we have a category of corelations $\corel(\Vect)$. We show that the map
+  $\corel(\Vect) \to \LinRel$ sending each vector space to itself and each
+  corelation
+  \[
+    U \xrightarrow{f} A \xleftarrow{g} V
+  \]
+  to the linear subspace $\ker[f\;-g]$ is a full, faithful, and
+  bijective-on-objects functor.
+
+  Indeed, corelations $U \xrightarrow{f} A \xleftarrow{g} V$ are in one-to-one
+  correspondence with surjective linear maps $U\oplus V \to A$, which are in
+  turn, by the isomorphism theorem, in one-to-one correspondence with subspaces
+  of $U\oplus V$. These correspondences are described by the kernel construction
+  above. Thus our map is evidently full, faithful, and bijective-on-objects. It
+  also maps identities to identities. It remains to check that it preserves
+  composition.
+
+  Suppose we have corelations $U \xrightarrow{f} A \xleftarrow{g} V$
+  and $V \xrightarrow{h} B \xleftarrow{k} W$. Then their pushout is given by
+  $P=A \oplus B/\im[g\;-h]$, and we may draw the pushout diagram
+  \[
+    \xymatrix{
+      U \ar[dr]_{f} & & V \ar[dl]^{g}  
+      \ar[dr]_{h} & & W \ar[dl]^{k} {} 
+      \\
+      & A \ar[dr]_{\iota_A} & & B \ar[dl]^{\iota_B}  \\
+      & & P {\save*!<0cm,-.5cm>[dl]@^{|-}\restore}
+    }
+  \]
+  We wish to show the equality of relations
+  \[
+    \ker[f\;-g];\ker[h\;-k] = \ker[\iota_A f\; -\iota_B g].
+  \]
+  Now $(\mathbf{u},\mathbf{w}) \in U \oplus W$ lies in the composite relation
+  $\ker[f\;-g];\ker[h\;-k]$ iff there exists $\mathbf{v} \in V$ such that
+  $f\mathbf{u} = g\mathbf{v}$ and $h\mathbf{v} = k\mathbf{w}$. But as $P$ is the
+  pushout, this is true iff 
+  \[
+    \iota_A f \mathbf{u} = \iota_A g \mathbf{v} = \iota_B h \mathbf{v} =
+    \iota_B k \mathbf{w}.
+  \]
+  This in turn is true iff $(\mathbf{u}, \mathbf{w}) \in \ker[\iota_Af\;
+  -\iota_Bk]$, as required. 
+\end{example}
+
+Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
+are epi-mono factorisations, then we always have that $F(\mathcal E) \subseteq
+\mathcal E'$ and $F(\mathcal M) \subseteq \mathcal M'$. Indeed, if an
+(one-sided) inverse exists in the domain category, it exists in the codomain
+category.
+
+
+
+\section{Decorated corelations} \label{sec:dcorc}
+
+When enough structure is available to us, we may decorate corelations too.
+Furthermore, and key to the idea of `black-boxing', we get a hypergraph functor
+from decorated cospans to decorated corelations.
+
+
+\subsection{Constructing right adjoints.}
+A subcategory stable under pushouts is a useful thing.
+
+\begin{lemma}
+  Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
+  subcategory of $\mathcal C$ stable under pushouts and containing all
+  isomorphisms. Then $(\mc M,+)$ is a monoidal category.
+\end{lemma}
+\begin{proof}
+  It is enough to show that for all morphisms $m,m' \in \mc M$ we have $m+m'$ in
+  $\mc M$. Since $\mc M$ contains all isomorphisms, the coherence maps are
+  inherited from $\mc C$. The required axioms---the functoriality of the tensor
+  product, the naturality of the coherence maps, and the coherence laws---are
+  also inherited as they hold in $\mc C$.
+
+  To see $m+m'$ is in $\mc M$, simply observe that we have the pushout square
+  \[
+    \xymatrix{
+      A \ar[r]^m \ar[d]_{\iota} & B \ar[d]^{\iota} \\
+      A+C \ar[r]^{m+1} & B+C
+    }
+  \]
+  in $\mc C$. As $\mc M$ is stable under pushout, $m+1 \in \mc M$. Similarly,
+  $1+m' \in \mc M$. Thus their composite $m+m'$ lies in $\mc M$, as required.
+\end{proof}
+
+\begin{proposition}
+  Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
+  subcategory of $\mathcal C$ stable under pushouts. Then we define the category
+  $\mathcal C; \mathcal M^\opp$ as follows  
+  
+  \begin{tabular}{ r p{.65\textwidth}}
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & isomorphism classes of cospans of the form $\stackrel{c}\rightarrow
+  \stackrel{m}\leftarrow$, where $c$ is a morphism in $\mathcal C$ and $m$ a
+  morphism in $\mathcal M$\\ 
+  \textbf{composition} & given by pushout \\
+  \textbf{tensor product} & the coproduct in $\mathcal C$ \\
+  \textbf{coherence maps} & the coherence maps in $\mc C$
+  \end{tabular}
+\end{proposition}
+\begin{proof}
+  Composition is well-defined as $\mc M$ is stable under pushouts. Monoidal
+  composition is well-defined by lemma. Necessary laws hold as they are
+  inherited from $\mc C$. 
+\end{proof}
+
+This category can be viewed as a bicategory, with 2-morphisms given by maps of
+cospans. In this bicategory every morphism of $\mc M$ has a right adjoint.
+
+\begin{examples}
+  \begin{itemize}
+    \item Note that $\mathcal C; \mathcal C^\opp$ is by definition equal to
+      $\cospan(\mathcal C)$. 
+
+    \item Writing $\mathcal I_{\mathcal C}$ for the wide subcategory of
+      isomorphisms in $\mathcal C$, note that $\mathcal C;\mathcal I_{\mathcal
+      C}^\opp$ is naturally isomorphic to $\mathcal C$.
+  \end{itemize}
+\end{examples}
+
+\begin{lemma}
+  Let $\mathcal C$, $\mathcal C'$ be categories with finite colimits, and let
+  $\mathcal M$, $\mathcal M'$ be subcategories each stable under pushouts. Let
+  $A\maps \mathcal C \to \mc C'$ be functor that preserves colimits and such
+  that the image of $\mc M$ lies in $\mc M'$. Then $A$ extends to a symmetric
+  (strong) monoidal functor
+  \[
+    A\maps \mc C;\mc M^\opp \longrightarrow \mc C'; \mc M'^\opp.
+  \]
+  mapping $X$ to $AX$ and $\stackrel{c}\rightarrow \stackrel{m}\leftarrow$ to
+  $\stackrel{Ac}\rightarrow \stackrel{Am}\leftarrow$.
+\end{lemma}
+\begin{proof}
+  Note $A(\mc M) \subseteq \mc M'$, so $\stackrel{Ac}\rightarrow
+  \stackrel{Am}\leftarrow$ is indeed a morphism in $\mc C';\mc M'$. The functor
+  $A$ preserves colimits, so composition is preserved.
+\end{proof}
+
+Note this could be done more generally with any two isomorphism-containing wide
+subcategories stable under pushout.
+
+\subsection{Decorated corelations.}
+
+\begin{definition}
+  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
+  \mathcal M)$ be a factorisation system on $\mathcal C$. Suppose that we also
+  have a lax monoidal functor
+  \[
+    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times).
+  \]
+  Then we define an $F$-\define{decorated corelation} to be the isomorphism
+  class of a pair
+  \[
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& N \\  
+	X \ar[ur]^{i} && Y \ar[ul]_{o}
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	FN \\
+	1 \ar[u]_{s}
+      }
+    \end{aligned}
+    \right)
+  \]
+  where the cospan is jointly-$\mathcal E$-like.
+\end{definition}
+
+Again, we will be lazy about the distinction between a decorated corelation and
+its isomorphism class.
+
+Suppose we have decorated corelations
+  \[
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& N \\  
+	X \ar[ur]^{i} && Y \ar[ul]_{o}
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	FN \\
+	1 \ar[u]_{s}
+      }
+    \end{aligned}
+    \right)
+    \qquad
+    \mbox{and}
+    \qquad
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& M \\  
+	Y \ar[ur]^{i} && Z \ar[ul]_{o}
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	FM \\
+	1 \ar[u]_{s}
+      }
+    \end{aligned}
+    \right).
+  \]
+  Then their composite is given by the composite corelation
+  \[
+    \xymatrix{
+      & \widetilde{N+_YM} \\  
+      X \ar[ur]^{i} && Z \ar[ul]_{o}
+    }
+  \]
+  paired with the decoration
+  \[
+    1 \longrightarrow F(N+M) \longrightarrow F(N+_YM) \stackrel{F(m^\opp)}\longrightarrow F(\widetilde{N+_YM})
+  \]
+  This is well-defined.
+
+\subsection{Categories of decorated corelations.}
+\begin{theorem}
+  Let $\mathcal C$ be a category with finite colimits and factorisation system
+  $(\mathcal E, \mathcal M)$ with $\mathcal M$ stable under pushout, and let 
+  \[
+    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
+  \]
+  be a symmetric lax monoidal functor.  Then we may define a hypergraph category
+  $F\mathrm{Corel}$
+  
+  \begin{tabular}{ r p{.6\textwidth}}
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & isomorphism classes of $F$-decorated corelations in
+    $\mathcal C$\\ 
+  \textbf{composition} & given by $\mc E$-part of pushout with restricted
+  decoration  \\
+  \textbf{tensor product} & the coproduct in $\mathcal C$ on objects, coproduct
+  of cospans and pair of decorations on morphisms. \\
+  \textbf{coherence maps} & maps from $\cospan(\mc C)$ with restricted empty
+  decoration \\
+  \textbf{hypergraph maps} & maps from $\cospan(\mc C)$ with restricted empty
+  decoration
+  \end{tabular}
+\end{theorem}
+Similar to the corelations theorem (Theorem \ref{thm.cospantocorel}), we prove
+this alongside the theorem in the next subsection.
+\begin{example}
+  Note that decorated cospans are a special case of decorated corelations: we
+  use an morphism--isomorphism factorisation system.
+\end{example}
+
+\begin{example} \label{ex.undeccorel}
+  Note that `undecorated' corelations are a special case of decorated
+  corelations: they are corelations decorated by the functor $1\maps \mc C;\mc
+  M^\opp \to \Set$ that maps each object to the one element set $1$, and each
+  morphism to the identity function on $1$. This is a symmetric monoidal functor
+  with the coherence maps all also the identity function on $1$.
+\end{example}
+
+The key difference is to decorate cospans we need to know how to push
+decorations up. To decorate corelations we all need to know how to pull
+decorations back down. This is related to the existence of an extraspecial
+commutative Frobenius monoid in our main applications.
+
+\subsection{Functors between decorated corelation categories}
+
+\begin{proposition}\label{prop.deccorelfunctors}
+  Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
+factorisation systems $(\mathcal E, \mathcal M)$, $(\mathcal E', \mathcal M')$,
+such that $\mathcal M$ and $\mathcal M'$ are stable under pushout, and suppose
+that we have symmetric lax monoidal functors
+\[
+  F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
+\]
+and
+\[
+  G: (\mathcal C';\mathcal M'^\opp,+) \longrightarrow (\Set, \times).
+\]
+
+Further let $A\maps \mathcal C \to \mathcal C'$ be a functor that preserves
+finite colimits and such that the image of $\mathcal M$ lies in $\mathcal M'$.
+This functor $A$ extends to a symmetric monoidal functor $\mc C;\mc M^\opp \to
+\mc C';\mc M'^\opp$.
+
+Suppose we have a monoidal natural transformation $\theta$:
+\[
+  \xymatrixrowsep{2ex}
+  \xymatrix{
+    \mc C; \mc M^\opp \ar[dd]_{A} \ar[drr]^F  \\
+    &\twocell \omit{_\:\theta}& \Set \\
+    \mc C'; \mc {M'}^\opp \ar[urr]_{G} 
+  }
+\]
+
+Then we may define a hypergraph functor $T\maps F\mathrm{Corel} \to
+G\mathrm{Corel}$ sending each object $X \in F\mathrm{Corel}$ to $AX \in
+G\mathrm{Corel}$ and each decorated corelation 
+\[
+  X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y, \quad
+  1 \stackrel{s}{\to} FN
+\]
+to
+\[
+  AX \stackrel{Ai_X}{\longrightarrow} \widetilde{AN} \stackrel{Ao_Y}{\longleftarrow} AY,
+  \quad 1 \stackrel{s}{\to} FN \stackrel{\theta_N}{\to} GAN
+  \stackrel{Gm_{AN}^\opp}{\to} G\widetilde{AN}.	
+\]
+The coherence maps are given by
+\[
+  \kappa_{X,Y}=          
+  \left(
+  \begin{aligned}
+    \xymatrix{
+      & \widetilde{A(X+Y)} \\  
+      AX+AY \ar[ur] && A(X+Y) \ar[ul]
+    }
+  \end{aligned}
+  ,
+  \qquad
+  \begin{aligned}
+    \xymatrixrowsep{1.4ex}
+    \xymatrix{
+      G(\widetilde{A(X+Y)}) \\
+      GA(X+Y) \ar[u]_{Gm_{AX+AY}^\opp} \\
+      G\varnothing \ar[u]_{G!} \\
+      1 \ar[u]_{\gamma_1}
+    }
+  \end{aligned}
+  \right).
+\]
+\end{proposition}
+\begin{proof}
+  In the proof of Proposition \ref{prop.corelfunctors} we used the existence of a
+  bijective-on-objects, surjective-on-morphisms, composition preserving map
+  $\mathrm{Cospan}(\mathcal C) \to\mathrm{Corel}(\mathcal C)$ to prove the
+  associativity and other properties of $\mathrm{Corel}(\mathcal C)$. Our proof
+  strategy here is entirely analogous.
+
+  Similar to before, we still have not proved that decorated corelations form
+  well-defined hypergraph categories. So we begin by merely showing that the map
+  $\square$ is composition-preserving, and then that $\square$ respects the
+  monoidal and hypergraph structure. We then specialise to the case where the
+  domain forms a decorated cospan category that maps surjectively onto a generic
+  decorated corelations codomain. Since we know decorated cospan categories are
+  well-defined hypergraph categories, we can conclude the same for decorated
+  corelations categories, and hence prove that $\square$ is a hypergraph functor. 
+  
+  We prove that $\square$ preserves composition. Suppose we have decorated corelations
+  \[
+    X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y, \quad
+    1 \stackrel{s}{\to} FN
+    \qquad
+    \mbox{and}
+    \qquad 
+    Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Y}{\longleftarrow} Z, \quad
+    1 \stackrel{t}{\to} FM
+  \]
+%  \[
+%    \left(
+%    \begin{aligned}
+%      \xymatrix{
+%	& N \\  
+%	X \ar[ur]^{i} && Y \ar[ul]_{o}
+%      }
+%    \end{aligned}
+%    ,
+%    \qquad
+%    \begin{aligned}
+%      \xymatrix{
+%	FN \\
+%	1 \ar[u]_{s}
+%      }
+%    \end{aligned}
+%    \right)
+%    \qquad
+%    \mbox{and}
+%    \qquad
+%    \left(
+%    \begin{aligned}
+%      \xymatrix{
+%	& M \\  
+%	Y \ar[ur]^{i} && Z \ar[ul]_{o}
+%      }
+%    \end{aligned}
+%    ,
+%    \qquad
+%    \begin{aligned}
+%      \xymatrix{
+%	FM \\
+%	1 \ar[u]_{s}
+%      }
+%    \end{aligned}
+%    \right).
+%  \]
+  We know the functor $\square$ preserves composition on the cospan part; this
+  is precisely the content of Proposition \ref{prop.corelfunctors}. It remains to
+  check that $\square( g \circ f)$ and $\square g \circ \square f$ have
+  isomorphic decorations. This is expressed by the commutativity of the
+  following diagram:
+  \[
+    \xymatrixrowsep{1.1pc}
+    \xymatrixcolsep{0pc}
+    \xymatrix{
+      G\widetilde{A(\widetilde{N+_YM})} \ar[rrrrrr]^{Gn} &&&&&&
+      G\widetilde{(\widetilde{AN}+_{AY}\widetilde{AM})}\\
+      \\
+      GA(\widetilde{N+_YM}) \ar[uu]^{Gm^\opp_{A(\widetilde{N+_YM})}} &&&
+      \textsc{\tiny($\ast\ast$)} &&& 
+      G(\widetilde{AN}+_{AY}\widetilde{AM}) \ar[uu]_{Gm^\opp_{\widetilde{AN}+_{AY}\widetilde{AM}}} \\
+      \\
+      F(\widetilde{N+_YM}) \ar[uu]^{\theta_{\widetilde{N+_YM}}} & %\textsc{\tiny()} & 
+      &
+      GA(N+_YM) \ar[uull]_{GAm^\opp_{N+_YM}} && 
+      G(AN+_{AY}AM) \ar[ll]_{G\sim} \ar[uurr]^{G(m_{AN}^\opp +_{AY}m_{AM}^\opp)}
+      & \textsc{\tiny(c)} & 
+      G(\widetilde{AN}+\widetilde{AM}) \ar[uu]_{G[j_{\widetilde{AN}},j_{\widetilde{AM}}]} 
+      \\
+      &\textsc{\tiny(tn)}&& \textsc{\tiny(a)} 
+      \\
+      F(N+_YM) \ar[uu]^{Fm_{N+_YM}^\opp} %\ar[uurr]_{\theta_{N+_YM}} & \textsc{\tiny()} & 
+      &&
+      GA(N+M)\ar[uu]_{GA[j_N,j_M]} && 
+      G(AN+AM) \ar[uu]^{G[j_{AN},j_{AM}]} \ar[ll]^{G\alpha_{N,M}}
+      \ar[uurr]^{G(m_{AN}^\opp +m_{AM}^\opp)} & \textsc{\tiny(gm)} & 
+      G\widetilde{AN} \times G\widetilde{AM}
+      \ar[uu]_{\gamma_{\widetilde{AN},\widetilde{AM}}} \\
+      \\
+      F(N+M) \ar[uu]^{F[j_N,j_M]} \ar[uurr]_{\theta_{N+M}} &&& \textsc{\tiny(tm)} &&& 
+      GAN \times GAM \ar[uu]_{Gm_{AN}^\opp \times Gm_{AM}^\opp}
+      \ar[uull]^{\gamma_{AN,AM}} \\
+      \\
+      &&&FN \times FM \ar[uulll]^{\varphi_{N,M}} \ar[uurrr]_{\theta_N \times
+      \theta_M} \\\\
+      &&&1 \ar[uu]_{\rho_1\circ (s \times t)}
+    }
+  \]
+  This diagram does indeed commute. To check this, first observe that \textsc{(tm)}
+  commutes by the monoidality of $\theta$, \textsc{(gm)} commutes by the
+  monoidality of $G$, and \textsc{(tn)} commutes by the naturality of $\theta$.
+  The remaining three diagrams commute as they are $G$-images of diagrams that
+  commute in $\mc C';\mc M'^\opp$. Indeed, \textsc{(a)} commutes since $A$ preserves
+  colimits and $G$ is functorial, \textsc{(c)} commutes as it is the $G$-image
+  of a pushout square in $\mc C'$, so 
+  \[
+    \stackrel{m_{AN}^\opp+m_{AM}^\opp}{\longleftarrow} 
+    \stackrel{[j_{\widetilde{AN}},j_{\widetilde{AM}}]}{\longrightarrow}
+    \quad 
+    \textrm{and}
+    \quad
+    \stackrel{[j_{AN},j_{AM}]}{\longrightarrow}
+    \stackrel{m_{AN}^\opp+_{AY}m_{AM}^\opp}{\longleftarrow} 
+  \]
+  are equal as morphisms of $\mc C';\mc M'^\opp$, and \textsc{($\ast\ast$)} commutes
+  as it is the $G$-image of the right-hand subdiagram of $(\ast)$ used to define
+  $n$.
+  
+  It is evident that $\square$ is bijective-on-objects and
+  surjective-on-morphisms. This proves the theorem.
+\end{proof}
+
+%  \[
+%    \xymatrixrowsep{1pc}
+%    \xymatrixcolsep{1pc}
+%    \xymatrix{
+%      &&&& F(N+M) \ar[dd]^{F((m_N +m_M)^\opp)} \ar[rr]^{F[j_N,j_M]} 
+%      && F(N+_YM) \ar[dd]^{F((m_N+_Ym_M)^\opp)} \ar[rr]^{F((m_{N+_YM})^\opp)} 
+%      && F(\widetilde{N+_YM}) \ar[dd]^{Fn}_\sim \\ 
+%      1 \ar[rr]^(.4){(s\times t)\circ\lambda^{-1}} 
+%      && FN\times FM \ar[urr]^{\varphi} \ar[dr]_{Fm_N^\opp\times Fm_M^\opp} &
+%      \qquad\textrm{\tiny(I)}% && \textrm{\tiny(F)} && \textrm{\tiny(C)}
+%      \\ 
+%      &&& F\widetilde{N} \times F\widetilde{M} \ar[r]_{\varphi} 
+%      & F(\widetilde{N}+\widetilde{M})
+%      \ar[rr]_{F[j_{\widetilde{N}},j_{\widetilde{M}}]} 
+%      && F(\widetilde{N}+_Y\widetilde{M})
+%      \ar[rr]_{F((m_{\widetilde{N}+_Y\widetilde{M}})^\opp)} 
+%      && F(\widetilde{\widetilde{N}+_Y\widetilde{M}})
+%    }
+%  \]
+%  Here $n$ is the isomorphism from the proof of Proposition
+%  \ref{prop.corelfunctors}.
+%  The leftmost square (I) commutes by the naturality of $\varphi$, the central
+%  square commutes as it is the $F$-image of a pushout square in $\mathcal C$,
+%  and rightmost square commutes as it is the $F$-image of the rightmost square
+%  in the commutative diagram (\ref{diag.eparts}) in $\mathcal M^\opp$.
+  
+
+
+\begin{corollary}
+  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
+  \mathcal M)$ be a factorisation system on $\mathcal C$. Suppose that we also
+  have a lax monoidal functor
+  \[
+    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times).
+  \]
+  Then we may define a category $F\mathrm{Corel}$ with objects the objects of
+  $\mathcal C$ and morphisms isomorpism classes of $F$-decorated corelations.
+
+  Write also $F$ for the restriction of $F$ to the wide subcategory $\mathcal
+  C$ of $\mathcal C;\mathcal M^\opp$. We can thus also obtain the category
+  $F\mathrm{Cospan}$ of
+  $F$-decorated cospans. We moreover have a functor 
+  \[
+    F\mathrm{Cospan} \to F\mathrm{Corel}
+  \]
+  which takes each object of $F\mathrm{Cospan}$ to itself as an object of
+  $F\mathrm{Corel}$, and each decorated cospan
+  \[
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& N \\  
+	X \ar[ur]^{i} && Y \ar[ul]_{o}
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	FN \\
+	1 \ar[u]_{s}
+      }
+    \end{aligned}
+    \right)
+  \]  
+  to its jointly-$\mathcal E$-part
+  \[
+    \xymatrix{
+      & \widetilde{N} \\  
+      X \ar[ur]^{i} && Y \ar[ul]_{o}
+    }
+  \]
+  decorated by the composite
+  \[
+    \xymatrix{
+      1 \ar[r]^s & FN \ar[r]^{Fm_N^\opp} & F\widetilde{N}.
+    }
+  \]
+\end{corollary}
+
+
+\section{All hypergraph categories are decorated corelation categories}
+structured categories are algebras over their graphical calculus operad
+\cite{SSR}. These equivalences are 2-categorical.
+
+Write $\int$ for the Grothendieck construction. The Grothendieck construction
+is
+
+\begin{theorem}
+hypergraph categories are symmetric lax monoidal functors cospan to Set.
+\[
+  \mathrm{HypCat} \cong \int^{\mc O \in \Set}
+  \mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}), \Set)
+\]
+\end{theorem}
+\cite{SV}
+\begin{remark}
+Not all hypergraph categories are decorated \emph{cospan} categories. To see
+this, we can count morphisms. The possible apices and decorations are the same
+for all morphisms. So for a decorated cospan category over the prop of finite
+sets, the number of morphisms $0 \to 1$ cannot be more than countably many times
+those $0 \to 0$ (we just get to choose an element of the apex). But the skeletal
+category of vector spaces over $\mathbb{R}$ with monoidal product the tensor
+product has $\mathbb{R}$ morphisms $0 \to 0$, and $\mathbb{R}^2$ morphisms $0
+\to 1$.
+\end{remark}
+
+Decorated corelation categories, however, are more powerful. We can recover all
+hypergraph categories by forcing the decorations to be on the coproduct of the
+domain and codomain itself. For this we use the isomorphism--morphism
+factorisation. Let $\mc H$ be a hypergraph category, and let $\mc C$ be the wide
+subcategory of all Frobenius morphisms. Then $\mc H$ can be recovered as the
+$(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
+
+\subsection{The global sections construction.}
+
+\begin{theorem}
+  All hypergraph categories are decorated corelation categories.
+\end{theorem}
+\begin{proof}
+  Let $\mc H$ be a hypergraph category. Without loss of generality we can assume
+  $\mc H$ has objects a free monoid under the tensor product; write $\mc O$ for
+  a collection of generators for this free monoid, and $\FinSet_{\mc O}$ for
+  $\mc O$ labelled finite sets (ie an object is a finite set $X$ together with a
+  function $X \to \mc O$). This is a finitely cocomplete category.
+
+  Define the global sections functor 
+  \begin{align*}
+    G\maps \cospan(\FinSet_{\mc O}) &\longrightarrow \Set \\
+    A &\longmapsto \mc H(I,A) \\
+    \stackrel{f}{\to}\stackrel{g}{\leftarrow} &\longmapsto \textrm{action of
+    Frobenius maps}
+  \end{align*}
+  This is symmetric lax monoidal functor. Note that $\mc H(I,A)$ depends on the
+  order we choose to convert a multiset into an object $A$ of $\mc H$.
+  Nonetheless, from any two choices $A$, $A'$ we get a canonical map $A \to A'$.
+  This is really that clique in $\Set$.
+
+  Consider the category $\FinSet_{\mc O}$ with an
+  (isomorphism,morphism)-factorisation system. We get a decorated corelations
+  category with objects multisets of generating objects of $\mc H$, and morphisms $A \to
+  B$ trivial corelations $A \to A+B \leftarrow B$ decorated by some morphism
+  $s \in \mc H(I,A+B)$. Recall that this decorated corelation is only specified
+  up to isomorphism; in the following we always choose representatives such that
+  the apex of the jointly-isomorphic cospan is always of the form $A+B$ for
+  morphisms $A \to B$.
+  
+  Given morphisms $s \in \mc H(I,A+B)$ and $t \in \mc H(I,B+C)$ of types $A \to
+  B$ and $B \to C$ in $G\mathrm{Corel}$, composition is given by the map
+  $H(I,A+B+B+C) \to H(I,A+C)$ arising as the $G$-image of the cospan $A+B+B+C
+  \stackrel{[j,j]}\rightarrow A+B+C \stackrel{m}\leftarrow A+C$ where maps come
+  from the pushout square
+  \[
+    \xymatrix{
+      && A+C \ar[d] \\
+      && A+B+C \\
+      & A+B \ar[ur] && B+C \ar[ul] \\
+      A \ar[ur] && B \ar[ul]\ar[ur] && C \ar[ul]
+    }
+  \]
+  
+  In terms of string diagrams in $\mc H$, this means composing the maps 
+  \[
+    \tikzset{every path/.style={line width=1.1pt}}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.375) {};
+		\node [style=none] (1) at (0.5, 0.375) {};
+		\node [style=none] (2) at (-0.25, -0.375) {};
+		\node [style=none] (3) at (0.5, -0.375) {};
+		\node [style=none] (4) at (0.5, 0.25) {};
+		\node [style=none] (5) at (0.5, -0.25) {};
+		\node [style=none] (6) at (1.25, 0.25) {};
+		\node [style=none] (7) at (1.25, -0.25) {};
+		\node [style=none] (8) at (0.125, -0) {$s$};
+		\node [style=none] (9) at (1.5, 0.25) {$A$};
+		\node [style=none] (10) at (1.5, -0.25) {$B$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw (2.center) to (0.center);
+		\draw (4.center) to (6.center);
+		\draw (5.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\qquad 
+\qquad
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.375) {};
+		\node [style=none] (1) at (0.5, 0.375) {};
+		\node [style=none] (2) at (-0.25, -0.375) {};
+		\node [style=none] (3) at (0.5, -0.375) {};
+		\node [style=none] (4) at (0.5, 0.25) {};
+		\node [style=none] (5) at (0.5, -0.25) {};
+		\node [style=none] (6) at (1.25, 0.25) {};
+		\node [style=none] (7) at (1.25, -0.25) {};
+		\node [style=none] (8) at (0.125, -0) {$t$};
+		\node [style=none] (9) at (1.5, 0.25) {$B$};
+		\node [style=none] (10) at (1.5, -0.25) {$C$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw (2.center) to (0.center);
+		\draw (4.center) to (6.center);
+		\draw (5.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+  \]
+  with the Frobenius map
+  \[
+    \tikzset{every path/.style={line width=1.1pt}}
+    \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.125, 0.75) {};
+		\node [style=none] (1) at (-0.125, 0.25) {};
+		\node [style=none] (2) at (-0.125, -0.25) {};
+		\node [style=none] (3) at (-0.125, -0.75) {};
+		\node [style=none] (4) at (0.5, -0) {};
+		\node [style=none] (5) at (1, 0.75) {};
+		\node [style=none] (6) at (1, -0.75) {};
+		\node [style=none] (8) at (-0.375, 0.75) {$A$};
+		\node [style=none] (9) at (-0.375, 0.25) {$B$};
+		\node [style=none] (10) at (-0.375, -0.25) {$B$};
+		\node [style=none] (11) at (-0.375, -0.75) {$C$};
+		\node [style=none] (12) at (1.25, 0.75) {$A$};
+		\node [style=none] (13) at (1.25, -0.75) {$C$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (5.center);
+		\draw [in=90, out=0, looseness=1.00] (1.center) to (4.center);
+		\draw [in=-90, out=0, looseness=1.00] (2.center) to (4.center);
+		\draw (3.center) to (6.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\quad
+=
+\quad
+\begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.125, 0.75) {};
+		\node [style=none] (1) at (-0.125, 0.25) {};
+		\node [style=none] (2) at (-0.125, -0.25) {};
+		\node [style=none] (3) at (-0.125, -0.75) {};
+		\node [style=none] (4) at (0.5, -0) {};
+		\node [style=none] (5) at (1.25, 0.75) {};
+		\node [style=none] (6) at (1.25, -0.75) {};
+		\node [style=circ2] (7) at (1, -0) {};
+		\node [style=none] (8) at (-0.375, 0.75) {$A$};
+		\node [style=none] (9) at (-0.375, 0.25) {$B$};
+		\node [style=none] (10) at (-0.375, -0.25) {$B$};
+		\node [style=none] (11) at (-0.375, -0.75) {$C$};
+		\node [style=none] (12) at (1.5, 0.75) {$A$};
+		\node [style=none] (13) at (1.5, -0.75) {$C$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (5.center);
+		\draw [in=90, out=0, looseness=1.00] (1.center) to (4.center);
+		\draw [in=-90, out=0, looseness=1.00] (2.center) to (4.center);
+		\draw (3.center) to (6.center);
+		\draw (4.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+  \]
+  to get 
+  \[
+    \tikzset{every path/.style={line width=1.1pt}}
+    \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.375) {};
+		\node [style=none] (1) at (0.5, 0.375) {};
+		\node [style=none] (2) at (-0.25, -0.375) {};
+		\node [style=none] (3) at (0.5, -0.375) {};
+		\node [style=none] (4) at (0.5, 0.25) {};
+		\node [style=none] (5) at (0.5, -0.25) {};
+		\node [style=none] (6) at (1.25, 0.25) {};
+		\node [style=none] (7) at (1.25, -0.25) {};
+		\node [style=none] (8) at (0.125, -0) {$t\circ s$};
+		\node [style=none] (9) at (1.5, 0.25) {$A$};
+		\node [style=none] (10) at (1.5, -0.25) {$C$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw (2.center) to (0.center);
+		\draw (4.center) to (6.center);
+		\draw (5.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\quad = 
+\quad
+\begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.875, 0.875) {};
+		\node [style=none] (1) at (-0.125, 0.875) {};
+		\node [style=none] (2) at (-0.125, 0.125) {};
+		\node [style=none] (3) at (-0.875, 0.125) {};
+		\node [style=none] (4) at (-0.875, -0.125) {};
+		\node [style=none] (5) at (-0.125, -0.125) {};
+		\node [style=none] (6) at (-0.125, -0.875) {};
+		\node [style=none] (7) at (-0.875, -0.875) {};
+		\node [style=none] (8) at (-0.125, 0.75) {};
+		\node [style=none] (9) at (-0.125, 0.25) {};
+		\node [style=none] (10) at (-0.125, -0.25) {};
+		\node [style=none] (11) at (-0.125, -0.75) {};
+		\node [style=none] (12) at (0.5, -0) {};
+		\node [style=none] (13) at (0.75, 0.75) {};
+		\node [style=none] (14) at (0.75, -0.75) {};
+		\node [style=none] (15) at (-0.5, 0.5) {$s$};
+		\node [style=none] (16) at (-0.5, -0.5) {$t$};
+		\node [style=none] (17) at (1, 0.75) {$A$};
+		\node [style=none] (18) at (1, -0.75) {$C$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (2.center);
+		\draw (2.center) to (3.center);
+		\draw (3.center) to (0.center);
+		\draw (4.center) to (5.center);
+		\draw (5.center) to (6.center);
+		\draw (6.center) to (7.center);
+		\draw (7.center) to (4.center);
+		\draw (8.center) to (13.center);
+		\draw [in=90, out=0, looseness=1.00] (9.center) to (12.center);
+		\draw [in=-90, out=0, looseness=1.00] (10.center) to (12.center);
+		\draw (11.center) to (14.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+in $\mc H(I,A+C)$.
+  
+The monoidal product is given by
+  \[
+    \tikzset{every path/.style={line width=1.1pt}}
+    \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.375) {};
+		\node [style=none] (1) at (0.5, 0.375) {};
+		\node [style=none] (2) at (-0.25, -0.375) {};
+		\node [style=none] (3) at (0.5, -0.375) {};
+		\node [style=none] (4) at (0.5, 0.25) {};
+		\node [style=none] (5) at (0.5, -0.25) {};
+		\node [style=none] (6) at (1.25, 0.25) {};
+		\node [style=none] (7) at (1.25, -0.25) {};
+		\node [style=none] (8) at (0.125, -0) {$s$};
+		\node [style=none] (9) at (1.5, 0.25) {$A$};
+		\node [style=none] (10) at (1.5, -0.25) {$B$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw (2.center) to (0.center);
+		\draw (4.center) to (6.center);
+		\draw (5.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\quad 
++
+\quad
+\begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.375) {};
+		\node [style=none] (1) at (0.5, 0.375) {};
+		\node [style=none] (2) at (-0.25, -0.375) {};
+		\node [style=none] (3) at (0.5, -0.375) {};
+		\node [style=none] (4) at (0.5, 0.25) {};
+		\node [style=none] (5) at (0.5, -0.25) {};
+		\node [style=none] (6) at (1.25, 0.25) {};
+		\node [style=none] (7) at (1.25, -0.25) {};
+		\node [style=none] (8) at (0.125, -0) {$t$};
+		\node [style=none] (9) at (1.5, 0.25) {$C$};
+		\node [style=none] (10) at (1.5, -0.25) {$D$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw (2.center) to (0.center);
+		\draw (4.center) to (6.center);
+		\draw (5.center) to (7.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\quad = \quad 
+\begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.875, 0.875) {};
+		\node [style=none] (1) at (-0.125, 0.875) {};
+		\node [style=none] (2) at (-0.125, 0.125) {};
+		\node [style=none] (3) at (-0.875, 0.125) {};
+		\node [style=none] (4) at (-0.875, -0.125) {};
+		\node [style=none] (5) at (-0.125, -0.125) {};
+		\node [style=none] (6) at (-0.125, -0.875) {};
+		\node [style=none] (7) at (-0.875, -0.875) {};
+		\node [style=none] (8) at (-0.125, 0.75) {};
+		\node [style=none] (9) at (-0.125, 0.25) {};
+		\node [style=none] (10) at (-0.125, -0.25) {};
+		\node [style=none] (11) at (-0.125, -0.75) {};
+		\node [style=none] (12) at (1, 0.75) {};
+		\node [style=none] (13) at (1, 0.25) {};
+		\node [style=none] (14) at (1, -0.25) {};
+		\node [style=none] (15) at (1, -0.75) {};
+		\node [style=none] (16) at (-0.5, 0.5) {$s$};
+		\node [style=none] (17) at (-0.5, -0.5) {$t$};
+		\node [style=none] (18) at (1.25, 0.75) {$A$};
+		\node [style=none] (19) at (1.25, 0.25) {$C$};
+		\node [style=none] (20) at (1.25, -0.25) {$B$};
+		\node [style=none] (21) at (1.25, -0.75) {$D$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (2.center);
+		\draw (2.center) to (3.center);
+		\draw (3.center) to (0.center);
+		\draw (4.center) to (5.center);
+		\draw (5.center) to (6.center);
+		\draw (6.center) to (7.center);
+		\draw (7.center) to (4.center);
+		\draw (8.center) to (12.center);
+		\draw [in=180, out=0, looseness=1.00] (9.center) to (14.center);
+		\draw [in=180, out=0, looseness=1.00] (10.center) to (13.center);
+		\draw (11.center) to (15.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+recalling that we have chosen to represent the equivalence class of corelations
+$A+C \to B+D$ with the apex $A+C+B+D$.
+
+  Taking a hint from the compact closed structure, it is straightforward to
+  construct a pair of inverse hypergraph functors between $G\mathrm{Corel}$ to $\mc H$.
+  Indeed, $G\mathrm{Corel}$ is constructed to have the same collection of
+  objects as $\mc H$; simply have the functors be the `identity' on objects. On
+  morphisms, we take $f: A \to B$ in $\mc H$ to its `name' $\hat f: I \to A+B$
+  as a morphism of $G\mathrm{Corel}$. This is a bijection. 
+  
+  To check it is composition and monoidal product preserving, we can easily use
+  diagrammatic reasoning. For example
+
+  Therefore $\mc H$ is isomorphic
+  as a hypergraph category to $G\mathrm{Corel}$. 
+\end{proof}
+
+\begin{theorem}
+  All hypergraph functors are decorated corelation functors.
+\end{theorem}
+\begin{proof}
+  Let $\mc H$ and $\mc H'$ be hypergraph categories, and $T\maps \mc H \to \mc
+  H'$ be a hypergraph functor. By the above theorem, there exist symmetric lax
+  monoidal functors 
+  \[
+    G\maps \cospan(\FinSet_{\mc O_{\mc H}}) \to \Set 
+  \]
+  and 
+  \[
+    G'\maps \cospan(\FinSet_{\mc O_{\mc H'}}) \to \Set 
+  \]
+  such that $\mc H = G\mathrm{Corel}$ and $\mc H' = G'\mathrm{Corel}$.
+  Furthermore, define a functor $A\maps \FinSet_{\mc O_{\mc H}} \to \FinSet_{\mc
+    O_{\mc H'}}$ taking $N \to \mc O_{\mc H}$ to $N \to \mc O_{\mc H} \to \mc
+  O_{\mc H'}$, where the second map is that by the functor $T$ on objects of
+  $\mc H$. We claim this is a well-defined colimit-preserving functor and show
+  that $T$ can be constructed from a monoidal natural transformation between $G$
+  and $G'\circ A$.
+\end{proof}
+
+Compare with Spivak Vagner construction.
+
+\subsection{Examples.}
+We give some examples reproducing hypergraph categories as decorated corelations
+categories.
+
+\begin{example}
+  Example: empty decorations and equivalence relations. 
+  
+  Consider the hypergraph category $\cospan(\FinSet)$. This is the simplest
+  hypergraph category: it is free hypergraph category on the one object discrete
+  category. We show how to recover it as a decorated corelation category.
+
+  As per Example \ref{ex.undeccorel}, $\cospan(\FinSet)$ is the hypergraph
+  category of undecorated (morphism-isomorphism)-corelations in $\FinSet$. It is
+  also the partition-decorated (isomorphism-morphism)-corelations in $\FinSet$.   
+  
+  First, the global sections functor $G\maps \cospan(\FinSet) \to \Set$ takes
+  each finite set $X$ to the set of (equivalence classes of) cospans $0 \to D
+  \leftarrow X$; that is, to the set of functions $X \to D$ where a unique $D$
+  is chosen for each finite cardinality. Given a cospan $X \stackrel{f}\to N
+  \stackrel{g}\leftarrow Y$, its image under the global sections functor maps a
+  function $a\maps X \to D$, to the function $Y \to N+_YD$ given by
+  \[
+    \xymatrix{
+      & X \ar[r]^d \ar[d]_f & D \ar[d] \\
+      Y \ar[r]^g  & N \ar[r] & N+_YD
+    }
+  \]
+  where the square is a pushout square.
+
+  The coherence maps $\gamma_1\maps 1 \to G\varnothing$ map the unique element
+  of $1$ to the unique function $!\maps \varnothing \to \varnothing$, and
+  $\gamma_{X,Y}$ maps a pair of functions $a\maps X \to D$, $b\maps Y \to E$ to
+  $a+b\maps X+Y \to D+E$. This is a symmetric lax monoidal functor. We use this
+  functor to decorate cospans in $\FinSet$. 
+
+  A decorated cospan in $\FinSet$ with respect to this functor is a cospan $X
+  \to N \leftarrow Y$ in $\FinSet$ together with a function $N \to D$ for some
+  finite set. Using the isomorphism--morphism factorisation, a decorated
+  corelation (a morphism in $G\mathrm{Corel}$) is a
+  cospan $X \to X+Y \leftarrow Y$, together with a function $X+Y \to D$.
+  This is the same as a cospan. 
+
+  The hypergraph structure is given by the decoration $X+X \to X$ etc, as the
+  shift from cospans to corelations takes the `factored out part' and puts it
+  into the decoration. At this point the morphisms are specified entirely by
+  their decoration.
+
+  It is straightforward to show the two categories are isomorphic. Note that the
+  identity on $\FinSet$ maps $\mc I_\FinSet$ into $\FinSet$, and so extends to
+  morphism $\FinSet \to \cospan(\FinSet)$. We can define a monoidal natural
+  transformation $1(X) =1 \stackrel{\theta_X}\to GX = \{X \to D\}$ mapping the
+  unique element to the identity function $1_X\maps X \to X$.
+  \[
+    \xymatrixrowsep{2ex}
+    \xymatrix{
+      \FinSet = \FinSet; \mc I_{\FinSet}^\opp \ar[dd]_{\iota} \ar[drr]^1  \\
+      &\twocell \omit{_\:\theta}& \Set \\
+      \cospan(\FinSet) = \FinSet; \FinSet^\opp \ar[urr]_{G} 
+    }
+  \]
+  It is easy to verify that this is a monoidal natural transformation. This
+  gives the hypergraph functor we expect, mapping the undecorated cospan $X \to
+  N \leftarrow Y$ to $X \to X+Y \leftarrow Y$ decorated by $X+Y \to N$. 
+
+  Like so many examples before, it is easy to verify this is a full, faithful,
+  bijective-on-objects hypergraph functor.
+\end{example}
+
+\begin{example}
+  The previous example extends to any finitely cocomplete category $\mc C$: the
+  hypergraph category $\cospan(\mc C)$ can always be constructed as (i)
+  trivially decorated $(\mc C, \mc I_{\mc C})$-corelations, or (ii) $(\mc I_{\mc
+  C}, \mc C)$-corelations decorated by equivalence classes of morphisms with
+  domain the apex of the corelation, and moreover the isomorphism of these
+  hypergraph categories is given by a monoidal natural transformation between
+  the decorating functors.
+
+  More general still, a category of trivially decorated $(\mc E, \mc
+  M)$-corelations in $\mc C$ can always be constructed also as $(\mc I_{\mc C},
+  \mc C)$-corelations decorated by equivalence classes of morphisms in $\mc E$
+  with domain the apex of the corelation, and the isomorphism of these
+  hypergraph categories is given by a monoidal natural transformation between
+  the decorating functors.
+
+  Most general, the theorem implies that any category of decorated
+  corelations can be constructed also as $(\mc I_{\mc C}, \mc C)$-corelations
+  decorated by codomain decorated morphisms in $\mc E$. The latter are specified
+  by a functor $\cospan(\mc C) \to \Set$, as in the theorem.
+
+  The latter form is good for constructing functors that have image the
+  corelation category.
+\end{example}
+
+Note that with decorated corelations we have a method of constructing hypergraph
+categories from other hypergraph categories. This is black boxing. 
+
+\section{Examples} \label{sec:excor}
+\subsection{Path integrals and matrices}
+
+Let $R$ be a commutative ring. Take functor
+\begin{align*}
+  R^{(-)}: (\mathrm{FinSet}^\opp,+) &\longrightarrow (\Set,\times) \\
+  X &\longmapsto R^X
+\end{align*}
+
+Then $R^{(-)}\mathrm{Cospan}$ is path integrals, $R^{(-)}\mathrm{Corel}$ is
+matrices over $R$. 
+
+Many aspects of this example are `atypical', regarding the intuition we have
+been working towards.
+Note that the monoidal product here is the tensor product of
+matrices, not the biproduct. Indeed, there is no special commutative Frobenius
+algebra in $\Vect$ if we use the biproduct, but if we use the tensor product
+then these correspond to orthonormal bases (Vicary). The comultiplication is the
+diagonal map, multiplication is codiagonal. unit produces basis.
+
+We note that you could take decorations here in the category $R\mathrm{Mod}$ of
+$R$-modules. While Proposition \ref{prop.setdecorations} shows that the
+resulting decorated cospans category would be isomorphic, this hints at an
+enriched version of the theory.
+
+\subsection{Two constructions for linear relations}
+
+We saw earlier that linear relations are epi-mono corelations in $\Vect$. The
+hypergraph structure is given by addition. We show how to recover this in
+another construction. We also get a hypergraph functor between them. This is
+very useful for compositional linear relations semantics of diagrams.
+
+We can also construct linear relations in $\Vect^\opp$.
+
+\begin{align*}
+  \maps\mathrm{Cospan}(\mathrm{FinSet}) &\longrightarrow \mathrm{Set} \\
+  X &\longmapsto \{\mathrm{subspaces of }k^X\} \\
+  f: X \to Y &\longmapsto L \mapsto \{v \mid v\circ f \in L\} \\
+  f^\opp: X \to Y &\longmapsto L \mapsto \{v = u \circ f \mid u \in L\}
+\end{align*}
+
+Then $\mathrm{Cospan}$ is cospans decorated by subspaces, and $\mathrm{Corel}$
+is linear relations. This is important for circuits work \cite{BF,BSZ}.
+
+\subsection{Automata}
+This construction comes immediately from Walters et al. Automata are alphabet
+labelled graphs. There is a decorated cospan functor to categories enriched over
+languages, and this factors nicely to get a decorated corelation category with
+morphisms languages recognised between points in domain and codomain.
+
+
+\section{Further directions}
+
+The dual picture also exists. This is a way to deal with bimonoids probably?
+
+\appendix
+
+\section{Appendix: Proofs} \label{sec:proofs}
+
+\paragraph{Decorations in $\Set$ are general.} \label{ssec.setdecorations}
+
+Due to Sam Staton.
+
+\begin{proposition} \label{prop.setdecorations}
+  Let $F\maps (\mathcal C, +) \to (\mathcal D, \otimes)$ be a braided lax monoidal
+  functor. Write $\mathcal D(I,-)\maps (\mathcal D, \otimes) \to (\Set,
+  \times)$ for the `global sections functor' taking each object $X \in \mathcal
+  D$ to the homset $\mathcal D(I,X)$. Then $F\mathrm{Cospan}$ and $(\mathcal
+  D(I,-)\circ F)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
+\end{proposition}
+\begin{proof}
+  Note that the global sections functor is always lax braided monoidal. We have
+  the commutative-by-definition triangle of braided lax monoidal functors
+  \[
+    \xymatrixrowsep{2ex}
+    \xymatrix{
+      && (\mathcal D,\otimes) \ar[dd]^{\mathcal D(I,-)} \\
+      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,-)\circ F} \\
+      && (\Set, \times)
+    }
+  \]
+  By Theorem 4.1 of \cite{F}, this gives a strict hypergraph functor
+  $F\mathrm{Cospan} \to (\mathcal D(I,-)\circ F)\mathrm{Cospan}$. It is easily
+  checked that this functor is bijective-on-objects, full, and faithful.
+\end{proof}
+
+\paragraph{Associativity.}
+
+We might supply a more direct proof of the associativity of decorated
+corelations through the following.
+\begin{lemma}
+  Let 
+  \[
+    \xymatrix{
+      & A+_CB \\
+      A \ar[ur] && B \ar[ul] \\
+      & C \ar[ul] \ar[ur]
+    }
+  \]
+  be a pushout diagram, and let $C \to B$ factor through $\widetilde B \to B$.
+  Then
+  \[
+    \xymatrix{
+      & A+_CB \\
+      A+B \ar[ur] && A+_C \widetilde B \ar[ul] \\
+      & A+\widetilde B \ar[ul] \ar[ur]
+    }
+  \]
+  is a pushout diagram.
+\end{lemma}
+
+To take a decoration on $A+B$ to one on $A+_C\widetilde B$ we may either reduce to
+the $\mathcal E$-part of $B$ and then pushout over $C$, or pushout over $C$ and
+then reduce to the $\mathcal E$ part of $B$. This lemma implies that both
+processes result in the same decoration.
+
+
+
