@@ -4,7 +4,8 @@
 
   \pgfdeclarelayer{edgelayer}
   \pgfdeclarelayer{nodelayer}
-  \pgfsetlayers{edgelayer,nodelayer,main}
+  \pgfdeclarelayer{background}
+  \pgfsetlayers{background,edgelayer,nodelayer,main}
 
   \tikzset{font=\footnotesize}
   \tikzstyle{none}=[inner sep=0pt]

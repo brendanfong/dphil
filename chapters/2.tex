@@ -252,6 +252,97 @@ that the extra clarity is worth the clutter. We write:
 \end{itemize}
 
 
+
+\subsection{Decorated cospans}
+
+Above we learned that the category of finite complete categories embeds
+faithfully into the category of hypergraph categories.
+
+\begin{theorem}
+  The category of symmetric lax monoidal presheaves over finitely complete categories embeds
+  faithfully into $\mathrm{HypCat}$.
+\end{theorem}
+
+Write $(\Set,\times)$ for the
+symmetric monoidal category of finite sets where the monoidal product is the
+categorical product and the braiding is pairings of the identity maps.
+
+\begin{definition} \label{def:fcospanss}
+  Let $\mathcal C$ be a category with finite colimits, and
+  \[
+    (F,\varphi): (\mathcal C,+) \longrightarrow (\Set, \times)
+  \]
+  be a symmetric lax monoidal functor. We define a \define{decorated cospan}, or more
+  precisely an $F$-decorated cospan, to be a pair 
+  \[
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& N \\  
+	X \ar[ur]^{i} && Y \ar[ul]_{o}
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	FN \\
+	1 \ar[u]_{s}
+      }
+    \end{aligned}
+    \right)
+  \]
+  comprising a cospan $X \stackrel{i}\rightarrow N \stackrel{o}\leftarrow Y$ in
+  $\mathcal C$ together with an element $1 \stackrel{s}\rightarrow FN$ of
+  the $F$-image $FN$ of the apex of the cospan. The element $1
+  \stackrel{s}\rightarrow FN$ is known as the \define{decoration} of the decorated
+  cospan. A morphism of decorated cospans 
+  \[
+    n: \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow
+    Y,\enspace 1 \stackrel{s}\longrightarrow FN\big) \longrightarrow \big(X
+    \stackrel{i'_X}\longrightarrow N' \stackrel{o'_Y}\longleftarrow Y,\enspace 1
+    \stackrel{s'}\longrightarrow FN'\big)
+  \]
+  is a morphism $n: N \to N'$ of cospans such that $Fn \circ s = s'$.
+\end{definition}
+
+In previous expositions of decorated cospans we have let decorations lie in any
+braided monoidal category. In conversations with the author, Sam Staton pointed
+out that it is general enough to let decorations lie in the symmetric monoidal
+category $(\Set,\times)$, where the braiding is the map $X \times Y \to Y \times
+X$ that swaps coordinates. See Appendix \ref{ssec.setdecorations} for more details.
+
+
+On representatives of the isomorphism classes, composition of decorated
+cospans is given by the usual composite cospan decorated with the composite
+\[
+  1 \stackrel{\lambda^{-1}}\longrightarrow 1 \otimes 1 \stackrel{s \otimes
+  t}\longrightarrow FN \otimes FM \stackrel{\varphi_{N,M}}\longrightarrow
+  F(N+M) \stackrel{F[j_N,j_M]}\longrightarrow F(N+_YM)
+\]
+of the tensor product of the decorations with the $F$-image of the copairing
+of the pushout maps.
+
+Each cospan may be given the empty decoration. The \define{empty decoration} is the
+decoration $1 \stackrel{\varphi_1}{\rightarrow} F\varnothing
+\stackrel{F!}{\rightarrow} FN$.
+
+\begin{definition} \label{thm:fcospanss}
+  Let $\mathcal C$ be a category with finite colimits and $(F,\varphi):
+  (\mathcal C,+) \to (\Set, \times)$ a symmetric lax monoidal functor. We define
+  the hypergraph category $F\mathrm{Cospan}$ to comprise:
+
+  \begin{tabular}{ r p{.6\textwidth}}
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & isomorphism classes of $F$-decorated cospans in
+    $\mathcal C$\\ 
+  \textbf{composition} & given by pushout \\
+  \textbf{tensor product} & the coproduct in $\mathcal C$. \\
+  \textbf{coherence maps} & empty decorated maps from $\cospan(\mc C)$ \\
+  \textbf{hypergraph maps} & empty decorated maps from $\cospan(\mc C)$
+  \end{tabular}
+\end{definition}
+
 \section{Decorated cospan categories} \label{sec:dcc}
 
 We now detail our central construction and state the main theorem.

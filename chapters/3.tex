@@ -79,179 +79,6 @@ cartesian product.
 If a monoidal structure on $\FinSet$ is not specified, we assume it is the
 disjoint union. 
 
-\section{Background}
-
-\subsection{Cospans}
-We give a fundamental example of hypergraph categories.
-
-  Hypergraph categories are closely related to cospans. The free hypergraph
-  category on a single object in the category of cospans in the category of
-  finite sets. SpivakVagner?
-  
-  Let $\mc C$ be a category with finite colimits.
-Recall that a \define{cospan} $X \stackrel{i}{\longrightarrow} N
-\stackrel{o}{\longleftarrow} Y$  from $X$ to $Y$ in $\mathcal C$ is a pair of
-morphisms with common codomain. We refer to $X$ and $Y$ as the \define{feet},
-and $N$ as the \define{apex}.  Given two cospans $X
-\stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y$ and $X
-\stackrel{i'}{\longrightarrow} N' \stackrel{o'}{\longleftarrow} Y$ with the same
-feet, a \define{map of cospans} is a morphism $n\colon  N \to N'$ in $\mathcal
-C$ between the apices such that
-\[
-  \xymatrix{
-    & N \ar[dd]^n  \\
-    X \ar[ur]^{i} \ar[dr]_{i'} && Y \ar[ul]_{o} \ar[dl]^{o'}\\
-    & N'
-  }
-\]
-commutes.
-
-Cospans may be composed, up to isomorphism, using the pushout from the common
-foot: given cospans $X \stackrel{i_X}{\longrightarrow} N
-\stackrel{o_Y}{\longleftarrow} Y$ and $Y \stackrel{i_Y}{\longrightarrow} M
-\stackrel{o_Z}{\longleftarrow} Z$, their composite cospan is $X \stackrel{j_N
-  \circ i_X}{\longrightarrow} N+_YM \stackrel{j_M\circ i_Z}{\longleftarrow} Z$,
-  where 
-\[
-  \xymatrix{
-    && N+_YM \\
-    & N \ar[ur]^{j_N} && M \ar[ul]_{j_M} \\
-    \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z \quad \ar[ul]_{o_Z}
-  }
-\]
-is a pushout square. 
-
-We consider any category $\mathcal C$ as a symmetric monoidal category with
-monoidal product given by the coproduct, written $+$, and braiding given by the
-maps $A+B \to B+A$ by copairing identity maps. 
-
-Given maps $f \maps A \to C$, $g \maps B \to C$ with common codomain, the
-universal property of the coproduct gives a unique map $\maps A+B \to C$. We
-call this the \define{copairing} of $f$ and $g$, and write it $[f,g]$. 
-
-\begin{definition} \label{thm.cospanwelldef}
-  Let $\mc C$ be a category with finite colimits. We define the hypergraph
-  category $\mathrm{Cospan}(\mathcal C)$ to comprise:
-  
-  \begin{tabular}{ r p{.6\textwidth}}
-    \textbf{objects} & the objects of $\mathcal C$ \\ 
-    \textbf{morphisms} & isomorphism classes of cospans in
-    $\mathcal C$\\ 
-  \textbf{composition} & given by pushout \\
-  \textbf{tensor product} & the coproduct in $\mathcal C$. \\
-  \textbf{coherence maps} & inherited from $(\mc C,+)$ $\sigma_{X,Y} = [\iota_Y,\iota_X] \maps X+Y
-      \to Y+X$\\
-  \textbf{hypergraph maps} & $\mu_X = [1_X,1_X]$, $\eta_X = !$,
-      $\delta_X = \mu_X^\opp$, $\epsilon_X = \eta_X^\opp$.
-  \end{tabular}
-\end{definition}
-
-\begin{notation}
-Note that we have committed the following common abuses of notation in the above
-definition: by referring to cospans themselves as
-  morphisms in some cospan category $\mathrm{Cospan}(\mathcal C)$; this of
-  course refers instead to the isomorphism class of the said cospan.
-
-  Given $f \maps X \to Y$ in $\mc C$, we also abuse notation by writing $f \in
-  \mathrm{Cospan}(\mc C)$ for the cospan $X \stackrel{f}\to Y
-  \stackrel{1_Y}\leftarrow Y$, and $f^\opp$ for the cospan $Y \stackrel{1_Y}\to
-  Y \stackrel{f}\leftarrow X$.
-\end{notation}
-
-FinCocompleteCat faithfully embeds into HyperCat. ie any monoidal category of
-cospans has a hypergraph structure inherited from the identity morphisms.
-
-\subsection{Decorated cospans}
-
-Above we learned that the category of finite complete categories embeds
-faithfully into the category of hypergraph categories.
-
-\begin{theorem}
-  The category of symmetric lax monoidal presheaves over finitely complete categories embeds
-  faithfully into $\mathrm{HypCat}$.
-\end{theorem}
-
-Write $(\Set,\times)$ for the
-symmetric monoidal category of finite sets where the monoidal product is the
-categorical product and the braiding is pairings of the identity maps.
-
-\begin{definition} \label{def:fcospanss}
-  Let $\mathcal C$ be a category with finite colimits, and
-  \[
-    (F,\varphi): (\mathcal C,+) \longrightarrow (\Set, \times)
-  \]
-  be a symmetric lax monoidal functor. We define a \define{decorated cospan}, or more
-  precisely an $F$-decorated cospan, to be a pair 
-  \[
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& N \\  
-	X \ar[ur]^{i} && Y \ar[ul]_{o}
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	FN \\
-	1 \ar[u]_{s}
-      }
-    \end{aligned}
-    \right)
-  \]
-  comprising a cospan $X \stackrel{i}\rightarrow N \stackrel{o}\leftarrow Y$ in
-  $\mathcal C$ together with an element $1 \stackrel{s}\rightarrow FN$ of
-  the $F$-image $FN$ of the apex of the cospan. The element $1
-  \stackrel{s}\rightarrow FN$ is known as the \define{decoration} of the decorated
-  cospan. A morphism of decorated cospans 
-  \[
-    n: \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow
-    Y,\enspace 1 \stackrel{s}\longrightarrow FN\big) \longrightarrow \big(X
-    \stackrel{i'_X}\longrightarrow N' \stackrel{o'_Y}\longleftarrow Y,\enspace 1
-    \stackrel{s'}\longrightarrow FN'\big)
-  \]
-  is a morphism $n: N \to N'$ of cospans such that $Fn \circ s = s'$.
-\end{definition}
-
-In previous expositions of decorated cospans we have let decorations lie in any
-braided monoidal category. In conversations with the author, Sam Staton pointed
-out that it is general enough to let decorations lie in the symmetric monoidal
-category $(\Set,\times)$, where the braiding is the map $X \times Y \to Y \times
-X$ that swaps coordinates. See Appendix \ref{ssec.setdecorations} for more details.
-
-
-On representatives of the isomorphism classes, composition of decorated
-cospans is given by the usual composite cospan decorated with the composite
-\[
-  1 \stackrel{\lambda^{-1}}\longrightarrow 1 \otimes 1 \stackrel{s \otimes
-  t}\longrightarrow FN \otimes FM \stackrel{\varphi_{N,M}}\longrightarrow
-  F(N+M) \stackrel{F[j_N,j_M]}\longrightarrow F(N+_YM)
-\]
-of the tensor product of the decorations with the $F$-image of the copairing
-of the pushout maps.
-
-Each cospan may be given the empty decoration. The \define{empty decoration} is the
-decoration $1 \stackrel{\varphi_1}{\rightarrow} F\varnothing
-\stackrel{F!}{\rightarrow} FN$.
-
-\begin{definition} \label{thm:fcospanss}
-  Let $\mathcal C$ be a category with finite colimits and $(F,\varphi):
-  (\mathcal C,+) \to (\Set, \times)$ a symmetric lax monoidal functor. We define
-  the hypergraph category $F\mathrm{Cospan}$ to comprise:
-
-  \begin{tabular}{ r p{.6\textwidth}}
-    \textbf{objects} & the objects of $\mathcal C$ \\ 
-    \textbf{morphisms} & isomorphism classes of $F$-decorated cospans in
-    $\mathcal C$\\ 
-  \textbf{composition} & given by pushout \\
-  \textbf{tensor product} & the coproduct in $\mathcal C$. \\
-  \textbf{coherence maps} & empty decorated maps from $\cospan(\mc C)$ \\
-  \textbf{hypergraph maps} & empty decorated maps from $\cospan(\mc C)$
-  \end{tabular}
-\end{definition}
-
-This is well-defined \cite{F}.
 
 \subsection{Factorisation systems.}
 
@@ -663,6 +490,35 @@ Before completing this proof in the next section, we note a few examples.
   $\corel(\mathcal C)$ and each cospan to its $\mathcal E$-part.
 \end{corollary}
 
+
+\subsection{Extraspecial commutative Frobenius monoids}
+\begin{definition}
+  An \define{extraspecial commutative Frobenius monoid}
+  $(X,\mu,\eta,\delta,\epsilon)$ in a monoidal category $(\mathcal C, \otimes)$
+  is a special commutative Frobenius monoid that further obeys the extra law
+  \[
+    \extral{.1\textwidth} = \extrar{.1\textwidth}
+  \]
+\end{definition}
+
+The extra law is a more recent discovery, appearing first under this name in the
+work of Baez and Erbele \cite{BE}, as the `bone law' in \cite{BSZ,FRS}, and as
+the `irredundancy law' in \cite{Za}.
+
+Observe that each of these equations equate string diagrams that connect
+precisely the same elements of the domain and codomain. To wit, the
+associativity, coassociativity, and Frobenius laws show that the order in which
+we build a connected component through pairwise clustering is irrelevant, the
+special law shows that having multiple connections between points is irrelevant,
+and the extra law shows that `extra' components not connected to the domain or
+codomain are irrelevant. 
+
+Theorem will show that these equations are exactly those required to
+have the converse: two morphisms built from the generators of an extraspecial
+commutative Frobenius monoid are equal and if and only if their diagrams impose
+the same connectivity relations on the disjoint union of the domain and
+codomain. This formalises an extension of the well-known spider theorem for
+special commutative Frobenius monoids \cite{CK,CPP}. 
 
 \subsection{Linear relations as corelations in $\Vect$.}
 
