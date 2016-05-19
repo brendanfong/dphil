@@ -1,5 +1,107 @@
 \chapter{Signal flow diagrams}
+
 \section{Introduction}
+\subsection{Behavioural control}
+
+Control theory begins with the following picture:		
+\[
+\begin{tikzpicture}
+\node(system) [shape=rectangle,draw,inner sep=20pt] at (0,0) {\textsf{system}};
+\node(input) at (-3.5,0) {\small{\textsf{input}}};
+\node(output) at (3.5,0) {\small{\textsf{output}}};
+\draw [->,shorten >=5pt,>=stealth,very thick] (input) 	-- (system);
+\draw [->,shorten <=5pt,>=stealth,very thick] (system)	-- (output);
+\end{tikzpicture}
+\]
+In this picture we have an object under study, referred to as a \emph{system}, which when fed certain inputs produces certain outputs. These outputs need not be uniquely determined by the inputs; in general the relationship may be stochastic or non-deterministic, or depend also on internal states of the system. Although we take it as given that the system is an \emph{open} system---so it interacts with its environment, and so we can observe its inputs and outputs---we assume no access to the details of these internal states or the inner workings of the system, and this can add considerable complexity to our models. The end goal of control theory is then to control the system: to understand how to influence its behaviour in order to achieve some desired goal. Two key questions arise: 
+\begin{itemize}
+\item \textbf{Analysis}: Given a system, what is the relationship it induces between input and output?
+\item \textbf{Synthesis}: Given a target relationship between input and output, how do we build a system that produces this relationship?
+\end{itemize}
+The first, the question of system analysis, provides the basic understanding required to find the inputs that lead to the desired outputs. The second question, the question of synthesis, is the central question of feedback control theory, which aims to design controllers to regulate other systems. We give brief overview of the field, illustrated with some questions of these kinds.
+
+Control has a long history. Indeed, many systems found in the biology and chemistry of living organisms have interesting interpretations from a control theoretic viewpoint, such as those that are responsible for body temperature regulation or bipedal balance \cite{So2}. Human understanding of control developed alongside engineering, and so dates back at least as far as antiquity, with for example the ancient Romans devising elaborate systems to maintain desired water levels in aqueducts \cite{So}. The origin of formal mathematical control theory, however, is more recent, and in general taken to be James Clerk Maxwell's seminal analysis of centrifugal governors, presented to the Royal Society of London in 1868 \cite{CM}. 
+
+A good example of a basic, but characteristic, system studied by control theory,
+centrifugal governors were developed to address the problem of speed regulation
+for steam engines. A centrifugal governor consists of masses attached via lever
+arms to a vertical spindle, as depicted in Figure . This spindle is then connected to the output wheel of an engine, and the height of the masses is inversely related to the aperture of the steam valve into the engine. Higher speeds therefore cause the spindle to rotate faster, which in turn causes the masses to move upward and decrease the flow of steam into the engine. This moderates or prevents acceleration, and hence overspeeding of the engine. Maxwell's paper classifies the possible trajectories over time of the speed of a governed steam engine. 
+
+With respect to the framework laid out above, there are three systems under investigation here. The first is the steam engine, with input steam flow and output engine speed. The second is the centrifugal governor, with input engine speed and output steam flow. The third is the combined governor-steam engine, which forms the main system under investigation, with again input steam flow and output engine speed.
+
+The techniques used and developed from Maxwell's paper, in particular by Rayleigh and Heaviside, are in general known as \emph{transfer function} techniques. A transfer function is a linear map from the set of inputs to the set of outputs of a linear time-invariant system with zero initial conditions. Transfer functions are commonly used in the analysis of single-input single-output linear systems, but become unwieldy or inapplicable for more general systems.
+
+In the 1960s, led by Wiener and Kalman, so-called \emph{state space} techniques were developed to address multiple-input multiple-output, time-varying, nonlinear systems \cite{Fr}. These methods are characterised by defining a system as a collection of input, output, and internal state variables, with the state changing as a function of the input and state variables over time, and the output a function of the input and state. These functions are often implicitly specified by differential equations.
+
+In general, however, classical control theory remains grounded in a paradigm that defines and analyses systems in terms of inputs and outputs or, from another perspective, causes and effects. In recent years Willems, among others, has argued that this input-output perspective is limiting, as in the case of many systems studied through control theory there is no clear distinction between input and output variables \cite{Wi}. For example, given a circuit component for which the relevant variables are the voltages and currents, different contexts may call for the voltage to be viewed as the input and current output, or vice versa. It is useful to have a single framework capable of discussing the behaviour of the component without making this choice.
+
+Moreover, in the drive to understand larger and more complex systems, increasing emphasis has been put on understanding the way systems can be broken down into composite subsystems, and conversely how systems link together to form larger systems \cite{Wi2, KT}. Indeed, interconnection or composition of systems has always played a central role in systems engineering, as in the combination of the centrifugal governor and steam engine of Maxwell's research, and the difficulty of discussing how systems compose within an input-output framework lends support to Willems' call for a more nuanced definition of control system. To illustrate these difficulties, consider the simple example of two water tanks each with two access pipes:
+\[
+\begin{tikzpicture}
+    % draw the tanks
+    \begin{pgfonlayer}{main}
+    \draw (-4,.1)--(-3,.1)--(-3,0)--(-1,0)--(-1,.1)--(0,.1);
+    \draw (-4,.3)--(-3,.3)--(-3,2)--(-1,2)--(-1,.3)--(0,.3);
+    \node at (-3,.3) [anchor=-55]{\scriptsize$\begin{array}{c} p_{A1} \\ f_{A1} \end{array}$};
+    \node at (-1,.3) [anchor=-125]{\scriptsize$\begin{array}{c} p_{A2} \\ f_{A2} \end{array}$};
+    \node at (-2,1){Tank $A$};
+    \end{pgfonlayer}
+    % fill them with water (in the background)
+    \begin{pgfonlayer}{background}
+        \filldraw[blue!20] (-4,.1)--(-3,.1)--(-3,0)--(-1,0)--(-1,.1)
+        --(0,.1)--(0,.3)--(-1,.3)--(-1,1.8)--(-3,1.8)--(-3,.3)--(-4,.3)
+        --cycle;
+    \end{pgfonlayer}
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}
+    % draw the tanks
+  \begin{pgfonlayer}{main}
+    \draw (-4,.1)--(-3,.1)--(-3,0)--(-1,0)--(-1,.1)--(0,.1);
+    \draw (-4,.3)--(-3,.3)--(-3,1.7)--(-1,1.7)--(-1,.3)--(0,.3);
+    \node at (-3,.3) [anchor=-55]{\scriptsize$\begin{array}{c} p_{B1} \\ f_{B1} \end{array}$};
+    \node at (-1,.3) [anchor=-125]{\scriptsize$\begin{array}{c} p_{B2} \\ f_{B2} \end{array}$};
+    \node at (-2,1){Tank $B$};
+    \end{pgfonlayer}
+    % fill them with water (in the background)
+    \begin{pgfonlayer}{background}
+        \filldraw[blue!20] (-4,.1)--(-3,.1)--(-3,0)--(-1,0)--(-1,.1)
+        --(0,.1)--(0,.3)--(-1,.3)--(-1,1.5)--(-3,1.5)--(-3,.3)--(-4,.3)
+        --cycle;
+    \end{pgfonlayer}
+\end{tikzpicture}
+\]
+For each tank, the relevant variables are the pressure $p$ and the flow $f$. A typical control theoretic analysis might view the water pressure as inducing flow through the tank, and hence take pressure as the input variable, flow as the output variable, and describe each tank as a transfer function $H_\bullet: P_\bullet \to F_\bullet$ between the sets $P_\bullet$ and $F_\bullet$ these vary over. 
+
+Ideally then, the composite system below, connecting pipe 2 of Tank $A$ to pipe 1 of Tank $B$, would be described by the composite of the transfer functions $H_A$ and $H_B$ of these tanks.
+\[
+\begin{tikzpicture}
+    % draw the tanks
+    \draw (-4,.1)--(-3,.1)--(-3,0)--(-1,0)--(-1,.1)--(1,.1)--(1,0)--(3,0)--(3,.1)--(4,.1);
+    \draw (-4,.3)--(-3,.3)--(-3,2)--(-1,2)--(-1,.3)--(1,.3)--(1,1.7)--(3,1.7)--(3,.3)--(4,.3);
+    % fill them with water (in the background)
+    \begin{pgfonlayer}{background}
+        \filldraw[blue!20] (-4,.1)--(-3,.1)--(-3,0)--(-1,0)--(-1,.1)
+        --(1,.1)--(1,0)--(3,0)--(3,.1)--(4,.1)
+        --(4,.3)--(3,.3)--(3,1.63)--(1,1.63)--(1,.3)
+        --(-1,.3)--(-1,1.7)--(-3,1.7)--(-3,.3)--(-4,.3)
+        --cycle;
+    \end{pgfonlayer}
+    \node at (-3,.3) [anchor=-55]{\scriptsize$\begin{array}{c} p_{A1} \\ f_{A1} \end{array}$};
+    \node at (3,.3) [anchor=-125]{\scriptsize$\begin{array}{c} p_{B2} \\ f_{B2} \end{array}$};
+    \node at (-1,.3) [anchor=-125]{\scriptsize$\begin{array}{c} p_{A2} \\ f_{A2} \end{array}$};
+    \node at (1,.3) [anchor=-55]{\scriptsize$\begin{array}{c} p_{B1} \\ f_{B1} \end{array}$};
+    \node at (-2,1){Tank $A$};
+    \node at (2,1){Tank $B$};
+\end{tikzpicture}
+\]
+This is rarely the case, and indeed makes little sense: the output of transfer function $H_A$ describes the flow through Tank $A$, while the domain of the transfer function $H_B$ describes pressures through Tank $B$, so taking the output of $H_A$ as the input of $H_B$ runs into data type issues. Instead, here the relationship between the transfer functions $H_A$ and $H_B$, and the transfer function $H_{AB}$ of the composite system can be understood through the fact that connection requires the pressure at pipe 1 of Tank $A$ must be equal to the pressure at pipe 2 of Tank $B$, and that the flow out of the former pipe must equal the flow into the latter---that is, by imposing the relations 
+\begin{align*}
+p_{A2} &= p_{B1} \\ f_{A2} &= - f_{B1}
+\end{align*}
+on the variables. Indeed in many contexts, hydraulics and electronics among them, connections between systems are characterised not by the `output' of one system forming the `input' of the next, but by \emph{variable sharing} between the systems. Such relations are often difficult to describe using the language of transfer functions and state space methods.
+
+\subsection{Signal flow}
 
 The remit of this paper is the development of a sound and fully complete
 equational theory of linear time-invariant (LTI) dynamical systems.  This theory

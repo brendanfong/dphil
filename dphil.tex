@@ -20,10 +20,12 @@
 \setcounter{tocdepth}{3}
 
 \maketitle                 
-\include{frontmatter/dedication} 
-\include{frontmatter/acknowledgements}  
+\pagestyle{empty}
+%\include{frontmatter/dedication} 
+%\include{frontmatter/acknowledgements}  
 \include{frontmatter/abstract} 
 
+\pagestyle{plain}
 \begin{romanpages} 
 \tableofcontents
 \include{chapters/overview}
@@ -31,7 +33,6 @@
 \end{romanpages}
 
 \pagestyle{fancy}
-
 \part{Mathematical Foundations}
 
 \include{chapters/1}
@@ -42,7 +43,7 @@
 
 \include{chapters/4}
 \include{chapters/5}
-%\include{chapters/6}
+\include{chapters/6}
 
 \phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
