@@ -231,29 +231,13 @@ are inspired by diagrammatic applications, the hypergraph structure provides
 language to describe natural operations on our diagrams, such as juxtaposing,
 rotating, and reflecting them.
 
-\subsection{Outline.}
-The structure of this paper is straightforward: in the following section we
+The structure of this chapter is straightforward: in the following section we
 review some basic background material, which then allows us to give the
 constructions of decorated cospan categories and their functors in Sections
 \ref{sec:dcc} and \ref{sec:dcf} respectively. We then explicate these
 definitions through some examples in Section \ref{sec:ex}. 
 
-\subsection{Notation.}
-We shall assume the following standard names for certain distinguished objects
-and morphisms, only disambiguating the symbols with subscripts when we judge
-that the extra clarity is worth the clutter. We write: 
-\begin{itemize} 
-  \item $1$ for both identity morphisms and monoidal units, leaving context to
-    determine which one we mean.
-  \item $\lambda$, $\rho$, $a$, and $\sigma$ for respectively the left unitor, right unitor,
-    associator, and, if present, braiding, in a monoidal category.
-  \item $\varnothing$ for the initial object in a category.
-  \item $!$ for the unique map from the initial object to a given object.
-\end{itemize}
-
-
-
-\subsection{Decorated cospans}
+\section{Decorated cospan categories} \label{sec:dcc}
 
 Above we learned that the category of finite complete categories embeds
 faithfully into the category of hypergraph categories.
@@ -263,9 +247,12 @@ faithfully into the category of hypergraph categories.
   faithfully into $\mathrm{HypCat}$.
 \end{theorem}
 
-Write $(\Set,\times)$ for the
-symmetric monoidal category of finite sets where the monoidal product is the
-categorical product and the braiding is pairings of the identity maps.
+
+Write $(\Set,\times)$ for the symmetric monoidal category of finite sets where
+the monoidal product is the categorical product and the braiding is pairings of
+the identity maps.
+
+
 
 \begin{definition} \label{def:fcospanss}
   Let $\mathcal C$ be a category with finite colimits, and
@@ -310,7 +297,34 @@ In previous expositions of decorated cospans we have let decorations lie in any
 braided monoidal category. In conversations with the author, Sam Staton pointed
 out that it is general enough to let decorations lie in the symmetric monoidal
 category $(\Set,\times)$, where the braiding is the map $X \times Y \to Y \times
-X$ that swaps coordinates. See Appendix \ref{ssec.setdecorations} for more details.
+X$ that swaps coordinates. 
+
+\paragraph{Decorations in $\Set$ are general.} \label{ssec.setdecorations}
+
+Due to Sam Staton.
+
+\begin{proposition} \label{prop.setdecorations}
+  Let $F\maps (\mathcal C, +) \to (\mathcal D, \otimes)$ be a braided lax monoidal
+  functor. Write $\mathcal D(I,-)\maps (\mathcal D, \otimes) \to (\Set,
+  \times)$ for the `global sections functor' taking each object $X \in \mathcal
+  D$ to the homset $\mathcal D(I,X)$. Then $F\mathrm{Cospan}$ and $(\mathcal
+  D(I,-)\circ F)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
+\end{proposition}
+\begin{proof}
+  Note that the global sections functor is always lax braided monoidal. We have
+  the commutative-by-definition triangle of braided lax monoidal functors
+  \[
+    \xymatrixrowsep{2ex}
+    \xymatrix{
+      && (\mathcal D,\otimes) \ar[dd]^{\mathcal D(I,-)} \\
+      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,-)\circ F} \\
+      && (\Set, \times)
+    }
+  \]
+  By Theorem 4.1 of \cite{F}, this gives a strict hypergraph functor
+  $F\mathrm{Cospan} \to (\mathcal D(I,-)\circ F)\mathrm{Cospan}$. It is easily
+  checked that this functor is bijective-on-objects, full, and faithful.
+\end{proof}
 
 
 On representatives of the isomorphism classes, composition of decorated
@@ -343,7 +357,6 @@ decoration $1 \stackrel{\varphi_1}{\rightarrow} F\varnothing
   \end{tabular}
 \end{definition}
 
-\section{Decorated cospan categories} \label{sec:dcc}
 
 We now detail our central construction and state the main theorem.
 \begin{definition} \label{def:fcospans}
@@ -1182,21 +1195,10 @@ interpretation of the decorating structure. In this setting the above theorem
 constructs functorial semantics for the decorated cospan category of diagrams.
 We conclude this paper with an example of this application of decorated cospans.
 
-\section{Examples} \label{sec:ex}
 
-In this final section we outline two constructions of decorated cospan
-categories, based on labelled graphs and linear subspaces respectively, and a
-functor between these two categories interpreting each graph as an electrical
-circuit. We shall see that the decorated cospan framework allows us to take a
-notion of closed system and construct a corresponding notion of open or
-composable system, together with functorial semantics for these systems.
+\section{Example: labelled graphs} \label{sec:ex}
 
-This electrical circuits example outlines the motivating application for the
-decorated cospan construction; further details can be found in \cite{BF}.
-
-\subsection{Labelled graphs.}
-
-To begin we return to the example of this paper's introduction. 
+We return to the example of this paper's introduction. 
 
 Recall that a \define{$(0,\infty)$-graph} $(N,E,s,t,r)$ comprises a finite set
 $N$ of vertices (or nodes), a finite set $E$ of edges, functions $s,t\colon  E \to N$
@@ -1250,3 +1252,28 @@ of this category and its composition rule, see this paper's introduction.
 
 
 
+\section{A bicategory of decorated cospans}
+Decorated cospans in fact form the morphisms of bicategory, not merely a
+category. In this bicategory, in fact a symmetric monoidal bicategory, the
+2-morphisms are given by morphisms $h$ in $\mc C$ such that the pair 
+  \[
+    \left(
+    \begin{aligned}
+      \xymatrix{
+	& N \ar[dd]^h \\  
+	X \ar[ur]^{i} && Y \ar[ul]_{o} \\
+	& N'
+      }
+    \end{aligned}
+    ,
+    \qquad
+    \begin{aligned}
+      \xymatrix{
+	& FN \ar[dd]^{Fh} \\
+	1 \ar[ur]^{s} \ar[dr]_{s'} \\
+	& FN'
+      }
+    \end{aligned}
+    \right)
+  \]
+  of diagrams commutes. For more details see Courser \cite{Cou16}.

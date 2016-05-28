@@ -56,29 +56,12 @@ Every hypergraph category can be constructed in this way.
 They apply to functors too.
 
 
-\subsection{Outline.}
-\subsection{Notation.}
-We shall assume the following standard names for certain distinguished objects
-and morphisms, only disambiguating the symbols with subscripts when we judge
-that the extra clarity is worth the clutter. We write: 
-\begin{itemize} 
-  \item $1$ for both identity morphisms and monoidal units, leaving context to
-    determine which one we mean.
-  \item $\lambda$, $\rho$, $a$, and $\sigma$ for respectively the left unitor, right unitor,
-    associator, and, if present, braiding, in a monoidal category.
-  \item $\varnothing$ for the initial object in a category.
-  \item $!$ for the unique map from the initial object to a given object.
-  \item Given a category $\mc C$, write $\mc C^\opp$ for the opposite category.
-    Given a morphism $f\maps A \to B \in \mc C$, write $f^\opp\maps B \to A \in
-    \mc C^\opp$ for the corresponding morphism in the opposite category.
-\end{itemize}
 
-If a monoidal structure on $\Set$ is not specified, we assume it is the
-cartesian product. 
+\section{Corelations}
 
-If a monoidal structure on $\FinSet$ is not specified, we assume it is the
-disjoint union. 
-
+Given sets $X$, $Y$, a relation $X \leadsto Y$ is a subset of the product $X
+\times Y$. More abstractly, we might say a relation is an isomorphism class of
+jointly-monic spans in the category of sets. We generalise the dual concept.
 
 \subsection{Factorisation systems.}
 
@@ -149,11 +132,6 @@ since, e.g.\ $m_2$ is mono.
 
 See \cite[\textsection 14]{AHS} for more details.
 
-\section{Corelations}
-
-Given sets $X$, $Y$, a relation $X \leadsto Y$ is a subset of the product $X
-\times Y$. More abstractly, we might say a relation is an isomorphism class of
-jointly-monic spans in the category of sets. We generalise the dual concept.
 
 \subsection{Corelations.}
 \begin{definition}
@@ -1099,6 +1077,38 @@ The coherence maps are given by
   \]
 \end{corollary}
 
+\paragraph{Associativity.}
+
+We might supply a more direct proof of the associativity of decorated
+corelations through the following.
+\begin{lemma}
+  Let 
+  \[
+    \xymatrix{
+      & A+_CB \\
+      A \ar[ur] && B \ar[ul] \\
+      & C \ar[ul] \ar[ur]
+    }
+  \]
+  be a pushout diagram, and let $C \to B$ factor through $\widetilde B \to B$.
+  Then
+  \[
+    \xymatrix{
+      & A+_CB \\
+      A+B \ar[ur] && A+_C \widetilde B \ar[ul] \\
+      & A+\widetilde B \ar[ul] \ar[ur]
+    }
+  \]
+  is a pushout diagram.
+\end{lemma}
+
+To take a decoration on $A+B$ to one on $A+_C\widetilde B$ we may either reduce to
+the $\mathcal E$-part of $B$ and then pushout over $C$, or pushout over $C$ and
+then reduce to the $\mathcal E$ part of $B$. This lemma implies that both
+processes result in the same decoration.
+
+
+
 
 \section{All hypergraph categories are decorated corelation categories}
 structured categories are algebras over their graphical calculus operad
@@ -1143,7 +1153,8 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
   $\mc H$ has objects a free monoid under the tensor product; write $\mc O$ for
   a collection of generators for this free monoid, and $\FinSet_{\mc O}$ for
   $\mc O$ labelled finite sets (ie an object is a finite set $X$ together with a
-  function $X \to \mc O$). This is a finitely cocomplete category.
+  function $X \to \mc O$). This is a finitely cocomplete category. Equivalent to
+  finite lists of objects in $\mc H$. 
 
   Define the global sections functor 
   \begin{align*}
@@ -1651,69 +1662,6 @@ labelled graphs. There is a decorated cospan functor to categories enriched over
 languages, and this factors nicely to get a decorated corelation category with
 morphisms languages recognised between points in domain and codomain.
 
-
-\section{Further directions}
-
-The dual picture also exists. This is a way to deal with bimonoids probably?
-
-\section{Appendix: Proofs} \label{sec:proofs}
-
-\paragraph{Decorations in $\Set$ are general.} \label{ssec.setdecorations}
-
-Due to Sam Staton.
-
-\begin{proposition} \label{prop.setdecorations}
-  Let $F\maps (\mathcal C, +) \to (\mathcal D, \otimes)$ be a braided lax monoidal
-  functor. Write $\mathcal D(I,-)\maps (\mathcal D, \otimes) \to (\Set,
-  \times)$ for the `global sections functor' taking each object $X \in \mathcal
-  D$ to the homset $\mathcal D(I,X)$. Then $F\mathrm{Cospan}$ and $(\mathcal
-  D(I,-)\circ F)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
-\end{proposition}
-\begin{proof}
-  Note that the global sections functor is always lax braided monoidal. We have
-  the commutative-by-definition triangle of braided lax monoidal functors
-  \[
-    \xymatrixrowsep{2ex}
-    \xymatrix{
-      && (\mathcal D,\otimes) \ar[dd]^{\mathcal D(I,-)} \\
-      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,-)\circ F} \\
-      && (\Set, \times)
-    }
-  \]
-  By Theorem 4.1 of \cite{F}, this gives a strict hypergraph functor
-  $F\mathrm{Cospan} \to (\mathcal D(I,-)\circ F)\mathrm{Cospan}$. It is easily
-  checked that this functor is bijective-on-objects, full, and faithful.
-\end{proof}
-
-\paragraph{Associativity.}
-
-We might supply a more direct proof of the associativity of decorated
-corelations through the following.
-\begin{lemma}
-  Let 
-  \[
-    \xymatrix{
-      & A+_CB \\
-      A \ar[ur] && B \ar[ul] \\
-      & C \ar[ul] \ar[ur]
-    }
-  \]
-  be a pushout diagram, and let $C \to B$ factor through $\widetilde B \to B$.
-  Then
-  \[
-    \xymatrix{
-      & A+_CB \\
-      A+B \ar[ur] && A+_C \widetilde B \ar[ul] \\
-      & A+\widetilde B \ar[ul] \ar[ur]
-    }
-  \]
-  is a pushout diagram.
-\end{lemma}
-
-To take a decoration on $A+B$ to one on $A+_C\widetilde B$ we may either reduce to
-the $\mathcal E$-part of $B$ and then pushout over $C$, or pushout over $C$ and
-then reduce to the $\mathcal E$ part of $B$. This lemma implies that both
-processes result in the same decoration.
 
 
 

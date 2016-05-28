@@ -382,7 +382,7 @@ This paper is split into three parts, addressing in turn the questions:
   \item How is meaning preserved under these interactions?
 \end{enumerate}
 
-We begin Part \ref{part:circuits}, on the semantics of circuit diagrams, with
+We begin Part , on the semantics of circuit diagrams, with
 a discussion of circuits of linear resistors, developing the intuition for the
 governing laws of passive linear circuits---Ohm's law, Kirchhoff's voltage law,
 and Kirchhoff's current law---in a time-independent setting (Section
@@ -401,7 +401,7 @@ flexibility to construct a category representing the semantics of circuit diagra
 The fundamental reason is that they do not allow us to describe circuits involving 
 ideal perfectly conductive wires.  This motivates the development of more powerful machinery.
 
-Part \ref{part:categories}, on the syntax of circuit diagrams, contains the main
+Part , on the syntax of circuit diagrams, contains the main
 technical contributions of the paper. It begins with Section,
 which develops machinery to construct what we call categories of decorated
 cospans. These are categories where the objects are finite sets and the morphisms
@@ -416,11 +416,11 @@ flexibility of Lagrangian relations, discussing the `trivial' circuits
 comprising only perfectly conductive wires, which mediate the notion of composition
 of circuits.
 
-Having introduced these prerequisites, we get to the point in Part \ref{part:blackbox}.
+Having introduced these prerequisites, we get to the point in Part .
 In Section \ref{sec:blackbox} we introduce the black box functor,  and  in Section \ref{sec:proof} we prove our main result.
 
-\section{Passive Linear Circuits} \label{part:circuits}
-%%fakesection
+\section{Circuits of linear resistors} \label{sec:resistors}
+%%fakesubsection
 In this part we review the meaning of circuit diagrams comprising resistors,
 inductors, and capacitors, giving an answer to the question ``What do circuit
 diagrams mean?''. 
@@ -437,8 +437,6 @@ value will affect the other values. We call two circuits equivalent when they
 determine the same relationship. Our main task in this first part is to explore
 when two circuits are equivalent.
 
-\section{Circuits of linear resistors} \label{sec:resistors}
-%%fakesubsection
 In order to let physical intuition lead the way, we begin by specialising to the
 case of linear resistors. In this section we describe how to find the function
 of a circuit from its form, advocating in particular the perspective of the
@@ -845,7 +843,7 @@ This shows that $dQ_\psi^\ast = \iota$, as claimed.  Note that this calculation 
 Note this only depends on $Q$, which makes no mention of the potentials at
 nonterminals. This is amazing: the way power depends on boundary potentials
 completely characterizes the way boundary currents depend on boundary
-potentials. In particular, in Part \ref{part:blackbox} we shall see that this
+potentials. In particular, in Part  we shall see that this
 allows us to define a composition rule for behaviors of circuits.
 
 To demonstrate these notions, we give a basic example of equivalent circuits.
@@ -1035,7 +1033,7 @@ As for resistors, the interconnection of such components may be understood, at
 least formally, as a minimization of some quantity, and we may represent the
 behaviors of this class of circuits with a more general idea of Dirichlet form.
 We conclude this section by noting an obstruction to building a composition rule
-for Dirichlet forms, motivating our work in Part \ref{part:categories}.
+for Dirichlet forms, motivating our work in Part . 
 
 
 \subsection{The frequency domain and Ohm's law revisited}
@@ -1561,8 +1559,7 @@ relations.  First, however, we develop a category theoretic framework, based
 around decorated cospans, to define the category of circuits itself and
 understand its basic properties.
 
-\section{Categories of Circuits} \label{part:categories}
-%%fakesection
+\section{The category of passive linear circuits} \label{sec:circdef}
 In this part we move our focus from the semantics of circuit diagrams to the
 syntax, addressing the question ``How do we interact with circuit diagrams?''.
 Informally, the answer to this is that we interact with them by connecting them
@@ -1576,11 +1573,10 @@ culminates in the definition of two important categories, the category $\Circ$
 of circuit diagrams, and the category $\LagrRel$ containing all behaviors of
 circuits. We also develop the technical material required to appreciate the
 structure of these categories, and that aids understanding of the relationship
-between the two, to be addressed in Part \ref{part:blackbox}.
+between the two, to be addressed in Part .
 
-\section{The category of passive linear circuits} \label{sec:circdef}
 %%fakesubsection
-In Part \ref{part:circuits} we defined a circuit of linear resistors to be a labelled graph with marked input and output terminals, as in the example:
+In Part  we defined a circuit of linear resistors to be a labelled graph with marked input and output terminals, as in the example:
 \[
 \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
 \node[contact] (I1) at (0,2) {};
@@ -3418,7 +3414,7 @@ the concept of `twisted' symplectification introduced in the introduction.} The 
   \]
 \end{remark}
 
-\section{The Black Box Functor} \label{part:blackbox}
+\section{Definition of the black box functor} \label{sec:blackbox}
 %%fakesection
 We have now developed enough machinery to prove Theorem \ref{main_theorem}:
 there is a symmetric monoidal dagger functor, the black box functor
@@ -3431,7 +3427,6 @@ circuits, and $\LagrRel$, which captures the external behavior of such circuits.
 We now define a functor that maps each circuit to its behavior, before proving
 it is indeed a symmetric monoidal dagger functor. 
 
-\section{Definition of the black box functor} \label{sec:blackbox}
 The role of the functor we construct here is to identify all circuits with the
 same external behavior, making the internal structure of the circuit
 inaccessible. Circuits treated this way are frequently referred to as
@@ -3447,8 +3442,8 @@ It should be no surprise that the black box functor maps a finite set $X$ to the
 symplectic vector space $\F^X \oplus (\F^X)^\ast$ of potentials and currents
 that may be placed on that set. The challenge is to provide a succinct
 statement of its action on the circuits themselves. To do this, we take
-advantage of four processes we developed in Parts \ref{part:circuits} and
-\ref{part:categories}.
+advantage of four processes we developed in Parts  and
+.
 
 Let $\Gamma\maps X \to Y$ be a circuit, represented by the decorated cospan
 \[
@@ -3740,7 +3735,7 @@ This gives a factorization
 \]
 The following subsections deal with these functors in sequence, defining and
 proving the existence of each one using the techniques of Part
-\ref{part:categories}.
+.
 
 
 \subsection{From circuits to Dirichlet cospans}

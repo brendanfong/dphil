@@ -12,6 +12,8 @@
 
 \tikzstyle{circ}=[circle,fill=black,draw,inner sep=3pt]
 \tikzstyle{circ2}=[circle,fill=black,draw,inner sep=1pt]
+
+\tikzstyle{sq}=[rectangle,draw,inner sep=1pt,minimum width=15pt,minimum height=15pt]
   
 
   \tikzstyle{connection}=[circuit symbol open,
@@ -395,10 +397,10 @@
 		\node [style=none] (5) at (1.5, 0.5) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw[line width=2pt] [in=0, out=-120, looseness=1.20] (0.center) to (1.center);
-		\draw[line width=2pt] [in=0, out=120, looseness=1.20] (0.center) to (2.center);
-		\draw[line width=2pt] [in=180, out=-60, looseness=1.20] (3) to (4.center);
-		\draw[line width=2pt] [in=180, out=60, looseness=1.20] (3) to (5.center);
+		\draw[line width=2pt, in=0, out=-120, looseness=1.20] (0.center) to (1.center);
+		\draw[line width=2pt, in=0, out=120, looseness=1.20] (0.center) to (2.center);
+		\draw[line width=2pt, in=180, out=-60, looseness=1.20] (3) to (4.center);
+		\draw[line width=2pt, in=180, out=60, looseness=1.20] (3) to (5.center);
 		\draw[line width=2pt] (0) to (3);
 	\end{pgfonlayer}
 \end{tikzpicture}
