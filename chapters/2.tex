@@ -1,48 +1,28 @@
 \chapter{Decorated cospans: from closed systems to open}
 
-This chapter is based on \cite{fong_decorated_2015}
+In the previous chapter we discussed hypergraph categories as a model for
+network languages, and showed that cospans provide a method of constructing such
+categories. In many situations, however, we wish to model our systems not just
+with cospans, but `decorated' cospans, where the apex of each cospan is equipped
+with some extra structure. In this chapter we detail a method for composing such
+decorated cospans. 
+
+%\begin{theorem}
+%  The category of symmetric lax monoidal presheaves over finitely complete
+%  categories embeds faithfully into $\mathrm{HypCat}$.
+%\end{theorem}
+
+This chapter is based on \cite{fong_decorated_2015}.
 
 
-\section{Introduction}
+\section{From closed systems to open}
 
-There is a well-known way to compose cospans in a category with finite colimits:
-given cospans
-\[
-  \begin{aligned}
-    \xymatrix{
-      & N \\
-      X \ar[ur]^{i_X} && Y \ar[ul]_{o_Y}
-    }
-  \end{aligned}
-  \qquad \vcenter{\xymatrix{\mbox{and}}} \qquad
-  \begin{aligned}
-    \xymatrix{
-      & M \\
-      Y \ar[ur]^{i_Y} && Z, \ar[ul]_{o_Z}
-    }
-  \end{aligned}
-\]
-we take the pushout over their shared foot $Y$ 
-\[
-  \xymatrix{
-    && P \\
-    & N \ar[ur]^j && M \ar[ul]_{j'} \\
-    X \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && Z \ar[ul]_{o_Z}
-  }
-\]
-to get a cospan from $X$ to $Z$. In many situations, however, we wish to compose
-`decorated' cospans, where the apex of each cospan is equipped with some extra
-structure. In this article we detail a method for composing such decorated
-cospans. 
-
-Beyond category theoretic interest, the motivation for such a method lies in
-developing compositional accounts of semantics associated to topological
-diagrams. While this has long been a technique associated with topological
-quantum field theory, dating back to \cite{At}, it has most recently had
-significant influence in the nascent field of categorical network theory, with
-application to automata and computation \cite{KSW2, Sp}, electrical circuits
-\cite{BF}, signal flow diagrams \cite{BSZ, BE}, Markov processes \cite{BP,
-ASW}, and dynamical systems \cite{VSL}, among others. 
+The key idea in this chapter is that we may take our network diagrams, mark
+points of interconnection, or terminals, using cospans, and connect these
+terminals with others using pushouts. This marking of terminals defines a
+boundary of the `system', turning it from a closed system to an open system.
+This process `freely' constructs a hypergraph category from a library of network
+pieces.
 
 It has been recognised for some time that spans and cospans provide an intuitive
 framework for composing network diagrams \cite{KSW}, and the material we develop
@@ -209,27 +189,18 @@ parts: an instance of our chosen structure on the apex, and a cospan describing
 interfaces to this structure. Our first theorem says that when $(\mathcal
 D,\otimes)$ is braided monoidal and $(F,\varphi)$ lax braided monoidal, we may
 further give this data a composition rule and monoidal product such that the
-resulting `decorated cospan category' is symmetric monoidal with a special
-commutative Frobenius monoid on each object.  
+resulting `decorated cospan category' is hypergraph.  
 
 Suppose now we have two such lax monoidal functors; we then have two such
 decorated cospan categories. Our second theorem is that, given also a monoidal
 natural transformation between these functors, we may construct a strict
-monoidal functor between their corresponding decorated cospan categories.  These
+hypergraph functor between their corresponding decorated cospan categories.  These
 natural transformations can often be specified by some semantics associated to
 some type of topological diagram. A trivial case of such is assigning to a
 finite graph its number of vertices, but richer examples abound, including
 assigning to a directed graph with edges labelled by rates its depicted Markov
 process, or assigning to an electrical circuit diagram the current--voltage
 relationship such a circuit would impose.
-
-An advantage of the decorated cospan framework is that the resulting categories
-are hypergraph categories, and the resulting functors respect this structure.
-As dagger compact categories, hypergraph categories themselves have a rich
-diagrammatic nature \cite{Se}, and in cases when our decorated cospan categories
-are inspired by diagrammatic applications, the hypergraph structure provides
-language to describe natural operations on our diagrams, such as juxtaposing,
-rotating, and reflecting them.
 
 The structure of this chapter is straightforward: in the following section we
 review some basic background material, which then allows us to give the
@@ -238,127 +209,7 @@ constructions of decorated cospan categories and their functors in Sections
 definitions through some examples in Section \ref{sec:ex}. 
 
 \section{Decorated cospan categories} \label{sec:dcc}
-
-Above we learned that the category of finite complete categories embeds
-faithfully into the category of hypergraph categories.
-
-\begin{theorem}
-  The category of symmetric lax monoidal presheaves over finitely complete categories embeds
-  faithfully into $\mathrm{HypCat}$.
-\end{theorem}
-
-
-Write $(\Set,\times)$ for the symmetric monoidal category of finite sets where
-the monoidal product is the categorical product and the braiding is pairings of
-the identity maps.
-
-
-
-\begin{definition} \label{def:fcospanss}
-  Let $\mathcal C$ be a category with finite colimits, and
-  \[
-    (F,\varphi): (\mathcal C,+) \longrightarrow (\Set, \times)
-  \]
-  be a symmetric lax monoidal functor. We define a \define{decorated cospan}, or more
-  precisely an $F$-decorated cospan, to be a pair 
-  \[
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& N \\  
-	X \ar[ur]^{i} && Y \ar[ul]_{o}
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	FN \\
-	1 \ar[u]_{s}
-      }
-    \end{aligned}
-    \right)
-  \]
-  comprising a cospan $X \stackrel{i}\rightarrow N \stackrel{o}\leftarrow Y$ in
-  $\mathcal C$ together with an element $1 \stackrel{s}\rightarrow FN$ of
-  the $F$-image $FN$ of the apex of the cospan. The element $1
-  \stackrel{s}\rightarrow FN$ is known as the \define{decoration} of the decorated
-  cospan. A morphism of decorated cospans 
-  \[
-    n: \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow
-    Y,\enspace 1 \stackrel{s}\longrightarrow FN\big) \longrightarrow \big(X
-    \stackrel{i'_X}\longrightarrow N' \stackrel{o'_Y}\longleftarrow Y,\enspace 1
-    \stackrel{s'}\longrightarrow FN'\big)
-  \]
-  is a morphism $n: N \to N'$ of cospans such that $Fn \circ s = s'$.
-\end{definition}
-
-In previous expositions of decorated cospans we have let decorations lie in any
-braided monoidal category. In conversations with the author, Sam Staton pointed
-out that it is general enough to let decorations lie in the symmetric monoidal
-category $(\Set,\times)$, where the braiding is the map $X \times Y \to Y \times
-X$ that swaps coordinates. 
-
-\paragraph{Decorations in $\Set$ are general.} \label{ssec.setdecorations}
-
-Due to Sam Staton.
-
-\begin{proposition} \label{prop.setdecorations}
-  Let $F\maps (\mathcal C, +) \to (\mathcal D, \otimes)$ be a braided lax monoidal
-  functor. Write $\mathcal D(I,-)\maps (\mathcal D, \otimes) \to (\Set,
-  \times)$ for the `global sections functor' taking each object $X \in \mathcal
-  D$ to the homset $\mathcal D(I,X)$. Then $F\mathrm{Cospan}$ and $(\mathcal
-  D(I,-)\circ F)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
-\end{proposition}
-\begin{proof}
-  Note that the global sections functor is always lax braided monoidal. We have
-  the commutative-by-definition triangle of braided lax monoidal functors
-  \[
-    \xymatrixrowsep{2ex}
-    \xymatrix{
-      && (\mathcal D,\otimes) \ar[dd]^{\mathcal D(I,-)} \\
-      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,-)\circ F} \\
-      && (\Set, \times)
-    }
-  \]
-  By Theorem 4.1 of \cite{F}, this gives a strict hypergraph functor
-  $F\mathrm{Cospan} \to (\mathcal D(I,-)\circ F)\mathrm{Cospan}$. It is easily
-  checked that this functor is bijective-on-objects, full, and faithful.
-\end{proof}
-
-
-On representatives of the isomorphism classes, composition of decorated
-cospans is given by the usual composite cospan decorated with the composite
-\[
-  1 \stackrel{\lambda^{-1}}\longrightarrow 1 \otimes 1 \stackrel{s \otimes
-  t}\longrightarrow FN \otimes FM \stackrel{\varphi_{N,M}}\longrightarrow
-  F(N+M) \stackrel{F[j_N,j_M]}\longrightarrow F(N+_YM)
-\]
-of the tensor product of the decorations with the $F$-image of the copairing
-of the pushout maps.
-
-Each cospan may be given the empty decoration. The \define{empty decoration} is the
-decoration $1 \stackrel{\varphi_1}{\rightarrow} F\varnothing
-\stackrel{F!}{\rightarrow} FN$.
-
-\begin{definition} \label{thm:fcospanss}
-  Let $\mathcal C$ be a category with finite colimits and $(F,\varphi):
-  (\mathcal C,+) \to (\Set, \times)$ a symmetric lax monoidal functor. We define
-  the hypergraph category $F\mathrm{Cospan}$ to comprise:
-
-  \begin{tabular}{ r p{.6\textwidth}}
-    \textbf{objects} & the objects of $\mathcal C$ \\ 
-    \textbf{morphisms} & isomorphism classes of $F$-decorated cospans in
-    $\mathcal C$\\ 
-  \textbf{composition} & given by pushout \\
-  \textbf{tensor product} & the coproduct in $\mathcal C$. \\
-  \textbf{coherence maps} & empty decorated maps from $\cospan(\mc C)$ \\
-  \textbf{hypergraph maps} & empty decorated maps from $\cospan(\mc C)$
-  \end{tabular}
-\end{definition}
-
-
-We now detail our central construction and state the main theorem.
+Motivated by the previous section, we make the following definition.
 \begin{definition} \label{def:fcospans}
   Let $\mathcal C$ be a category with finite colimits, and
   \[
@@ -388,7 +239,7 @@ We now detail our central construction and state the main theorem.
   $\mathcal C$ together with an element $1 \stackrel{s}\rightarrow FN$ of
   the $F$-image $FN$ of the apex of the cospan. We shall call the element $1
   \stackrel{s}\rightarrow FN$ the \define{decoration} of the decorated
-  cospan. A morphism of decorated cospans 
+  cospan. A \define{morphism of decorated cospans}
   \[
     n\colon  \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow
     Y,\enspace 1 \stackrel{s}\longrightarrow FN\big) \longrightarrow \big(X
@@ -397,6 +248,13 @@ We now detail our central construction and state the main theorem.
   \]
   is a morphism $n\colon  N \to N'$ of cospans such that $Fn \circ s = s'$.
 \end{definition}
+In this section the task is to prove that decorated cospans can be used to
+construct hypergraph categories.
+
+\subsection{Composing decorated cospans}
+
+First, we show that isomorphism classes of decorated cospans form the morphisms
+of a category.
 
 \begin{proposition}
   There is a category $F\mathrm{Cospan}$ of $F$-decorated cospans, with objects
@@ -617,6 +475,8 @@ identification of the image of $Y$ in $N$ with the image of the same in $M$, and
 so describes merging the `overlap' of the two decorations.
 \end{remark}
 
+
+\subsection{The hypergraph structure}
 Our main theorem is that when \emph{braided} monoidal structure is present, the
 category of decorated cospans is a hypergraph category, and moreover one into
 which the category of `undecorated' cospans widely embeds.  This embedding
@@ -667,9 +527,8 @@ be a decorated cospan, and suppose we have an empty-decorated cospan
 \]
 Here we show that the composite of these decorated cospans is 
 \[
-  \big(X \stackrel{j_N \circ i_X}\longrightarrow N+_YM \stackrel{j_M \circ
-  o_Z}\longleftarrow Z,\enspace 1 \stackrel{Fj_N \circ s}\longrightarrow
-  F(N+_YM)\big).
+  \big(X \xrightarrow{j_N \circ i_X} N+_YM \xleftarrow{j_M \circ o_Z} Z,\enspace 
+  1 \xrightarrow{Fj_N \circ s} F(N+_YM)\big).
 \]
 In particular, the decoration on the composite is the decoration $s$ pushed
 forward along the $F$-image of the map $j_N\colon N \to N+_YM$ to become an
@@ -860,12 +719,31 @@ This the coherence maps are indeed natural transformations. Moreover, they obey
 the required coherence laws as they are images of maps that obey these laws in
 $\mathrm{Cospan(\mathcal{C})}$. 
 
-  Similarly, to arrive at the hypergraph structure on $F\mathrm{Cospan}$, we
+\paragraph{Hypergraph structure.}
+Similarly, to arrive at the hypergraph structure on $F\mathrm{Cospan}$, we
   simply equip each object $X$ with the image of the special commutative
   Frobenius monoid specified by the hypergraph structure of
   $\mathrm{Cospan(\mathcal{C})}$. It is evident that this choice of structures
   implies the above wide embedding is a hypergraph functor.
 \end{proof}
+
+In summary, the hypergraph category $F\mathrm{Cospan}$ comprises:
+
+\begin{center}
+  \begin{tabular}{| c | p{.65\textwidth} |}
+    \hline
+    \multicolumn{2}{|c|}{The hypergraph category $(F\mathrm{Cospan},+)$} \\
+    \hline
+    \textbf{objects} & the objects of $\mathcal C$ \\ 
+    \textbf{morphisms} & isomorphism classes of $F$-decorated cospans in
+    $\mathcal C$\\ 
+    \textbf{composition} & given by pushout \\
+    \textbf{monoidal product} & the coproduct in $\mathcal C$ \\
+    \textbf{coherence maps} & empty decorated maps from $\cospan(\mc C)$ \\
+    \textbf{hypergraph maps} & empty decorated maps from $\cospan(\mc C)$ \\
+    \hline
+  \end{tabular}
+\end{center}
 
 Note that if the monoidal unit in $(\mathcal D,\otimes)$ is the initial object,
 then each object only has one possible decoration: the empty decoration. This
@@ -882,12 +760,39 @@ categories $1_{\mathcal C}\mathrm{Cospan} \rightarrow F\mathrm{Cospan}$. This
 provides an example of a more general way to construct hypergraph functors
 between decorated cospan categories. We detail this in the next section.
 
+\subsection{A bicategory of decorated cospans}
+Just as cospans form the morphisms of a symmetric monoidal bicategory, so too do
+decorated cospans. In this bicategory the 2-morphisms are given by morphisms of
+decorated cospans: morphisms $n$
+in $\mc C$ such that the diagrams
+\[
+  \begin{aligned}
+    \xymatrix{
+      & N \ar[dd]^n \\  
+      X \ar[ur]^{i} \ar[dr]_{i'} && Y \ar[ul]_{o} \ar[dl]^{o'}\\
+      & N'
+    }
+  \end{aligned}
+  \qquad \mbox{and}
+  \qquad
+  \begin{aligned}
+    \xymatrix{
+      & FN \ar[dd]^{Fn} \\
+      1 \ar[ur]^{s} \ar[dr]_{s'} \\
+      & FN'
+    }
+  \end{aligned}
+\]
+commute. For more details see Courser \cite{Cou16}. These 2-morphisms could be
+employed to model transformations, coarse grainings, rewrite rules, and so on of
+open systems and their representations.
+
 \section{Functors between decorated cospan categories} \label{sec:dcf}
 
 Decorated cospans provide a setting for formulating various operations that we
 might wish to enact on the decorations, including the composition of these
 decorations, both sequential and monoidal, as well as dagger, dualising, and
-other operations afforded by the Frobenius structure. We now observe that these
+other operations afforded by the hypergraph structure. We now observe that these
 operations are formulated in a systematic way, so that transformations of the
 decorating structure---that is, monoidal transformations between the lax
 monoidal functors defining decorated cospan categories---respect these
@@ -899,9 +804,7 @@ operations.
   \otimes)$, $(\mathcal D',\boxtimes)$ be braided monoidal categories. Further let
   \[
     (F,\varphi)\colon  (\mathcal C,+) \longrightarrow (\mathcal D,\otimes)
-  \]
-  and
-  \[
+    \qquad \mbox{and} \qquad
     (G,\gamma)\colon  (\mathcal C',+) \longrightarrow (\mathcal D',\boxtimes)
   \]
   be lax braided monoidal functors. This gives rise to decorated cospan
@@ -938,7 +841,7 @@ operations.
       }
     \end{aligned}
     ,
-    \qquad
+    \quad
     \begin{aligned}
       \xymatrix{
 	FN \\
@@ -957,7 +860,7 @@ operations.
       }
     \end{aligned}
     ,
-    \qquad
+    \quad
     \begin{aligned}
       \xymatrixrowsep{.8pc}
       \xymatrix{
@@ -977,6 +880,7 @@ operations.
   We must prove that $(T,\tau)$ is a functor, is strong symmetric monoidal, and
   that it preserves the special commutative Frobenius structure on each object.
 
+  \paragraph{Functoriality.}
   Checking the functoriality of $T$ is again an exercise in applying the
   properties of structure available---in this case the colimit-preserving nature
   of $A$ and the monoidality of $(\mathcal D,\boxtimes)$, $(B,\beta)$, and
@@ -1080,7 +984,7 @@ we have the equality of decorations $\theta_X \circ B(F! \circ \varphi_1) \circ
 = G! \circ \gamma_1\colon  1 \to GAX$, and so $T$ sends identity morphisms to
 identity morphisms.
 
-  The coherence maps of the functor are given by the coherence maps for the
+\paragraph{Monoidality.} The coherence maps of the functor are given by the coherence maps for the
   monoidal functor $A$, viewed now as cospans with the empty decoration. That
   is, we define the coherence maps $\tau$ to be the collection of isomorphisms
   \[
@@ -1146,19 +1050,19 @@ show that these two decorated cospans are isomorphic.
 In slightly more detail, suppose we have decorated cospans
 \[
   (X \stackrel{i_X}\longrightarrow N
-\stackrel{o_Z}\longleftarrow Z,\enspace 1 \stackrel{s}\longrightarrow FN) \quad
-\textrm{and} \quad (Y \stackrel{i_Y}\longrightarrow M
-\stackrel{o_W}\longleftarrow W,\enspace 1 \stackrel{t}\longrightarrow FM).
+  \stackrel{o_Z}\longleftarrow Z,\enspace 1 \stackrel{s}\longrightarrow FN) \quad
+  \textrm{and} \quad (Y \stackrel{i_Y}\longrightarrow M
+  \stackrel{o_W}\longleftarrow W,\enspace 1 \stackrel{t}\longrightarrow FM).
 \]
 Then naturality demands that the cospans
 \[
- AX+AY \stackrel{Ai_X+Ai_Y}{\xrightarrow{\hspace*{1.5cm}}} AN+AM
- \stackrel{(o_Z+o_W)\circ\alpha^{-1}}{\xleftarrow{\hspace*{1.5cm}}} A(Z+W)
+  AX+AY \stackrel{Ai_X+Ai_Y}{\xrightarrow{\hspace*{1.5cm}}} AN+AM
+  \stackrel{(o_Z+o_W)\circ\alpha^{-1}}{\xleftarrow{\hspace*{1.5cm}}} A(Z+W)
 \]
 and
 \[
- AX+AY \stackrel{A(i_X+i_Y)\circ\alpha}{\xrightarrow{\hspace*{1.5cm}}} A(N+M)
- \stackrel{A(o_Z+o_W)}{\xleftarrow{\hspace*{1.5cm}}} A(Z+W)
+  AX+AY \stackrel{A(i_X+i_Y)\circ\alpha}{\xrightarrow{\hspace*{1.5cm}}} A(N+M)
+  \stackrel{A(o_Z+o_W)}{\xleftarrow{\hspace*{1.5cm}}} A(Z+W)
 \]
 are isomorphic as decorated cospans, with decorations the top and bottom rows of
 the diagram below respectively.
@@ -1178,27 +1082,170 @@ As it is a subdiagram of the large functoriality commutative diagram, this
 diagram commutes. The diagrams required for $\alpha_{N,M}$ to be a morphism of
 cospans also commute, so our decorated cospans are indeed isomorphic. This
 proves $\tau$ is a natural tranfomation.  
-  
-  Moreover, as $A$ is
-  coproduct-preserving and the Frobenius structures on $F\mathrm{Cospan}$ and
-  $G\mathrm{Cospan}$ are built using various copairings of the identity map,
-  $(T,\tau)$ preserves the hypergraph structure.
 
-  Finally, it is straightforward to observe that the maps $\tau$ are identity
-  maps if and only if the maps $\alpha$ are, so $(T,\tau)$ is a strict monoidal
-  functor if and only $(A,\alpha)$ is.
+Moreover, as $A$ is coproduct-preserving and the Frobenius structures on
+$F\mathrm{Cospan}$ and $G\mathrm{Cospan}$ are built using various copairings
+of the identity map, $(T,\tau)$ preserves the hypergraph structure.
+
+Finally, it is straightforward to observe that the maps $\tau$ are identity
+maps if and only if the maps $\alpha$ are, so $(T,\tau)$ is a strict monoidal
+functor if and only $(A,\alpha)$ is.
 \end{proof}
 
 When the decorating structure comprises some notion of topological diagram, such
 as a graph, these natural transformations $\theta$ might describe some semantic
 interpretation of the decorating structure. In this setting the above theorem
 constructs functorial semantics for the decorated cospan category of diagrams.
-We conclude this paper with an example of this application of decorated cospans.
 
+\section{Decorations in $\Set$ are general}
 
-\section{Example: labelled graphs} \label{sec:ex}
+So far we have let decorations lie in any braided monoidal category. In
+conversations with the author, Sam Staton pointed out that it is general enough
+to let decorations lie in the symmetric monoidal category $(\Set,\times)$ of
+sets, functions, and the categorical product.
 
-We return to the example of this paper's introduction. 
+The key observation is that decorated cospans only make use of the sets of
+monoidal elements $x\maps I \to X$ in the decorating category $\mc D$. To
+extract this information, we define the monoidal global sections functor.
+
+\begin{proposition}
+Let $(\mathcal D, \otimes)$ be a braided monoidal category. Then there exists a
+braided monoidal functor, the \define{monoidal global sections functor}
+$\mathcal D(I,-)\maps (\mc D,\ot) \to (\Set,\times)$ taking each object $X$ in
+$\mc D$ to the homset $\mc D(I,X)$, and each morphism $f\maps X \to Y$ to the
+function 
+\begin{align*}
+  \mc D(I,f)\maps \mc D(I,X) &\longrightarrow \mc D(I,Y); \\ 
+  x &\longmapsto f \circ x.
+\end{align*}
+The coherence maps are given by $d_1\maps 1 \to \mc D(I,I);
+\ast \mapsto \idn_I$ and
+\begin{align*}
+  d_{X,Y} \maps \mc D(I,X) \times \mc D(I,Y) &\longrightarrow \mc D(I, X \ot
+  Y);\\
+  (x,y) &\longmapsto (I \xrightarrow{\rho^{-1}} I \ot I \xrightarrow{x \ot y} X \ot
+  Y).
+\end{align*}
+\end{proposition}
+\begin{proof}
+  This functor is the covariant hom functor on the monoidal unit. The
+  coherence axioms immediately follow from the coherence of the braided monoidal
+  category $\mc D$.
+\end{proof}
+
+Composing a decorating functor $F$ with this global sections functor produces an
+isomorphic decorated cospans category.
+
+\begin{proposition} \label{prop.setdecorations}
+  Let $F\maps (\mathcal C, +) \to (\mathcal D, \otimes)$ be a braided lax
+  monoidal functor. Then $F\mathrm{Cospan}$ and $(\mathcal D(I,-)\circ
+  F)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
+\end{proposition}
+\begin{proof}
+  Note that the global sections functor is always lax braided monoidal. We have
+  the commutative-by-definition triangle of braided lax monoidal functors
+  \[
+    \xymatrixrowsep{2ex}
+    \xymatrix{
+      && (\mathcal D,\otimes) \ar[dd]^{\mathcal D(I,-)} \\
+      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,-)\circ F} \\
+      && (\Set, \times)
+    }
+  \]
+  By Theorem \ref{thm:decoratedfunctors}, this gives a strict hypergraph functor
+  $F\mathrm{Cospan} \to (\mathcal D(I,-)\circ F)\mathrm{Cospan}$. It is easily
+  checked that this functor is bijective-on-objects, full, and faithful.
+\end{proof}
+
+Similarly, taking $\Set$ to be our decorating category does not impinge upon the
+functors that can be constructed using decorated cospans.
+\begin{proposition}
+  Let $T\maps F\mathrm{Cospan} \to G\mathrm{Cospan}$ be a decorated cospans
+  functor. Then there is a decorated cospans functor $U$ such that the square of
+  hypergraph functors 
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      F\mathrm{Cospan} \ar[r]^T \ar[d]_{\sim} & G\mathrm{Cospan} \ar[d]^{\sim}\\ 
+      (\mathcal D(I,-)\circ F)\mathrm{Cospan} \ar[r]^U & (\mathcal D'(I,-)\circ
+      G)\mathrm{Cospan}
+    }
+  \]
+  commutes, where the vertical maps are the isomorphisms given by the previous
+  proposition.
+\end{proposition}
+\begin{proof}
+  Write 
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      (\mathcal C,+) \ar^{(F,\varphi)}[r] \ar_{(A,\alpha)}[d] \drtwocell
+      \omit{_\:\theta} & (\mathcal D,\otimes) \ar^{(B,\beta)}[d]  \\
+      (\mathcal C',+) \ar_{(G,\gamma)}[r] & (\mathcal D',\boxtimes).
+    }
+  \]
+  for the monoidal natural transformation yielding $T$, and write
+  \begin{align*}
+    \overline\beta_X\maps \mc D(I,X) &\longrightarrow \mc D'(I,BX); \\
+    (I_{\mc D} \xrightarrow{x} X) &\longmapsto (I_{\mc D'} \xrightarrow{\beta_I}
+    BI_{\mc D} \xrightarrow{Bx} BX)
+  \end{align*}
+  for all $X \in \mc D$. This defines a monoidal natural transformation
+  $\overline\beta\maps \mc D(I,-) \Rightarrow \mc D'(I,B-)$, with the
+  monoidality following from the monoidality of the functor $(B,\beta)$.
+
+  Next, define $U$ as the functor resulting from the decorated cospan
+  construction applied to the horizontal composition of monoidal natural
+  transformations
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      (\mathcal C,+) \ar^{(F,\varphi)}[r] \ar_{(A,\alpha)}[d] \drtwocell
+      \omit{_\:\theta} & (\mathcal D,\otimes) \ar[r]^{\mc D(I,-)}
+      \ar^{(B,\beta)}[d] \drtwocell \omit{_\:\overline{\beta}} & (\Set,\times)
+      \ar@{=}[d] \\
+      (\mathcal C',+) \ar_{(G,\gamma)}[r] & (\mathcal D',\boxtimes) \ar[r]_{\mc
+      D'(I,-)} & (\Set,\times).
+    }
+  \]
+  To see that the required square of hypergraph functors commutes, observe that
+  both functors $F\mathrm{Cospan} \to (\mc D'(I,-)\circ G)\mathrm{Cospan}$ take
+  objects $X$ to $AX$ and morphisms 
+  \[
+    (X \stackrel{i}\longrightarrow N \stackrel{o}\longleftarrow Y, \enspace 1
+    \stackrel{s}\longrightarrow FN)
+  \]
+  to 
+  \[
+    \big(AX \stackrel{Ai}\longrightarrow AN
+    \stackrel{Ao}\longleftarrow AY, \enspace \theta_N \circ Bs\circ \beta_1\in \mc
+    D'(I,GAN)\big). \qedhere
+  \]
+\end{proof}
+
+Note that the braided monoidal categories $(\mc C,+)$ and $(\Set,\times)$ are
+both symmetric monoidal categories. Thus when working with the decorating
+category $\Set$ we may refer to the decorating functors $F$ as symmetric lax
+monoidal, rather than merely braided lax monoidal.
+
+\section{Examples} \label{sec:ex}
+In this final section we outline two constructions of decorated cospan
+categories, based on labelled graphs and linear subspaces respectively, and a
+functor between these two categories interpreting each graph as an electrical
+circuit. We shall see that the decorated cospan framework allows us to take a
+notion of closed system and construct a corresponding notion of open or
+composable system, together with functorial semantics for these systems.
+
+This electrical circuits example is the motivating application for the
+decorated cospan construction, and its shortcomings motivate the further
+theoretical development of decorated cospans in the next chapter. Armed with
+these additional tools, we will return to the application for a full discussion
+in Chapter \ref{ch.circuits}.
+
+\subsection{Labelled graphs}
 
 Recall that a \define{$(0,\infty)$-graph} $(N,E,s,t,r)$ comprises a finite set
 $N$ of vertices (or nodes), a finite set $E$ of edges, functions $s,t\colon  E \to N$
@@ -1208,10 +1255,9 @@ construct a category with, roughly speaking, these graphs as morphisms. More
 precisely, our morphisms will consist of these graphs, together with subsets of
 the nodes marked, with multiplicity, as `input' and `output' connection points.
 
-As suggested in the introduction, pick small categories equivalent to the
-categories of finite sets and $(0,\infty)$-graphs such that we may talk about
-the set of all $(0,\infty)$-graphs on each finite set $N$.  Then we may consider
-the functor
+Pick small categories equivalent to the category of $(0,\infty)$-graphs such
+that we may talk about the set of all $(0,\infty)$-graphs on each finite set
+$N$.  Then we may consider the functor
 \[
   \lgraph\colon  (\FinSet,+) \longrightarrow (\Set,\times)
 \]
@@ -1250,30 +1296,149 @@ Theorem \ref{thm:fcospans} thus allows us to construct a hypergraph category
 $\mathrm{GraphCospan}$.  For an intuitive visual understanding of the morphisms
 of this category and its composition rule, see this paper's introduction.
 
+\subsection{Linear relations}
+Another example of a decorated cospan category arising from a functor $(\FinSet,+)
+\to (\Set, \times)$ is closely related to the category of linear relations. Here
+we decorate each cospan in $\Set$ with a linear subspace of $\R^N \oplus
+(\R^N)^\ast$, the sum of the vector space generated by the apex $N$ over $\R$
+and its vector space dual.
 
+First let us recall some facts about relations. Let $R \subseteq X\times Y$ be
+a relation; we write this also as $R\colon  X \to Y$. The opposite relation $R^\opp\colon 
+Y\to X$, is the subset $R^\opp \subseteq Y\times X$ such that $(y,x) \in R^\opp$
+if and only if $(x,y) \in R$. We say that the image of a subset $S \subseteq X$
+under a relation $R\colon  X \to Y$ is the subset of all elements of the codomain $Y$
+related by $R$ to an element of $S$. Note that if $X$ and $Y$ are vector spaces
+and $S$ and $R$ are both linear subspaces, then the image $R(S)$ of $S$ under
+$R$ is again a linear subspace.
 
-\section{A bicategory of decorated cospans}
-Decorated cospans in fact form the morphisms of bicategory, not merely a
-category. In this bicategory, in fact a symmetric monoidal bicategory, the
-2-morphisms are given by morphisms $h$ in $\mc C$ such that the pair 
-  \[
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& N \ar[dd]^h \\  
-	X \ar[ur]^{i} && Y \ar[ul]_{o} \\
-	& N'
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	& FN \ar[dd]^{Fh} \\
-	1 \ar[ur]^{s} \ar[dr]_{s'} \\
-	& FN'
-      }
-    \end{aligned}
-    \right)
-  \]
-  of diagrams commutes. For more details see Courser \cite{Cou16}.
+Now any function $f\colon N \to M$ induces a linear map $f^\ast\colon  \R^M \to
+\R^N$ by precomposition. This linear map $f^\ast$ itself induces a dual map
+$f_\ast\colon (\R^N)^\ast \to (\R^M)^\ast$ by precomposition. Furthermore
+$f^\ast$ has, as a linear relation $f^\ast \subseteq \R^M \oplus \R^N$, an
+opposite linear relation $(f^\ast)^\opp\colon  \R^N \to \R^M$.  Define the
+functor 
+\[
+  \linsub\colon  (\FinSet,+) \longrightarrow (\Set,\times)
+\]
+taking a finite set $N$ to set of linear subspaces of the vector space $\R^N
+\oplus (\R^N)^\ast$, and taking a function $f\colon  N \to M$ to the function
+$\linsub(N) \to \linsub(M)$ induced by the sum of these two relations:
+\begin{align*}
+  \linsub(f)\colon  \linsub(N) &\longrightarrow \linsub(M); \\
+  L &\longmapsto \big((f^\ast)^\opp \oplus f_\ast\big)(L).
+\end{align*}
+The above operations on $f$ used in the construction of this map are functorial,
+and so it is readily observed that $\linsub$ is indeed a functor.
+
+It is moreover lax braided monoidal as the sum of linear subspace of $\R^N
+\oplus (\R^N)^\ast$ and a linear subspace of $\R^M \oplus (\R^M)^\ast$ may be
+viewed as a subspace of $\R^N \oplus (\R^N)^\ast \oplus \R^M \oplus (\R^M)^\ast
+\cong \R^{N+M} \oplus (\R^{N+M})^\ast \cong \R^{M+N} \oplus (\R^{M+N})^\ast$,
+and the empty subspace is a linear subspace of each $\R^N \oplus (\R^N)^\ast$.
+
+We thus have a hypergraph category $\mathrm{LinSubCospan}$.
+
+\subsection{Electrical circuits} 
+Electrical circuits and their diagrams are the motivating application for the
+decorated cospan construction. Specialising to the case of networks of linear
+resistors, we detail here how we may use the category $\mathrm{LinSubCospan}$ to
+provide semantics for the morphisms of $\mathrm{GraphCospan}$ as diagrams of
+networks of linear resistors.
+
+Intuitively, after choosing a unit of resistance, say ohms ($\Omega$), each
+$(0,\infty)$-graph can be viewed as a network of linear resistors, with the
+$(0,\infty)$-graph of the introduction now more commonly depicted as
+\begin{center}
+  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
+    \node[contact]         (A) at (0,0) {};
+    \node[contact]         (B) at (3,0) {};
+    \node[contact]         (C) at (1.5,-2.6) {};
+    \coordinate         (ua) at (.5,.25) {};
+    \coordinate         (ub) at (2.5,.25) {};
+    \coordinate         (la) at (.5,-.25) {};
+    \coordinate         (lb) at (2.5,-.25) {};
+    \path (A) edge (ua);
+    \path (A) edge (la);
+    \path (B) edge (ub);
+    \path (B) edge (lb);
+    \path (ua) edge  [resistor] node[label={[label distance=1pt]90:{$0.2\Omega$}}] {} (ub);
+    \path (la) edge  [resistor] node[label={[label distance=1pt]270:{$1.3\Omega$}}] {} (lb);
+    \path (A) edge  [resistor] node[label={[label distance=2pt]180:{$0.8\Omega$}}] {} (C);
+    \path (C) edge  [resistor] node[label={[label distance=2pt]0:{$2.0\Omega$}}] {} (B);
+  \end{tikzpicture}
+\end{center}
+$\mathrm{GraphCospan}$ may then be viewed as a category with morphisms
+circuits of linear resistors equipped with chosen input and output terminals.
+
+The suitability of this language is seen in the way the different categorical
+structures of $\mathrm{GraphCospan}$ capture different operations that can be
+performed with circuits. To wit, the sequential composition expresses the fact
+that we can connect the outputs of one circuit to the inputs of the next, while
+the monoidal composition models the placement of circuits side-by-side.
+Furthermore, the symmetric monoidal structure allows us reorder input and output
+wires, the compactness captures the interchangeability between input and
+output terminals of circuits---that is, the fact that we can choose any input
+terminal to our circuit and consider it instead as an output terminal, and vice
+versa---and the Frobenius structure expresses the fact that we may wire any
+node of the circuit to as many additional components as we like.
+
+Moreover, Theorem \ref{thm:decoratedfunctors} provides semantics. Each node in a
+network of resistors can be assigned an electric potential and a net current
+outflow at that node, and so the set $N$ of vertices of a $(0,\infty)$-graph can
+be seen as generating a space $\R^N \oplus (\R^N)^\ast$ of electrical states of
+the network. We define a natural transformation 
+\[
+  \res\colon  \lgraph \Longrightarrow \linsub
+\]
+mapping each $(0,\infty)$-graph on $N$, viewed as a network of resistors, to the
+linear subspace of $\R^N \oplus (\R^N)^\ast$ of electrical states permitted by
+Ohm's law.\footnote{Note that these states need not obey Kirchhoff's current
+law.} In detail, let $\psi \in \R^N$. We define the power $Q\colon  \R^N \to \R$
+corresponding to a $(0,\infty)$-graph $(N,E,s,t,r)$ to be the function
+\[
+  Q(\psi) = \sum_{e \in E} \frac1{r(e)}
+  \Big(\psi\big(t(e)\big)-\psi\big(s(e)\big)\Big)^2.
+\]
+Then the states of a network of resistors are given by a potential $\phi$ on the
+nodes and the gradient of the power at this potential:
+\begin{align*}
+  \res_N\colon  \lgraph(N) &\longrightarrow \linsub(N)\\
+  (N,E,s,t,r) &\longmapsto \{(\phi,\nabla Q_\phi) \mid \phi \in \R^N\}.
+\end{align*}
+This defines a monoidal natural transformation. Hence, by Theorem
+\ref{thm:decoratedfunctors}, we obtain a hypergraph functor
+$\mathrm{GraphCospan} \to \mathrm{LinSubCospan}$. 
+
+The semantics provided by this functor match the standard interpretation of
+networks of linear resistors. The maps of the Frobenius monoid take on the
+interpretation of perfectly conductive wires, forcing the potentials at all
+nodes they connect to be equal, and the sum of incoming currents to equal the
+sum of outgoing currents---precisely the behaviour implied by Kirchhoff's laws.
+More generally, let $(X \stackrel{i}{\rightarrow} N
+\stackrel{o}{\leftarrow} Y, \, (N,E,s,t,r))$ be a morphism of
+$\mathrm{GraphCospan}$, with $Q$ the power function corresponding to the graph
+$\Gamma = (N,E,s,t,r)$. The image of this decorated cospan in
+$\mathrm{LinSubCospan}$ is the decorated cospan $(X \stackrel{i}{\rightarrow} N
+\stackrel{o}{\leftarrow} Y, \, \{(\phi,\nabla Q_\phi) \mid \phi \in \R^N\})$.
+Then it is straightforward to check that the subspace 
+\[
+  \linsub[i,o]\big(\res_N(\Gamma)\big)\subseteq \R^{X+Y} \oplus (\R^{X+Y})^\ast
+\]
+is the subspace of electrical states on the terminals $X+Y$ such that currents
+and potentials can be chosen across the network of resistors $(N,E,s,t,r)$ that
+obey Ohm's and, on its interior, Kirchhoff's laws. In particular, after passing
+to a subspace of the terminals in this way, composition in
+$\mathrm{LinSubCospan}$ corresponds to enforcing Kirchhoff's laws on the shared
+terminals of the two networks. 
+
+This behaviour at the terminals $X+Y$ is often all we are interested in: for
+example, in a large electrical network, substituting a subcircuit for a
+different subcircuit with the same terminal behaviour will not affect the rest
+of the network. Yet this terminal behaviour is not yet encoded directly in the
+categorical structure. The images of circuits in $\mathrm{GraphCospan}$ in
+$\mathrm{LinSubCospan}$ are cospans decorated by a subspace of $\R^N \oplus
+(\R^N)^\ast$, keeping track of \emph{all} the internal behaviour as well. This
+can be undesirable, for reasons of information compression as well as reasoning
+about equivalence. The next chapter addresses this issue by introducing corelations.
+

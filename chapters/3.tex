@@ -1,4 +1,6 @@
-\chapter{Corelations: a tool for black boxing}
+\chapter{Corelations: a tool for black boxing} \label{ch.corelations}
+
+Black boxing!
 
 \section{Introduction}
 
@@ -64,6 +66,10 @@ Given sets $X$, $Y$, a relation $X \leadsto Y$ is a subset of the product $X
 jointly-monic spans in the category of sets. We generalise the dual concept.
 
 \subsection{Factorisation systems.}
+The relevant properties of jointly-monic spans come from the fact that
+monomorphisms form one half of a factorisation system. A factorisation system
+allows any morphism in a category to be factored into the composite of two
+morphisms in a coherent way.
 
 \begin{definition}
   A \define{factorisation system} $(\mathcal E,\mathcal M)$ in a category $\mathcal C$
@@ -97,43 +103,48 @@ jointly-monic spans in the category of sets. We generalise the dual concept.
 \end{definition}
 
 \begin{examples}
+  We introduce some factorisation systems we will make heavy use of in what
+  follows.
   \begin{itemize}
-    \item Write $\mathcal I_{\mathcal C}$ for the wide subcategory of $\mathcal
-      C$ containing exactly the isomorphisms of $\mathcal C$. Then $(\mathcal
-      I_{\mathcal C}, \mathcal C)$ and $(\mathcal C, \mathcal I_{\mathcal C})$
-      are both factorisation systems in $\mathcal C$. 
+    \item Firstly, write $\mathcal I_{\mathcal C}$ for the wide subcategory of
+      $\mathcal C$ containing exactly the isomorphisms of $\mathcal C$. Then
+      $(\mathcal I_{\mathcal C}, \mathcal C)$ and $(\mathcal C, \mathcal
+      I_{\mathcal C})$ are both factorisation systems in $\mathcal C$. 
     
     \item The prototypical example of a factorisation system is the epi-mono
-  factorisation system in $\Set$.
-
-    \item This follows from a more general fact, true in any category, that if every arrow can be factorised
-as an epi followed by a split mono, then this results in a factorisation system.
-The only non-trivial part to check is the uniqueness condition: given epi $e_1,e_2$, 
-split mono $m_1,m_2$ and commutative diagram
-    \[
-      \xymatrixcolsep{3pc}
-      \xymatrixrowsep{3pc}
-      \xymatrix{
-  \ar[r]^{e_1} \ar[d]_u & \ar[r]^{m_1} \ar@{.>}[d]^{\exists! t} &  \ar[d]^v \\
-  \ar[r]_{e_2}& \ar[r]_{m_2} & 
-      }
-    \]
-we must show that there is a unique $t$ that makes the diagram commute.
-Indeed let $t= m_2'vm_1$ where $m_2'$ satisfies $m_2'm_2=id$. 
-To see that the right square commutes, first
-\[
-m_2 t e_1 =  m_2 m_2' v m_1 e_1 = m_2 m_2' m_2 e_2 u = m_2 e_2 u = v m_1 e_1
-\]
-and since $e_1$ is epi we have $m_2 t = v m_1$. For the left square,
-$t e_1 = m_2' v m_1 e_1 = m_2' m_2 e_2 u = e_2 u$. Uniqueness is immediate,
-since, e.g.\ $m_2$ is mono. 
+      factorisation system in $\Set$. This follows from a more general fact,
+      true in any category, that if every arrow can be factorised as an epi
+      followed by a split mono, then this results in a factorisation system.
+      The only non-trivial part to check is the uniqueness condition: given epi
+      $e_1,e_2$, split mono $m_1,m_2$ and commutative diagram
+      \[
+	\xymatrixcolsep{3pc}
+	\xymatrixrowsep{3pc}
+	\xymatrix{
+	  \ar[r]^{e_1} \ar[d]_u & \ar[r]^{m_1} \ar@{.>}[d]^{\exists! t} &  \ar[d]^v \\
+	  \ar[r]_{e_2}& \ar[r]_{m_2} & 
+	}
+      \]
+      we must show that there is a unique $t$ that makes the diagram commute.
+      Indeed let $t= m_2'vm_1$ where $m_2'$ satisfies $m_2'm_2=id$. 
+      To see that the right square commutes, first
+      \[
+	m_2 t e_1 =  m_2 m_2' v m_1 e_1 = m_2 m_2' m_2 e_2 u = m_2 e_2 u = v m_1 e_1
+      \]
+      and since $e_1$ is epi we have $m_2 t = v m_1$. For the left square,
+      $t e_1 = m_2' v m_1 e_1 = m_2' m_2 e_2 u = e_2 u$. Uniqueness is immediate,
+      since, e.g.\ $m_2$ is mono. 
 \end{itemize}
 \end{examples}
 
 See \cite[\textsection 14]{AHS} for more details.
 
 
-\subsection{Corelations.}
+\subsection{Corelations}
+Relations, then may be generalised as spans such that the span maps `jointly'
+belong to some class $\mc M$ of an $(\mc E,\mc M)$-factorisation system. We
+define corelations in the dual manner.
+
 \begin{definition}
   Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
   \mathcal M)$ be a factorisation system on $\mathcal C$. An \define{$(\mathcal
@@ -150,7 +161,7 @@ property. Thus to specify a corelation one may simply choose any cospan with
 this property. We say that the cospan is \define{jointly $\mathcal E$-like}.
 
 When the factorisation system is clear from context, we simply call $(\mathcal
-E,\mathcal M)$-corelations `corelations'. We shall also take the freedom to be
+E,\mathcal M)$-corelations: `corelations'. We shall also take the freedom to be
 lazy with our language, and often refer to jointly $\mathcal E$-like cospans
 themselves as corelations---of course we mean the corelation given by its
 isomorphism class.
@@ -339,26 +350,30 @@ as defined by Ambler \cite{Am}.
   \mathcal M)$ be factorisation system on $\mathcal C$ such that $\mathcal M$ is
   stable under pushout. Then there exists a hypergraph category
   $\mathrm{Corel}(\mathcal C)$ with 
-  
-  \begin{tabular}{ r p{.6\textwidth}}
-    \textbf{objects} & the objects of $\mathcal C$ \\ 
-    \textbf{morphisms} & $(\mc E,\mc M)$-corelations in $\mathcal C$\\ 
-  \textbf{composition} & given by $\mc E$-part of pushout \\
-  \textbf{tensor product} & the coproduct in $\mathcal C$ of objects and cospans. \\
-  \textbf{coherence maps} & maps from $\cospan(\mc C)$  \\
-  \textbf{hypergraph maps} & maps from $\cospan(\mc C)$
-  \end{tabular}
+  \begin{center}
+    \begin{tabular}{| c | p{.65\textwidth} |}
+      \hline
+      \multicolumn{2}{|c|}{The hypergraph category $(\mathrm{Corel},+)$} \\
+      \hline
+      \textbf{objects} & the objects of $\mathcal C$ \\ 
+      \textbf{morphisms} & $(\mc E,\mc M)$-corelations in $\mathcal C$\\ 
+      \textbf{composition} & given by the $\mc E$-part of pushout \\
+      \textbf{monoidal product} & the coproduct in $\mathcal C$ \\
+      \textbf{coherence maps} & inherited from $\cospan(\mc C)$  \\
+      \textbf{hypergraph maps} & inherited from $\cospan(\mc C)$ \\
+      \hline
+    \end{tabular}
+  \end{center}  
 \end{theorem}
 
 To check this is well-defined we need to show that these structures obey the
 necessary axioms: associativity, the identity laws, the monoidal coherence laws,
 the special commutative Frobenius monoid laws. Instead of proving each axiom
 directly, we will leverage the fact that we already know $\cospan(\mc C)$ is a
-hypergraph category (Definition \ref{thm.cospanwelldef}), and show that
-$\corel(\mc C)$ is the image of $\cospan(\mc C)$ under a composition-preserving
-map that also respects the monoidal and hypergraph structure.
-
-This is a proof strategy we will employ a number of times in this paper.
+hypergraph category, and show that $\corel(\mc C)$ is the image of $\cospan(\mc
+C)$ under a composition-preserving map that also respects the monoidal and
+hypergraph structure. This is a proof strategy we will employ a number of times
+in this paper.
 
 Before completing this proof in the next section, we note a few examples.
 \begin{examples}
@@ -469,7 +484,7 @@ Before completing this proof in the next section, we note a few examples.
 \end{corollary}
 
 
-\subsection{Extraspecial commutative Frobenius monoids}
+\subsection{Example: extraspecial commutative Frobenius monoids}
 \begin{definition}
   An \define{extraspecial commutative Frobenius monoid}
   $(X,\mu,\eta,\delta,\epsilon)$ in a monoidal category $(\mathcal C, \otimes)$
@@ -498,7 +513,7 @@ the same connectivity relations on the disjoint union of the domain and
 codomain. This formalises an extension of the well-known spider theorem for
 special commutative Frobenius monoids \cite{CK,CPP}. 
 
-\subsection{Linear relations as corelations in $\Vect$.}
+\subsection{Example: linear relations as corelations in $\Vect$.}
 
 \begin{example}
   \textbf{Linear relations.} 
@@ -619,16 +634,21 @@ A subcategory stable under pushouts is a useful thing.
   Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
   subcategory of $\mathcal C$ stable under pushouts. Then we define the category
   $\mathcal C; \mathcal M^\opp$ as follows  
-  
-  \begin{tabular}{ r p{.65\textwidth}}
-    \textbf{objects} & the objects of $\mathcal C$ \\ 
-    \textbf{morphisms} & isomorphism classes of cospans of the form $\stackrel{c}\rightarrow
-  \stackrel{m}\leftarrow$, where $c$ is a morphism in $\mathcal C$ and $m$ a
-  morphism in $\mathcal M$\\ 
-  \textbf{composition} & given by pushout \\
-  \textbf{tensor product} & the coproduct in $\mathcal C$ \\
-  \textbf{coherence maps} & the coherence maps in $\mc C$
-  \end{tabular}
+  \begin{center}
+    \begin{tabular}{| c | p{.65\textwidth} |}
+      \hline
+      \multicolumn{2}{|c|}{The symmetric monoidal category $(\mc C;\mc M^\opp,+)$} \\
+      \hline
+      \textbf{objects} & the objects of $\mathcal C$ \\ 
+      \textbf{morphisms} & isomorphism classes of cospans of the form
+      $\stackrel{c}\rightarrow \stackrel{m}\leftarrow$, where $c$ is a morphism
+      in $\mathcal C$ and $m$ a morphism in $\mathcal M$\\ 
+      \textbf{composition} & given by pushout \\
+      \textbf{monoidal product} & the coproduct in $\mathcal C$ \\
+      \textbf{coherence maps} & the coherence maps in $\mc C$ \\
+      \hline
+    \end{tabular}
+  \end{center}
 \end{proposition}
 \begin{proof}
   Composition is well-defined as $\mc M$ is stable under pushouts. Monoidal
@@ -764,22 +784,26 @@ Suppose we have decorated corelations
   \[
     F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
   \]
-  be a symmetric lax monoidal functor.  Then we may define a hypergraph category
-  $F\mathrm{Corel}$
-  
-  \begin{tabular}{ r p{.6\textwidth}}
-    \textbf{objects} & the objects of $\mathcal C$ \\ 
-    \textbf{morphisms} & isomorphism classes of $F$-decorated corelations in
-    $\mathcal C$\\ 
-  \textbf{composition} & given by $\mc E$-part of pushout with restricted
-  decoration  \\
-  \textbf{tensor product} & the coproduct in $\mathcal C$ on objects, coproduct
-  of cospans and pair of decorations on morphisms. \\
-  \textbf{coherence maps} & maps from $\cospan(\mc C)$ with restricted empty
-  decoration \\
-  \textbf{hypergraph maps} & maps from $\cospan(\mc C)$ with restricted empty
-  decoration
-  \end{tabular}
+  be a symmetric lax monoidal functor.  Then we may define 
+  \begin{center}
+    \begin{tabular}{| c | p{.65\textwidth} |}
+      \hline
+      \multicolumn{2}{|c|}{The hypergraph category $(F\mathrm{Corel},+)$} \\
+      \hline
+      \textbf{objects} & the objects of $\mathcal C$ \\ 
+      \textbf{morphisms} & isomorphism classes of $F$-decorated corelations in
+      $\mathcal C$\\ 
+      \textbf{composition} & given by $\mc E$-part of pushout with restricted
+      decoration  \\
+      \textbf{monoidal product} & the coproduct in $\mathcal C$ on objects, coproduct
+      of cospans and pair of decorations on morphisms. \\
+      \textbf{coherence maps} & maps from $\cospan(\mc C)$ with restricted empty
+      decoration \\
+      \textbf{hypergraph maps} & maps from $\cospan(\mc C)$ with restricted empty
+      decoration \\
+      \hline
+    \end{tabular}
+  \end{center}
 \end{theorem}
 Similar to the corelations theorem (Theorem \ref{thm.cospantocorel}), we prove
 this alongside the theorem in the next subsection.
