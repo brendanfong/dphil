@@ -357,10 +357,10 @@ whenever
 is a pushout square such that $m \in \mathcal M$, we also have that $j \in
 \mathcal M$. For our proof sketch we rely on the following useful lemma.
 
-\begin{lemma} \label{lem.mcoproductsmc}
+\begin{lemma}
   Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
   subcategory of $\mathcal C$ stable under pushouts and containing all
-  isomorphisms. Then $(\mc M,+)$ is a symmetric monoidal category.
+  isomorphisms. Then $(\mc M,+)$ is a monoidal category.
 \end{lemma}
 \begin{proof}
   It is enough to show that for all morphisms $m,m' \in \mc M$ we have $m+m'$ in
@@ -406,17 +406,15 @@ is a pushout square such that $m \in \mathcal M$, we also have that $j \in
   them all as cospans, and then taking the jointly $\mc E$-like part.
 \end{proof}
 
-The identity axioms for corelations are self-evident. We thus have a category
-$\corel(\mc C)$.
+We thus have a category $\corel(\mc C)$.
 
-\begin{remark}
-An aside: proving associativity is not logically necessary in the development
-of this chapter. Associativity will follow from the existence of the functor
+As an aside, proving associativity is not logically necessary in the development
+of this chapter; associativity will follow from the existence of the functor
 from $\cospan(\mc C)$ to $\corel(\mc C)$, like the other necessary coherence
 results for hypergraph categories. Nonetheless, it is terminologically easier to
 establish that $\corel(\mc C)$ is indeed a category at this point, before we
 define hypergraph structure and functors on it.
-\end{remark}
+
 
 \subsection{Hypergraph structure}
 For modelling networks, we require not just a category, but a hypergraph
@@ -464,50 +462,27 @@ we have specified the required data for a hypergraph category. In the next
 section we will check the axioms of a hypergraph category are satisfied.
 
 \begin{lemma}
-  The map $(-)+(-)\maps \corel(\mc C)\times\corel(\mc C) \to \corel(\mc C)$
-  induced by the coproduct in $\mc C$ is functorial.
+  The coproduct $\corel(\mc C)+\corel(\mc C) \to \corel(\mc C)$ is functorial.
 \end{lemma}
 \begin{proof}
-As a preliminary, note that $+$ is a well-defined function: Lemma
+As a preliminary, note that the coproduct is a well-defined function: Lemma
 \ref{lem.monfact} implies that the coproduct of two corelations is again a
 corelation. Our task is to show that, given the four corelations 
-\[
-  \xymatrixrowsep{0pt}
-  \xymatrix{
-  f= X \longrightarrow N \longleftarrow Y  & &
-  g= Y \longrightarrow M \longleftarrow Z \\
-  h = X' \longrightarrow N' \longleftarrow Y' & &
- k= Y' \longrightarrow M' \longleftarrow Z'
-}
-\]
-we have $(g \circ f) + (k \circ h) = (g \circ k) + (f \circ h)$. The left and
-right side of this expression are respectively given by the first arrow in the
-upper and lower rows of the commutative diagram
-\[
-  \xymatrix{
-    (X+Z)+(X'+Z') \ar[r]^{\mc E+\mc E} \ar[d]^{\sim} & 
-    (\widetilde{N+_YM})+(\widetilde{N'+_{Y'}M'}) \ar[r]^{\mc M+\mc M} \ar@{.}[d] &
-    (N+_YM)+(N'+_{Y'}M') \ar[d]^{\sim} \\
-    (X+X')+(Z+Z') \ar[r]^{\mc E} &
-    \widetilde{(N+N')+_{Y+Y'}(M+M')} \ar[r]^{\mc M} & 
-    (N+N')+_{Y+Y'}(M+M'). \\
-  }
-\]
-The leftmost and rightmost vertical arrows are isomorphisms by properties of
-colimits. The upper row is an $(\mc E,\mc M)$-factorisation as the first map is
-the coproduct of two maps in $\mc E$ and the second map is the coproduct of two
-maps in $\mc M$, both of which are monoidal with respect to the coproduct
-(Lemmas \ref{lem.monfact} and \ref{lem.mcoproductsmc}). The lower row is an
-$(\mc E,\mc M)$-factorisation by definition. Thus, by the properties of
-factorisation systems, the dotted map $s$ is an isomorphism, and hence $+$ is
-functorial. 
+\begin{align*}
+  X \longrightarrow N \longleftarrow Y \qquad&\qquad 
+  Y \longrightarrow M \longleftarrow Z \\
+  X' \longrightarrow N' \longleftarrow Y' \qquad&\qquad
+  Y' \longrightarrow M' \longleftarrow Z'
+\end{align*}
 \end{proof}
 
-To prove Theorem \ref{thm.cospantocorel} it remains to show that our proposed
-data for $\mathrm{Corel}(\mc C)$ obey the necessary axioms: the symmetric
-monoidal coherence laws, the special commutative Frobenius monoid laws. Our
-proof strategy will be a touch complicated. Again, recall that in Theorem
-\ref{thm:fcospans} we proved $F\mathrm{Cospan}$ had hypergraph structure via
+
+
+To check this is well-defined it remains to show that these structures obey the
+necessary axioms: associativity, the identity laws, the symmetric monoidal
+coherence laws, the special commutative Frobenius monoid laws. Our proof
+strategy will be slightly complicated. Again, recall that in Theorem
+\ref{thm:fcospans} we proved $F\mathrm{Cospan}$ had hypergraph structure by via
 a functor from $\cospan(\mc C)$. Instead of proving each axiom directly, we will
 again leverage the fact that we already know $\cospan(\mc C)$ is a hypergraph
 category, and show that $\corel(\mc C)$ is the image of $\cospan(\mc C)$ under a
@@ -522,9 +497,8 @@ this, we will discuss functors between corelation categories in general, before
 specialising to this case to prove that $\mathrm{Corel}(\mc C)$ indeed is a
 well-defined hypergraph category.
 
-This will be done in the next subsection. We conclude this subsection by
-returning to the example of a corelation category that we sketched in the
-introduction.
+This will be done in the next subsection. We conclude this subsection with an
+example.
 
 \begin{example}
   In each factorisation system of Examples \ref{ex.corels} the right factor
@@ -650,14 +624,18 @@ target category removes at least as much information as the source category.
   proves that $\square$ preserves composition.
 
   As $A$ preserves colimits, it follows immediately that $\square$ respects the
-  monoidal and hypergraph structure. The coherence maps are natural (WHY)
-  
-  by
+  monoidal and hypergraph structure. Indeed, the coherence maps are natural by
   the properties of coproducts, the symmetric monoidal coherence laws are each
-  diagrams of isomorphisms of coproducts. and for example the Frobenius
-  multiplication $[1_X,1_X]$ (THIS IS NOT THE MULT) on an object $X$ of $\mc C$ obeys $A[1_X,1_X] \circ
+  diagrams of isomorphisms of coproducts, and for example the Frobenius
+  multiplication $[1_X,1_X]$ on an object $X$ of $\mc C$ obeys $A[1_X,1_X] \circ
   \kappa_{X,X}= [1_{AX},1_{AX}]$, as required.   
 \end{proof}
+
+Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
+are epi-mono factorisations, then we always have that $F(\mathcal E) \subseteq
+\mathcal E'$ and $F(\mathcal M) \subseteq \mathcal M'$. Indeed, if an
+(one-sided) inverse exists in the domain category, it exists in the codomain
+category.
 
 \begin{corollary}
   There is a strict hypergraph functor 
@@ -668,17 +646,8 @@ target category removes at least as much information as the source category.
   $\corel(\mathcal C)$ and each cospan to its $\mathcal E$-part.
 \end{corollary}
 
-\begin{example}
-Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
-are epi-mono factorisations, then we always have that $F(\mathcal E) \subseteq
-\mathcal E'$ and $F(\mathcal M) \subseteq \mathcal M'$. Indeed, if an
-(one-sided) inverse exists in the domain category, it exists in the codomain
-category. Thus colimit-preserving functors between categories with finite
-colimits and epi-mono factorisation systems also induce a functor between the
-epi-mono corelation categories.
-\end{example}
 
-\subsection{Example: linear relations as corelations in $\Vect$}
+\subsection{Example: linear relations as corelations in $\Vect$.}
 
 Recall that a linear relation $L\maps U \leadsto V$ is a subspace $L \subseteq
 U \oplus V$. We compose linear relations as we do relations, and vector spaces
@@ -760,7 +729,7 @@ Furthermore, and key to the idea of `black-boxing', we get a hypergraph functor
 from decorated cospans to decorated corelations.
 
 
-\subsection{Adjoining right adjoints}
+\subsection{Constructing right adjoints.}
 A subcategory stable under pushouts is a useful thing.
 
 \begin{proposition}
@@ -959,11 +928,11 @@ decorations back down. This is related to the existence of an extraspecial
 commutative Frobenius monoid in our main applications.
 
 
-Associativity: To take a decoration on $A+B$ to one on $A+_C\widetilde B$ we may
-either reduce to the $\mathcal E$-part of $B$ and then pushout over $C$, or
-pushout over $C$ and then reduce to the $\mathcal E$ part of $B$. This lemma
-implies that both processes result in the same decoration.  \subsection{Functors
-between decorated corelation categories}
+To take a decoration on $A+B$ to one on $A+_C\widetilde B$ we may either reduce to
+the $\mathcal E$-part of $B$ and then pushout over $C$, or pushout over $C$ and
+then reduce to the $\mathcal E$ part of $B$. This lemma implies that both
+processes result in the same decoration.
+\subsection{Functors between decorated corelation categories}
 
 \begin{proposition}\label{prop.deccorelfunctors}
   Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
