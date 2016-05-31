@@ -2005,6 +2005,7 @@ symplectic vector space $\overline{V_1} \oplus V_2$. This gives us a
 way to think of certain Lagrangian subspaces, such as those arising from
 circuits, as morphisms, giving a way to compose them.
 
+Recall discussion of names/conames in Chapter refONE.
 \begin{definition}
   A \define{Lagrangian relation} $L\maps V_1 \to V_2$ is a Lagrangian subspace $L$
   of $\overline{V_1} \oplus V_2$. 
@@ -2211,210 +2212,6 @@ symmetric monoidal dagger category.
 Moreover, every object in $\mathrm{LagrRel}$ has a dagger dual: it is clear that
 $\eta^\dagger = \eps \circ \s$.   This category thus becomes a dagger compact
 category.
-
-\subsection{Names of Lagrangian relations} \label{subsec:names}
-
-This brief subsection illustrates a guiding principle of this paper: \emph{duals for
-objects allow us to blur the distinction between composition of morphisms and the tensor product of morphisms}. We will make use of this when we prove
-the functoriality of the black box functor.
-
-Observe that a Lagrangian relation $L\maps \{0\} \to V$ is the same as a Lagrangian
-subspace of $V$. Moreover, given a Lagrangian relation $L\maps U \to V$, 
-\[
-  \begin{tikzpicture}
-    \begin{pgfonlayer}{nodelayer}
-      \node [style=none] (0) at (-0.25, 0.25) {};
-      \node [style=none] (1) at (0.25, 0.25) {};
-      \node [style=none] (2) at (-0.25, -0.25) {};
-      \node [style=none] (3) at (0.25, -0.25) {};
-      \node [style=none] (4) at (0, 0.75) {};
-      \node [style=none] (5) at (0, -0.75) {};
-      \node [style=none] (6) at (0, 0.25) {};
-      \node [style=none] (7) at (0, -0.25) {};
-      \node [style=none] (8) at (0, -0) {$L$};
-      \node [style=none] (9) at (0, 1) {$U$};
-      \node [style=none] (10) at (0, -1) {$V$};
-    \end{pgfonlayer}
-    \begin{pgfonlayer}{edgelayer}
-      \draw (0.center) to (1.center);
-      \draw (1.center) to (3.center);
-      \draw (3.center) to (2.center);
-      \draw (2.center) to (0.center);
-      \draw (4.center) to (6.center);
-      \draw (7.center) to (5.center);
-    \end{pgfonlayer}
-  \end{tikzpicture} 
-\]
-compactness allows us to view it as a Lagrangian relation $\{0\} \to
-\overline{U} \oplus V$:
-\[
-  \begin{tikzpicture}
-    \begin{pgfonlayer}{nodelayer}
-      \node [style=none] (0) at (-0.25, 0.25) {};
-      \node [style=none] (1) at (0.25, 0.25) {};
-      \node [style=none] (2) at (-0.25, -0.25) {};
-      \node [style=none] (3) at (0.25, -0.25) {};
-      \node [style=none] (4) at (-0.5, 0.75) {};
-      \node [style=none] (5) at (0, -0.75) {};
-      \node [style=none] (6) at (0, 0.25) {};
-      \node [style=none] (7) at (0, -0.25) {};
-      \node [style=none] (8) at (0, -0) {$L$};
-      \node [style=none] (9) at (-1, -1) {$\overline{U}$};
-      \node [style=none] (10) at (0, -1) {$V$};
-      \node [style=none] (11) at (-1, -0.75) {};
-      \node [style=none] (12) at (-1, 0.25) {};
-    \end{pgfonlayer}
-    \begin{pgfonlayer}{edgelayer}
-      \draw (0.center) to (1.center);
-      \draw (1.center) to (3.center);
-      \draw (3.center) to (2.center);
-      \draw (2.center) to (0.center);
-      \draw [bend left=45, looseness=1.00] (4.center) to (6.center);
-      \draw (7.center) to (5.center);
-      \draw (11.center) to (12.center);
-      \draw [bend left=45, looseness=1.00] (12.center) to (4.center);
-    \end{pgfonlayer}
-  \end{tikzpicture}
-\]
-We call this subspace the \define{name} of the Lagrangian relation $L$; indeed,
-we have used this one-to-one correspondence between morphisms and
-their names to define Lagrangian relations.
-
-By compactness, we have the equation
-\[
-  \begin{aligned}
-    \begin{tikzpicture}
-      \begin{pgfonlayer}{nodelayer}
-	\node [style=none] (0) at (-0.75, 0.5) {};
-	\node [style=none] (1) at (-0.25, 0.5) {};
-	\node [style=none] (2) at (-0.75, -0) {};
-	\node [style=none] (3) at (-0.25, -0) {};
-	\node [style=none] (4) at (-1, 1) {};
-	\node [style=none] (5) at (-0.5, 0.5) {};
-	\node [style=none] (6) at (-0.5, -0) {};
-	\node [style=none] (7) at (-0.5, 0.25) {$L$};
-	\node [style=none] (8) at (-1.5, -1) {$\overline{U}$};
-	\node [style=none] (9) at (-1.5, -0.75) {};
-	\node [style=none] (10) at (-1.5, 0.5) {};
-	\node [style=none] (11) at (1.5, -0) {};
-	\node [style=none] (12) at (1.75, 0.5) {};
-	\node [style=none] (13) at (1.5, -1) {$W$};
-	\node [style=none] (14) at (0.5, -0) {};
-	\node [style=none] (15) at (1.25, -0) {};
-	\node [style=none] (16) at (1.75, -0) {};
-	\node [style=none] (17) at (1.5, -0.75) {};
-	\node [style=none] (18) at (1, 1) {};
-	\node [style=none] (19) at (1.5, 0.25) {$M$};
-	\node [style=none] (20) at (0.5, 0.5) {};
-	\node [style=none] (21) at (1.5, 0.5) {};
-	\node [style=none] (22) at (1.25, 0.5) {};
-	\node [style=none] (23) at (0, -0.5) {};
-      \end{pgfonlayer}
-      \begin{pgfonlayer}{edgelayer}
-	\draw (0.center) to (1.center);
-	\draw (1.center) to (3.center);
-	\draw (3.center) to (2.center);
-	\draw (2.center) to (0.center);
-	\draw [bend left=45, looseness=1.00] (4.center) to (5.center);
-	\draw (9.center) to (10.center);
-	\draw [bend left=45, looseness=1.00] (10.center) to (4.center);
-	\draw (22.center) to (12.center);
-	\draw (12.center) to (16.center);
-	\draw (16.center) to (15.center);
-	\draw (15.center) to (22.center);
-	\draw [bend left=45, looseness=1.00] (18.center) to (21.center);
-	\draw (11.center) to (17.center);
-	\draw (14.center) to (20.center);
-	\draw [bend left=45, looseness=1.00] (20.center) to (18.center);
-	\draw [bend right=45, looseness=1.00] (6.center) to (23.center);
-	\draw [bend right=45, looseness=1.00] (23.center) to (14.center);
-      \end{pgfonlayer}
-    \end{tikzpicture}
-  \end{aligned}
-  \qquad
-  =
-  \qquad
-  \begin{aligned}
-    \begin{tikzpicture}
-      \begin{pgfonlayer}{nodelayer}
-	\node [style=none] (0) at (-0.75, 0.5) {};
-	\node [style=none] (1) at (-0.25, 0.5) {};
-	\node [style=none] (2) at (-0.75, -0) {};
-	\node [style=none] (3) at (-0.25, -0) {};
-	\node [style=none] (4) at (-1, 1) {};
-	\node [style=none] (5) at (-0.5, 0.5) {};
-	\node [style=none] (6) at (-0.5, -0) {};
-	\node [style=none] (7) at (-0.5, 0.25) {$L$};
-	\node [style=none] (8) at (-1.5, -1.25) {$\overline{U}$};
-	\node [style=none] (9) at (-1.5, -1) {};
-	\node [style=none] (10) at (-1.5, 0.5) {};
-	\node [style=none] (11) at (-0.5, -1) {};
-	\node [style=none] (12) at (-0.25, -0.25) {};
-	\node [style=none] (13) at (-0.5, -1.25) {$W$};
-	\node [style=none] (14) at (-0.75, -0.75) {};
-	\node [style=none] (15) at (-0.25, -0.75) {};
-	\node [style=none] (16) at (-0.5, -0.75) {};
-	\node [style=none] (17) at (-0.5, -0.5) {$M$};
-	\node [style=none] (18) at (-0.5, -0.25) {};
-	\node [style=none] (19) at (-0.75, -0.25) {};
-      \end{pgfonlayer}
-      \begin{pgfonlayer}{edgelayer}
-	\draw (0.center) to (1.center);
-	\draw (1.center) to (3.center);
-	\draw (3.center) to (2.center);
-	\draw (2.center) to (0.center);
-	\draw [bend left=45, looseness=1.00] (4.center) to (5.center);
-	\draw (9.center) to (10.center);
-	\draw [bend left=45, looseness=1.00] (10.center) to (4.center);
-	\draw (19.center) to (12.center);
-	\draw (12.center) to (15.center);
-	\draw (15.center) to (14.center);
-	\draw (14.center) to (19.center);
-	\draw (11.center) to (16.center);
-	\draw (6.center) to (18.center);
-      \end{pgfonlayer}
-    \end{tikzpicture}
-  \end{aligned}
-\]
-Here the right hand side is the name of the composite $M \circ L$ of Lagrangian
-relations, while the left hand side is the direct sum of the names of $L$ and $M$
-post-composed with the Lagrangian relation
-\[
-  \begin{tikzpicture}
-    \begin{pgfonlayer}{nodelayer}
-      \node [style=none] (0) at (-0.5, -0) {};
-      \node [style=none] (1) at (-1.5, -1.25) {$\overline{U}$};
-      \node [style=none] (2) at (-1.5, -1) {};
-      \node [style=none] (3) at (-1.5, 0.25) {};
-      \node [style=none] (4) at (1.5, 0.25) {};
-      \node [style=none] (5) at (1.5, -1.25) {$W$};
-      \node [style=none] (6) at (0.5, -0) {};
-      \node [style=none] (7) at (1.5, -1) {};
-      \node [style=none] (8) at (0, -0.5) {};
-      \node [style=none] (9) at (-0.5, 0.25) {};
-      \node [style=none] (10) at (0.5, 0.25) {};
-      \node [style=none] (11) at (-1.5, 0.5) {$\overline{U}$};
-      \node [style=none] (12) at (-0.5, 0.5) {$V$};
-      \node [style=none] (13) at (0.5, 0.5) {$\overline{V}$};
-      \node [style=none] (14) at (1.5, 0.5) {$W$};
-    \end{pgfonlayer}
-    \begin{pgfonlayer}{edgelayer}
-      \draw (2.center) to (3.center);
-      \draw (4.center) to (7.center);
-      \draw [bend right=45, looseness=1.00] (0.center) to (8.center);
-      \draw [bend right=45, looseness=1.00] (8.center) to (6.center);
-      \draw (0.center) to (9.center);
-      \draw (6.center) to (10.center);
-    \end{pgfonlayer}
-  \end{tikzpicture}
-\]
-Thus this relation above, the product of a cap and two identity maps, enacts
-composition of Lagrangian relations. The proof of Proposition
-\ref{prop:lagrangian_composition}, that the composite of two Lagrangian
-relations is again a Lagrangian relation, makes use of this fact. We shall also
-return to it when discussing our functor $\Circ \to \LagrRel$.
-Note the similarity in form between our diagrams of cospans and of names of
-Lagrangian relations. 
 
 \section{Ideal wires and corelations} \label{sec:corel}
 %%fakesubsection
@@ -4074,7 +3871,7 @@ It is now routine to observe the symmetric monoidality and dagger-preserving
 nature of this construction, as well as that it preserves identities. Finally,
 we must check that composition is preserved.  
 
-Using the concept of names introduced in Section \ref{subsec:names}, this comes
+Using the concept of names introduced in Chapter refONE, this comes
 down to checking this equality of Lagrangian subspaces:
 \[
 \begin{aligned}

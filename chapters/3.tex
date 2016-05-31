@@ -4,7 +4,7 @@ Black boxing!
 
 USE MATERIAL FROM INTRODUCTION OF CORELATIONS PAPER AND CORELATIONS
 SECTION IN BLACK BOX PAPER
-\section{Introduction}
+\section{The idea of black boxing}
 
 Consider a circuit diagram.
 \[
@@ -166,18 +166,18 @@ factorisation system for the coproduct.
   $f\maps A \to B$ and $g\maps C \to D$ in $\mc E$, we wish to show that
   $f+g\maps A+C \to B+D$, defined in $\mc C$, is also a morphism in $\mc E$. 
 
-  Let $f+g$ have factorisation $A+C \stackrel{e}\longrightarrow \widetilde{B+D}
+  Let $f+g$ have factorisation $A+C \stackrel{e}\longrightarrow \overline{B+D}
   \stackrel{m}\longrightarrow B+D$, where $e \in \mc E$ and $m \in \mc
   M$. We will prove that $m$ is an isomorphism. To construct an inverse, recall
   that by definition, as $f$ and $g$ lie in $\mc E$, there exist morphisms
-  $x\maps B \to \widetilde{B+D}$ and $y\maps D \to \widetilde{B+D}$ such that
+  $x\maps B \to \overline{B+D}$ and $y\maps D \to \overline{B+D}$ such that
   \[ \label{eq.coreltensor}
     \xymatrixcolsep{2pc}
     \xymatrixrowsep{2pc}
     \xymatrix{
       A \ar[r]^f \ar[d] & B \ar@{=}[r] \ar@{.>}[d]^x & B
       \ar[d] \\
-      A+C \ar[r]_{e}&\widetilde{B+D} \ar[r]_{m} & B+D
+      A+C \ar[r]_{e}&\overline{B+D} \ar[r]_{m} & B+D
     }
     \qquad \mbox{and} \qquad
     \xymatrixcolsep{2pc}
@@ -185,7 +185,7 @@ factorisation system for the coproduct.
     \xymatrix{
       C \ar[r]^g \ar[d] & D \ar@{=}[r] \ar@{.>}[d]^y & D
       \ar[d] \\
-      A+C \ar[r]_{e}&\widetilde{B+D} \ar[r]_{m} & B+D
+      A+C \ar[r]_{e}&\overline{B+D} \ar[r]_{m} & B+D
     }
     \tag{1}
   \]
@@ -196,7 +196,7 @@ factorisation system for the coproduct.
   \[
     \xymatrix{
       A+C \ar[r]^{f+g} \ar@{=}[d] & B+D \ar@{=}[r] \ar[d]_{[x,y]} & B+D \ar@{=}[d] \\
-      A+C \ar[r]^{e} & \widetilde{B+D} \ar[r]^{m} & B+D
+      A+C \ar[r]^{e} & \overline{B+D} \ar[r]^{m} & B+D
     }
   \]
   Reading the right-hand square immediately gives $m \circ [x,y] =1$.
@@ -207,12 +207,12 @@ factorisation system for the coproduct.
     \xymatrixcolsep{2pc}
     \xymatrixrowsep{2pc}
     \xymatrix{
-      A+C \ar[r]^e \ar@{=}[d] & \widetilde{B+D} \ar[d]^{[x,y] \circ m} \\
-      A+C \ar[r]_{e}&\widetilde{B+D} 
+      A+C \ar[r]^e \ar@{=}[d] & \overline{B+D} \ar[d]^{[x,y] \circ m} \\
+      A+C \ar[r]_{e}&\overline{B+D} 
     }
   \]
   commutes. But by the universal property of factorisation systems, there is a
-  unique map $\widetilde{B+D} \to \widetilde{B+D}$ such that this diagram
+  unique map $\overline{B+D} \to \overline{B+D}$ such that this diagram
   commutes, and clearly the identity map also suffices. Thus $[x,y] \circ m =
   1$.
 \end{proof}
@@ -241,22 +241,22 @@ again are often lazy with out language, referring to both jointly $\mc E$-like
 cospans and their isomorphism classes as corelations. 
 
 If $f\maps A \to N$ is a morphism with factorisation $f = m \circ e$, write
-$\widetilde N$ for the object such that $e\maps A \to \widetilde N$ and $m\maps
-\widetilde N \to N$. Now, given a cospan $X \stackrel{i_X}{\longrightarrow} N
+$\overline N$ for the object such that $e\maps A \to \overline N$ and $m\maps
+\overline N \to N$. Now, given a cospan $X \stackrel{i_X}{\longrightarrow} N
 \stackrel{o_Y}{\longleftarrow} Y$, we may use the factorisation system to write
 the copairing $[i_X,o_Y]\maps X+Y \to N$ as
 \[
-  X+Y \stackrel{e}{\longrightarrow} \widetilde{N} \stackrel{m}{\longrightarrow}
+  X+Y \stackrel{e}{\longrightarrow} \overline{N} \stackrel{m}{\longrightarrow}
   N.
 \]
 From the universal property of the coproduct, we also have maps $\iota_X\maps X
 \to X+Y$ and $\iota_Y\maps Y \to X+Y$. We then call the corelation 
 \[
-  X \stackrel{e\circ \iota_X}{\longrightarrow} \widetilde{N} \stackrel{e \circ
+  X \stackrel{e\circ \iota_X}{\longrightarrow} \overline{N} \stackrel{e \circ
   \iota_Y}{\longleftarrow} Y
 \]
 the \define{$\mathcal E$-part} of the above cospan. On occasion we will also
-write $e\maps X+Y \to \widetilde N$ for the same corelation.
+write $e\maps X+Y \to \overline N$ for the same corelation.
 
 \begin{examples} \label{ex.corels}
   Many examples of corelations are already familiar.
@@ -280,11 +280,11 @@ We compose corelations by taking the $\mathcal E$-part of their composite
 cospan. That is, given corelations $X \stackrel{i_X}{\longrightarrow} N
 \stackrel{o_Y}{\longleftarrow} Y$ and $Y \stackrel{i_Y}{\longrightarrow} M
 \stackrel{o_Z}{\longleftarrow} Z$, their composite is given by the cospan $X
-\to \widetilde{N+_YM} \leftarrow Z$ in
+\to \overline{N+_YM} \leftarrow Z$ in
 \[
   \xymatrix{
     && N+_YM \\
-    && \widetilde{N+_YM} \ar[u]_{m} \\
+    && \overline{N+_YM} \ar[u]_{m} \\
     & N \ar[ur]^{e \circ \iota_N} && M \ar[ul]_{e \circ \iota_M} \\
     \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z, \quad \ar[ul]_{o_Z}
   }
@@ -298,7 +298,7 @@ of corelations. For example, bicategorical version of the dual theorem, for
 spans and relations, can be found in \cite{JW}. Nonetheless, for the sake of
 completeness we sketch our own argument here.
 
-\begin{proposition}
+\begin{proposition} \label{prop.corelcomp}
   Let $\mc C$ be a category with finite colimits and with a factorisation system
   $(\mc E,\mc M)$. Then the above is a well-defined composition rule on
   isomorphism classes of corelations.
@@ -335,9 +335,9 @@ completeness we sketch our own argument here.
     \xymatrixcolsep{3pc}
     \xymatrixrowsep{2pc}
     \xymatrix{
-      X+Z \ar[r]^e \ar@{=}[d] & \widetilde{N+_YM} \ar[r]^m \ar@{.>}[d]^{s}_\sim & N+_YM
+      X+Z \ar[r]^e \ar@{=}[d] & \overline{N+_YM} \ar[r]^m \ar@{.>}[d]^{s}_\sim & N+_YM
       \ar[d]^\sim \\
-      X+Z \ar[r]_{e'}&\widetilde{N'+_YM'} \ar[r]_{m'} & N'+_YM'
+      X+Z \ar[r]_{e'}&\overline{N'+_YM'} \ar[r]_{m'} & N'+_YM'
     }
   \]
   commutes. This $s$ is an isomorphism of the composite corelations.
@@ -355,7 +355,12 @@ whenever
   }
 \]
 is a pushout square such that $m \in \mathcal M$, we also have that $j \in
-\mathcal M$. For our proof sketch we rely on the following useful lemma.
+\mathcal M$. 
+
+Stability under pushout is a powerful property. A key corollary, both for
+associativity and in general, is that it implies $\mc M$ is also closed under
+$+$. 
+%For our proof sketch we rely on the following useful lemma.
 
 \begin{lemma} \label{lem.mcoproductsmc}
   Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
@@ -382,46 +387,53 @@ is a pushout square such that $m \in \mathcal M$, we also have that $j \in
   $1+m' \in \mc M$. Thus their composite $m+m'$ lies in $\mc M$, as required.
 \end{proof}
 
+An analogous argument shows that pushouts of maps $m+_Ym'$ also lie in $\mc M$.
+Using this lemma it is not difficult to show associativity---the key point is
+that factorisation `commutes' with pushouts, and that we have a category
+$\corel_{(\mc E,\mc M)}(\mc C)$. Again, this is all well-known, and can be found
+in \cite{JayWar00}. We will incidentally reprove these facts in the following,
+while pursuing richer structure.
 
-\begin{proposition}
-  Let $\mc C$ be a category with finite colimits and a factorisation system
-  $(\mc E,\mc M)$ such that $\mc M$ is stable under pushouts. Then composition
-  of corelations is associative.
-\end{proposition}
-\begin{proof}[Proof (sketch)]
-  The key concern is whether factorisation `commutes' with taking pushouts.
-  Using the above lemma and the fact that $\mc M$ is stable under pushouts, the
-  pushout square 
-  \[
-  \xymatrixcolsep{3pc}
-  \xymatrixrowsep{2pc}
-  \xymatrix{
-    N+_Y\widetilde{M} \ar[r]^{m'} & N+_YM \\
-    N+\widetilde{M} \ar[u] \ar[r]^{1+m} & N+M  \ar[u]
-  }
-  \]
-  shows that the map $m'\maps N+_Y\widetilde{M} \to N+_YM$ is in $\mc M$
-  whenever $m\maps \widetilde{N} \to N$ is. It can then be shown that the
-  composite of any number of corelations can be given by taking the composite of
-  them all as cospans, and then taking the jointly $\mc E$-like part.
-\end{proof}
+%\begin{proposition}
+%  Let $\mc C$ be a category with finite colimits and a factorisation system
+%  $(\mc E,\mc M)$ such that $\mc M$ is stable under pushouts. Then composition
+%  of corelations is associative.
+%\end{proposition}
+%\begin{proof}[Proof (sketch)]
+%  The key concern is whether factorisation `commutes' with taking pushouts.
+%  Using the above lemma and the fact that $\mc M$ is stable under pushouts, the
+%  pushout square 
+%  \[
+%  \xymatrixcolsep{3pc}
+%  \xymatrixrowsep{2pc}
+%  \xymatrix{
+%    N+_Y\overline{M} \ar[r]^{m'} & N+_YM \\
+%    N+\overline{M} \ar[u] \ar[r]^{1+m} & N+M  \ar[u]
+%  }
+%  \]
+%  shows that the map $m'\maps N+_Y\overline{M} \to N+_YM$ is in $\mc M$
+%  whenever $m\maps \overline{N} \to N$ is. It can then be shown that the
+%  composite of any number of corelations can be given by taking the composite of
+%  them all as cospans, and then taking the jointly $\mc E$-like part.
+%\end{proof}
 
-The identity axioms for corelations are self-evident. We thus have a category
-$\corel(\mc C)$.
+%The identity axioms for corelations are self-evident. We thus have a category
+%$\corel_{(\mc E,\mc M)}(\mc C)$.  Again, we will drop explicit reference to the
+%factorisation system when context allows, simply writing $\mathrm{Corel}(\mc
+%C)$.
+%
+%\begin{remark}
+%An aside: proving associativity is not logically necessary in the development
+%of this chapter. Associativity will follow from the existence of the functor
+%from $\cospan(\mc C)$ to $\corel(\mc C)$, like the other necessary coherence
+%results for hypergraph categories. Nonetheless, it is terminologically easier to
+%establish that $\corel(\mc C)$ is indeed a category at this point, before we
+%define hypergraph structure and functors on it.
+%\end{remark}
+%
 
-\begin{remark}
-An aside: proving associativity is not logically necessary in the development
-of this chapter. Associativity will follow from the existence of the functor
-from $\cospan(\mc C)$ to $\corel(\mc C)$, like the other necessary coherence
-results for hypergraph categories. Nonetheless, it is terminologically easier to
-establish that $\corel(\mc C)$ is indeed a category at this point, before we
-define hypergraph structure and functors on it.
-\end{remark}
-
-\subsection{Hypergraph structure}
-For modelling networks, we require not just a category, but a hypergraph
+Indeed, for modelling networks, we require not just a category, but a hypergraph
 category. Corelation categories come equipped with this extra structure.
-
 Recall that we gave decorated cospan categories a hypergraph structure by
 defining a wide embedding $\mathrm{Cospan}(\mc C) \hookrightarrow
 F\mathrm{Cospan}$, via which $F\mathrm{Cospan}$ inherited the coherence and
@@ -432,8 +444,7 @@ showing that the `quotient' map
 \]
 taking each cospan to its jointly $\mc E$-like part is functorial. Indeed, we
 define the coherence and Frobenius maps of $\corel(\mc C)$ to be their image
-under this map. For the coproduct we again use the coproduct in $\mc C$ as monoidal
-product. 
+under this map. For the monoidal product we again use the coproduct in $\mc C$.
 
 \begin{theorem} \label{thm.cospantocorel}
   Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
@@ -455,78 +466,267 @@ product.
     \end{tabular}
   \end{center}  
 \end{theorem}
-Again, we will drop explicit reference to the factorisation system when context
-allows, simply writing $\mathrm{Corel}(\mc C)$.
 
-Our proof of this theorem will have two parts. Here we check that the
-coproduct $\corel(\mc C)+\corel(\mc C) \to \corel(\mc C)$ is functorial, so that
-we have specified the required data for a hypergraph category. In the next
-section we will check the axioms of a hypergraph category are satisfied.
+Again, we will drop explicit reference to the factorisation system when context allows, simply writing $\mathrm{Corel}(\mc C)$.
+
+Proposition \ref{prop.corelcomp} shows that our composition rule is a
+well-defined function, Lemma \ref{lem.monfact} shows likewise for the monoidal
+product $+\maps \corel(\mc C)\times \corel(\mc C) \to \corel(\mc C)$. Thus we
+have the required data for a hypergraph category. It just remains to check a
+number of axioms: associativity and unitality of the categorical composition,
+functoriality of the monoidal product, naturality of the coherence maps, the
+coherence axioms for symmetric monoidal categories, the Frobenius laws.
+
+Our strategy for this will simply be to show that the (surjective) function
+taking a cospan to its jointly $\mc E$-part preserves composition and has
+natural strict monoidal coherence maps. This implies that to evaluate an
+expression in the monoidal category of corelations, we may simply evaluate it in
+the monoidal category of cospans, and then take the $\mc E$-part. Thus if an
+equation is true for cospans, it is true for corelations.
+
+Instead of proving just this, however, we will prove a generalisation regarding
+the analogous `reduction' map between any two corelation `categories'. This will
+reduce to the desired special case by taking the domain to be the `trivial'
+$(\mc C,\mc I_{\mc C})$-corelations, which we know is equal to the hypergraph
+category of cospans. But the generality is not spurious: it has the advantage of
+proving the existence of a class of hypergraph functors between corelation
+categories in the same fell swoop.
+
+Although a touch convoluted, this strategy is worth the pause for thought. We
+will use it once again for \emph{decorated corelations}, to great economy.
+
+%\begin{lemma}
+%  The map $(-)+(-)\maps \corel(\mc C)\times\corel(\mc C) \to \corel(\mc C)$
+%  induced by the coproduct in $\mc C$ is functorial.
+%\end{lemma}
+%\begin{proof}
+%As a preliminary, note that $+$ is a well-defined function: Lemma
+%\ref{lem.monfact} implies that the coproduct of two corelations is again a
+%corelation. Our task is to show that, given the four corelations 
+%\[
+%  \xymatrixrowsep{0pt}
+%  \xymatrix{
+%  f= X \longrightarrow N \longleftarrow Y  & &
+%  g= Y \longrightarrow M \longleftarrow Z \\
+%  h = X' \longrightarrow N' \longleftarrow Y' & &
+% k= Y' \longrightarrow M' \longleftarrow Z'
+%}
+%\]
+%we have $(g \circ f) + (k \circ h) = (g + k) \circ (f + h)$. The left and
+%right side of this expression are respectively given by the first arrow in the
+%upper and lower rows of the commutative diagram
+%\[
+%  \xymatrix{
+%    (X+Z)+(X'+Z') \ar[r]^{\mc E+\mc E} \ar[d]^{\sim} & 
+%    (\overline{N+_YM})+(\overline{N'+_{Y'}M'}) \ar[r]^{\mc M+\mc M} \ar@{.}[d] &
+%    (N+_YM)+(N'+_{Y'}M') \ar[d]^{\sim} \\
+%    (X+X')+(Z+Z') \ar[r]^{\mc E} &
+%    \overline{(N+N')+_{Y+Y'}(M+M')} \ar[r]^{\mc M} & 
+%    (N+N')+_{Y+Y'}(M+M'). \\
+%  }
+%\]
+%The leftmost and rightmost vertical arrows are isomorphisms by properties of
+%colimits. The upper row is an $(\mc E,\mc M)$-factorisation as the first map is
+%the coproduct of two maps in $\mc E$ and the second map is the coproduct of two
+%maps in $\mc M$, both of which are monoidal with respect to the coproduct
+%(Lemmas \ref{lem.monfact} and \ref{lem.mcoproductsmc}). The lower row is an
+%$(\mc E,\mc M)$-factorisation by definition. Thus, by the properties of
+%factorisation systems, the dotted map $s$ is an isomorphism, and hence $+$ is
+%functorial. 
+%\end{proof}
+%
+%To prove Theorem \ref{thm.cospantocorel} it remains to show that our proposed
+%data for $\mathrm{Corel}(\mc C)$ obey the necessary axioms: the symmetric
+%monoidal coherence laws, the special commutative Frobenius monoid laws. Our
+%proof strategy will be a touch complicated. Again, recall that in Theorem
+%\ref{thm:fcospans} we proved $F\mathrm{Cospan}$ had hypergraph structure via
+%a functor from $\cospan(\mc C)$. Instead of proving each axiom directly, we will
+%again leverage the fact that we already know $\cospan(\mc C)$ is a hypergraph
+%category, and show that $\corel(\mc C)$ is the image of $\cospan(\mc C)$ under a
+%composition-preserving map that also respects (indeed, defines) the monoidal and
+%hypergraph structure.
+%
+%Note that $\mc C$ is trivially stable under pushout. By definition we have the
+%equality of hypergraph categories $\mathrm{Corel}_{(\mc C,\mc I_{\mc C})}(\mc
+%C)= \cospan(\mc C)$. Thus the functor $\cospan(\mc C) \to \mathrm{Corel}(\mc C)$
+%is a special case of functors between corelation categories. Taking advantage of
+%this, we will discuss functors between corelation categories in general, before
+%specialising to this case to prove that $\mathrm{Corel}(\mc C)$ indeed is a
+%well-defined hypergraph category.
+%
+%This will be done in the next subsection.
+
+
+
+\subsection{Functors between corelation categories}
+We have seen that to construct a functor between cospan categories one may start
+with a colimit-preserving functor between the underlying categories. Corelation
+categories are similar, but we remove the part of each cospan that lies in $\mc
+M$. Hence for functors between corelation categories, we also require that the
+target category removes at least as much information as the source category.
+
+\begin{proposition} \label{prop.corelfunctors}
+  Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
+  factorisation systems $(\mathcal E, \mathcal M)$, $(\mathcal E', \mathcal M')$,
+  such that $\mathcal M$ and $\mathcal M'$ are stable under pushout. Further let
+  $A\maps \mathcal C \to \mathcal C'$ be a functor that preserves finite colimits
+  and such that the image of $\mathcal M$ lies in $\mathcal M'$.
+
+  Then we may define a hypergraph functor $\square\maps \corel(\mathcal C) \to
+  \corel(\mathcal C')$ sending each object $X$ in $\corel(\mathcal C)$ to $AX$ in
+  $\corel(\mc C')$ and each corelation 
+  \[
+    X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y 
+  \]
+  to the jointly-$\mc E'$-part
+  \[
+    AX \stackrel{Ai_X}{\longrightarrow} \overline{AN} \stackrel{Ao_Y}{\longleftarrow} AY.
+  \]
+  of the image cospan. The coherence maps are the isomorphisms
+  $\kappa_{X,Y}\maps AX+AY \to A(X+Y)$ given as $A$ preserves colimits.
+\end{proposition}
+
+As discussed, we are still yet to prove that $\corel(\mc C)$ is a hypergraph
+category. We address this first with two lemmas regarding these proposed
+functors.
 
 \begin{lemma}
-  The map $(-)+(-)\maps \corel(\mc C)\times\corel(\mc C) \to \corel(\mc C)$
-  induced by the coproduct in $\mc C$ is functorial.
+  The above function $\square\maps \corel(\mc C) \to \corel(\mc C')$ preserves
+  composition
 \end{lemma}
 \begin{proof}
-As a preliminary, note that $+$ is a well-defined function: Lemma
-\ref{lem.monfact} implies that the coproduct of two corelations is again a
-corelation. Our task is to show that, given the four corelations 
-\[
-  \xymatrixrowsep{0pt}
-  \xymatrix{
-  f= X \longrightarrow N \longleftarrow Y  & &
-  g= Y \longrightarrow M \longleftarrow Z \\
-  h = X' \longrightarrow N' \longleftarrow Y' & &
- k= Y' \longrightarrow M' \longleftarrow Z'
-}
-\]
-we have $(g \circ f) + (k \circ h) = (g \circ k) + (f \circ h)$. The left and
-right side of this expression are respectively given by the first arrow in the
-upper and lower rows of the commutative diagram
-\[
-  \xymatrix{
-    (X+Z)+(X'+Z') \ar[r]^{\mc E+\mc E} \ar[d]^{\sim} & 
-    (\widetilde{N+_YM})+(\widetilde{N'+_{Y'}M'}) \ar[r]^{\mc M+\mc M} \ar@{.}[d] &
-    (N+_YM)+(N'+_{Y'}M') \ar[d]^{\sim} \\
-    (X+X')+(Z+Z') \ar[r]^{\mc E} &
-    \widetilde{(N+N')+_{Y+Y'}(M+M')} \ar[r]^{\mc M} & 
-    (N+N')+_{Y+Y'}(M+M'). \\
-  }
-\]
-The leftmost and rightmost vertical arrows are isomorphisms by properties of
-colimits. The upper row is an $(\mc E,\mc M)$-factorisation as the first map is
-the coproduct of two maps in $\mc E$ and the second map is the coproduct of two
-maps in $\mc M$, both of which are monoidal with respect to the coproduct
-(Lemmas \ref{lem.monfact} and \ref{lem.mcoproductsmc}). The lower row is an
-$(\mc E,\mc M)$-factorisation by definition. Thus, by the properties of
-factorisation systems, the dotted map $s$ is an isomorphism, and hence $+$ is
-functorial. 
+  Let $f = (X \longrightarrow N \longleftarrow Y)$ and $g= (Y \longrightarrow M
+  \longleftarrow Z)$ be corelations in $\mathcal C$. By definition, the
+  corelations $\square(g) \circ \square(f)$ and $\square(g \circ f)$ are given
+  by the first arrows in the top and bottom row respectively of the diagram:
+  \[ %\label{diag.eparts}
+    \begin{aligned}
+      \xymatrixcolsep{4pc}
+      \xymatrixrowsep{2pc}
+      \xymatrix{
+	AX+AZ \ar[r]^{\mc E'} \ar@{=}[d] & \overline{\overline{AN}+_{AY}\overline{AM}}
+	\ar[r]^{\mc M'} \ar@{<.>}[d]^{n} & \overline{AN}+_{AY}\overline{AM}
+	\ar[r]^{m'_{AN}+_{AY}m'_{AM}} &
+	AN+_{AY}AM \\
+	AX+AZ \ar[r]^{\mc E'} & \overline{A(\overline{N+_YM})} \ar[r]^{\mc M'} &
+	A(\overline{N+_YM}) \ar[r]^{Am_{N+_YM}} & A(N+_YM) \ar@{<->}[u]_{\sim}
+      }
+    \end{aligned}
+    %\tag{$\ast$}
+  \]
+  The morphisms labelled $\mc E'$ lie in $\mc E'$, and similarly for $\mc M'$;
+  these are given by the factorisation system on $\mc C'$.  The maps
+  $Am_{N+_YM}$ and $m'_{AN}+_{AY}m'_{AM}$ lie in $\mc M'$ too: $Am_{N+_YM}$ as
+  it is in the image of $\mc M$, and $m'_{AN}+_{AY}m'_{AM}$ as $\mc M'$ is
+  stable under pushout. 
+
+  Moreover, the diagram commutes as both maps $AX+AZ \to AN+_{AY}AM$ compose to
+  that given by the pushout of the images of $f$ and $g$ over $AY$.  Thus the
+  diagram represents two $(\mc E', \mc M')$ factorisations of the same morphism,
+  and there exists an isomorphism $n$ between the corelations $\square(g) \circ
+  \square(f)$ and $\square(g\circ f)$. This proves that $\square$ preserves
+  composition.
 \end{proof}
 
-To prove Theorem \ref{thm.cospantocorel} it remains to show that our proposed
-data for $\mathrm{Corel}(\mc C)$ obey the necessary axioms: the symmetric
-monoidal coherence laws, the special commutative Frobenius monoid laws. Our
-proof strategy will be a touch complicated. Again, recall that in Theorem
-\ref{thm:fcospans} we proved $F\mathrm{Cospan}$ had hypergraph structure via
-a functor from $\cospan(\mc C)$. Instead of proving each axiom directly, we will
-again leverage the fact that we already know $\cospan(\mc C)$ is a hypergraph
-category, and show that $\corel(\mc C)$ is the image of $\cospan(\mc C)$ under a
-composition-preserving map that also respects (indeed, defines) the monoidal and
-hypergraph structure.
+\begin{lemma}
+  The maps $\kappa$ above are natural.
+\end{lemma}
+\begin{proof}
+  Let $f = (X \longrightarrow N \longleftarrow Y)$, $g= (Z \longrightarrow M
+  \longleftarrow W)$ be corelations in $\mc C$. We wish to show that
+  \[
+      \xymatrixcolsep{4pc}
+      \xymatrixrowsep{2pc}
+    \xymatrix{
+      A(X)+A(Y) \ar[r]^{\square(f)+\square(g)}
+      \ar[d]_{\kappa_{X,Y}} & 
+      A(Z)+A(W) \ar[d]^{\kappa_{Z,W}} \\
+      A(X+Y) \ar[r]^{\square(f+g)} & A(Z+W)
+    }
+  \]
+  commutes. Consider the diagram
+  \[
+      \xymatrixcolsep{4pc}
+      \xymatrixrowsep{2pc}
+    \xymatrix{
+      (AX+AY)+(AZ+AW) \ar[r]^{\mc E'+\mc E'} \ar[d]_{\kappa_{X,Y}+\kappa_{Z,W}} & 
+      \overline{AN}+\overline{AM} \ar[r]^{\mc M'+\mc M'} \ar@{.>}[d]^{n} & 
+      AN+AM \ar[d]^{\kappa_{N,M}}\\
+      A(X+Y)+A(Z+W) \ar[r]^{\mc E'} & \overline{A(N+M)} \ar[r]^{\mc M'} & A(N+M)
+    }
+  \]
+  This diagram represents two different factorisations of the coproduct of the
+  images of $f$ and $g$, and hence commutes. The top edge is the coproduct of
+  the respective factorisations of $f$ and $g$, whereas the bottom edge is the
+  factorisation of the coproduct of $f$ and $g$. 
+  
+  Note that by Lemma \ref{lem.monfact} the coproduct of two maps in $\mc E'$ is
+  again in $\mc E'$, while Lemma \ref{lem.mcoproductsmc} implies the same for
+  $\mc M'$. Thus the top edge is an $(\mc E',\mc M')$-factorisation, and the
+  uniqueness of factorisations gives the isomorphism $n$. This proves the
+  naturality of the maps $\kappa$.
+\end{proof}
 
-Note that $\mc C$ is trivially stable under pushout. By definition we have the
-equality of hypergraph categories $\mathrm{Corel}_{(\mc C,\mc I_{\mc C})}(\mc
-C)= \cospan(\mc C)$. Thus the functor $\cospan(\mc C) \to \mathrm{Corel}(\mc C)$
-is a special case of functors between corelation categories. Taking advantage of
-this, we will discuss functors between corelation categories in general, before
-specialising to this case to prove that $\mathrm{Corel}(\mc C)$ indeed is a
-well-defined hypergraph category.
+These lemmas now imply that $\corel(\mc C)$ is a well-defined hypergraph
+category.
+\begin{proof}[Proof of Theorem \ref{thm.cospantocorel}]
+  To complete the proof then, consider the case of Proposition
+  \ref{prop.corelfunctors} with $\mc C = \mc C'$, $(\mc E,\mc M) = (\mc C, \mc
+  I_{\mc C})$, and $A = 1_{\mc C}$. Then the domain of $\square$ is $\cospan(\mc
+  C)$ by definition. In this case, the function $\square\maps \cospan(\mc C) \to
+  \corel(\mc C)$ is bijective-on-objects and surjective-on-morphisms. Moreover,
+  note that by definition this function maps the coherence and hypergraph maps
+  of $\cospan(\mc C)$ onto the corresponding maps of $\corel(\mc C)$. As
+  $\cospan(\mc C)$ is a hypergraph, and $\square$ preserves composition and
+  respects the monoidal and hypergraph structure, $\corel(\mc C)$ is also a
+  hypergraph category. 
+  
+  For instance, suppose we want to check the functoriality of the monoidal
+  product $+$. We then wish to show $(g \circ f) + (k \circ h) = (g + k) \circ
+  (f + h)$ for corelations of the appropriate types.  But $\square$ preserves
+  composition, and the naturality of $\kappa$, here the identity map, implies
+  that for any two cospans the $\mc E$-part of their coproduct is equal to the
+  coproduct of their $\mc E$-parts. Thus we may compute these two expressions by
+  viewing $f$, $g$, $h$, and $k$ as cospans, evaluating them in the category of
+  cospans, and then taking their $\mc E$-parts. Since the equality holds in the
+  category of cospans, it holds in the category of corelations.
+\end{proof}
 
-This will be done in the next subsection. We conclude this subsection by
-returning to the example of a corelation category that we sketched in the
-introduction.
+\begin{corollary}
+  There is a strict hypergraph functor 
+  \[
+    \square\maps \mathrm{Cospan}(\mathcal C) \longrightarrow \mathrm{Corel}(\mathcal C)
+  \]
+  that takes each object of $\cospan(\mathcal C)$ to itself as an object of
+  $\corel(\mathcal C)$ and each cospan to its $\mathcal E$-part.
+\end{corollary}
+
+
+Finally, we complete the proof that we have hypergraph functors.
+\begin{proof}[Proof of Proposition \ref{prop.corelfunctors}]
+  The identity corelation is given by the $\mc E$-part of $[1,1]\maps X+X \to
+  X$.
+  As the coherence maps for $\square$ are just those of the functor $A$, they
+  obey the coherence laws for symmetric monoidal functors.
+  
+  As for the hypergraph structure, for example the Frobenius multiplication
+  $[1_X,1_X]$ (THIS IS NOT THE MULT) on an object $X$ of $\mc C$ obeys
+  $A[1_X,1_X] \circ \kappa_{X,X}= [1_{AX},1_{AX}]$, as required.   
+
+\end{proof}
 
 \begin{example}
+NEEDS ATTENTION> Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
+are epi-mono factorisations, then we always have that $F(\mathcal E) \subseteq
+\mathcal E'$ and $F(\mathcal M) \subseteq \mathcal M'$. Indeed, if an
+(one-sided) inverse exists in the domain category, it exists in the codomain
+category. Thus colimit-preserving functors between categories with finite
+colimits and epi-mono factorisation systems also induce a functor between the
+epi-mono corelation categories.
+\end{example}
+
+\subsection{Example: equivalence relations as corelations in $\Set$}
+  
   In each factorisation system of Examples \ref{ex.corels} the right factor
   $\mathcal M$ is stable under pushout.  This gives the hypergraph categories of
   cospans in $\mc C$, the indiscrete category on the objects of $\mc C$, and
@@ -559,124 +759,6 @@ extraspecial commutative Frobenius monoid are equal and if and only if their
 diagrams impose the same connectivity relations on the disjoint union of the
 domain and codomain. This is an extension of the spider
 theorem for special commutative Frobenius monoids. 
-\end{example}
-
-
-\subsection{Functors between corelation categories}
-We have seen that to construct a functor between cospan categories one may start
-with a colimit-preserving functor between the underlying categories. Corelation
-categories are similar, but we remove the part of each cospan that lies in $\mc
-M$. Hence for functors between corelation categories, we also require that the
-target category removes at least as much information as the source category.
-
-\begin{proposition} \label{prop.corelfunctors}
-  Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
-  factorisation systems $(\mathcal E, \mathcal M)$, $(\mathcal E', \mathcal M')$,
-  such that $\mathcal M$ and $\mathcal M'$ are stable under pushout. Further let
-  $A\maps \mathcal C \to \mathcal C'$ be a functor that preserves finite colimits
-  and such that the image of $\mathcal M$ lies in $\mathcal M'$.
-
-  Then we may define a hypergraph functor $\square\maps \corel(\mathcal C) \to
-  \corel(\mathcal C')$ sending each object $X$ in $\corel(\mathcal C)$ to $AX$ in
-  $\corel(\mc C')$ and each corelation 
-  \[
-    X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y 
-  \]
-  to the jointly-$\mc E'$-part
-  \[
-    AX \stackrel{Ai_X}{\longrightarrow} \widetilde{AN} \stackrel{Ao_Y}{\longleftarrow} AY.
-  \]
-  of the image cospan. The coherence maps are the isomorphisms
-  $\kappa_{X,Y}\maps AX+AY \to A(X+Y)$ given as $A$ preserves colimits.
-\end{proposition}
-
-\begin{proof}[Proof of Theorem \ref{thm.cospantocorel} and Proposition
-  \ref{prop.corelfunctors}]
-  We caution that we still have not proved that $\corel(\mc C)$ is a category,
-  let alone a hypergraph category. Thus to begin, all we can show is that the map
-  $\square$ is composition-preserving, and then that $\square$ respects the
-  monoidal and hypergraph structure. But this is enough to prove both
-  results! Indeed, specialising to the case where $A$ is the identity functor on
-  $\mc C$ and $(\mc E,\mc M)=(\mc C, \mc I_{\mc C})$, observe   
-  \[
-    \square \maps \cospan(\mc C) \longrightarrow \corel(\mc C)
-  \]
-  is then the map taking each cospan to its jointly $\mc E$-like part. Note
-  $\square$ maps fully (surjectively-on-morphisms) and bijectively-on-objects
-  onto $\corel(\mc C)$, and by definition the coherence and hypergraph maps on
-  $\corel(\mc C)$ are precisely the image of the corresponding maps of
-  $\cospan(\mc C)$. As $\cospan(\mc C)$ is a hypergraph category and $\square$
-  is composition-preserving, we can consequently conclude that all corelation
-  categories are indeed hypergraph categories, and hence that $\square$---in the
-  general case---is a hypergraph functor.
-
-  First, that $\square$ preserves composition. Let
-  \[
-    \alpha = (X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y)
-    \qquad \mbox{and} \qquad 
-    \beta = (Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Z}{\longleftarrow} Z)
-  \]
-  be corelations in $\mathcal C$. By definition, the corelation $\square(\beta)
-  \circ \square(\alpha)$ is given by the $\mathcal E$-part of the top row of the
-  diagram below, while $\square(\beta \circ \alpha)$ is given by the $\mathcal
-  E$-part of the bottom row:
-  \[ \label{diag.eparts}
-    \begin{aligned}
-      \xymatrixcolsep{3pc}
-      \xymatrixrowsep{2pc}
-      \xymatrix{
-	AX+AZ \ar[r]^{\mc E'} \ar@{=}[dd] & \widetilde{\widetilde{AN}+_{AY}\widetilde{AM}}
-	\ar[rr]^{\mc M'} \ar@{<.>}[dd]^{n} && \widetilde{AN}+_{AY}\widetilde{AM}
-	\ar[d]^{m'_{AN}+_{AY}m'_{AM}} \\
-	&&& AN+_{AY}AM \\
-	AX+AZ \ar[r]^{\mc E'} & \widetilde{A(\widetilde{N+_YM})} \ar[r]^{\mc M'} &
-	A(\widetilde{N+_YM}) \ar[r]^{Am_{N+_YM}} & A(N+_YM) \ar@{<->}[u]_{\sim}
-      }
-    \end{aligned}
-    \tag{$\ast$}
-  \]
-  In the above, the morphisms labelled $\mc E'$ lie in $\mc E'$, and similarly
-  for $\mc M'$; these are given by the factorisation system on $\mc C'$.  The
-  remaining three maps in the lower right hand corner lie in $\mc M'$ too:
-  $Am_{N+_YM}$ as it is in the image of $\mc M$, $m'_{AN}+_{AY}m'_{AM}$ as $\mc
-  M'$ is stable under pushout, and the morphism labelled $\sim$ as $A$ preserves
-  pushouts and $\mc M'$ contains all isomorphisms. 
-
-  Moreover, the diagram commutes as both maps $AX+AZ \to AN+_{AY}AM$ compose to
-  that given by the pushout of the images of $\alpha$ and $\beta$ over $AY$.
-  Thus the diagram represents two $(\mc E', \mc M')$ factorisations of the same
-  morphism, and there exists an isomorphism $n$ between the corelations
-  $\square(\beta) \circ \square(\alpha)$ and $\square(\beta\circ\alpha)$. This
-  proves that $\square$ preserves composition.
-
-  As $A$ preserves colimits, it follows immediately that $\square$ respects the
-  monoidal and hypergraph structure. The coherence maps are natural (WHY)
-  
-  by
-  the properties of coproducts, the symmetric monoidal coherence laws are each
-  diagrams of isomorphisms of coproducts. and for example the Frobenius
-  multiplication $[1_X,1_X]$ (THIS IS NOT THE MULT) on an object $X$ of $\mc C$ obeys $A[1_X,1_X] \circ
-  \kappa_{X,X}= [1_{AX},1_{AX}]$, as required.   
-\end{proof}
-
-\begin{corollary}
-  There is a strict hypergraph functor 
-  \[
-    \square\maps \mathrm{Cospan}(\mathcal C) \longrightarrow \mathrm{Corel}(\mathcal C)
-  \]
-  that takes each object of $\cospan(\mathcal C)$ to itself as an object of
-  $\corel(\mathcal C)$ and each cospan to its $\mathcal E$-part.
-\end{corollary}
-
-\begin{example}
-Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
-are epi-mono factorisations, then we always have that $F(\mathcal E) \subseteq
-\mathcal E'$ and $F(\mathcal M) \subseteq \mathcal M'$. Indeed, if an
-(one-sided) inverse exists in the domain category, it exists in the codomain
-category. Thus colimit-preserving functors between categories with finite
-colimits and epi-mono factorisation systems also induce a functor between the
-epi-mono corelation categories.
-\end{example}
 
 \subsection{Example: linear relations as corelations in $\Vect$}
 
@@ -761,6 +843,12 @@ from decorated cospans to decorated corelations.
 
 
 \subsection{Adjoining right adjoints}
+Suppose we have a cospan $X+Y \to N$ with a decoration on $N$. Reducing this to
+a corelation requires us to factor this to $X+Y \stackrel{e}\to \overline{N}
+\stackrel{m}\to N$. Decorated corelations require a method from taking a
+decoration on $N$ and `pulling it back' along $m$ to a decoration on
+$\overline{N}$. 
+
 A subcategory stable under pushouts is a useful thing.
 
 \begin{proposition}
@@ -785,8 +873,8 @@ A subcategory stable under pushouts is a useful thing.
 \end{proposition}
 \begin{proof}
   Composition is well-defined as $\mc M$ is stable under pushouts. Monoidal
-  composition is well-defined by lemma. Necessary laws hold as they are
-  inherited from $\mc C$. 
+  composition is well-defined by Lemma \ref{lem.mcoproductsmc}. Necessary laws
+  hold as they are inherited from $\mc C$. 
 \end{proof}
 
 This category can be viewed as a bicategory, with 2-morphisms given by maps of
@@ -824,7 +912,7 @@ cospans. In this bicategory every morphism of $\mc M$ has a right adjoint.
 Note this could be done more generally with any two isomorphism-containing wide
 subcategories stable under pushout.
 
-\subsection{Decorated corelations.}
+\subsection{Decorated corelations}
 
 \begin{definition}
   Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
@@ -900,13 +988,13 @@ Suppose we have decorated corelations
   Then their composite is given by the composite corelation
   \[
     \xymatrix{
-      & \widetilde{N+_YM} \\  
+      & \overline{N+_YM} \\  
       X \ar[ur]^{i} && Z \ar[ul]_{o}
     }
   \]
   paired with the decoration
   \[
-    1 \longrightarrow F(N+M) \longrightarrow F(N+_YM) \stackrel{F(m^\opp)}\longrightarrow F(\widetilde{N+_YM})
+    1 \longrightarrow F(N+M) \longrightarrow F(N+_YM) \stackrel{F(m^\opp)}\longrightarrow F(\overline{N+_YM})
   \]
   This is well-defined.
 
@@ -959,7 +1047,7 @@ decorations back down. This is related to the existence of an extraspecial
 commutative Frobenius monoid in our main applications.
 
 
-Associativity: To take a decoration on $A+B$ to one on $A+_C\widetilde B$ we may
+Associativity: To take a decoration on $A+B$ to one on $A+_C\overline B$ we may
 either reduce to the $\mathcal E$-part of $B$ and then pushout over $C$, or
 pushout over $C$ and then reduce to the $\mathcal E$ part of $B$. This lemma
 implies that both processes result in the same decoration.  \subsection{Functors
@@ -1002,9 +1090,9 @@ G\mathrm{Corel}$ and each decorated corelation
 \]
 to
 \[
-  AX \stackrel{Ai_X}{\longrightarrow} \widetilde{AN} \stackrel{Ao_Y}{\longleftarrow} AY,
+  AX \stackrel{Ai_X}{\longrightarrow} \overline{AN} \stackrel{Ao_Y}{\longleftarrow} AY,
   \quad 1 \stackrel{s}{\to} FN \stackrel{\theta_N}{\to} GAN
-  \stackrel{Gm_{AN}^\opp}{\to} G\widetilde{AN}.	
+  \stackrel{Gm_{AN}^\opp}{\to} G\overline{AN}.	
 \]
 The coherence maps are given by
 \[
@@ -1012,7 +1100,7 @@ The coherence maps are given by
   \left(
   \begin{aligned}
     \xymatrix{
-      & \widetilde{A(X+Y)} \\  
+      & \overline{A(X+Y)} \\  
       AX+AY \ar[ur] && A(X+Y) \ar[ul]
     }
   \end{aligned}
@@ -1021,7 +1109,7 @@ The coherence maps are given by
   \begin{aligned}
     \xymatrixrowsep{1.4ex}
     \xymatrix{
-      G(\widetilde{A(X+Y)}) \\
+      G(\overline{A(X+Y)}) \\
       GA(X+Y) \ar[u]_{Gm_{AX+AY}^\opp} \\
       G\varnothing \ar[u]_{G!} \\
       1 \ar[u]_{\gamma_1}
@@ -1102,19 +1190,19 @@ The coherence maps are given by
     \xymatrixrowsep{1.1pc}
     \xymatrixcolsep{0pc}
     \xymatrix{
-      G\widetilde{A(\widetilde{N+_YM})} \ar[rrrrrr]^{Gn} &&&&&&
-      G\widetilde{(\widetilde{AN}+_{AY}\widetilde{AM})}\\
+      G\overline{A(\overline{N+_YM})} \ar[rrrrrr]^{Gn} &&&&&&
+      G\overline{(\overline{AN}+_{AY}\overline{AM})}\\
       \\
-      GA(\widetilde{N+_YM}) \ar[uu]^{Gm^\opp_{A(\widetilde{N+_YM})}} &&&
+      GA(\overline{N+_YM}) \ar[uu]^{Gm^\opp_{A(\overline{N+_YM})}} &&&
       \textsc{\tiny($\ast\ast$)} &&& 
-      G(\widetilde{AN}+_{AY}\widetilde{AM}) \ar[uu]_{Gm^\opp_{\widetilde{AN}+_{AY}\widetilde{AM}}} \\
+      G(\overline{AN}+_{AY}\overline{AM}) \ar[uu]_{Gm^\opp_{\overline{AN}+_{AY}\overline{AM}}} \\
       \\
-      F(\widetilde{N+_YM}) \ar[uu]^{\theta_{\widetilde{N+_YM}}} & %\textsc{\tiny()} & 
+      F(\overline{N+_YM}) \ar[uu]^{\theta_{\overline{N+_YM}}} & %\textsc{\tiny()} & 
       &
       GA(N+_YM) \ar[uull]_{GAm^\opp_{N+_YM}} && 
       G(AN+_{AY}AM) \ar[ll]_{G\sim} \ar[uurr]^{G(m_{AN}^\opp +_{AY}m_{AM}^\opp)}
       & \textsc{\tiny(c)} & 
-      G(\widetilde{AN}+\widetilde{AM}) \ar[uu]_{G[j_{\widetilde{AN}},j_{\widetilde{AM}}]} 
+      G(\overline{AN}+\overline{AM}) \ar[uu]_{G[j_{\overline{AN}},j_{\overline{AM}}]} 
       \\
       &\textsc{\tiny(tn)}&& \textsc{\tiny(a)} 
       \\
@@ -1123,8 +1211,8 @@ The coherence maps are given by
       GA(N+M)\ar[uu]_{GA[j_N,j_M]} && 
       G(AN+AM) \ar[uu]^{G[j_{AN},j_{AM}]} \ar[ll]^{G\alpha_{N,M}}
       \ar[uurr]^{G(m_{AN}^\opp +m_{AM}^\opp)} & \textsc{\tiny(gm)} & 
-      G\widetilde{AN} \times G\widetilde{AM}
-      \ar[uu]_{\gamma_{\widetilde{AN},\widetilde{AM}}} \\
+      G\overline{AN} \times G\overline{AM}
+      \ar[uu]_{\gamma_{\overline{AN},\overline{AM}}} \\
       \\
       F(N+M) \ar[uu]^{F[j_N,j_M]} \ar[uurr]_{\theta_{N+M}} &&& \textsc{\tiny(tm)} &&& 
       GAN \times GAM \ar[uu]_{Gm_{AN}^\opp \times Gm_{AM}^\opp}
@@ -1144,7 +1232,7 @@ The coherence maps are given by
   of a pushout square in $\mc C'$, so 
   \[
     \stackrel{m_{AN}^\opp+m_{AM}^\opp}{\longleftarrow} 
-    \stackrel{[j_{\widetilde{AN}},j_{\widetilde{AM}}]}{\longrightarrow}
+    \stackrel{[j_{\overline{AN}},j_{\overline{AM}}]}{\longrightarrow}
     \quad 
     \textrm{and}
     \quad
@@ -1165,17 +1253,17 @@ The coherence maps are given by
 %    \xymatrix{
 %      &&&& F(N+M) \ar[dd]^{F((m_N +m_M)^\opp)} \ar[rr]^{F[j_N,j_M]} 
 %      && F(N+_YM) \ar[dd]^{F((m_N+_Ym_M)^\opp)} \ar[rr]^{F((m_{N+_YM})^\opp)} 
-%      && F(\widetilde{N+_YM}) \ar[dd]^{Fn}_\sim \\ 
+%      && F(\overline{N+_YM}) \ar[dd]^{Fn}_\sim \\ 
 %      1 \ar[rr]^(.4){(s\times t)\circ\lambda^{-1}} 
 %      && FN\times FM \ar[urr]^{\varphi} \ar[dr]_{Fm_N^\opp\times Fm_M^\opp} &
 %      \qquad\textrm{\tiny(I)}% && \textrm{\tiny(F)} && \textrm{\tiny(C)}
 %      \\ 
-%      &&& F\widetilde{N} \times F\widetilde{M} \ar[r]_{\varphi} 
-%      & F(\widetilde{N}+\widetilde{M})
-%      \ar[rr]_{F[j_{\widetilde{N}},j_{\widetilde{M}}]} 
-%      && F(\widetilde{N}+_Y\widetilde{M})
-%      \ar[rr]_{F((m_{\widetilde{N}+_Y\widetilde{M}})^\opp)} 
-%      && F(\widetilde{\widetilde{N}+_Y\widetilde{M}})
+%      &&& F\overline{N} \times F\overline{M} \ar[r]_{\varphi} 
+%      & F(\overline{N}+\overline{M})
+%      \ar[rr]_{F[j_{\overline{N}},j_{\overline{M}}]} 
+%      && F(\overline{N}+_Y\overline{M})
+%      \ar[rr]_{F((m_{\overline{N}+_Y\overline{M}})^\opp)} 
+%      && F(\overline{\overline{N}+_Y\overline{M}})
 %    }
 %  \]
 %  Here $n$ is the isomorphism from the proof of Proposition
@@ -1227,17 +1315,18 @@ The coherence maps are given by
   to its jointly-$\mathcal E$-part
   \[
     \xymatrix{
-      & \widetilde{N} \\  
+      & \overline{N} \\  
       X \ar[ur]^{i} && Y \ar[ul]_{o}
     }
   \]
   decorated by the composite
   \[
     \xymatrix{
-      1 \ar[r]^s & FN \ar[r]^{Fm_N^\opp} & F\widetilde{N}.
+      1 \ar[r]^s & FN \ar[r]^{Fm_N^\opp} & F\overline{N}.
     }
   \]
 \end{corollary}
+
 
 \section{All hypergraph categories are decorated corelation categories}
 structured categories are algebras over their graphical calculus operad
@@ -1794,3 +1883,33 @@ morphisms languages recognised between points in domain and codomain.
 
 
 
+
+
+
+%  Our proof will have an inductive flavour. We first assume $\corel_(\mc C)$ is
+%  well-defined as a hypergraph category, and show  We caution that we still have not proved that $\corel(\mc C)$ is a category,
+%  let alone a hypergraph category. Thus to begin, all we can show is that the map
+%  $\square$ is composition-preserving, and then that $\square$ respects the
+%  monoidal and hypergraph structure. But this is enough to prove both
+%  results! Indeed, specialising to the case where $A$ is the identity functor on
+%  $\mc C$ and $(\mc E,\mc M)=(\mc C, \mc I_{\mc C})$, observe   
+%  \[
+%    \square \maps \cospan(\mc C) \longrightarrow \corel(\mc C)
+%  \]
+%  is then the map taking each cospan to its jointly $\mc E$-like part. Note
+%  $\square$ maps fully (surjectively-on-morphisms) and bijectively-on-objects
+%  onto $\corel(\mc C)$, and by definition the coherence and hypergraph maps on
+%  $\corel(\mc C)$ are precisely the image of the corresponding maps of
+%  $\cospan(\mc C)$. As $\cospan(\mc C)$ is a hypergraph category and $\square$
+%  is composition-preserving, we can consequently conclude that all corelation
+%  categories are indeed hypergraph categories, and hence that $\square$---in the
+%  general case---is a hypergraph functor.
+%
+%  Finally, specialising to the case where $A$
+%  is the identity functor on $\mc C$ and $(\mc E,\mc M)$ is the factorisation
+%  system $(\mc C, \mc I_{\mc C})$, we observe that the domain of $\square$ is
+%  then $\cospan(\mc C)$, and that $\square$ maps it fully
+%  (surjectively-on-morphisms) and bijectively-on-objects onto $\corel(\mc C')$.
+%  This shows that all corelation categories are indeed deserving of the name
+%  category and moreover hypergraph category, and hence that $\square$ is
+%  deserving of the name hypergraph functor.
