@@ -493,28 +493,15 @@ motivates the monoidal and hypergraph structures we put on $F\mathrm{Cospan}$.
   \]
 \end{theorem}
 
-\begin{proof}
-  Recall that the identity decorated cospan has apex decorated by $1
-  \stackrel{\varphi_1}\longrightarrow F\varnothing \stackrel{F!}\longrightarrow
-  FX$. Given any cospan $X \to N \leftarrow Y$, we call the decoration $1
-  \stackrel{\varphi_1}\longrightarrow F\varnothing \stackrel{F!}\longrightarrow
-  FN$ the \define{empty decoration} on $N$. 
-  
-\paragraph{Embedding.} 
-  We define a functor 
-  \[
-    \mathrm{Cospan(\mathcal C)} \hooklongrightarrow F\mathrm{Cospan}.
-  \]
-  mapping each object of $\mathrm{Cospan(\mathcal C)}$ to itself as an object
-  of $F\mathrm{Cospan}$, and each cospan in $\mathcal C$ to the same cospan
-  decorated with the empty decoration on its apex. Should this functor be
-  well-defined, it is evidently a wide embedding.
-  
-  To see that the embedding is
-  well-defined, we must check that the composite of two empty-decorated cospans
-  is again empty-decorated. To do this, generalise the previous observation for
-  identity morphisms. 
-  
+We first prove a lemma.  Recall that the identity decorated cospan has apex
+decorated by $1 \stackrel{\varphi_1}\longrightarrow F\varnothing
+\stackrel{F!}\longrightarrow FX$. Given any cospan $X \to N \leftarrow Y$, we
+call the decoration $1 \stackrel{\varphi_1}\longrightarrow F\varnothing
+\stackrel{F!}\longrightarrow FN$ the \define{empty decoration} on $N$. Empty
+decorations are indeed empty: when composed with other decorations, they have no
+impact.
+
+\begin{lemma} \label{lem.emptydecorations}
   Let
 \[
   (X \stackrel{i_X}\longrightarrow N
@@ -525,17 +512,17 @@ be a decorated cospan, and suppose we have an empty-decorated cospan
   (Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z,\enspace 1
   \stackrel{\varphi\circ F!}\longrightarrow FM).
 \]
-Here we show that the composite of these decorated cospans is 
+Then the composite of these decorated cospans is 
 \[
   \big(X \xrightarrow{j_N \circ i_X} N+_YM \xleftarrow{j_M \circ o_Z} Z,\enspace 
   1 \xrightarrow{Fj_N \circ s} F(N+_YM)\big).
 \]
 In particular, the decoration on the composite is the decoration $s$ pushed
 forward along the $F$-image of the map $j_N\colon N \to N+_YM$ to become an
-$F$-decoration on $N+_YM$. We say that the empty decoration acts trivially on
-other decorations. The analogous statement holds for composition with an
-empty-decorated cospan on the left.
-
+$F$-decoration on $N+_YM$. The analogous statement also holds for composition
+with an empty-decorated cospan on the left.
+\end{lemma}
+\begin{proof}
 As is now familiar, a statement of this sort is proved by a large commutative
 diagram:
 \[
@@ -557,11 +544,27 @@ diagram:
 \]
 The subdiagrams in this diagram commute for the same reasons as their
 corresponding regions in the previous diagram for identity morphisms. 
+\end{proof}
 
-A consequence of the trivial action of the empty decoration is that the
-composite of two empty-decorated cospans is again empty-decorated. This implies
-the functoriality of the embedding $\mathrm{Cospan(\mathcal{C})} \hookrightarrow
-F\mathrm{Cospan}$.
+\begin{proof}[Proof of Theorem \ref{thm:fcospans}]
+We first prove that we have a wide embedding of categories, and then use this to
+transfer monoidal and hypergraph structure onto $F\mathrm{Cospan}$.
+
+\paragraph{Embedding.} 
+  We define a functor 
+  \[
+    \mathrm{Cospan(\mathcal C)} \hooklongrightarrow F\mathrm{Cospan}.
+  \]
+  mapping each object of $\mathrm{Cospan(\mathcal C)}$ to itself as an object
+  of $F\mathrm{Cospan}$, and each cospan in $\mathcal C$ to the same cospan
+  decorated with the empty decoration on its apex. 
+  
+  To check this is well-defined, we must check that the composite of two
+  empty-decorated cospans is again empty-decorated. This is an immediate
+  consquence of Lemma \ref{lem.emptydecorations}: the composite of two
+  empty-decorated cospans is again empty-decorated. This implies the
+  functoriality of the wide embedding $\mathrm{Cospan(\mathcal{C})}
+  \hookrightarrow F\mathrm{Cospan}$.
 
 \paragraph{Monoidal structure.} 
 

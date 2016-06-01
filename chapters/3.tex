@@ -1,54 +1,236 @@
 \chapter{Corelations: a tool for black boxing} \label{ch.corelations}
 
-Black boxing!
+In this chapter we develop the theory of corelations.
 
-USE MATERIAL FROM INTRODUCTION OF CORELATIONS PAPER AND CORELATIONS
-SECTION IN BLACK BOX PAPER
 \section{The idea of black boxing}
 
-Consider a circuit diagram.
+Thus far we have argued that network languages should be modelled using
+hypergraph categories, and shown that cospans provide a good language for
+talking about interconnection. We then developed the theory of decorated
+cospans, which allows us to take diagrams, mark `inputs' and `outputs' using
+cospans, and then compose these diagrams using pushouts. This turns a notion of
+closed system into a notion of open one.
+
+A serious limitation of using cospans alone, however, is that cospans
+indiscrimately accumulate information. If we compose twenty graphs in the
+category $\mathrm{GraphCospan}$, we create an open graph containing all twenty
+of those graphs as subgraphs, disjoint but for a finite collection of vertices.
+This is often unnecessary and inefficient.
+
+For example, consider the following two circuits, comprised only of perfectly
+conductive wires:
 \[
-  \begin{tikzpicture}
-    \draw (0,0) -- (0,4.5) -- (8,4.5) -- (8,0) -- (0,0);
-  \end{tikzpicture}
+    \tikzset{every path/.style={line width=1.1pt}}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=dot] (0) at (-2.5, 1.5) {};
+		\node [style=dot] (1) at (-2.5, -0) {};
+		\node [style=dot] (2) at (-2.5, -1.5) {};
+		\node [style=none] (3) at (-2, -2) {};
+		\node [style=none] (4) at (1.5, 2) {};
+		\node [style=none] (5) at (-2, -0) {};
+		\node [style=none] (6) at (-2, -1.5) {};
+		\node [style=none] (7) at (-2, 1.5) {};
+		\node [style=dot] (8) at (-2.5, -0.75) {};
+		\node [style=none] (9) at (-2, -0.75) {};
+		\node [style=dot] (10) at (-2.5, 0.75) {};
+		\node [style=none] (11) at (-2, 0.75) {};
+		\node [style=dot] (12) at (2, -1.5) {};
+		\node [style=none] (13) at (1.5, -1.5) {};
+		\node [style=dot] (14) at (2, -0.75) {};
+		\node [style=none] (15) at (1.5, 1.5) {};
+		\node [style=dot] (16) at (2, 1.5) {};
+		\node [style=none] (17) at (1.5, 0.75) {};
+		\node [style=dot] (18) at (2, -0) {};
+		\node [style=dot] (19) at (2, 0.75) {};
+		\node [style=none] (20) at (1.5, -0) {};
+		\node [style=none] (21) at (1.5, -0.75) {};
+		\node [style=none] (22) at (-0.75, 1.25) {};
+		\node [style=none] (23) at (0, 0.25) {};
+		\node [style=none] (24) at (-1, -0.25) {};
+		\node [style=none] (25) at (-0.5, -0.75) {};
+		\node [style=none] (26) at (-1.25, -1.25) {};
+		\node [style=none] (27) at (0, 0.75) {};
+		\node [style=none] (28) at (0.5, 1.25) {};
+		\node [style=none] (29) at (-1.25, 0.5) {};
+		\node [style=none] (30) at (-1.25, 1.5) {};
+		\node [style=none] (31) at (0.5, -1.5) {};
+		\node [style=none] (32) at (-1.25, 1) {};
+		\node [style=none] (33) at (-1.25, -0.75) {};
+		\node [style=none] (34) at (-1.75, -0.25) {};
+		\node [style=none] (35) at (0, -1.25) {};
+		\node [style=none] (36) at (0, -0.25) {};
+		\node [style=none] (37) at (1, -1.5) {};
+		\node [style=none] (38) at (-1.75, 1.25) {};
+		\node [style=none] (39) at (0.5, 0.25) {};
+		\node [style=none] (40) at (1, 0.5) {};
+		\node [style=none] (41) at (-0.5, 1.75) {};
+		\node [style=none] (42) at (0.75, 1.75) {};
+		\node [style=none] (43) at (0.25, -1.25) {};
+		\node [style=none] (44) at (1.25, -1) {};
+		\node [style=none] (45) at (-1.75, -1.75) {};
+		\node [style=none] (46) at (-1, -1.75) {};
+		\node [style=none] (47) at (1.25, -1.7) {};
+		\node [style=none] (48) at (-0.5, -1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (7.center);
+		\draw (1.center) to (5.center);
+		\draw (2.center) to (6.center);
+		\draw (8) to (9.center);
+		\draw (10) to (11.center);
+		\draw (16) to (15.center);
+		\draw (18) to (20.center);
+		\draw (12) to (13.center);
+		\draw (14) to (21.center);
+		\draw (19) to (17.center);
+		\draw (6.center) to (26.center);
+		\draw [in=180, out=-11, looseness=2.00] (26.center) to (31.center);
+		\draw [in=-165, out=15, looseness=1.25] (26.center) to (25.center);
+		\draw [in=1, out=180, looseness=1.00] (24.center) to (5.center);
+		\draw [in=-105, out=0, looseness=1.00] (24.center) to (23.center);
+		\draw [in=108, out=-135, looseness=2.25] (29.center) to (24.center);
+		\draw [in=-169, out=-30, looseness=1.25] (29.center) to (27.center);
+		\draw [in=165, out=60, looseness=1.25] (23.center) to (17.center);
+		\draw (27.center) to (23.center);
+		\draw [bend right, looseness=1.00] (23.center) to (20.center);
+		\draw (28.center) to (27.center);
+		\draw [in=150, out=0, looseness=1.25] (22.center) to (28.center);
+		\draw (28.center) to (15.center);
+		\draw (22.center) to (30.center);
+		\draw (30.center) to (7.center);
+		\draw (11.center) to (32.center);
+		\draw (38.center) to (11.center);
+		\draw (38.center) to (32.center);
+		\draw [in=-78, out=-48, looseness=1.00] (39.center) to (40.center);
+		\draw (31.center) to (37.center);
+		\draw (37.center) to (13.center);
+		\draw (9.center) to (34.center);
+		\draw (34.center) to (33.center);
+		\draw [in=-158, out=22, looseness=1.00] (33.center) to (36.center);
+		\draw (36.center) to (21.center);
+		\draw [in=86, out=15, looseness=2.00] (25.center) to (35.center);
+		\draw (24.center) to (27.center);
+		\draw [in=56, out=-60, looseness=1.00] (22.center) to (29.center);
+		\draw (17.center) to (20.center);
+		\draw [bend left=75, looseness=1.00] (39.center) to (40.center);
+		\draw (41.center) to (42.center);
+		\draw (45.center) to (46.center);
+		\draw (46.center) to (48.center);
+		\draw (46.center) to (47.center);
+		\draw (43.center) to (44.center);
+		\draw (28.center) to (17.center);
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{background}
+	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\qquad\qquad
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=dot] (0) at (-2.5, 1.5) {};
+		\node [style=dot] (1) at (-2.5, -0) {};
+		\node [style=dot] (2) at (-2.5, -1.5) {};
+		\node [style=none] (3) at (-2, -2) {};
+		\node [style=none] (4) at (1.5, 2) {};
+		\node [style=none] (5) at (-2, -0) {};
+		\node [style=none] (6) at (-2, -1.5) {};
+		\node [style=none] (7) at (-2, 1.5) {};
+		\node [style=dot] (8) at (-2.5, -0.75) {};
+		\node [style=none] (9) at (-2, -0.75) {};
+		\node [style=dot] (10) at (-2.5, 0.75) {};
+		\node [style=none] (11) at (-2, 0.75) {};
+		\node [style=dot] (12) at (2, -1.5) {};
+		\node [style=none] (13) at (1.5, -1.5) {};
+		\node [style=dot] (14) at (2, -0.75) {};
+		\node [style=none] (15) at (1.5, 1.5) {};
+		\node [style=dot] (16) at (2, 1.5) {};
+		\node [style=none] (17) at (1.5, 0.75) {};
+		\node [style=dot] (18) at (2, -0) {};
+		\node [style=dot] (19) at (2, 0.75) {};
+		\node [style=none] (20) at (1.5, -0) {};
+		\node [style=none] (21) at (1.5, -0.75) {};
+		\node [style=none] (22) at (-0.25, 0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (7.center);
+		\draw (1.center) to (5.center);
+		\draw (2.center) to (6.center);
+		\draw (8) to (9.center);
+		\draw (10) to (11.center);
+		\draw (16) to (15.center);
+		\draw (18) to (20.center);
+		\draw (12) to (13.center);
+		\draw (14) to (21.center);
+		\draw (19) to (17.center);
+		\draw (9.center) to (21.center);
+		\draw (6.center) to (13.center);
+		\draw (7.center) to (22.center);
+		\draw (5.center) to (22.center);
+		\draw (22.center) to (15.center);
+		\draw (22.center) to (17.center);
+		\draw (22.center) to (20.center);
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{background}
+	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
+	\end{pgfonlayer}
+\end{tikzpicture}
 \]
-We often view such diagrams atomically, representing the complete physical
-system built as specified. Yet the very process of building such a system
-involves assembling it from its parts, each of which we might diagram in the
-same way. The goal of this paper is to develop formal category-theoretic tools
-for describing and interpreting this process of assembly.
-
-Circuits are constructed to get at some behaviour, with two circuits equivalent
-if they specify the same behaviour. Here we focus on this `black boxing' aspect.
-
-
-Corelations \cite{CF}.
-
-Semantics live on boundaries only.
-
-We then introduce a new framework for working with hypergraph
-categories: decorated corelations.
-
-Decorated corelations adds compositional operations to network-diagram
-representations, and handles composition of semantics too. 
-
-Two main theorems: 
-\begin{theorem}
-Given a category $\mc C$ with finite colimits, factorisation system $(\mc E,\mc
-M)$ such that $\mc M$ is stable under pushouts, and a symmetric lax monoidal functor 
+We interact with these circuits by connecting electric circuits and other
+devices to the terminals. This allows us to probe, for example, whether one
+terminal is connected to another. These circuits are equivalent in the following
+sense: if these circuits were encased, but for their terminals, in a black box
 \[
-  \mc C; \mc M^\opp \longrightarrow \Set,
+    \tikzset{every path/.style={line width=1.1pt}}
+    \begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=dot] (0) at (-2.5, 1.5) {};
+		\node [style=dot] (1) at (-2.5, -0) {};
+		\node [style=dot] (2) at (-2.5, -1.5) {};
+		\node [style=none] (3) at (-2, -2) {};
+		\node [style=none] (4) at (1.5, 2) {};
+		\node [style=none] (5) at (-2, -0) {};
+		\node [style=none] (6) at (-2, -1.5) {};
+		\node [style=none] (7) at (-2, 1.5) {};
+		\node [style=dot] (8) at (-2.5, -0.75) {};
+		\node [style=none] (9) at (-2, -0.75) {};
+		\node [style=dot] (10) at (-2.5, 0.75) {};
+		\node [style=none] (11) at (-2, 0.75) {};
+		\node [style=dot] (12) at (2, -1.5) {};
+		\node [style=none] (13) at (1.5, -1.5) {};
+		\node [style=dot] (14) at (2, -0.75) {};
+		\node [style=none] (15) at (1.5, 1.5) {};
+		\node [style=dot] (16) at (2, 1.5) {};
+		\node [style=none] (17) at (1.5, 0.75) {};
+		\node [style=dot] (18) at (2, -0) {};
+		\node [style=dot] (19) at (2, 0.75) {};
+		\node [style=none] (20) at (1.5, -0) {};
+		\node [style=none] (21) at (1.5, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+	  \filldraw [fill=black!80!white] (3) rectangle (4);
+		\draw (0.center) to (7.center);
+		\draw (1.center) to (5.center);
+		\draw (2.center) to (6.center);
+		\draw (8) to (9.center);
+		\draw (10) to (11.center);
+		\draw (16) to (15.center);
+		\draw (18) to (20.center);
+		\draw (12) to (13.center);
+		\draw (14) to (21.center);
+		\draw (19) to (17.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+  ,
 \]
-we may define a hypergraph category of with morphisms decorated corelations.
-\end{theorem}
+we would be unable to distinguish them through our electrical investigations. In
+this sense these circuits are equivalent.
 
-\begin{theorem}
-Every hypergraph category can be constructed in this way.
-\end{theorem}
-
-They apply to functors too.
-
-
+In this chapter and the next we pursue a notion of composition that reflects
+this, discarding extraneous information as we compose our systems. Next chapter
+we will extend these ideas to allow decorations and so a richer notion of
+system; for now we return to an undecorated situation, so that we may focus on
+the compositional aspects.
 
 \section{Corelations}
 
@@ -104,16 +286,18 @@ morphisms in a coherent way.
       I_{\mathcal C})$ are both factorisation systems in $\mathcal C$. 
     
     \item The prototypical example of a factorisation system is the epi-mono
-      factorisation system in $\Set$. This follows from a more general fact,
-      true in any category, that if every arrow can be factorised as an epi
-      followed by a split mono, then this results in a factorisation system.
-      The only non-trivial part to check is the uniqueness condition: given epis
-      $e_1,e_2$, split monos $m_1,m_2$, and commutative diagram
+      factorisation system $(\mathrm{Sur},\mathrm{Inj})$ in $\Set$. This follows
+      from a more general fact, true in any category, that if every arrow can be
+      factorised as an epi followed by a split mono, then this results in a
+      factorisation system.  The only non-trivial part to check is the
+      uniqueness condition: given epis $e_1,e_2$, split monos $m_1,m_2$, and
+      commutative diagram
       \[
 	\xymatrixcolsep{3pc}
 	\xymatrixrowsep{3pc}
 	\xymatrix{
-	  \ar[r]^{e_1} \ar[d]_u & \ar[r]^{m_1} \ar@{.>}[d]^{\exists! t} &  \ar[d]^v \\
+	  \ar[r]^{e_1} \ar[d]_u & \ar[r]^{m_1} \ar@{.>}[d]^{\exists! t} &
+	  \ar[d]^v \\
 	  \ar[r]_{e_2}& \ar[r]_{m_2} & 
 	}
       \]
@@ -444,7 +628,8 @@ showing that the `quotient' map
 \]
 taking each cospan to its jointly $\mc E$-like part is functorial. Indeed, we
 define the coherence and Frobenius maps of $\corel(\mc C)$ to be their image
-under this map. For the monoidal product we again use the coproduct in $\mc C$.
+under this map. For the monoidal product we again use the coproduct in $\mc C$;
+the monoidal product of two corelations is their monoidal product as cospans.
 
 \begin{theorem} \label{thm.cospantocorel}
   Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
@@ -558,7 +743,7 @@ will use it once again for \emph{decorated corelations}, to great economy.
 
 
 
-\subsection{Functors between corelation categories}
+\section{Functors between corelation categories}
 We have seen that to construct a functor between cospan categories one may start
 with a colimit-preserving functor between the underlying categories. Corelation
 categories are similar, but we remove the part of each cospan that lies in $\mc
@@ -578,28 +763,30 @@ target category removes at least as much information as the source category.
   \[
     X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y 
   \]
-  to the jointly-$\mc E'$-part
+  to the $\mc E'$-part
   \[
-    AX \stackrel{Ai_X}{\longrightarrow} \overline{AN} \stackrel{Ao_Y}{\longleftarrow} AY.
+    AX \stackrel{Ai_X}{\longrightarrow} \overline{AN}
+    \stackrel{Ao_Y}{\longleftarrow} AY.
   \]
-  of the image cospan. The coherence maps are the isomorphisms
-  $\kappa_{X,Y}\maps AX+AY \to A(X+Y)$ given as $A$ preserves colimits.
+  of the image cospan. The coherence maps are the $\mc E'$-part
+  $\overline{\kappa_{X,Y}}$ of the isomorphisms $\kappa_{X,Y}\maps AX+AY \to
+  A(X+Y)$ given as $A$ preserves colimits.
 \end{proposition}
 
 As discussed, we are still yet to prove that $\corel(\mc C)$ is a hypergraph
 category. We address this first with two lemmas regarding these proposed
 functors.
 
-\begin{lemma}
+\begin{lemma} \label{lem.corelfuncomposition}
   The above function $\square\maps \corel(\mc C) \to \corel(\mc C')$ preserves
-  composition
+  composition.
 \end{lemma}
 \begin{proof}
   Let $f = (X \longrightarrow N \longleftarrow Y)$ and $g= (Y \longrightarrow M
   \longleftarrow Z)$ be corelations in $\mathcal C$. By definition, the
   corelations $\square(g) \circ \square(f)$ and $\square(g \circ f)$ are given
   by the first arrows in the top and bottom row respectively of the diagram:
-  \[ %\label{diag.eparts}
+  \[ \label{diag.eparts}
     \begin{aligned}
       \xymatrixcolsep{4pc}
       \xymatrixrowsep{2pc}
@@ -612,7 +799,7 @@ functors.
 	A(\overline{N+_YM}) \ar[r]^{Am_{N+_YM}} & A(N+_YM) \ar@{<->}[u]_{\sim}
       }
     \end{aligned}
-    %\tag{$\ast$}
+    \tag{$\ast$}
   \]
   The morphisms labelled $\mc E'$ lie in $\mc E'$, and similarly for $\mc M'$;
   these are given by the factorisation system on $\mc C'$.  The maps
@@ -627,9 +814,35 @@ functors.
   \square(f)$ and $\square(g\circ f)$. This proves that $\square$ preserves
   composition.
 \end{proof}
+This first lemma allows us to verify the associativity and unit laws for
+$\corel(\mc C)$.
+\begin{corollary}
+  $\corel(\mc C)$ is well-defined as a category.
+\end{corollary}
+\begin{proof}
+  Consider the case of Proposition \ref{prop.corelfunctors} with $\mc C = \mc
+  C'$, $(\mc E,\mc M) = (\mc C, \mc I_{\mc C})$, and $A = 1_{\mc C}$. Then the
+  domain of $\square$ is $\cospan(\mc C)$ by definition. In this case, the
+  function $\square\maps \cospan(\mc C) \to \corel(\mc C)$ is
+  bijective-on-objects and surjective-on-morphisms. Thus to compute the
+  composite of any two corelations, we may consider them as cospans, compute
+  their composite \emph{as cospans}, and then take the $\mc E$-part of the
+  result. Since composition of cospans is associative and unital, so is
+  composition of corelations, with the identity corelation just the image of the
+  identity cospan.
+\end{proof}
 
-\begin{lemma}
-  The maps $\kappa$ above are natural.
+Note that the identity in $\corel(\mc C)$ may not be the identity cospan itself.
+For example, with the factorisation system $(\mc I_{\mc C}, \mc C)$ the $\mc
+I_{\mc C}$-part of the identity cospan is simply $X \stackrel{\iota_{X_1}}\to
+X+X \stackrel{\iota_{X_2}}\leftarrow X$, where $\iota_{X_i}$ is the inclusion of
+$X$ into the $X_i$ factor of the coproduct $X+X$.
+
+This first lemma is also useful in proving the second important lemma: the
+naturality of $\overline{\kappa}$.
+
+\begin{lemma} \label{lem.corelfunmonoidal}
+  The maps $\overline{\kappa_{X,Y}}$ above are natural.
 \end{lemma}
 \begin{proof}
   Let $f = (X \longrightarrow N \longleftarrow Y)$, $g= (Z \longrightarrow M
@@ -638,48 +851,64 @@ functors.
       \xymatrixcolsep{4pc}
       \xymatrixrowsep{2pc}
     \xymatrix{
-      A(X)+A(Y) \ar[r]^{\square(f)+\square(g)}
-      \ar[d]_{\kappa_{X,Y}} & 
-      A(Z)+A(W) \ar[d]^{\kappa_{Z,W}} \\
+      AX+AY \ar[r]^{\square(f)+\square(g)}
+      \ar[d]_{\overline{\kappa_{X,Y}}} & 
+      AZ+AW \ar[d]^{\overline{\kappa_{Z,W}}} \\
       A(X+Y) \ar[r]^{\square(f+g)} & A(Z+W)
     }
   \]
-  commutes. Consider the diagram
-  \[
+  commutes in $\corel(\mc C')$. 
+  
+  Consider the following commutative diagram in $\mc C'$, with the outside
+  square equivalent to the naturality square for the coherence maps of the
+  monoidal functor $\cospan(\mc C) \to \cospan(\mc C')$:
+  \[ \label{diag.natural}
+    \begin{aligned}
       \xymatrixcolsep{4pc}
       \xymatrixrowsep{2pc}
     \xymatrix{
       (AX+AY)+(AZ+AW) \ar[r]^{\mc E'+\mc E'} \ar[d]_{\kappa_{X,Y}+\kappa_{Z,W}} & 
-      \overline{AN}+\overline{AM} \ar[r]^{\mc M'+\mc M'} \ar@{.>}[d]^{n} & 
+      \overline{AN}+\overline{AM} \ar[r]^{\mc M'+\mc M'} \ar@{.>}[d]^{p} & 
       AN+AM \ar[d]^{\kappa_{N,M}}\\
       A(X+Y)+A(Z+W) \ar[r]^{\mc E'} & \overline{A(N+M)} \ar[r]^{\mc M'} & A(N+M)
     }
+  \end{aligned}
+    \tag{$\#$}
   \]
-  This diagram represents two different factorisations of the coproduct of the
-  images of $f$ and $g$, and hence commutes. The top edge is the coproduct of
-  the respective factorisations of $f$ and $g$, whereas the bottom edge is the
-  factorisation of the coproduct of $f$ and $g$. 
+  We have factored the top edge as the coproduct of the respective
+  factorisations of $f$ and $g$, and the bottom edge simply as the factorisation
+  of the coproduct $f+g$. 
   
   Note that by Lemma \ref{lem.monfact} the coproduct of two maps in $\mc E'$ is
   again in $\mc E'$, while Lemma \ref{lem.mcoproductsmc} implies the same for
   $\mc M'$. Thus the top edge is an $(\mc E',\mc M')$-factorisation, and the
-  uniqueness of factorisations gives the isomorphism $n$. This proves the
-  naturality of the maps $\kappa$.
+  uniqueness of factorisations gives the isomorphism $n$. 
+  Given that the map reducing cospans to corelations is functorial, the
+  commutative square
+  \[
+      \xymatrixcolsep{2.5pc}
+      \xymatrixrowsep{2pc}
+    \xymatrix{
+      (AX+AY)+A(Z+W) \ar[r]^{1+\kappa_{Z,W}^{-1}} \ar@{=}[d] & (AX+AY)+(AZ+AW)
+      \ar[r]^{\mc E'+\mc E'} & 
+      \overline{AN}+\overline{AM} \ar[d]^{n} \\
+      (AX+AY)+A(Z+W) \ar[r]^{\kappa_{X,Y}+1} & A(X+Y)+A(Z+W) \ar[r]^{\mc E'} & 
+      \overline{A(N+M)}
+    }
+  \]
+  then implies the naturality of the maps $\overline{\kappa}$.
 \end{proof}
 
 These lemmas now imply that $\corel(\mc C)$ is a well-defined hypergraph
 category.
 \begin{proof}[Proof of Theorem \ref{thm.cospantocorel}]
-  To complete the proof then, consider the case of Proposition
+  To complete the proof then, again consider the case of Proposition
   \ref{prop.corelfunctors} with $\mc C = \mc C'$, $(\mc E,\mc M) = (\mc C, \mc
-  I_{\mc C})$, and $A = 1_{\mc C}$. Then the domain of $\square$ is $\cospan(\mc
-  C)$ by definition. In this case, the function $\square\maps \cospan(\mc C) \to
-  \corel(\mc C)$ is bijective-on-objects and surjective-on-morphisms. Moreover,
-  note that by definition this function maps the coherence and hypergraph maps
-  of $\cospan(\mc C)$ onto the corresponding maps of $\corel(\mc C)$. As
-  $\cospan(\mc C)$ is a hypergraph, and $\square$ preserves composition and
-  respects the monoidal and hypergraph structure, $\corel(\mc C)$ is also a
-  hypergraph category. 
+  I_{\mc C})$, and $A = 1_{\mc C}$. Note that by definition this function maps
+  the coherence and hypergraph maps of $\cospan(\mc C)$ onto the corresponding
+  maps of $\corel(\mc C)$. As $\cospan(\mc C)$ is a hypergraph, and $\square$
+  preserves composition and respects the monoidal and hypergraph structure,
+  $\corel(\mc C)$ is also a hypergraph category. 
   
   For instance, suppose we want to check the functoriality of the monoidal
   product $+$. We then wish to show $(g \circ f) + (k \circ h) = (g + k) \circ
@@ -701,73 +930,529 @@ category.
   $\corel(\mathcal C)$ and each cospan to its $\mathcal E$-part.
 \end{corollary}
 
+  Finally, we complete the proof that $\square$ is always a hypergraph functor.
 
-Finally, we complete the proof that we have hypergraph functors.
-\begin{proof}[Proof of Proposition \ref{prop.corelfunctors}]
-  The identity corelation is given by the $\mc E$-part of $[1,1]\maps X+X \to
-  X$.
-  As the coherence maps for $\square$ are just those of the functor $A$, they
-  obey the coherence laws for symmetric monoidal functors.
-  
-  As for the hypergraph structure, for example the Frobenius multiplication
-  $[1_X,1_X]$ (THIS IS NOT THE MULT) on an object $X$ of $\mc C$ obeys
-  $A[1_X,1_X] \circ \kappa_{X,X}= [1_{AX},1_{AX}]$, as required.   
+\begin{proof}[Proof of Proposition \ref{prop.corelfunctors}] 
+  We show $\square$ is a functor, a symmetric monoidal functor, and then finally
+  a hypergraph functor.
 
+  \paragraph{Functoriality.} First, recall that $\square$ preserves composition
+  (Lemma \ref{lem.corelfuncomposition}). Thus to prove $\square$ is a functor it
+  remains to show identities are mapped to identities. The general idea for this
+  and for similar axioms is to recall that the special maps are given by reduced
+  versions of particular colimits, and that $(\mc E',\mc M')$ reduces maps more
+  than $(\mc E,\mc M)$. 
+
+  In this case, recall the identity corelation is given by the $\mc E$-part $X+X
+  \to \overline{X}$ of $[1,1]\maps X+X \to X$. Thus the image of the identity on
+  $X$ and the identity on $AX$ are given by the top and bottom rows of the
+  commuting square
+  \[
+    \xymatrixcolsep{4pc}
+    \xymatrixrowsep{2pc}
+    \xymatrix{
+      A(X+X) \ar[d]^{\kappa^{-1}}_{\sim} \ar[r]^{\mc E'} &
+      \overline{A\overline{X}} \ar[r]^{\mc M'} \ar@{.>}[d]^{n} &
+      A\overline{X} \ar[r]^{A\mc M} & AX \ar@{=}[d]\\
+      AX+AX \ar[r]^{\mc E'} & \overline{AX} \ar[rr]^{\mc M'} && AX
+    }
+  \]
+  The outside square commutes as we know $A$ maps the identity cospan of $\mc C$
+  to the identity cospan of $\mc C'$. The top row is the image under $A$ of the
+  identity cospan in $\mc C$, factored first in $\mc C$, and then in $\mc C'$.
+  The bottom row is just the factored identity cospan on $AX$ in $\mc C'$. As
+  $A$ maps $\mc M$ into $\mc M'$, the map marked $A\mc M$ lies in $\mc M'$. Thus
+  both rows are $(\mc E',\mc M')$-factorisations, and so we have the isomorphism
+  $n$. Thus $\square$ preserves identities.
+
+  \paragraph{Strong monoidality.} We proved in Lemma \ref{lem.corelfunmonoidal} that
+    our proposed coherence maps are natural. The rest of the properties follow
+    from the composition preserving map $\cospan(\mc C') \to \corel(\mc C')$.
+    Since the $\kappa$ obey all the required axioms as cospans, they obey them
+    as corelations too.
+
+  \paragraph{Hypergraph structure.} The proof of preservation of the hypergraph
+  structure follows the same pattern as the identity maps. 
 \end{proof}
 
 \begin{example}
-NEEDS ATTENTION> Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
-are epi-mono factorisations, then we always have that $F(\mathcal E) \subseteq
-\mathcal E'$ and $F(\mathcal M) \subseteq \mathcal M'$. Indeed, if an
-(one-sided) inverse exists in the domain category, it exists in the codomain
-category. Thus colimit-preserving functors between categories with finite
-colimits and epi-mono factorisation systems also induce a functor between the
-epi-mono corelation categories.
+Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
+are epi-split mono factorisations, then we always have that $F(\mathcal M)
+\subseteq \mathcal M'$. Indeed, if an (one-sided) inverse exists in the domain
+category, it exists in the codomain category. Thus colimit-preserving functors
+between categories with finite colimits and epi-split mono factorisation systems
+also induce a functor between the epi-split mono corelation categories. We will
+use this in Chapter ref.
 \end{example}
 
-\subsection{Example: equivalence relations as corelations in $\Set$}
+\section{Examples}
+\subsection{Equivalence relations as corelations in $\Set$}
   
-  In each factorisation system of Examples \ref{ex.corels} the right factor
+In each factorisation system of Examples \ref{ex.corels} the right factor
   $\mathcal M$ is stable under pushout.  This gives the hypergraph categories of
   cospans in $\mc C$, the indiscrete category on the objects of $\mc C$, and
-  equivalence relations between finite sets. 
+  equivalence relations between finite sets. The last of these examples is
+  perhaps the most instructive for black-boxing open systems. 
+  
+  Epi-mono corelations in $\Set$ are isomorphism classes of
+  jointly epic cospans. Thus a corelation $X \to Y$ is an equivalence relation
+  on $X+Y$. We might depict these as follows
+\[
+  \begin{tikzpicture}[circuit ee IEC]
+	\begin{pgfonlayer}{nodelayer}
+		\node [contact, outer sep=5pt] (0) at (-2, 1) {};
+		\node [contact, outer sep=5pt] (1) at (-2, 0.5) {};
+		\node [contact, outer sep=5pt] (2) at (-2, -0) {};
+		\node [contact, outer sep=5pt] (3) at (-2, -0.5) {};
+		\node [contact, outer sep=5pt] (4) at (-2, -1) {};
+		\node [contact, outer sep=5pt] (5) at (1, 1.25) {};
+		\node [contact, outer sep=5pt] (6) at (1, 0.75) {};
+		\node [contact, outer sep=5pt] (7) at (1, 0.25) {};
+		\node [contact, outer sep=5pt] (8) at (1, -0.25) {};
+		\node [contact, outer sep=5pt] (9) at (1, -0.75) {};
+		\node [contact, outer sep=5pt] (10) at (1, -1.25) {};
+		\node [style=none] (11) at (-2.75, -0) {$X$};
+		\node [style=none] (12) at (1.75, -0) {$Y$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=0, anchor=north west) --
+   (node cs:name=1, anchor=south west) --
+   (node cs:name=6, anchor=south east) --
+   (node cs:name=5, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=2, anchor=north west) --
+   (node cs:name=3, anchor=south west) --
+   (node cs:name=3, anchor=south east) --
+   (node cs:name=2, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=4, anchor=north west) --
+   (node cs:name=4, anchor=south west) --
+   (node cs:name=10, anchor=south east) --
+   (node cs:name=9, anchor=north east) --
+   cycle;
+   		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=7, anchor=north west) --
+   (node cs:name=7, anchor=south west) --
+   (node cs:name=7, anchor=south east) --
+   (node cs:name=7, anchor=north east) --
+   cycle;
+   		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=8, anchor=north west) --
+   (node cs:name=8, anchor=south west) --
+   (node cs:name=8, anchor=south east) --
+   (node cs:name=8, anchor=north east) --
+   cycle;
+	\end{pgfonlayer}
+\end{tikzpicture}
+\]
+Here we have a corelation from a set $X$ of five elements to a set $Y$ of six
+elements. Elements belonging to the same equivalence class of $X+Y$ are grouped
+(`connected') by a dashed line.
 
-  The last of these examples is perhaps the most instructive for black-boxing
-  open systems.
+Composition of corelations first takes the transitive closure of the two
+partitions (the pushout in $\Set$), before restricting the partition to the new
+domain and codomain (restricting to the jointly epic part). For example,
+suppose in addition to the corelation $\alpha\maps X \to Y$ above we have
+another corelation $\beta\maps Y \to Z$
+\[
+\begin{tikzpicture}[circuit ee IEC]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-2.75, -0) {$Y$};
+		\node [style=none] (1) at (1.75, 0) {$Z$};
+		\node [contact, outer sep=5pt] (2) at (-2, 1.25) {};
+		\node [contact, outer sep=5pt] (3) at (-2, 0.75) {};
+		\node [contact, outer sep=5pt] (4) at (-2, 0.25) {};
+		\node [contact, outer sep=5pt] (5) at (-2, -0.25) {};
+		\node [contact, outer sep=5pt] (6) at (-2, -0.75) {};
+		\node [contact, outer sep=5pt] (7) at (-2, -1.25) {};
+		\node [contact, outer sep=5pt] (8) at (1, 1) {};
+		\node [contact, outer sep=5pt] (9) at (1, 0.5) {};
+		\node [contact, outer sep=5pt] (10) at (1, -0) {};
+		\node [contact, outer sep=5pt] (11) at (1, -0.5) {};
+		\node [contact, outer sep=5pt] (12) at (1, -1) {};
+	\end{pgfonlayer}
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=2, anchor=north west) --
+   (node cs:name=3, anchor=south west) --
+   (node cs:name=8, anchor=south east) --
+   (node cs:name=8, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=4, anchor=north west) --
+   (node cs:name=4, anchor=south west) --
+   (node cs:name=4, anchor=south east) --
+   (node cs:name=4, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=5, anchor=north west) --
+   (node cs:name=6, anchor=south west) --
+   (node cs:name=11, anchor=south east) --
+   (node cs:name=10, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=7, anchor=north west) --
+   (node cs:name=7, anchor=south west) --
+   (node cs:name=12, anchor=south east) --
+   (node cs:name=12, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=9, anchor=north west) --
+   (node cs:name=9, anchor=south west) --
+   (node cs:name=9, anchor=south east) --
+   (node cs:name=9, anchor=north east) --
+   cycle;
+\end{tikzpicture}
+\]
+Then the composite $\beta\circ\alpha$ of our two corelations is given by
+\vspace{-1ex}
+\[
+  \begin{aligned}
+\begin{tikzpicture}[circuit ee IEC]
+	\begin{pgfonlayer}{nodelayer}
+		\node [contact, outer sep=5pt] (-2) at (1, 1.25) {};
+		\node [contact, outer sep=5pt] (-1) at (1, 0.75) {};
+		\node [contact, outer sep=5pt] (0) at (1, 0.25) {};
+		\node [contact, outer sep=5pt] (1) at (1, -0.25) {};
+		\node [contact, outer sep=5pt] (2) at (1, -0.75) {};
+		\node [contact, outer sep=5pt] (3) at (1, -1.25) {};
+		\node [style=none] (4) at (-2.75, -0) {$X$};
+		\node [style=none] (5) at (4.75, -0) {$Z$};
+		\node [contact, outer sep=5pt] (6) at (-2, 1) {};
+		\node [contact, outer sep=5pt] (7) at (-2, -0.5) {};
+		\node [contact, outer sep=5pt] (8) at (-2, 0.5) {};
+		\node [contact, outer sep=5pt] (9) at (-2, -0) {};
+		\node [contact, outer sep=5pt] (10) at (-2, -1) {};
+		\node [contact, outer sep=5pt] (11) at (4, -0) {};
+		\node [contact, outer sep=5pt] (12) at (4, -1) {};
+		\node [contact, outer sep=5pt] (13) at (4, -0.5) {};
+		\node [contact, outer sep=5pt] (14) at (4, 0.5) {};
+		\node [contact, outer sep=5pt] (19) at (4, 1) {};
+		\node [style=none] (20) at (1, -1.75) {$Y$};
+		\node [style=none] (21) at (1, 1.75) {\phantom{$Y$}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=6, anchor=north west) --
+   (node cs:name=8, anchor=south west) --
+   (node cs:name=-1, anchor=south east) --
+   (node cs:name=-2, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=9, anchor=north west) --
+   (node cs:name=7, anchor=south west) --
+   (node cs:name=7, anchor=south east) --
+   (node cs:name=9, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=10, anchor=north west) --
+   (node cs:name=10, anchor=south west) --
+   (node cs:name=3, anchor=south east) --
+   (node cs:name=2, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=-2, anchor=north west) --
+   (node cs:name=-1, anchor=south west) --
+   (node cs:name=19, anchor=south east) --
+   (node cs:name=19, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=0, anchor=north west) --
+   (node cs:name=0, anchor=south west) --
+   (node cs:name=0, anchor=south east) --
+   (node cs:name=0, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=1, anchor=north west) --
+   (node cs:name=1, anchor=south west) --
+   (node cs:name=1, anchor=south east) --
+   (node cs:name=1, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=1, anchor=north west) --
+   (node cs:name=2, anchor=south west) --
+   (node cs:name=13, anchor=south east) --
+   (node cs:name=11, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=3, anchor=north west) --
+   (node cs:name=3, anchor=south west) --
+   (node cs:name=12, anchor=south east) --
+   (node cs:name=12, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=14, anchor=north west) --
+   (node cs:name=14, anchor=south west) --
+   (node cs:name=14, anchor=south east) --
+   (node cs:name=14, anchor=north east) --
+   cycle;
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\:
+  =
+\:
+\begin{aligned}
+\begin{tikzpicture}[circuit ee IEC]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-2.75, -0) {$X$};
+		\node [style=none] (1) at (1.75, -0) {$Z$};
+		\node [contact, outer sep=5pt] (2) at (-2, 1) {};
+		\node [contact, outer sep=5pt] (3) at (-2, -0.5) {};
+		\node [contact, outer sep=5pt] (4) at (-2, 0.5) {};
+		\node [contact, outer sep=5pt] (5) at (-2, -0) {};
+		\node [contact, outer sep=5pt] (6) at (-2, -1) {};
+		\node [contact, outer sep=5pt] (7) at (1, -0) {};
+		\node [contact, outer sep=5pt] (8) at (1, -1) {};
+		\node [contact, outer sep=5pt] (9) at (1, -0.5) {};
+		\node [contact, outer sep=5pt] (10) at (1, 0.5) {};
+		\node [contact, outer sep=5pt] (13) at (1, 1) {};
+		\node [style=none] (20) at (1, -1.75) {\phantom{$Y$}};
+		\node [style=none] (21) at (1, 1.75) {\phantom{$Y$}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=2, anchor=north west) --
+   (node cs:name=4, anchor=south west) --
+   (node cs:name=13, anchor=south east) --
+   (node cs:name=13, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=5, anchor=north west) --
+   (node cs:name=3, anchor=south west) --
+   (node cs:name=3, anchor=south east) --
+   (node cs:name=5, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=6, anchor=north west) --
+   (node cs:name=6, anchor=south west) --
+   (node cs:name=8, anchor=south east) --
+   (node cs:name=7, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed] 
+   (node cs:name=10, anchor=north west) --
+   (node cs:name=10, anchor=south west) --
+   (node cs:name=10, anchor=south east) --
+   (node cs:name=10, anchor=north east) --
+   cycle;
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+Informally, this captures the idea that two elements of $X+Z$ are `connected' if
+we may travel from one to the other staying within connected components of
+$\alpha$ and $\beta$.
+  
+  Epi-mono corelations in $\Set$ can also be visualised as terminals connected by junctions of ideal wires. We draw these by marking each equivalence
+class with a point (the `junction'), and then connecting each element of the
+domain and codomain to their equivalence class with a `wire'. Composition then
+involves collapsing connected junctions down to a point.
+\vspace{-1ex}
+\[
+  \begin{aligned}
+\begin{tikzpicture}[circuit ee IEC]
+	\begin{pgfonlayer}{nodelayer}
+		\node [contact, outer sep=5pt] (6) at (-2, 1) {};
+		\node [contact, outer sep=5pt] (7) at (-2, -0.5) {};
+		\node [contact, outer sep=5pt] (8) at (-2, 0.5) {};
+		\node [contact, outer sep=5pt] (9) at (-2, -0) {};
+		\node [contact, outer sep=5pt] (10) at (-2, -1) {};
+		\node [style=none] (15) at (-0.5, 0.875) {};
+		\node [style=none] (28) at (-0.5, 0.25) {};
+		\node [style=none] (16) at (-0.5, -0.125) {};
+		\node [style=none] (29) at (-0.5, -0.375) {};
+		\node [style=none] (17) at (-0.5, -1) {};
+		\node [contact, outer sep=5pt] (-2) at (1, 1.25) {};
+		\node [contact, outer sep=5pt] (-1) at (1, 0.75) {};
+		\node [contact, outer sep=5pt] (0) at (1, 0.25) {};
+		\node [contact, outer sep=5pt] (1) at (1, -0.25) {};
+		\node [contact, outer sep=5pt] (2) at (1, -0.75) {};
+		\node [contact, outer sep=5pt] (3) at (1, -1.25) {};
+		\node [style=none] (18) at (2.5, -1.125) {};
+		\node [style=none] (21) at (2.5, 1) {};
+		\node [style=none] (22) at (2.5, -0.375) {};
+		\node [style=none] (23) at (2.5, 0.475) {};
+		\node [style=none] (24) at (2.5, 0.25) {};
+		\node [contact, outer sep=5pt] (19) at (4, 1) {};
+		\node [contact, outer sep=5pt] (14) at (4, 0.5) {};
+		\node [contact, outer sep=5pt] (11) at (4, -0) {};
+		\node [contact, outer sep=5pt] (13) at (4, -0.5) {};
+		\node [contact, outer sep=5pt] (12) at (4, -1) {};
+		\node [style=none] (4) at (-2.75, -0) {$X$};
+		\node [style=none] (5) at (4.75, -0) {$Z$};
+		\node [style=none] (20) at (1, -1.75) {$Y$};
+		\node [style=none] (30) at (1, 1.75) {\phantom{$Y$}};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [thick] (6.center) to (15.center);
+		\draw [thick] (8.center) to (15.center);
+		\draw [thick] (-2.center) to (15.center);
+		\draw [thick] (-1.center) to (15.center);
+		\draw [thick] (9.center) to (16.center);
+		\draw [thick] (7.center) to (16.center);
+		\draw [thick] (10.center) to (17.center);
+		\draw [thick] (17.center) to (2.center);
+		\draw [thick] (17.center) to (3.center);
+		\draw [thick] (3.center) to (18.center);
+		\draw [thick] (18.center) to (12.center);
+		\draw [thick] (-2.center) to (21.center);
+		\draw [thick] (-1.center) to (21.center);
+		\draw [thick] (21.center) to (19.center);
+		\draw [thick] (1.center) to (22.center);
+		\draw [thick] (2.center) to (22.center);
+		\draw [thick] (22.center) to (11.center);
+		\draw [thick] (22.center) to (13.center);
+		\draw [thick] (23.center) to (14.center);
+		\draw [thick] (28.center) to (0.center);
+		\draw [thick] (0.center) to (24.center);
+		\draw [thick] (29.center) to (1.center);
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=6, anchor=north west) --
+   (node cs:name=8, anchor=south west) --
+   (node cs:name=-1, anchor=south east) --
+   (node cs:name=-2, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=9, anchor=north west) --
+   (node cs:name=7, anchor=south west) --
+   (node cs:name=7, anchor=south east) --
+   (node cs:name=9, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=10, anchor=north west) --
+   (node cs:name=10, anchor=south west) --
+   (node cs:name=3, anchor=south east) --
+   (node cs:name=2, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=-2, anchor=north west) --
+   (node cs:name=-1, anchor=south west) --
+   (node cs:name=19, anchor=south east) --
+   (node cs:name=19, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=0, anchor=north west) --
+   (node cs:name=0, anchor=south west) --
+   (node cs:name=0, anchor=south east) --
+   (node cs:name=0, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=1, anchor=north west) --
+   (node cs:name=1, anchor=south west) --
+   (node cs:name=1, anchor=south east) --
+   (node cs:name=1, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=1, anchor=north west) --
+   (node cs:name=2, anchor=south west) --
+   (node cs:name=13, anchor=south east) --
+   (node cs:name=11, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=3, anchor=north west) --
+   (node cs:name=3, anchor=south west) --
+   (node cs:name=12, anchor=south east) --
+   (node cs:name=12, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=14, anchor=north west) --
+   (node cs:name=14, anchor=south west) --
+   (node cs:name=14, anchor=south east) --
+   (node cs:name=14, anchor=north east) --
+   cycle;
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\:
+  =
+\:
+\begin{aligned}
+\begin{tikzpicture}[circuit ee IEC]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-2.75, -0) {$X$};
+		\node [style=none] (1) at (1.75, -0) {$Z$};
+		\node [contact, outer sep=5pt] (2) at (-2, 1) {};
+		\node [contact, outer sep=5pt] (3) at (-2, -0.5) {};
+		\node [contact, outer sep=5pt] (4) at (-2, 0.5) {};
+		\node [contact, outer sep=5pt] (5) at (-2, -0) {};
+		\node [contact, outer sep=5pt] (6) at (-2, -1) {};
+		\node [contact, outer sep=5pt] (7) at (1, -0) {};
+		\node [contact, outer sep=5pt] (8) at (1, -1) {};
+		\node [contact, outer sep=5pt] (9) at (1, -0.5) {};
+		\node [contact, outer sep=5pt] (10) at (1, 0.5) {};
+		\node [style=none] (11) at (-0.5, 0.875) {};
+		\node [style=none] (12) at (-0.5, 0.3) {};
+		\node [contact, outer sep=5pt] (13) at (1, 1) {};
+		\node [style=none] (14) at (-0.5, -0.2) {};
+		\node [style=none] (15) at (-0.5, -0.6) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [thick] (2.center) to (11.center);
+		\draw [thick] (4.center) to (11.center);
+		\draw [thick] (11.center) to (13.center);
+		\draw [thick] (5.center) to (14.center);
+		\draw [thick] (3.center) to (14.center);
+		\draw [thick] (15.center) to (7.center);
+		\draw [thick] (15.center) to (9.center);
+		\draw [thick] (6.center) to (15.center);
+		\draw [thick] (15.center) to (8.center);
+		\draw [thick] (12.center) to (10.center);
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=2, anchor=north west) --
+   (node cs:name=4, anchor=south west) --
+   (node cs:name=13, anchor=south east) --
+   (node cs:name=13, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=5, anchor=north west) --
+   (node cs:name=3, anchor=south west) --
+   (node cs:name=3, anchor=south east) --
+   (node cs:name=5, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=10, anchor=north west) --
+   (node cs:name=10, anchor=south west) --
+   (node cs:name=10, anchor=south east) --
+   (node cs:name=10, anchor=north east) --
+   cycle;
+		\draw [rounded corners=5pt, dashed, color=gray] 
+   (node cs:name=6, anchor=north west) --
+   (node cs:name=6, anchor=south west) --
+   (node cs:name=8, anchor=south east) --
+   (node cs:name=7, anchor=north east) --
+   cycle;
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+The composition law captures the idea that connectivity is all that
+matters: as long as the wires are `ideal', the exact path does not matter. 
 
-  An \define{extraspecial commutative Frobenius monoid}
-  $(X,\mu,\eta,\delta,\epsilon)$ in a monoidal category $(\mathcal C, \otimes)$
-  is a special commutative Frobenius monoid that further obeys the extra law
+In Coya--Fong we formalise this idea by saying that corelations are the prop for
+extraspecial commutative Frobenius monoids \cite{CoyFon16}. An
+\define{extraspecial commutative Frobenius monoid}
+$(X,\mu,\eta,\delta,\epsilon)$ in a monoidal category $(\mathcal C, \otimes)$ is
+a special commutative Frobenius monoid that further obeys the extra law
   \[
     \extral{.1\textwidth} = \extrar{.1\textwidth}
   \]
 
-The extra law is a recent discovery, appearing first under this name in the
-work of Baez and Erbele \cite{BE}, as the `bone law' in \cite{BSZ,FRS}, and as
-the `irredundancy law' in \cite{Za}.
+Two morphisms built from the generators of an extraspecial commutative Frobenius
+monoid are equal and if and only if their diagrams impose the same connectivity
+relations on the disjoint union of the domain and codomain. This is an extension
+of the spider theorem for special commutative Frobenius monoids. 
 
-Observe that each of these equations equate string diagrams that connect
-precisely the same elements of the domain and codomain. To wit, the
-associativity, coassociativity, and Frobenius laws show that the order in which
-we build a connected component through pairwise clustering is irrelevant, the
-special law shows that having multiple connections between points is irrelevant,
-and the extra law shows that `extra' components not connected to the domain or
-codomain are irrelevant. 
 
-In fact the converse holds: two morphisms built from the generators of an
-extraspecial commutative Frobenius monoid are equal and if and only if their
-diagrams impose the same connectivity relations on the disjoint union of the
-domain and codomain. This is an extension of the spider
-theorem for special commutative Frobenius monoids. 
-
-\subsection{Example: linear relations as corelations in $\Vect$}
+\subsection{Linear relations as corelations in $\Vect$}
 
 Recall that a linear relation $L\maps U \leadsto V$ is a subspace $L \subseteq
 U \oplus V$. We compose linear relations as we do relations, and vector spaces
-and linear relations form a category $\LinRel$. This category can be
-constructed as the category of relations in the category $\Vect$ of
-vector spaces and linear maps with respect to epi-mono factorisations. We show
-that they may also be constructed as corelations in $\Vect$ with respect to
+and linear relations form a category $\LinRel$. It is well-known that this
+category can be constructed as the category of relations in the category $\Vect$
+of vector spaces and linear maps with respect to epi-mono factorisations. We
+show that they may also be constructed as corelations in $\Vect$ with respect to
 epi-mono factorisations.
 
 If we restrict to the full subcategory $\FinVect$ of finite dimensional vector
@@ -833,1083 +1518,9 @@ pushout, this is true iff
 This in turn is true iff $(\mathbf{u}, \mathbf{w}) \in \ker[\iota_Af\;
 -\iota_Bk]$, as required. 
 
+This corelations perspective is important as it fits the relational picture into
+our philosophy of black boxing. In Chapter ref we will see it is the corelation
+construction of $\LinRel$ that correctly generalises to the case of
+non-controllable systems.
 
 
-\section{Decorated corelations} \label{sec:dcorc}
-
-When enough structure is available to us, we may decorate corelations too.
-Furthermore, and key to the idea of `black-boxing', we get a hypergraph functor
-from decorated cospans to decorated corelations.
-
-
-\subsection{Adjoining right adjoints}
-Suppose we have a cospan $X+Y \to N$ with a decoration on $N$. Reducing this to
-a corelation requires us to factor this to $X+Y \stackrel{e}\to \overline{N}
-\stackrel{m}\to N$. Decorated corelations require a method from taking a
-decoration on $N$ and `pulling it back' along $m$ to a decoration on
-$\overline{N}$. 
-
-A subcategory stable under pushouts is a useful thing.
-
-\begin{proposition}
-  Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
-  subcategory of $\mathcal C$ stable under pushouts. Then we define the category
-  $\mathcal C; \mathcal M^\opp$ as follows  
-  \begin{center}
-    \begin{tabular}{| c | p{.65\textwidth} |}
-      \hline
-      \multicolumn{2}{|c|}{The symmetric monoidal category $(\mc C;\mc M^\opp,+)$} \\
-      \hline
-      \textbf{objects} & the objects of $\mathcal C$ \\ 
-      \textbf{morphisms} & isomorphism classes of cospans of the form
-      $\stackrel{c}\rightarrow \stackrel{m}\leftarrow$, where $c$ is a morphism
-      in $\mathcal C$ and $m$ a morphism in $\mathcal M$\\ 
-      \textbf{composition} & given by pushout \\
-      \textbf{monoidal product} & the coproduct in $\mathcal C$ \\
-      \textbf{coherence maps} & the coherence maps in $\mc C$ \\
-      \hline
-    \end{tabular}
-  \end{center}
-\end{proposition}
-\begin{proof}
-  Composition is well-defined as $\mc M$ is stable under pushouts. Monoidal
-  composition is well-defined by Lemma \ref{lem.mcoproductsmc}. Necessary laws
-  hold as they are inherited from $\mc C$. 
-\end{proof}
-
-This category can be viewed as a bicategory, with 2-morphisms given by maps of
-cospans. In this bicategory every morphism of $\mc M$ has a right adjoint.
-
-\begin{examples}
-  \begin{itemize}
-    \item Note that $\mathcal C; \mathcal C^\opp$ is by definition equal to
-      $\cospan(\mathcal C)$. 
-
-    \item Writing $\mathcal I_{\mathcal C}$ for the wide subcategory of
-      isomorphisms in $\mathcal C$, note that $\mathcal C;\mathcal I_{\mathcal
-      C}^\opp$ is naturally isomorphic to $\mathcal C$.
-  \end{itemize}
-\end{examples}
-
-\begin{lemma}
-  Let $\mathcal C$, $\mathcal C'$ be categories with finite colimits, and let
-  $\mathcal M$, $\mathcal M'$ be subcategories each stable under pushouts. Let
-  $A\maps \mathcal C \to \mc C'$ be functor that preserves colimits and such
-  that the image of $\mc M$ lies in $\mc M'$. Then $A$ extends to a symmetric
-  (strong) monoidal functor
-  \[
-    A\maps \mc C;\mc M^\opp \longrightarrow \mc C'; \mc M'^\opp.
-  \]
-  mapping $X$ to $AX$ and $\stackrel{c}\rightarrow \stackrel{m}\leftarrow$ to
-  $\stackrel{Ac}\rightarrow \stackrel{Am}\leftarrow$.
-\end{lemma}
-\begin{proof}
-  Note $A(\mc M) \subseteq \mc M'$, so $\stackrel{Ac}\rightarrow
-  \stackrel{Am}\leftarrow$ is indeed a morphism in $\mc C';\mc M'$. The functor
-  $A$ preserves colimits, so composition is preserved.
-\end{proof}
-
-Note this could be done more generally with any two isomorphism-containing wide
-subcategories stable under pushout.
-
-\subsection{Decorated corelations}
-
-\begin{definition}
-  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
-  \mathcal M)$ be a factorisation system on $\mathcal C$. Suppose that we also
-  have a lax monoidal functor
-  \[
-    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times).
-  \]
-  Then we define an $F$-\define{decorated corelation} to be the isomorphism
-  class of a pair
-  \[
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& N \\  
-	X \ar[ur]^{i} && Y \ar[ul]_{o}
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	FN \\
-	1 \ar[u]_{s}
-      }
-    \end{aligned}
-    \right)
-  \]
-  where the cospan is jointly-$\mathcal E$-like.
-\end{definition}
-
-Again, we will be lazy about the distinction between a decorated corelation and
-its isomorphism class.
-
-Suppose we have decorated corelations
-  \[
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& N \\  
-	X \ar[ur]^{i} && Y \ar[ul]_{o}
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	FN \\
-	1 \ar[u]_{s}
-      }
-    \end{aligned}
-    \right)
-    \qquad
-    \mbox{and}
-    \qquad
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& M \\  
-	Y \ar[ur]^{i} && Z \ar[ul]_{o}
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	FM \\
-	1 \ar[u]_{s}
-      }
-    \end{aligned}
-    \right).
-  \]
-  Then their composite is given by the composite corelation
-  \[
-    \xymatrix{
-      & \overline{N+_YM} \\  
-      X \ar[ur]^{i} && Z \ar[ul]_{o}
-    }
-  \]
-  paired with the decoration
-  \[
-    1 \longrightarrow F(N+M) \longrightarrow F(N+_YM) \stackrel{F(m^\opp)}\longrightarrow F(\overline{N+_YM})
-  \]
-  This is well-defined.
-
-\subsection{Categories of decorated corelations.}
-\begin{theorem}
-  Let $\mathcal C$ be a category with finite colimits and factorisation system
-  $(\mathcal E, \mathcal M)$ with $\mathcal M$ stable under pushout, and let 
-  \[
-    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
-  \]
-  be a symmetric lax monoidal functor.  Then we may define 
-  \begin{center}
-    \begin{tabular}{| c | p{.65\textwidth} |}
-      \hline
-      \multicolumn{2}{|c|}{The hypergraph category $(F\mathrm{Corel},+)$} \\
-      \hline
-      \textbf{objects} & the objects of $\mathcal C$ \\ 
-      \textbf{morphisms} & isomorphism classes of $F$-decorated corelations in
-      $\mathcal C$\\ 
-      \textbf{composition} & given by $\mc E$-part of pushout with restricted
-      decoration  \\
-      \textbf{monoidal product} & the coproduct in $\mathcal C$ on objects, coproduct
-      of cospans and pair of decorations on morphisms. \\
-      \textbf{coherence maps} & maps from $\cospan(\mc C)$ with restricted empty
-      decoration \\
-      \textbf{hypergraph maps} & maps from $\cospan(\mc C)$ with restricted empty
-      decoration \\
-      \hline
-    \end{tabular}
-  \end{center}
-\end{theorem}
-Similar to the corelations theorem (Theorem \ref{thm.cospantocorel}), we prove
-this alongside the theorem in the next subsection.
-\begin{example}
-  Note that decorated cospans are a special case of decorated corelations: we
-  use an morphism--isomorphism factorisation system.
-\end{example}
-
-\begin{example} \label{ex.undeccorel}
-  Note that `undecorated' corelations are a special case of decorated
-  corelations: they are corelations decorated by the functor $1\maps \mc C;\mc
-  M^\opp \to \Set$ that maps each object to the one element set $1$, and each
-  morphism to the identity function on $1$. This is a symmetric monoidal functor
-  with the coherence maps all also the identity function on $1$.
-\end{example}
-
-The key difference is to decorate cospans we need to know how to push
-decorations up. To decorate corelations we all need to know how to pull
-decorations back down. This is related to the existence of an extraspecial
-commutative Frobenius monoid in our main applications.
-
-
-Associativity: To take a decoration on $A+B$ to one on $A+_C\overline B$ we may
-either reduce to the $\mathcal E$-part of $B$ and then pushout over $C$, or
-pushout over $C$ and then reduce to the $\mathcal E$ part of $B$. This lemma
-implies that both processes result in the same decoration.  \subsection{Functors
-between decorated corelation categories}
-
-\begin{proposition}\label{prop.deccorelfunctors}
-  Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
-factorisation systems $(\mathcal E, \mathcal M)$, $(\mathcal E', \mathcal M')$,
-such that $\mathcal M$ and $\mathcal M'$ are stable under pushout, and suppose
-that we have symmetric lax monoidal functors
-\[
-  F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
-\]
-and
-\[
-  G: (\mathcal C';\mathcal M'^\opp,+) \longrightarrow (\Set, \times).
-\]
-
-Further let $A\maps \mathcal C \to \mathcal C'$ be a functor that preserves
-finite colimits and such that the image of $\mathcal M$ lies in $\mathcal M'$.
-This functor $A$ extends to a symmetric monoidal functor $\mc C;\mc M^\opp \to
-\mc C';\mc M'^\opp$.
-
-Suppose we have a monoidal natural transformation $\theta$:
-\[
-  \xymatrixrowsep{2ex}
-  \xymatrix{
-    \mc C; \mc M^\opp \ar[dd]_{A} \ar[drr]^F  \\
-    &\twocell \omit{_\:\theta}& \Set \\
-    \mc C'; \mc {M'}^\opp \ar[urr]_{G} 
-  }
-\]
-
-Then we may define a hypergraph functor $T\maps F\mathrm{Corel} \to
-G\mathrm{Corel}$ sending each object $X \in F\mathrm{Corel}$ to $AX \in
-G\mathrm{Corel}$ and each decorated corelation 
-\[
-  X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y, \quad
-  1 \stackrel{s}{\to} FN
-\]
-to
-\[
-  AX \stackrel{Ai_X}{\longrightarrow} \overline{AN} \stackrel{Ao_Y}{\longleftarrow} AY,
-  \quad 1 \stackrel{s}{\to} FN \stackrel{\theta_N}{\to} GAN
-  \stackrel{Gm_{AN}^\opp}{\to} G\overline{AN}.	
-\]
-The coherence maps are given by
-\[
-  \kappa_{X,Y}=          
-  \left(
-  \begin{aligned}
-    \xymatrix{
-      & \overline{A(X+Y)} \\  
-      AX+AY \ar[ur] && A(X+Y) \ar[ul]
-    }
-  \end{aligned}
-  ,
-  \qquad
-  \begin{aligned}
-    \xymatrixrowsep{1.4ex}
-    \xymatrix{
-      G(\overline{A(X+Y)}) \\
-      GA(X+Y) \ar[u]_{Gm_{AX+AY}^\opp} \\
-      G\varnothing \ar[u]_{G!} \\
-      1 \ar[u]_{\gamma_1}
-    }
-  \end{aligned}
-  \right).
-\]
-\end{proposition}
-\begin{proof}
-  In the proof of Proposition \ref{prop.corelfunctors} we used the existence of a
-  bijective-on-objects, surjective-on-morphisms, composition preserving map
-  $\mathrm{Cospan}(\mathcal C) \to\mathrm{Corel}(\mathcal C)$ to prove the
-  associativity and other properties of $\mathrm{Corel}(\mathcal C)$. Our proof
-  strategy here is entirely analogous.
-
-  Similar to before, we still have not proved that decorated corelations form
-  well-defined hypergraph categories. So we begin by merely showing that the map
-  $\square$ is composition-preserving, and then that $\square$ respects the
-  monoidal and hypergraph structure. We then specialise to the case where the
-  domain forms a decorated cospan category that maps surjectively onto a generic
-  decorated corelations codomain. Since we know decorated cospan categories are
-  well-defined hypergraph categories, we can conclude the same for decorated
-  corelations categories, and hence prove that $\square$ is a hypergraph functor. 
-  
-  We prove that $\square$ preserves composition. Suppose we have decorated corelations
-  \[
-    X \stackrel{i_X}{\longrightarrow} N \stackrel{o_Y}{\longleftarrow} Y, \quad
-    1 \stackrel{s}{\to} FN
-    \qquad
-    \mbox{and}
-    \qquad 
-    Y \stackrel{i_Y}{\longrightarrow} M \stackrel{o_Y}{\longleftarrow} Z, \quad
-    1 \stackrel{t}{\to} FM
-  \]
-%  \[
-%    \left(
-%    \begin{aligned}
-%      \xymatrix{
-%	& N \\  
-%	X \ar[ur]^{i} && Y \ar[ul]_{o}
-%      }
-%    \end{aligned}
-%    ,
-%    \qquad
-%    \begin{aligned}
-%      \xymatrix{
-%	FN \\
-%	1 \ar[u]_{s}
-%      }
-%    \end{aligned}
-%    \right)
-%    \qquad
-%    \mbox{and}
-%    \qquad
-%    \left(
-%    \begin{aligned}
-%      \xymatrix{
-%	& M \\  
-%	Y \ar[ur]^{i} && Z \ar[ul]_{o}
-%      }
-%    \end{aligned}
-%    ,
-%    \qquad
-%    \begin{aligned}
-%      \xymatrix{
-%	FM \\
-%	1 \ar[u]_{s}
-%      }
-%    \end{aligned}
-%    \right).
-%  \]
-  We know the functor $\square$ preserves composition on the cospan part; this
-  is precisely the content of Proposition \ref{prop.corelfunctors}. It remains to
-  check that $\square( g \circ f)$ and $\square g \circ \square f$ have
-  isomorphic decorations. This is expressed by the commutativity of the
-  following diagram:
-  \[
-    \xymatrixrowsep{1.1pc}
-    \xymatrixcolsep{0pc}
-    \xymatrix{
-      G\overline{A(\overline{N+_YM})} \ar[rrrrrr]^{Gn} &&&&&&
-      G\overline{(\overline{AN}+_{AY}\overline{AM})}\\
-      \\
-      GA(\overline{N+_YM}) \ar[uu]^{Gm^\opp_{A(\overline{N+_YM})}} &&&
-      \textsc{\tiny($\ast\ast$)} &&& 
-      G(\overline{AN}+_{AY}\overline{AM}) \ar[uu]_{Gm^\opp_{\overline{AN}+_{AY}\overline{AM}}} \\
-      \\
-      F(\overline{N+_YM}) \ar[uu]^{\theta_{\overline{N+_YM}}} & %\textsc{\tiny()} & 
-      &
-      GA(N+_YM) \ar[uull]_{GAm^\opp_{N+_YM}} && 
-      G(AN+_{AY}AM) \ar[ll]_{G\sim} \ar[uurr]^{G(m_{AN}^\opp +_{AY}m_{AM}^\opp)}
-      & \textsc{\tiny(c)} & 
-      G(\overline{AN}+\overline{AM}) \ar[uu]_{G[j_{\overline{AN}},j_{\overline{AM}}]} 
-      \\
-      &\textsc{\tiny(tn)}&& \textsc{\tiny(a)} 
-      \\
-      F(N+_YM) \ar[uu]^{Fm_{N+_YM}^\opp} %\ar[uurr]_{\theta_{N+_YM}} & \textsc{\tiny()} & 
-      &&
-      GA(N+M)\ar[uu]_{GA[j_N,j_M]} && 
-      G(AN+AM) \ar[uu]^{G[j_{AN},j_{AM}]} \ar[ll]^{G\alpha_{N,M}}
-      \ar[uurr]^{G(m_{AN}^\opp +m_{AM}^\opp)} & \textsc{\tiny(gm)} & 
-      G\overline{AN} \times G\overline{AM}
-      \ar[uu]_{\gamma_{\overline{AN},\overline{AM}}} \\
-      \\
-      F(N+M) \ar[uu]^{F[j_N,j_M]} \ar[uurr]_{\theta_{N+M}} &&& \textsc{\tiny(tm)} &&& 
-      GAN \times GAM \ar[uu]_{Gm_{AN}^\opp \times Gm_{AM}^\opp}
-      \ar[uull]^{\gamma_{AN,AM}} \\
-      \\
-      &&&FN \times FM \ar[uulll]^{\varphi_{N,M}} \ar[uurrr]_{\theta_N \times
-      \theta_M} \\\\
-      &&&1 \ar[uu]_{\rho_1\circ (s \times t)}
-    }
-  \]
-  This diagram does indeed commute. To check this, first observe that \textsc{(tm)}
-  commutes by the monoidality of $\theta$, \textsc{(gm)} commutes by the
-  monoidality of $G$, and \textsc{(tn)} commutes by the naturality of $\theta$.
-  The remaining three diagrams commute as they are $G$-images of diagrams that
-  commute in $\mc C';\mc M'^\opp$. Indeed, \textsc{(a)} commutes since $A$ preserves
-  colimits and $G$ is functorial, \textsc{(c)} commutes as it is the $G$-image
-  of a pushout square in $\mc C'$, so 
-  \[
-    \stackrel{m_{AN}^\opp+m_{AM}^\opp}{\longleftarrow} 
-    \stackrel{[j_{\overline{AN}},j_{\overline{AM}}]}{\longrightarrow}
-    \quad 
-    \textrm{and}
-    \quad
-    \stackrel{[j_{AN},j_{AM}]}{\longrightarrow}
-    \stackrel{m_{AN}^\opp+_{AY}m_{AM}^\opp}{\longleftarrow} 
-  \]
-  are equal as morphisms of $\mc C';\mc M'^\opp$, and \textsc{($\ast\ast$)} commutes
-  as it is the $G$-image of the right-hand subdiagram of $(\ast)$ used to define
-  $n$.
-  
-  It is evident that $\square$ is bijective-on-objects and
-  surjective-on-morphisms. This proves the theorem.
-\end{proof}
-
-%  \[
-%    \xymatrixrowsep{1pc}
-%    \xymatrixcolsep{1pc}
-%    \xymatrix{
-%      &&&& F(N+M) \ar[dd]^{F((m_N +m_M)^\opp)} \ar[rr]^{F[j_N,j_M]} 
-%      && F(N+_YM) \ar[dd]^{F((m_N+_Ym_M)^\opp)} \ar[rr]^{F((m_{N+_YM})^\opp)} 
-%      && F(\overline{N+_YM}) \ar[dd]^{Fn}_\sim \\ 
-%      1 \ar[rr]^(.4){(s\times t)\circ\lambda^{-1}} 
-%      && FN\times FM \ar[urr]^{\varphi} \ar[dr]_{Fm_N^\opp\times Fm_M^\opp} &
-%      \qquad\textrm{\tiny(I)}% && \textrm{\tiny(F)} && \textrm{\tiny(C)}
-%      \\ 
-%      &&& F\overline{N} \times F\overline{M} \ar[r]_{\varphi} 
-%      & F(\overline{N}+\overline{M})
-%      \ar[rr]_{F[j_{\overline{N}},j_{\overline{M}}]} 
-%      && F(\overline{N}+_Y\overline{M})
-%      \ar[rr]_{F((m_{\overline{N}+_Y\overline{M}})^\opp)} 
-%      && F(\overline{\overline{N}+_Y\overline{M}})
-%    }
-%  \]
-%  Here $n$ is the isomorphism from the proof of Proposition
-%  \ref{prop.corelfunctors}.
-%  The leftmost square (I) commutes by the naturality of $\varphi$, the central
-%  square commutes as it is the $F$-image of a pushout square in $\mathcal C$,
-%  and rightmost square commutes as it is the $F$-image of the rightmost square
-%  in the commutative diagram (\ref{diag.eparts}) in $\mathcal M^\opp$.
-  
-
-
-\begin{corollary}
-  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
-  \mathcal M)$ be a factorisation system on $\mathcal C$. Suppose that we also
-  have a lax monoidal functor
-  \[
-    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times).
-  \]
-  Then we may define a category $F\mathrm{Corel}$ with objects the objects of
-  $\mathcal C$ and morphisms isomorpism classes of $F$-decorated corelations.
-
-  Write also $F$ for the restriction of $F$ to the wide subcategory $\mathcal
-  C$ of $\mathcal C;\mathcal M^\opp$. We can thus also obtain the category
-  $F\mathrm{Cospan}$ of
-  $F$-decorated cospans. We moreover have a functor 
-  \[
-    F\mathrm{Cospan} \to F\mathrm{Corel}
-  \]
-  which takes each object of $F\mathrm{Cospan}$ to itself as an object of
-  $F\mathrm{Corel}$, and each decorated cospan
-  \[
-    \left(
-    \begin{aligned}
-      \xymatrix{
-	& N \\  
-	X \ar[ur]^{i} && Y \ar[ul]_{o}
-      }
-    \end{aligned}
-    ,
-    \qquad
-    \begin{aligned}
-      \xymatrix{
-	FN \\
-	1 \ar[u]_{s}
-      }
-    \end{aligned}
-    \right)
-  \]  
-  to its jointly-$\mathcal E$-part
-  \[
-    \xymatrix{
-      & \overline{N} \\  
-      X \ar[ur]^{i} && Y \ar[ul]_{o}
-    }
-  \]
-  decorated by the composite
-  \[
-    \xymatrix{
-      1 \ar[r]^s & FN \ar[r]^{Fm_N^\opp} & F\overline{N}.
-    }
-  \]
-\end{corollary}
-
-
-\section{All hypergraph categories are decorated corelation categories}
-structured categories are algebras over their graphical calculus operad
-\cite{SSR}. These equivalences are 2-categorical.
-
-Write $\int$ for the Grothendieck construction. The Grothendieck construction
-is
-
-\begin{theorem}
-hypergraph categories are symmetric lax monoidal functors cospan to Set.
-\[
-  \mathrm{HypCat} \cong \int^{\mc O \in \Set}
-  \mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}), \Set)
-\]
-\end{theorem}
-\cite{SV}
-\begin{remark}
-Not all hypergraph categories are decorated \emph{cospan} categories. To see
-this, we can count morphisms. The possible apices and decorations are the same
-for all morphisms. So for a decorated cospan category over the prop of finite
-sets, the number of morphisms $0 \to 1$ cannot be more than countably many times
-those $0 \to 0$ (we just get to choose an element of the apex). But the skeletal
-category of vector spaces over $\mathbb{R}$ with monoidal product the tensor
-product has $\mathbb{R}$ morphisms $0 \to 0$, and $\mathbb{R}^2$ morphisms $0
-\to 1$.
-\end{remark}
-
-Decorated corelation categories, however, are more powerful. We can recover all
-hypergraph categories by forcing the decorations to be on the coproduct of the
-domain and codomain itself. For this we use the isomorphism--morphism
-factorisation. Let $\mc H$ be a hypergraph category, and let $\mc C$ be the wide
-subcategory of all Frobenius morphisms. Then $\mc H$ can be recovered as the
-$(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
-
-\subsection{The global sections construction.}
-
-\begin{theorem}
-  All hypergraph categories are decorated corelation categories.
-\end{theorem}
-\begin{proof}
-  Let $\mc H$ be a hypergraph category. Without loss of generality we can assume
-  $\mc H$ has objects a free monoid under the tensor product; write $\mc O$ for
-  a collection of generators for this free monoid, and $\FinSet_{\mc O}$ for
-  $\mc O$ labelled finite sets (ie an object is a finite set $X$ together with a
-  function $X \to \mc O$). This is a finitely cocomplete category. Equivalent to
-  finite lists of objects in $\mc H$. 
-
-  Define the global sections functor 
-  \begin{align*}
-    G\maps \cospan(\FinSet_{\mc O}) &\longrightarrow \Set \\
-    A &\longmapsto \mc H(I,A) \\
-    \stackrel{f}{\to}\stackrel{g}{\leftarrow} &\longmapsto \textrm{action of
-    Frobenius maps}
-  \end{align*}
-  This is symmetric lax monoidal functor. Note that $\mc H(I,A)$ depends on the
-  order we choose to convert a multiset into an object $A$ of $\mc H$.
-  Nonetheless, from any two choices $A$, $A'$ we get a canonical map $A \to A'$.
-  This is really that clique in $\Set$.
-
-  Consider the category $\FinSet_{\mc O}$ with an
-  (isomorphism,morphism)-factorisation system. We get a decorated corelations
-  category with objects multisets of generating objects of $\mc H$, and morphisms $A \to
-  B$ trivial corelations $A \to A+B \leftarrow B$ decorated by some morphism
-  $s \in \mc H(I,A+B)$. Recall that this decorated corelation is only specified
-  up to isomorphism; in the following we always choose representatives such that
-  the apex of the jointly-isomorphic cospan is always of the form $A+B$ for
-  morphisms $A \to B$.
-  
-  Given morphisms $s \in \mc H(I,A+B)$ and $t \in \mc H(I,B+C)$ of types $A \to
-  B$ and $B \to C$ in $G\mathrm{Corel}$, composition is given by the map
-  $H(I,A+B+B+C) \to H(I,A+C)$ arising as the $G$-image of the cospan $A+B+B+C
-  \stackrel{[j,j]}\rightarrow A+B+C \stackrel{m}\leftarrow A+C$ where maps come
-  from the pushout square
-  \[
-    \xymatrix{
-      && A+C \ar[d] \\
-      && A+B+C \\
-      & A+B \ar[ur] && B+C \ar[ul] \\
-      A \ar[ur] && B \ar[ul]\ar[ur] && C \ar[ul]
-    }
-  \]
-  
-  In terms of string diagrams in $\mc H$, this means composing the maps 
-  \[
-    \tikzset{every path/.style={line width=1.1pt}}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.25, 0.375) {};
-		\node [style=none] (1) at (0.5, 0.375) {};
-		\node [style=none] (2) at (-0.25, -0.375) {};
-		\node [style=none] (3) at (0.5, -0.375) {};
-		\node [style=none] (4) at (0.5, 0.25) {};
-		\node [style=none] (5) at (0.5, -0.25) {};
-		\node [style=none] (6) at (1.25, 0.25) {};
-		\node [style=none] (7) at (1.25, -0.25) {};
-		\node [style=none] (8) at (0.125, -0) {$s$};
-		\node [style=none] (9) at (1.5, 0.25) {$A$};
-		\node [style=none] (10) at (1.5, -0.25) {$B$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (4.center) to (6.center);
-		\draw (5.center) to (7.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\qquad 
-\qquad
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.25, 0.375) {};
-		\node [style=none] (1) at (0.5, 0.375) {};
-		\node [style=none] (2) at (-0.25, -0.375) {};
-		\node [style=none] (3) at (0.5, -0.375) {};
-		\node [style=none] (4) at (0.5, 0.25) {};
-		\node [style=none] (5) at (0.5, -0.25) {};
-		\node [style=none] (6) at (1.25, 0.25) {};
-		\node [style=none] (7) at (1.25, -0.25) {};
-		\node [style=none] (8) at (0.125, -0) {$t$};
-		\node [style=none] (9) at (1.5, 0.25) {$B$};
-		\node [style=none] (10) at (1.5, -0.25) {$C$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (4.center) to (6.center);
-		\draw (5.center) to (7.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-  \]
-  with the Frobenius map
-  \[
-    \tikzset{every path/.style={line width=1.1pt}}
-    \begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.125, 0.75) {};
-		\node [style=none] (1) at (-0.125, 0.25) {};
-		\node [style=none] (2) at (-0.125, -0.25) {};
-		\node [style=none] (3) at (-0.125, -0.75) {};
-		\node [style=none] (4) at (0.5, -0) {};
-		\node [style=none] (5) at (1, 0.75) {};
-		\node [style=none] (6) at (1, -0.75) {};
-		\node [style=none] (8) at (-0.375, 0.75) {$A$};
-		\node [style=none] (9) at (-0.375, 0.25) {$B$};
-		\node [style=none] (10) at (-0.375, -0.25) {$B$};
-		\node [style=none] (11) at (-0.375, -0.75) {$C$};
-		\node [style=none] (12) at (1.25, 0.75) {$A$};
-		\node [style=none] (13) at (1.25, -0.75) {$C$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (5.center);
-		\draw [in=90, out=0, looseness=1.00] (1.center) to (4.center);
-		\draw [in=-90, out=0, looseness=1.00] (2.center) to (4.center);
-		\draw (3.center) to (6.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\quad
-=
-\quad
-\begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.125, 0.75) {};
-		\node [style=none] (1) at (-0.125, 0.25) {};
-		\node [style=none] (2) at (-0.125, -0.25) {};
-		\node [style=none] (3) at (-0.125, -0.75) {};
-		\node [style=none] (4) at (0.5, -0) {};
-		\node [style=none] (5) at (1.25, 0.75) {};
-		\node [style=none] (6) at (1.25, -0.75) {};
-		\node [style=circ2] (7) at (1, -0) {};
-		\node [style=none] (8) at (-0.375, 0.75) {$A$};
-		\node [style=none] (9) at (-0.375, 0.25) {$B$};
-		\node [style=none] (10) at (-0.375, -0.25) {$B$};
-		\node [style=none] (11) at (-0.375, -0.75) {$C$};
-		\node [style=none] (12) at (1.5, 0.75) {$A$};
-		\node [style=none] (13) at (1.5, -0.75) {$C$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (5.center);
-		\draw [in=90, out=0, looseness=1.00] (1.center) to (4.center);
-		\draw [in=-90, out=0, looseness=1.00] (2.center) to (4.center);
-		\draw (3.center) to (6.center);
-		\draw (4.center) to (7.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-  \]
-  to get 
-  \[
-    \tikzset{every path/.style={line width=1.1pt}}
-    \begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.25, 0.375) {};
-		\node [style=none] (1) at (0.5, 0.375) {};
-		\node [style=none] (2) at (-0.25, -0.375) {};
-		\node [style=none] (3) at (0.5, -0.375) {};
-		\node [style=none] (4) at (0.5, 0.25) {};
-		\node [style=none] (5) at (0.5, -0.25) {};
-		\node [style=none] (6) at (1.25, 0.25) {};
-		\node [style=none] (7) at (1.25, -0.25) {};
-		\node [style=none] (8) at (0.125, -0) {$t\circ s$};
-		\node [style=none] (9) at (1.5, 0.25) {$A$};
-		\node [style=none] (10) at (1.5, -0.25) {$C$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (4.center) to (6.center);
-		\draw (5.center) to (7.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\quad = 
-\quad
-\begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.875, 0.875) {};
-		\node [style=none] (1) at (-0.125, 0.875) {};
-		\node [style=none] (2) at (-0.125, 0.125) {};
-		\node [style=none] (3) at (-0.875, 0.125) {};
-		\node [style=none] (4) at (-0.875, -0.125) {};
-		\node [style=none] (5) at (-0.125, -0.125) {};
-		\node [style=none] (6) at (-0.125, -0.875) {};
-		\node [style=none] (7) at (-0.875, -0.875) {};
-		\node [style=none] (8) at (-0.125, 0.75) {};
-		\node [style=none] (9) at (-0.125, 0.25) {};
-		\node [style=none] (10) at (-0.125, -0.25) {};
-		\node [style=none] (11) at (-0.125, -0.75) {};
-		\node [style=none] (12) at (0.5, -0) {};
-		\node [style=none] (13) at (0.75, 0.75) {};
-		\node [style=none] (14) at (0.75, -0.75) {};
-		\node [style=none] (15) at (-0.5, 0.5) {$s$};
-		\node [style=none] (16) at (-0.5, -0.5) {$t$};
-		\node [style=none] (17) at (1, 0.75) {$A$};
-		\node [style=none] (18) at (1, -0.75) {$C$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (2.center);
-		\draw (2.center) to (3.center);
-		\draw (3.center) to (0.center);
-		\draw (4.center) to (5.center);
-		\draw (5.center) to (6.center);
-		\draw (6.center) to (7.center);
-		\draw (7.center) to (4.center);
-		\draw (8.center) to (13.center);
-		\draw [in=90, out=0, looseness=1.00] (9.center) to (12.center);
-		\draw [in=-90, out=0, looseness=1.00] (10.center) to (12.center);
-		\draw (11.center) to (14.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\]
-in $\mc H(I,A+C)$.
-  
-The monoidal product is given by
-  \[
-    \tikzset{every path/.style={line width=1.1pt}}
-    \begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.25, 0.375) {};
-		\node [style=none] (1) at (0.5, 0.375) {};
-		\node [style=none] (2) at (-0.25, -0.375) {};
-		\node [style=none] (3) at (0.5, -0.375) {};
-		\node [style=none] (4) at (0.5, 0.25) {};
-		\node [style=none] (5) at (0.5, -0.25) {};
-		\node [style=none] (6) at (1.25, 0.25) {};
-		\node [style=none] (7) at (1.25, -0.25) {};
-		\node [style=none] (8) at (0.125, -0) {$s$};
-		\node [style=none] (9) at (1.5, 0.25) {$A$};
-		\node [style=none] (10) at (1.5, -0.25) {$B$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (4.center) to (6.center);
-		\draw (5.center) to (7.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\quad 
-+
-\quad
-\begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.25, 0.375) {};
-		\node [style=none] (1) at (0.5, 0.375) {};
-		\node [style=none] (2) at (-0.25, -0.375) {};
-		\node [style=none] (3) at (0.5, -0.375) {};
-		\node [style=none] (4) at (0.5, 0.25) {};
-		\node [style=none] (5) at (0.5, -0.25) {};
-		\node [style=none] (6) at (1.25, 0.25) {};
-		\node [style=none] (7) at (1.25, -0.25) {};
-		\node [style=none] (8) at (0.125, -0) {$t$};
-		\node [style=none] (9) at (1.5, 0.25) {$C$};
-		\node [style=none] (10) at (1.5, -0.25) {$D$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (4.center) to (6.center);
-		\draw (5.center) to (7.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\quad = \quad 
-\begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.875, 0.875) {};
-		\node [style=none] (1) at (-0.125, 0.875) {};
-		\node [style=none] (2) at (-0.125, 0.125) {};
-		\node [style=none] (3) at (-0.875, 0.125) {};
-		\node [style=none] (4) at (-0.875, -0.125) {};
-		\node [style=none] (5) at (-0.125, -0.125) {};
-		\node [style=none] (6) at (-0.125, -0.875) {};
-		\node [style=none] (7) at (-0.875, -0.875) {};
-		\node [style=none] (8) at (-0.125, 0.75) {};
-		\node [style=none] (9) at (-0.125, 0.25) {};
-		\node [style=none] (10) at (-0.125, -0.25) {};
-		\node [style=none] (11) at (-0.125, -0.75) {};
-		\node [style=none] (12) at (1, 0.75) {};
-		\node [style=none] (13) at (1, 0.25) {};
-		\node [style=none] (14) at (1, -0.25) {};
-		\node [style=none] (15) at (1, -0.75) {};
-		\node [style=none] (16) at (-0.5, 0.5) {$s$};
-		\node [style=none] (17) at (-0.5, -0.5) {$t$};
-		\node [style=none] (18) at (1.25, 0.75) {$A$};
-		\node [style=none] (19) at (1.25, 0.25) {$C$};
-		\node [style=none] (20) at (1.25, -0.25) {$B$};
-		\node [style=none] (21) at (1.25, -0.75) {$D$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (2.center);
-		\draw (2.center) to (3.center);
-		\draw (3.center) to (0.center);
-		\draw (4.center) to (5.center);
-		\draw (5.center) to (6.center);
-		\draw (6.center) to (7.center);
-		\draw (7.center) to (4.center);
-		\draw (8.center) to (12.center);
-		\draw [in=180, out=0, looseness=1.00] (9.center) to (14.center);
-		\draw [in=180, out=0, looseness=1.00] (10.center) to (13.center);
-		\draw (11.center) to (15.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\]
-recalling that we have chosen to represent the equivalence class of corelations
-$A+C \to B+D$ with the apex $A+C+B+D$.
-
-  Taking a hint from the compact closed structure, it is straightforward to
-  construct a pair of inverse hypergraph functors between $G\mathrm{Corel}$ to $\mc H$.
-  Indeed, $G\mathrm{Corel}$ is constructed to have the same collection of
-  objects as $\mc H$; simply have the functors be the `identity' on objects. On
-  morphisms, we take $f: A \to B$ in $\mc H$ to its `name' $\hat f: I \to A+B$
-  as a morphism of $G\mathrm{Corel}$. This is a bijection. 
-  
-  To check it is composition and monoidal product preserving, we can easily use
-  diagrammatic reasoning. For example
-
-  Therefore $\mc H$ is isomorphic
-  as a hypergraph category to $G\mathrm{Corel}$. 
-\end{proof}
-
-\begin{theorem}
-  All hypergraph functors are decorated corelation functors.
-\end{theorem}
-\begin{proof}
-  Let $\mc H$ and $\mc H'$ be hypergraph categories, and $T\maps \mc H \to \mc
-  H'$ be a hypergraph functor. By the above theorem, there exist symmetric lax
-  monoidal functors 
-  \[
-    G\maps \cospan(\FinSet_{\mc O_{\mc H}}) \to \Set 
-  \]
-  and 
-  \[
-    G'\maps \cospan(\FinSet_{\mc O_{\mc H'}}) \to \Set 
-  \]
-  such that $\mc H = G\mathrm{Corel}$ and $\mc H' = G'\mathrm{Corel}$.
-  Furthermore, define a functor $A\maps \FinSet_{\mc O_{\mc H}} \to \FinSet_{\mc
-    O_{\mc H'}}$ taking $N \to \mc O_{\mc H}$ to $N \to \mc O_{\mc H} \to \mc
-  O_{\mc H'}$, where the second map is that by the functor $T$ on objects of
-  $\mc H$. We claim this is a well-defined colimit-preserving functor and show
-  that $T$ can be constructed from a monoidal natural transformation between $G$
-  and $G'\circ A$.
-\end{proof}
-
-Compare with Spivak Vagner construction.
-
-\subsection{Examples.}
-We give some examples reproducing hypergraph categories as decorated corelations
-categories.
-
-\begin{example}
-  Example: empty decorations and equivalence relations. 
-  
-  Consider the hypergraph category $\cospan(\FinSet)$. This is the simplest
-  hypergraph category: it is free hypergraph category on the one object discrete
-  category. We show how to recover it as a decorated corelation category.
-
-  As per Example \ref{ex.undeccorel}, $\cospan(\FinSet)$ is the hypergraph
-  category of undecorated (morphism-isomorphism)-corelations in $\FinSet$. It is
-  also the partition-decorated (isomorphism-morphism)-corelations in $\FinSet$.   
-  
-  First, the global sections functor $G\maps \cospan(\FinSet) \to \Set$ takes
-  each finite set $X$ to the set of (equivalence classes of) cospans $0 \to D
-  \leftarrow X$; that is, to the set of functions $X \to D$ where a unique $D$
-  is chosen for each finite cardinality. Given a cospan $X \stackrel{f}\to N
-  \stackrel{g}\leftarrow Y$, its image under the global sections functor maps a
-  function $a\maps X \to D$, to the function $Y \to N+_YD$ given by
-  \[
-    \xymatrix{
-      & X \ar[r]^d \ar[d]_f & D \ar[d] \\
-      Y \ar[r]^g  & N \ar[r] & N+_YD
-    }
-  \]
-  where the square is a pushout square.
-
-  The coherence maps $\gamma_1\maps 1 \to G\varnothing$ map the unique element
-  of $1$ to the unique function $!\maps \varnothing \to \varnothing$, and
-  $\gamma_{X,Y}$ maps a pair of functions $a\maps X \to D$, $b\maps Y \to E$ to
-  $a+b\maps X+Y \to D+E$. This is a symmetric lax monoidal functor. We use this
-  functor to decorate cospans in $\FinSet$. 
-
-  A decorated cospan in $\FinSet$ with respect to this functor is a cospan $X
-  \to N \leftarrow Y$ in $\FinSet$ together with a function $N \to D$ for some
-  finite set. Using the isomorphism--morphism factorisation, a decorated
-  corelation (a morphism in $G\mathrm{Corel}$) is a
-  cospan $X \to X+Y \leftarrow Y$, together with a function $X+Y \to D$.
-  This is the same as a cospan. 
-
-  The hypergraph structure is given by the decoration $X+X \to X$ etc, as the
-  shift from cospans to corelations takes the `factored out part' and puts it
-  into the decoration. At this point the morphisms are specified entirely by
-  their decoration.
-
-  It is straightforward to show the two categories are isomorphic. Note that the
-  identity on $\FinSet$ maps $\mc I_\FinSet$ into $\FinSet$, and so extends to
-  morphism $\FinSet \to \cospan(\FinSet)$. We can define a monoidal natural
-  transformation $1(X) =1 \stackrel{\theta_X}\to GX = \{X \to D\}$ mapping the
-  unique element to the identity function $1_X\maps X \to X$.
-  \[
-    \xymatrixrowsep{2ex}
-    \xymatrix{
-      \FinSet = \FinSet; \mc I_{\FinSet}^\opp \ar[dd]_{\iota} \ar[drr]^1  \\
-      &\twocell \omit{_\:\theta}& \Set \\
-      \cospan(\FinSet) = \FinSet; \FinSet^\opp \ar[urr]_{G} 
-    }
-  \]
-  It is easy to verify that this is a monoidal natural transformation. This
-  gives the hypergraph functor we expect, mapping the undecorated cospan $X \to
-  N \leftarrow Y$ to $X \to X+Y \leftarrow Y$ decorated by $X+Y \to N$. 
-
-  Like so many examples before, it is easy to verify this is a full, faithful,
-  bijective-on-objects hypergraph functor.
-\end{example}
-
-\begin{example}
-  The previous example extends to any finitely cocomplete category $\mc C$: the
-  hypergraph category $\cospan(\mc C)$ can always be constructed as (i)
-  trivially decorated $(\mc C, \mc I_{\mc C})$-corelations, or (ii) $(\mc I_{\mc
-  C}, \mc C)$-corelations decorated by equivalence classes of morphisms with
-  domain the apex of the corelation, and moreover the isomorphism of these
-  hypergraph categories is given by a monoidal natural transformation between
-  the decorating functors.
-
-  More general still, a category of trivially decorated $(\mc E, \mc
-  M)$-corelations in $\mc C$ can always be constructed also as $(\mc I_{\mc C},
-  \mc C)$-corelations decorated by equivalence classes of morphisms in $\mc E$
-  with domain the apex of the corelation, and the isomorphism of these
-  hypergraph categories is given by a monoidal natural transformation between
-  the decorating functors.
-
-  Most general, the theorem implies that any category of decorated
-  corelations can be constructed also as $(\mc I_{\mc C}, \mc C)$-corelations
-  decorated by codomain decorated morphisms in $\mc E$. The latter are specified
-  by a functor $\cospan(\mc C) \to \Set$, as in the theorem.
-
-  The latter form is good for constructing functors that have image the
-  corelation category.
-\end{example}
-
-Note that with decorated corelations we have a method of constructing hypergraph
-categories from other hypergraph categories. This is black boxing. 
-
-\section{Examples} \label{sec:excor}
-\subsection{Path integrals and matrices}
-
-Let $R$ be a commutative ring. Take functor
-\begin{align*}
-  R^{(-)}: (\mathrm{FinSet}^\opp,+) &\longrightarrow (\Set,\times) \\
-  X &\longmapsto R^X
-\end{align*}
-
-Then $R^{(-)}\mathrm{Cospan}$ is path integrals, $R^{(-)}\mathrm{Corel}$ is
-matrices over $R$. 
-
-Many aspects of this example are `atypical', regarding the intuition we have
-been working towards.
-Note that the monoidal product here is the tensor product of
-matrices, not the biproduct. Indeed, there is no special commutative Frobenius
-algebra in $\Vect$ if we use the biproduct, but if we use the tensor product
-then these correspond to orthonormal bases (Vicary). The comultiplication is the
-diagonal map, multiplication is codiagonal. unit produces basis.
-
-We note that you could take decorations here in the category $R\mathrm{Mod}$ of
-$R$-modules. While Proposition \ref{prop.setdecorations} shows that the
-resulting decorated cospans category would be isomorphic, this hints at an
-enriched version of the theory.
-
-\subsection{Two constructions for linear relations}
-
-We saw earlier that linear relations are epi-mono corelations in $\Vect$. The
-hypergraph structure is given by addition. We show how to recover this in
-another construction. We also get a hypergraph functor between them. This is
-very useful for compositional linear relations semantics of diagrams.
-
-We can also construct linear relations in $\Vect^\opp$.
-
-\begin{align*}
-  \maps\mathrm{Cospan}(\mathrm{FinSet}) &\longrightarrow \mathrm{Set} \\
-  X &\longmapsto \{\mathrm{subspaces of }k^X\} \\
-  f: X \to Y &\longmapsto L \mapsto \{v \mid v\circ f \in L\} \\
-  f^\opp: X \to Y &\longmapsto L \mapsto \{v = u \circ f \mid u \in L\}
-\end{align*}
-
-Then $\mathrm{Cospan}$ is cospans decorated by subspaces, and $\mathrm{Corel}$
-is linear relations. This is important for circuits work \cite{BF,BSZ}.
-
-\subsection{Automata}
-This construction comes immediately from Walters et al. Automata are alphabet
-labelled graphs. There is a decorated cospan functor to categories enriched over
-languages, and this factors nicely to get a decorated corelation category with
-morphisms languages recognised between points in domain and codomain.
-
-
-
-
-
-
-
-%  Our proof will have an inductive flavour. We first assume $\corel_(\mc C)$ is
-%  well-defined as a hypergraph category, and show  We caution that we still have not proved that $\corel(\mc C)$ is a category,
-%  let alone a hypergraph category. Thus to begin, all we can show is that the map
-%  $\square$ is composition-preserving, and then that $\square$ respects the
-%  monoidal and hypergraph structure. But this is enough to prove both
-%  results! Indeed, specialising to the case where $A$ is the identity functor on
-%  $\mc C$ and $(\mc E,\mc M)=(\mc C, \mc I_{\mc C})$, observe   
-%  \[
-%    \square \maps \cospan(\mc C) \longrightarrow \corel(\mc C)
-%  \]
-%  is then the map taking each cospan to its jointly $\mc E$-like part. Note
-%  $\square$ maps fully (surjectively-on-morphisms) and bijectively-on-objects
-%  onto $\corel(\mc C)$, and by definition the coherence and hypergraph maps on
-%  $\corel(\mc C)$ are precisely the image of the corresponding maps of
-%  $\cospan(\mc C)$. As $\cospan(\mc C)$ is a hypergraph category and $\square$
-%  is composition-preserving, we can consequently conclude that all corelation
-%  categories are indeed hypergraph categories, and hence that $\square$---in the
-%  general case---is a hypergraph functor.
-%
-%  Finally, specialising to the case where $A$
-%  is the identity functor on $\mc C$ and $(\mc E,\mc M)$ is the factorisation
-%  system $(\mc C, \mc I_{\mc C})$, we observe that the domain of $\square$ is
-%  then $\cospan(\mc C)$, and that $\square$ maps it fully
-%  (surjectively-on-morphisms) and bijectively-on-objects onto $\corel(\mc C')$.
-%  This shows that all corelation categories are indeed deserving of the name
-%  category and moreover hypergraph category, and hence that $\square$ is
-%  deserving of the name hypergraph functor.

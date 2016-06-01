@@ -2,11 +2,15 @@
 ]{ociamthesis}
 
 \includeonly{auxiliary/definitions,auxiliary/tikz,
-%frontmatter/abstract,chapters/overview,chapters/introduction,
+frontmatter/abstract,%chapters/overview,
+chapters/introduction,
 chapters/1,
-%chapters/2,
+chapters/2,
 chapters/3,
-%chapters/5
+chapters/4,
+chapters/5,
+chapters/6,
+chapters/7
 }
 
 \include{auxiliary/definitions}
@@ -34,7 +38,7 @@ chapters/3,
 \pagestyle{plain}
 \begin{romanpages} 
 \tableofcontents
-\include{chapters/overview}
+%\include{chapters/overview}
 \include{chapters/introduction}
 \end{romanpages}
 
@@ -44,12 +48,13 @@ chapters/3,
 \include{chapters/1}
 \include{chapters/2}
 \include{chapters/3}
+\include{chapters/4}
 
 \part{Applications}
 
-\include{chapters/4}
 \include{chapters/5}
 \include{chapters/6}
+\include{chapters/7}
 
 \include{auxiliary/notation}
 
