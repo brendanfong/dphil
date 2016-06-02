@@ -1920,7 +1920,7 @@ hypergraph equivalent to a strict hypergraph category. This coherence result
 will be important in proving that every hypergraph category can be constructed
 using decorated corelations.
 
-\begin{theorem}
+\begin{theorem} \label{thm.stricthypergraphs}
   Every hypergraph category is hypergraph equivalent to a strict hypergraph
   category. Moreover, the objects of this strict hypergraph category form a free
   monoid.
@@ -2094,13 +2094,20 @@ coherence maps in $\mathcal C$ under this wide embedding; checking naturality is
 routine, and clearly they still obey the required axioms.
 
 Write $\FinSet$ for the category of finite sets and functions. Replacing
-$\FinSet$ with its equivalent strict skeleton, it is well-known, due to Lack
-\cite{Lac04}, that special commutative Frobenius monoids in a monoidal category
-$\mc C$ are in one-to-one correspondence with strict monoidal functors
-$\cospan(\FinSet) \to \mc C$. Over the next few chapters we will further explore
-this deep link between cospans and special commutative Frobenius monoids and
-hypergraph categories. To begin, we detail a natural hypergraph structure on
-$\cospan(\mc C)$. 
+$\FinSet$ with its equivalent strict skeleton, the following proposition is
+well-known. 
+\begin{proposition} \label{prop.cospanscfm}
+  Special commutative Frobenius monoids in a strict symmetric monoidal category
+$\mc C$ are in one-to-one correspondence with strict symmetric monoidal functors
+$\cospan(\FinSet) \to \mc C$.
+\end{proposition}
+\begin{proof}
+  The special commutative Frobenius monoid is given by the image of the one
+  element set. See Lack \cite{Lac04}.
+\end{proof}
+Over the next few chapters we will further explore this deep link between
+cospans and special commutative Frobenius monoids and hypergraph categories. To
+begin, we detail a natural hypergraph structure on $\cospan(\mc C)$. 
 
 This hypergraph structure also comes from copairings of identity morphisms.
 Call cospans 

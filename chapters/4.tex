@@ -637,85 +637,114 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
 
 
 \section{All hypergraph categories are decorated corelation categories}
-structured categories are algebras over their graphical calculus operad
-\cite{SSR}. These equivalences are 2-categorical.
-
-Write $\int$ for the Grothendieck construction. The Grothendieck construction
-is
-
-\begin{theorem}
-hypergraph categories are symmetric lax monoidal functors cospan to Set.
-\[
-  \mathrm{HypCat} \cong \int^{\mc O \in \Set}
-  \mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}), \Set)
-\]
-\end{theorem}
-\cite{SV}
-\begin{remark}
 Not all hypergraph categories are decorated \emph{cospan} categories. To see
-this, we can count morphisms. The possible apices and decorations are the same
-for all morphisms. So for a decorated cospan category over the prop of finite
-sets, the number of morphisms $0 \to 1$ cannot be more than countably many times
-those $0 \to 0$ (we just get to choose an element of the apex). But the skeletal
-category of vector spaces over $\mathbb{R}$ with monoidal product the tensor
-product has $\mathbb{R}$ morphisms $0 \to 0$, and $\mathbb{R}^2$ morphisms $0
-\to 1$.
-\end{remark}
+this, we can count morphisms. In a decorated cospan category the possible apices
+and decorations are the same for all morphisms. So for a decorated cospan
+category over the $\FinSet$, the number of morphisms $0 \to 1$ cannot be more
+than countably many times those $0 \to 0$; the only difference is a decorated
+cospan $0 \to 1$ includes a map from 1 to the apex $N$ that chooses an element
+of the apex. But the skeletal category of vector spaces and linear maps over
+$\mathbb{R}$ with monoidal product the tensor product has $\mathbb{R}$ morphisms
+$0 \to 0$, and $\mathbb{R}^2$ morphisms $0 \to 1$. NEEDS WORK
 
-Decorated corelation categories, however, are more powerful. We can recover all
-hypergraph categories by forcing the decorations to be on the coproduct of the
-domain and codomain itself. For this we use the isomorphism--morphism
-factorisation. Let $\mc H$ be a hypergraph category, and let $\mc C$ be the wide
-subcategory of all Frobenius morphisms. Then $\mc H$ can be recovered as the
-$(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
+Decorated corelation categories, however, are more powerful. In this section we
+show that all hypergraph categories are decorated corelation categories, and
+provide some examples for intuition.
 
-\subsection{The global sections construction.}
+\subsection{The global sections construction}
+Suppose we have a hypergraph category and wish to construct a hypergraph
+equivalent decorated corelation category. The main idea to is to take advantage
+of the compact closed structure: recall that morphisms $X \to Y$ in a hypergraph
+category are in one-to-one correspondence with morphisms $I \to X\ot Y$. Using
+an isomorphism--morphism factorisation system on the category comprising just
+the objects and the coherence and hypergraph maps, we can use the monoidal
+global sections functor to decorated each corelation $X \to X \ot Y \leftarrow
+Y$ with the monoidal elements of $X\ot Y$. This recovers the original hypergraph
+category.
+
 
 \begin{theorem}
-  All hypergraph categories are decorated corelation categories.
+  Every hypergraph category is hypergraph equivalent to a decorated corelation
+  category.
 \end{theorem}
 \begin{proof}
-  Let $\mc H$ be a hypergraph category. Without loss of generality we can assume
-  $\mc H$ has objects a free monoid under the tensor product; write $\mc O$ for
-  a collection of generators for this free monoid, and $\FinSet_{\mc O}$ for
-  $\mc O$ labelled finite sets (ie an object is a finite set $X$ together with a
-  function $X \to \mc O$). This is a finitely cocomplete category. Equivalent to
-  finite lists of objects in $\mc H$. 
+  Let $(\mc H,\ot)$ be a hypergraph category. By Theorem
+  \ref{thm.stricthypergraphs}, we have a hypergraph equivalent strict hypergraph
+  category $\mc H_{\mathrm{str}}$, with objects finite lists of objects in $\mc
+  H$. Write $\mc O$ for the collection of objects in $\mc H$, and $\FinSet_{\mc
+  O}$ for $\mc O$-labelled finite sets (i.e. an object is a finite set $S$
+  together with each element in $S$ labelled by some object in $\mc O$, and a
+  morphism is a function that preserves labels). The category $\FinSet_{\mc O}$
+  has finite colimits: the colimit is just the colimit set in $\FinSet$ with
+  elements labelled by the label of any element that maps to it in the colimit
+  diagram. This labelling exists and is unique by the universal property of the
+  colimit. Write $+$ for the coproduct; we consider $\FinSet_{\mc O}$ a
+  symmetric monoidal category.  Replacing $\FinSet$ with an equivalent skeleton,
+  we think of the objects of $\FinSet_{\mc O}$ as finite lists of objects of
+  $\mc H$, and hence as the same as the objects of $\mc H_{\mathrm{str}}$.
 
-  Define the global sections functor 
-  \begin{align*}
-    G\maps \cospan(\FinSet_{\mc O}) &\longrightarrow \Set \\
-    A &\longmapsto \mc H(I,A) \\
-    \stackrel{f}{\to}\stackrel{g}{\leftarrow} &\longmapsto \textrm{action of
-    Frobenius maps}
-  \end{align*}
-  This is symmetric lax monoidal functor. Note that $\mc H(I,A)$ depends on the
-  order we choose to convert a multiset into an object $A$ of $\mc H$.
-  Nonetheless, from any two choices $A$, $A'$ we get a canonical map $A \to A'$.
-  This is really that clique in $\Set$.
+  We define a wide hypergraph embedding
+  \[
+    H\maps (\cospan(\FinSet_{\mc O}),+) \longrightarrow (\mc
+    H_{\mathrm{str}},\ot)
+  \]
+  whose `image' is the hypergraph structure of $\mc H$. More precisely, $H$
+  sends each object of $\cospan(\FinSet_{\mc O})$ to the same as an object of
+  $\mc H_{\mathrm{str}}$. As all functions can be generated under composition
+  and coproduct from the unique functions $\mu \maps 2 \to 1$ and $\eta \maps 0
+  \to 1$, the morphisms of $\FinSet_{\mc O}$ are generated by the unique
+  morphisms $\mu_X\maps [X,X]=X+X \to X$ and $\eta_X\maps \varnothing \to X$,
+  and so the morphisms of $\cospan(\FinSet_{\mc O})$ are generated by the
+  cospans $\mu_X$, $\eta_X$, $\delta_X = \mu_X^\opp$, and $\epsilon_X =
+  \eta_X^\opp$. The functor $H$ maps these generators to the corresponding
+  Frobenius maps on $X$ in $\mc H_{\mathrm{str}}$. Since $\cospan(\FinSet)$ is
+  the `generic special commutative monoid' (see Proposition
+  \ref{prop.cospanscfm}), it is straightforward to check this defines a
+  hypergraph functor.
 
-  Consider the category $\FinSet_{\mc O}$ with an
-  (isomorphism,morphism)-factorisation system. We get a decorated corelations
-  category with objects multisets of generating objects of $\mc H$, and morphisms $A \to
-  B$ trivial corelations $A \to A+B \leftarrow B$ decorated by some morphism
-  $s \in \mc H(I,A+B)$. Recall that this decorated corelation is only specified
-  up to isomorphism; in the following we always choose representatives such that
-  the apex of the jointly-isomorphic cospan is always of the form $A+B$ for
-  morphisms $A \to B$.
+  Next, recall that the monoidal global sections functor $\mc H(I,-)\maps \mc H
+  \to \Set$ is a lax symmetric monoidal functor taking each object $X$ of $\mc
+  H$ to the homset $\mc H(I,X)$, and recall we have a hypergraph equivalence
+  $\mc H_{\mathrm{str}} \to \mc H$. Write $F$ for the composite of these three
+  functors: 
+  \[
+    F\maps \cospan(\FinSet_{\mc O}) \stackrel{H}\longrightarrow \mc
+    H_{\mathrm{str}} \stackrel{\sim}\longrightarrow \mc H \stackrel{\mc
+    H(I,-)}\longrightarrow \Set
+  \]
+  This is symmetric lax monoidal functor mapping $X$ to the homset $\mc H(I,X)$,
+  and a cospan between lists of objects in $\mc H$ to the corresponding
+  Frobenius map.
+
+  Now consider $\FinSet_{\mc O}$ with an (isomorphism,morphism)-factorisation
+  system. This implies $F$ defines a decorated corelation category
+  $F\mathrm{Corel}$ with objects those of $\mc H_{\mathrm{str}}$, and morphisms
+  $X \to Y$ trivial corelations $X \xrightarrow{\iota_X} X+Y
+  \xleftarrow{\iota_Y} Y$ decorated by some morphism $s \in \mc H(I,X\ot Y)$. We
+  will show $(F\mathrm{Corel},+)$ and $(\mc H_{\mathrm{str}},\ot)$ are
+  isomorphic as hypergraph categories.
   
-  Given morphisms $s \in \mc H(I,A+B)$ and $t \in \mc H(I,B+C)$ of types $A \to
-  B$ and $B \to C$ in $G\mathrm{Corel}$, composition is given by the map
-  $H(I,A+B+B+C) \to H(I,A+C)$ arising as the $G$-image of the cospan $A+B+B+C
-  \stackrel{[j,j]}\rightarrow A+B+C \stackrel{m}\leftarrow A+C$ where maps come
-  from the pushout square
+  First, let us examine composition in $F\mathrm{Corel}$. As morphisms $X \to Y$
+  are completely specified by their decoration $s \in \mc H(I,X\ot Y)$, we will
+  abuse terminology and refer to the decorations themselves as the morphisms.
+  Given morphisms $s \in \mc H(I,X\ot Y)$ and $t \in \mc H(I,Y\ot Z)$ in
+  $F\mathrm{Corel}$, composition is given by the map 
+  \[
+    H(I,X\ot Y\ot Y\ot Z) \to H(I,X\ot Z)
+  \]
+  arising as the $F$-image of the cospan $X+Y+Y+Z
+  \xrightarrow{[j_{X+Y},j_{Y+Z}]} X+Y+Z \xleftarrow{[\iota_X,\iota_Z]} X+Z$,
+  where these maps come from the pushout square
   \[
     \xymatrix{
-      && A+C \ar[d] \\
-      && A+B+C \\
-      & A+B \ar[ur] && B+C \ar[ul] \\
-      A \ar[ur] && B \ar[ul]\ar[ur] && C \ar[ul]
+      && X+Y+Z \\
+      & X+Y \ar[ur]^{j_{X+Y}} && Y+Z \ar[ul]_{j_{Y+Z}} \\
+      X \ar[ur]^{\iota_X} && Y \ar[ul]_{\iota_Y} \ar[ur]^{\iota_Y} && Z
+      \ar[ul]_{\iota_Z}
     }
   \]
+  and the trivial isomorphism-morphism factorisation $X+Z = X+Z
+  \xrightarrow{[\iota_X,\iota_Z]} X+Y+Z$ in $\FinSet_{\mc O}$.
   
   In terms of string diagrams in $\mc H$, this means composing the maps 
   \[
@@ -731,8 +760,8 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 		\node [style=none] (6) at (1.25, 0.25) {};
 		\node [style=none] (7) at (1.25, -0.25) {};
 		\node [style=none] (8) at (0.125, -0) {$s$};
-		\node [style=none] (9) at (1.5, 0.25) {$A$};
-		\node [style=none] (10) at (1.5, -0.25) {$B$};
+		\node [style=none] (9) at (1.5, 0.25) {$X$};
+		\node [style=none] (10) at (1.5, -0.25) {$Y$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -756,8 +785,8 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 		\node [style=none] (6) at (1.25, 0.25) {};
 		\node [style=none] (7) at (1.25, -0.25) {};
 		\node [style=none] (8) at (0.125, -0) {$t$};
-		\node [style=none] (9) at (1.5, 0.25) {$B$};
-		\node [style=none] (10) at (1.5, -0.25) {$C$};
+		\node [style=none] (9) at (1.5, 0.25) {$Y$};
+		\node [style=none] (10) at (1.5, -0.25) {$Z$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -782,12 +811,12 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 		\node [style=none] (4) at (0.5, -0) {};
 		\node [style=none] (5) at (1, 0.75) {};
 		\node [style=none] (6) at (1, -0.75) {};
-		\node [style=none] (8) at (-0.375, 0.75) {$A$};
-		\node [style=none] (9) at (-0.375, 0.25) {$B$};
-		\node [style=none] (10) at (-0.375, -0.25) {$B$};
-		\node [style=none] (11) at (-0.375, -0.75) {$C$};
-		\node [style=none] (12) at (1.25, 0.75) {$A$};
-		\node [style=none] (13) at (1.25, -0.75) {$C$};
+		\node [style=none] (8) at (-0.375, 0.75) {$X$};
+		\node [style=none] (9) at (-0.375, 0.25) {$Y$};
+		\node [style=none] (10) at (-0.375, -0.25) {$Y$};
+		\node [style=none] (11) at (-0.375, -0.75) {$Z$};
+		\node [style=none] (12) at (1.25, 0.75) {$X$};
+		\node [style=none] (13) at (1.25, -0.75) {$Z$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (5.center);
@@ -811,12 +840,12 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 		\node [style=none] (5) at (1.25, 0.75) {};
 		\node [style=none] (6) at (1.25, -0.75) {};
 		\node [style=circ2] (7) at (1, -0) {};
-		\node [style=none] (8) at (-0.375, 0.75) {$A$};
-		\node [style=none] (9) at (-0.375, 0.25) {$B$};
-		\node [style=none] (10) at (-0.375, -0.25) {$B$};
-		\node [style=none] (11) at (-0.375, -0.75) {$C$};
-		\node [style=none] (12) at (1.5, 0.75) {$A$};
-		\node [style=none] (13) at (1.5, -0.75) {$C$};
+		\node [style=none] (8) at (-0.375, 0.75) {$X$};
+		\node [style=none] (9) at (-0.375, 0.25) {$Y$};
+		\node [style=none] (10) at (-0.375, -0.25) {$Y$};
+		\node [style=none] (11) at (-0.375, -0.75) {$Z$};
+		\node [style=none] (12) at (1.5, 0.75) {$X$};
+		\node [style=none] (13) at (1.5, -0.75) {$Z$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (5.center);
@@ -843,8 +872,8 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 		\node [style=none] (6) at (1.25, 0.25) {};
 		\node [style=none] (7) at (1.25, -0.25) {};
 		\node [style=none] (8) at (0.125, -0) {$t\circ s$};
-		\node [style=none] (9) at (1.5, 0.25) {$A$};
-		\node [style=none] (10) at (1.5, -0.25) {$C$};
+		\node [style=none] (9) at (1.5, 0.25) {$X$};
+		\node [style=none] (10) at (1.5, -0.25) {$Z$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -878,8 +907,8 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 		\node [style=none] (14) at (0.75, -0.75) {};
 		\node [style=none] (15) at (-0.5, 0.5) {$s$};
 		\node [style=none] (16) at (-0.5, -0.5) {$t$};
-		\node [style=none] (17) at (1, 0.75) {$A$};
-		\node [style=none] (18) at (1, -0.75) {$C$};
+		\node [style=none] (17) at (1, 0.75) {$X$};
+		\node [style=none] (18) at (1, -0.75) {$Z$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -898,8 +927,8 @@ $(\mc I_{\mc C},\mc C)$-corelations decorated by global sections in $\mc H$.
 \end{tikzpicture}
 \end{aligned}
 \]
-in $\mc H(I,A+C)$.
-  
+in $\mc H(I,X\ot Z)$. 
+
 The monoidal product is given by
   \[
     \tikzset{every path/.style={line width=1.1pt}}
@@ -915,8 +944,8 @@ The monoidal product is given by
 		\node [style=none] (6) at (1.25, 0.25) {};
 		\node [style=none] (7) at (1.25, -0.25) {};
 		\node [style=none] (8) at (0.125, -0) {$s$};
-		\node [style=none] (9) at (1.5, 0.25) {$A$};
-		\node [style=none] (10) at (1.5, -0.25) {$B$};
+		\node [style=none] (9) at (1.5, 0.25) {$X$};
+		\node [style=none] (10) at (1.5, -0.25) {$Y$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -943,8 +972,8 @@ The monoidal product is given by
 		\node [style=none] (6) at (1.25, 0.25) {};
 		\node [style=none] (7) at (1.25, -0.25) {};
 		\node [style=none] (8) at (0.125, -0) {$t$};
-		\node [style=none] (9) at (1.5, 0.25) {$C$};
-		\node [style=none] (10) at (1.5, -0.25) {$D$};
+		\node [style=none] (9) at (1.5, 0.25) {$Z$};
+		\node [style=none] (10) at (1.5, -0.25) {$W$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -978,10 +1007,10 @@ The monoidal product is given by
 		\node [style=none] (15) at (1, -0.75) {};
 		\node [style=none] (16) at (-0.5, 0.5) {$s$};
 		\node [style=none] (17) at (-0.5, -0.5) {$t$};
-		\node [style=none] (18) at (1.25, 0.75) {$A$};
-		\node [style=none] (19) at (1.25, 0.25) {$C$};
-		\node [style=none] (20) at (1.25, -0.25) {$B$};
-		\node [style=none] (21) at (1.25, -0.75) {$D$};
+		\node [style=none] (18) at (1.25, 0.75) {$X$};
+		\node [style=none] (19) at (1.25, 0.25) {$Z$};
+		\node [style=none] (20) at (1.25, -0.25) {$Y$};
+		\node [style=none] (21) at (1.25, -0.75) {$W$};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
 		\draw (0.center) to (1.center);
@@ -1000,54 +1029,144 @@ The monoidal product is given by
 \end{tikzpicture}
 \end{aligned}
 \]
-recalling that we have chosen to represent the equivalence class of corelations
-$A+C \to B+D$ with the apex $A+C+B+D$.
 
-  Taking a hint from the compact closed structure, it is straightforward to
-  construct a pair of inverse hypergraph functors between $G\mathrm{Corel}$ to $\mc H$.
-  Indeed, $G\mathrm{Corel}$ is constructed to have the same collection of
-  objects as $\mc H$; simply have the functors be the `identity' on objects. On
-  morphisms, we take $f: A \to B$ in $\mc H$ to its `name' $\hat f: I \to A+B$
-  as a morphism of $G\mathrm{Corel}$. This is a bijection. 
+  Taking a hint from the compact closed structure, the isomorphism between
+  $F\mathrm{Corel}$ and $\mc H_{\mathrm{str}}$ is the clear: the functors act as
+  the identity on objects, and on morphisms take $f: A \to B$ in $\mc H$ to its
+  name $\hat f: I \to A+B$ as a morphism of $F\mathrm{Corel}$, and vice versa. 
   
-  To check it is composition and monoidal product preserving, we can easily use
-  diagrammatic reasoning. For example
-
-  Therefore $\mc H$ is isomorphic
-  as a hypergraph category to $G\mathrm{Corel}$. 
+  It is straightforward to check that these are strict hypergraph functors. To
+  demonstrate the most subtle aspect, the Frobenius structure, we consider the
+  multiplication on an object $X$ of $F\mathrm{Corel}$. To obtain this, we start
+  with the multiplication in $F\mathrm{Cospan}$, the cospan $X+X
+  \xrightarrow{[1,1]} X \xleftarrow{1} X$ decorated with the empty decoration,
+  which in this case is $\eta_X \in \mc H(I,X)$, and restrict this empty
+  decoration along the map $X \xleftarrow{[1,1,1]} X+X+X$. Thus the
+  multiplication on $X$ in $F\mathrm{Corel}$ is 
+  \[
+    \tikzset{every path/.style={line width=1.1pt}}
+    \begin{aligned}
+      \begin{tikzpicture}[scale=.65]
+	\begin{pgfonlayer}{nodelayer}
+	  \node [style=none] (0) at (0.75, 0.5) {};
+	  \node [style=dot] (1) at (0, -0) {};
+	  \node [style=none] (2) at (0.75, -0.5) {};
+	  \node [style=none] (3) at (1.5, 0.5) {$X$};
+	  \node [style=none] (4) at (1.25, 0.5) {};
+	  \node [style=none] (5) at (1.25, -0.5) {};
+	  \node [style=dot] (6) at (-1.25, -0.5) {};
+	  \node [style=none] (7) at (-0.5, -1) {};
+	  \node [style=none] (8) at (1.25, -1) {};
+	  \node [style=none] (9) at (-0.5, -0) {};
+	  \node [style=dot] (10) at (-2, -0.5) {};
+	  \node [style=none] (11) at (1.5, -0.5) {$X$};
+	  \node [style=none] (12) at (1.5, -1) {$X$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+	  \draw [in=90, out=180, looseness=0.90] (0.center) to (1.center);
+	  \draw [in=-90, out=180, looseness=0.90] (2.center) to (1.center);
+	  \draw (4.center) to (0.center);
+	  \draw (5.center) to (2.center);
+	  \draw [in=90, out=180, looseness=0.90] (9.center) to (6);
+	  \draw [in=-90, out=180, looseness=0.90] (7.center) to (6);
+	  \draw (6) to (10.center);
+	  \draw (8.center) to (7.center);
+	  \draw (9.center) to (1);
+	\end{pgfonlayer}
+      \end{tikzpicture}
+    \end{aligned}
+    \in \mc H(I,X \ot X \ot X),
+  \]
+  which corresponds under our isomorphism to the map $\mu_X\maps X \ot X \to X
+  \in \mc H_{\mathrm{str}}$, as required.
 \end{proof}
 
 \begin{theorem}
   All hypergraph functors are decorated corelation functors.
 \end{theorem}
 \begin{proof}
-  Let $\mc H$ and $\mc H'$ be hypergraph categories, and $T\maps \mc H \to \mc
-  H'$ be a hypergraph functor. By the above theorem, there exist symmetric lax
+  Let $(T,\tau)\maps \mc H \to \mc H'$ be a hypergraph functor between
+  hypergraph categories. The previous theorem implies there exist symmetric lax
   monoidal functors 
   \[
-    G\maps \cospan(\FinSet_{\mc O_{\mc H}}) \to \Set 
+    F\maps \cospan(\FinSet_{\mc O}) \to \Set \quad \mbox{and} \quad F'\maps
+    \cospan(\FinSet_{\mc O'}) \to \Set
   \]
-  and 
+  such that we have isomorphisms $\mc
+  H_{\mathrm{str}} \cong F\mathrm{Corel}$ and $\mc H_{\mathrm{str}}' \cong
+  F'\mathrm{Corel}$. We will realise $T$ as the functor induced by some
+  colimit-preserving functor $A\maps \FinSet_{\mc O} \to \FinSet_{\mc O'}$ and
+  monoidal natural transformation:
   \[
-    G'\maps \cospan(\FinSet_{\mc O_{\mc H'}}) \to \Set 
+    \xymatrixrowsep{2ex}
+    \xymatrix{
+      \cospan(\FinSet_{\mc O}) \ar[dd]_{A} \ar[drr]^F  \\
+      &\twocell \omit{_\:\theta}& \Set \\
+      \cospan(\FinSet_{\mc O'}) \ar[urr]_{F'} 
+    }
   \]
-  such that $\mc H = G\mathrm{Corel}$ and $\mc H' = G'\mathrm{Corel}$.
-  Furthermore, define a functor $A\maps \FinSet_{\mc O_{\mc H}} \to \FinSet_{\mc
-    O_{\mc H'}}$ taking $N \to \mc O_{\mc H}$ to $N \to \mc O_{\mc H} \to \mc
-  O_{\mc H'}$, where the second map is that by the functor $T$ on objects of
-  $\mc H$. We claim this is a well-defined colimit-preserving functor and show
-  that $T$ can be constructed from a monoidal natural transformation between $G$
-  and $G'\circ A$.
+
+  Define the functor $A$ to take each $\mc O$-labelled set $[X_1,\dots,X_n]$ to
+  the same set now $\mc O'$-labelled $[TX_1,\dots,TX_n]$, and to take a function
+  between $\mc O$-labelled sets to the same function, noting that the function
+  now preserves the $\mc O'$-labels. This functor $A$ clearly preserves
+  colimits: again, colimits in $\FinSet_{\mc O}$ are just colimits in $\FinSet$
+  with the labels inherited as described above.
+
+  Let $S=[X_1,\dots,X_n]$ be an $\mc O$-labelled set. Then we define
+  \begin{align*}
+    \theta_S\maps \mc H(I,X_1 \ot \dots \ot X_n) &\longrightarrow \mc H'(I, TX_1
+    \ot \dots \ot TX_n); \\
+    \Big(I \stackrel{s}\to X_1\ot \dots \ot X_n\Big) &\longmapsto \Big(I
+    \stackrel{\tau}\to TI \stackrel{Ts}\to T(X_1\ot \dots \ot X_n)
+    \stackrel{\tau}\to TX_1 \ot \dots \ot TX_n\Big), 
+  \end{align*}
+  where the $\tau$ are the appropriate coherence isomorphisms of $T$. This
+  collection of maps $\theta$ is natural as functions in $\FinSet_{\mc O}$ act
+  as the Frobenius maps on the homsets $\mc H(I,X)$ and $\mc H'(I,TX)$, and the
+  functor $T$ is hypergraph and so maps, loosely speaking, Frobenius maps to
+  Frobenius maps. Moreover $\theta$ is monoidal as $T$ is monoidal.  Thus
+  $\theta$ defines a monoidal natural transformation.
+
+  The hypergraph functor $F\mathrm{Corel} \to F'\mathrm{Corel}$ induced by
+  $\theta$ is by definition the map taking $s \in \mc H(I,X \ot Y)$ to
+  $\tau^{-1} \circ Ts \circ \tau_1 \in \mc H'(I,TX \ot TY)$. Composing this
+  functor with the appropriate equivalences we recover $T \maps \mc H \to \mc
+  H'$.
 \end{proof}
 
-Compare with Spivak Vagner construction.
+Write $\int$ for the Grothendieck construction. The Grothendieck construction
+is
 
-\subsection{Examples.}
+We have a functor $\Set \to \mathrm{Cat}$ taking a set $\mc O$ to the lax
+symmetric monoidal functor category $\mathrm{SymLaxMon}(\cospan(\FinSet_{\mc
+O}), \Set)$. Note that a function $r\maps \mc O \to \mc O'$ maps to a functor
+$\rho\maps \mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}), \Set) \to
+\mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O'}), \Set)$. The Grothendieck
+construction gives a category where are objects are some label set $\mc O$
+together with an object in $\mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}),
+\Set)$---that is, with a lax symmetric monoidal functor $F\maps
+(\cospan(\FinSet_{\mc O}),+) \to (\Set,\times)$. The morphisms $(\mc O, F) \to
+(\mc O,F')$ are functions of label sets $r: \mc O \to \mc O'$ together with a
+natural transformation $\theta\maps \rho(F) \Rightarrow F'$.
+
+\begin{theorem}
+\[
+  \mathrm{HypCat} \cong \Set\int
+  \mathrm{SymLaxMon}(\cospan(\FinSet_{-}), \Set)
+\]
+\end{theorem}
+
+The operad of wiring diagrams.
+structured categories are algebras over their graphical calculus operad
+\cite{SSR}. These equivalences are 2-categorical.
+The above equivalence is the subject of a forthcoming paper \cite{SV}
+
+\subsection{Examples}
 We give some examples reproducing hypergraph categories as decorated corelations
 categories.
 
-\begin{example}
-  Example: empty decorations and equivalence relations. 
+\begin{example}[Empty decorations and equivalence relations]
   
   Consider the hypergraph category $\cospan(\FinSet)$. This is the simplest
   hypergraph category: it is free hypergraph category on the one object discrete
