@@ -5,6 +5,9 @@ Furthermore, and key to the idea of `black-boxing', we get a hypergraph functor
 from decorated cospans to decorated corelations.
 
 \section{Introduction}
+Consider the case
+
+`flow networks' labelled graphs.
 
 Semantics live on boundaries only.
 
@@ -17,7 +20,7 @@ representations, and handles composition of semantics too.
 Two main theorems: 
 \begin{theorem}
 Given a category $\mc C$ with finite colimits, factorisation system $(\mc E,\mc
-M)$ such that $\mc M$ is stable under pushouts, and a symmetric lax monoidal functor 
+M)$ such that $\mc M$ is stable under pushouts, and a lax symmetric monoidal functor 
 \[
   \mc C; \mc M^\opp \longrightarrow \Set,
 \]
@@ -246,7 +249,7 @@ decorated cospans.
   \[
     F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
   \]
-  be a symmetric lax monoidal functor.  Then we may define 
+  be a lax symmetric monoidal functor.  Then we may define 
   \begin{center}
     \begin{tabular}{| c | p{.65\textwidth} |}
       \hline
@@ -301,7 +304,7 @@ $\mc C;\mc M^\opp \to \mc C';\mc M'^\opp$.
   Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
 factorisation systems $(\mathcal E, \mathcal M)$, $(\mathcal E', \mathcal M')$,
 such that $\mathcal M$ and $\mathcal M'$ are stable under pushout, and suppose
-that we have symmetric lax monoidal functors
+that we have lax symmetric monoidal functors
 \[
   F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
 \]
@@ -639,13 +642,11 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
 \section{All hypergraph categories are decorated corelation categories}
 Not all hypergraph categories are decorated \emph{cospan} categories. To see
 this, we can count morphisms. In a decorated cospan category the possible apices
-and decorations are the same for all morphisms. So for a decorated cospan
-category over the $\FinSet$, the number of morphisms $0 \to 1$ cannot be more
-than countably many times those $0 \to 0$; the only difference is a decorated
-cospan $0 \to 1$ includes a map from 1 to the apex $N$ that chooses an element
-of the apex. But the skeletal category of vector spaces and linear maps over
-$\mathbb{R}$ with monoidal product the tensor product has $\mathbb{R}$ morphisms
-$0 \to 0$, and $\mathbb{R}^2$ morphisms $0 \to 1$. NEEDS WORK
+and decorations are the same for all morphisms. So unless the category $\mc C$
+and thus $\cospan(\mc C)$ is trivial, there must be a number of morphisms $0 \to
+0$. On the other hand, the hypergraph category of finite sets and equivalence
+relations, discussed in Subsection \ref{ssec.equivrels}, has a unique morphism
+$0 \to 0$.
 
 Decorated corelation categories, however, are more powerful. In this section we
 show that all hypergraph categories are decorated corelation categories, and
@@ -663,7 +664,7 @@ Y$ with the monoidal elements of $X\ot Y$. This recovers the original hypergraph
 category.
 
 
-\begin{theorem}
+\begin{theorem}\label{thm.hypdeccorcats}
   Every hypergraph category is hypergraph equivalent to a decorated corelation
   category.
 \end{theorem}
@@ -712,7 +713,7 @@ category.
     H_{\mathrm{str}} \stackrel{\sim}\longrightarrow \mc H \stackrel{\mc
     H(I,-)}\longrightarrow \Set
   \]
-  This is symmetric lax monoidal functor mapping $X$ to the homset $\mc H(I,X)$,
+  This is lax symmetric monoidal functor mapping $X$ to the homset $\mc H(I,X)$,
   and a cospan between lists of objects in $\mc H$ to the corresponding
   Frobenius map.
 
@@ -1081,12 +1082,14 @@ The monoidal product is given by
   \in \mc H_{\mathrm{str}}$, as required.
 \end{proof}
 
-\begin{theorem}
+We can also recover hypergraph functors using decorated corelations.
+
+\begin{theorem} \label{thm.hypdeccorfunctors}
   All hypergraph functors are decorated corelation functors.
 \end{theorem}
 \begin{proof}
   Let $(T,\tau)\maps \mc H \to \mc H'$ be a hypergraph functor between
-  hypergraph categories. The previous theorem implies there exist symmetric lax
+  hypergraph categories. The previous theorem implies there exist lax symmetric
   monoidal functors 
   \[
     F\maps \cospan(\FinSet_{\mc O}) \to \Set \quad \mbox{and} \quad F'\maps
@@ -1135,84 +1138,152 @@ The monoidal product is given by
   H'$.
 \end{proof}
 
-Write $\int$ for the Grothendieck construction. The Grothendieck construction
-is
+\subsection{A categorical equivalence}
 
-We have a functor $\Set \to \mathrm{Cat}$ taking a set $\mc O$ to the lax
-symmetric monoidal functor category $\mathrm{SymLaxMon}(\cospan(\FinSet_{\mc
-O}), \Set)$. Note that a function $r\maps \mc O \to \mc O'$ maps to a functor
-$\rho\maps \mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}), \Set) \to
-\mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O'}), \Set)$. The Grothendieck
-construction gives a category where are objects are some label set $\mc O$
-together with an object in $\mathrm{SymLaxMon}(\cospan(\FinSet_{\mc O}),
-\Set)$---that is, with a lax symmetric monoidal functor $F\maps
-(\cospan(\FinSet_{\mc O}),+) \to (\Set,\times)$. The morphisms $(\mc O, F) \to
-(\mc O,F')$ are functions of label sets $r: \mc O \to \mc O'$ together with a
-natural transformation $\theta\maps \rho(F) \Rightarrow F'$.
+Choose Grothendieck universes so that we may talk about categories $\Set$ now of
+all `small' sets, and $\mathrm{Cat}$ of all `small' categories. If we restrict
+our attention to small hypergraph categories, we map summarise these results as a categorical equivalence. 
+
+Indeed, given some fixed object set $\mc O$, we have a category of lax symmetric
+monoidal functors and monoidal natural transformations
+\[
+  \mathrm{LaxSymMon}(\cospan(\FinSet_{\mc O}),\Set).
+\]
+This is equivalent to some subcategory of the category $\mathrm{HypCat}$ of
+hypergraph categories. To get a category equivalent to all hypergraph
+categories, we must patch together these functor categories by varying the
+object set and specifying morphisms from objects in one category to objects in
+another. For this we use the Grothendieck construction. 
+
+Given a (contravariant) functor $S\maps \mc B \to \mathrm{Cat}$ from some
+category $\mc B$ to $\mathrm{Cat}$, we define the \define{(contravariant)
+Grothendieck construction} $\mc B \int S$ to be the category with objects pairs
+$(\mc O,F)$ where $\mc O$ is an object of $\mc B$ and $F$ is an object of $S\mc
+O$, and morphisms pairs 
+\[
+  (f,\theta)\maps (\mc O,F) \longrightarrow (\mc O',F')
+\]
+where $f\maps \mc O \to \mc O'$ is a morphism in $\mc B$ and $\theta\maps F \to
+Sr(F')$ is a morphism in $S\mc O$.
+
+Now, define the functor 
+\[
+  \mathrm{LaxSymMon}(\cospan(\FinSet_{-}), \Set)\maps \Set \longrightarrow
+  \mathrm{Cat}
+\]
+as follows. On objects let it map a set $\mc O$ to the lax symmetric monoidal
+functor category $\mathrm{LaxSymMon}(\cospan(\FinSet_{\mc O}), \Set)$. For
+morphisms, recall from the above proof that a function $r\maps \mc O \to \mc O'$
+induces a functor $R\maps \cospan(\FinSet_{\mc O}) \to \cospan(\FinSet_{\mc
+O'})$ taking each $\mc O$-labelled set $N \stackrel{l}\to \mc O$ to the $\mc
+O'$-labelled set $N \xrightarrow{r \circ l} \mc O'$. This in turn defines a
+functor 
+\begin{align*}
+  \rho\maps \mathrm{LaxSymMon}(\cospan(\FinSet_{\mc O'}), \Set) &\longrightarrow
+\mathrm{LaxSymMon}(\cospan(\FinSet_{\mc O}), \Set); \\
+\Big(F'\maps
+\cospan(\FinSet_{\mc O'}) \to \Set\Big) &\longmapsto \Big(R\circ F'\maps  \cospan(\FinSet_{\mc O})
+\to \Set\Big).
+\end{align*}
+The Grothendieck construction 
+\[
+ \Set\int \mathrm{LaxSymMon}(\cospan(\FinSet_{-}), \Set)
+\]
+thus gives a category where are objects are some label set $\mc O$ together with
+an object in $\mathrm{LaxSymMon}(\cospan(\FinSet_{\mc O}), \Set)$---that is,
+with a lax symmetric monoidal functor $F\maps (\cospan(\FinSet_{\mc O}),+) \to
+(\Set,\times)$. The morphisms $(\mc O, F) \to (\mc O,F')$ are functions of label
+sets $r: \mc O \to \mc O'$ together with a natural transformation $\theta\maps
+R \circ F'\Rightarrow F$.
+
+In the case of small categories, it is not difficult to show Theorems
+\ref{thm.hypdeccorcats} and \ref{thm.hypdeccorfunctors} imply:
 
 \begin{theorem}
+  There is an equivalence of categories
 \[
-  \mathrm{HypCat} \cong \Set\int
-  \mathrm{SymLaxMon}(\cospan(\FinSet_{-}), \Set)
+  \mathrm{HypCat} \cong \Set\int \mathrm{LaxSymMon}(\cospan(\FinSet_{-}), \Set).
 \]
 \end{theorem}
 
-The operad of wiring diagrams.
-structured categories are algebras over their graphical calculus operad
-\cite{SSR}. These equivalences are 2-categorical.
-The above equivalence is the subject of a forthcoming paper \cite{SV}
+The 2-categorical version of the above equivalence is the also the subject of a
+forthcoming paper by Vagner, Spivak, and Schultz, from their operadic
+perspective \cite{SpiSchRup}.
 
-\subsection{Examples}
-We give some examples reproducing hypergraph categories as decorated corelations
-categories.
+\subsection{Factorisations as decorations}
 
-\begin{example}[Empty decorations and equivalence relations]
-  
-  Consider the hypergraph category $\cospan(\FinSet)$. This is the simplest
-  hypergraph category: it is free hypergraph category on the one object discrete
-  category. We show how to recover it as a decorated corelation category.
+We have seen that every hypergraph category can be constructed as a decorated
+corelations category. More precisely, we have seen that every hypergraph
+category can be constructed as a decorated corelation category with the
+factorisation system the trivial isomorphism-morphism factorisation system. But
+decorated corelation categories may be constructed using other factorisation
+systems, and these are also hypergraph categories. How do the two constructions
+relate to each other?
 
+For each hypergraph category there is a poset of lax symmetric monoidal functors
+that give decorated corelation constructions of an equivalent category.
+Although the constructed categories are all equivalent, decorated corelations
+only allows functors decrease the number of corelations available; corelations
+are ultimately a `quotienting' construction.  The utility of decorated
+corelations is that we can maintain equivalence by putting this extra,
+quotiented information into the decoration.
+
+For illustration, we first example this interaction for the simplest hypergraph
+category: $\cospan(\FinSet)$, the free hypergraph category on a single object.
+
+\begin{example}
   As per Example \ref{ex.undeccorel}, $\cospan(\FinSet)$ is the hypergraph
-  category of undecorated (morphism-isomorphism)-corelations in $\FinSet$. It is
-  also the partition-decorated (isomorphism-morphism)-corelations in $\FinSet$.   
+  category of undecorated (morphism-isomorphism)-corelations in $\FinSet$.
+  Theorem \ref{thm.hypdeccorcats} shows it is also the partition-decorated
+  (isomorphism-morphism)-corelations in $\FinSet$.   
   
   First, the global sections functor $G\maps \cospan(\FinSet) \to \Set$ takes
   each finite set $X$ to the set of (equivalence classes of) cospans $0 \to D
-  \leftarrow X$; that is, to the set of functions $X \to D$ where a unique $D$
-  is chosen for each finite cardinality. Given a cospan $X \stackrel{f}\to N
-  \stackrel{g}\leftarrow Y$, its image under the global sections functor maps a
-  function $a\maps X \to D$, to the function $Y \to N+_YD$ given by
+  \leftarrow X$; that is, to the set $GX$ of functions $s\maps X \to D$, where a
+  unique codomain $D$ is chosen for each finite cardinality. Given a cospan $X
+  \stackrel{f}\to N \stackrel{g}\leftarrow Y$, its image under the global
+  sections functor is the functor $GX \to GY$ mapping $s\maps X \to D$ in $GX$
+  to the function $Y \to N+_YD$ in
   \[
     \xymatrix{
-      & X \ar[r]^d \ar[d]_f & D \ar[d] \\
+      & X \ar[r]^s \ar[d]_f & D \ar[d] \\
       Y \ar[r]^g  & N \ar[r] & N+_YD
     }
   \]
-  where the square is a pushout square.
+  where the square is a pushout square. The coherence maps $\gamma_1\maps 1 \to
+  G\varnothing$ map the unique element of $1$ to the unique function $!\maps
+  \varnothing \to \varnothing$, and $\gamma_{X,Y}$ maps a pair of functions
+  $a\maps X \to D$, $b\maps Y \to E$ to $a+b\maps X+Y \to D+E$. This defines a
+  lax symmetric monoidal functor $(G,\gamma)$.
 
-  The coherence maps $\gamma_1\maps 1 \to G\varnothing$ map the unique element
-  of $1$ to the unique function $!\maps \varnothing \to \varnothing$, and
-  $\gamma_{X,Y}$ maps a pair of functions $a\maps X \to D$, $b\maps Y \to E$ to
-  $a+b\maps X+Y \to D+E$. This is a symmetric lax monoidal functor. We use this
-  functor to decorate cospans in $\FinSet$. 
+  A decorated \emph{cospan} in $\FinSet$ with respect to $(G,\gamma)$ is a cospan of
+  finite sets $X \to N \leftarrow Y$ together with a function of finite sets $N
+  \to D$. Using the isomorphism--morphism factorisation, a decorated
+  \emph{corelation} is thus a cospan $X \xrightarrow{\iota_X} X+Y
+  \xleftarrow{\iota_Y} Y$ together with a function $X+Y \to D$. A decorated
+  corelation is thus specified by the decoration $X+Y \to D$ alone. Note that
+  these are in one-to-one correspondence with cospans $X \to D \leftarrow Y$ in
+  $\FinSet$ via the coproduct maps.
 
-  A decorated cospan in $\FinSet$ with respect to this functor is a cospan $X
-  \to N \leftarrow Y$ in $\FinSet$ together with a function $N \to D$ for some
-  finite set. Using the isomorphism--morphism factorisation, a decorated
-  corelation (a morphism in $G\mathrm{Corel}$) is a
-  cospan $X \to X+Y \leftarrow Y$, together with a function $X+Y \to D$.
-  This is the same as a cospan. 
+  As observed in the proof of Theorem \ref{thm.hypdeccorcats}, the hypergraph
+  structure on $G\mathrm{Corel}$ agrees with that on $\cospan(\FinSet)$ via
+  this correspondence; the multiplication $\mu_X\maps X+X \to X$ in
+  $G\mathrm{Corel}$ is simply given by the decoration $(X+X)+X \to X$, and so
+  on. The intuition is that in the global sections construction on a cospan
+  category, the shift from cospans to corelations takes the `factored part'
+  and puts it into the decoration. 
 
-  The hypergraph structure is given by the decoration $X+X \to X$ etc, as the
-  shift from cospans to corelations takes the `factored out part' and puts it
-  into the decoration. At this point the morphisms are specified entirely by
-  their decoration.
-
-  It is straightforward to show the two categories are isomorphic. Note that the
-  identity on $\FinSet$ maps $\mc I_\FinSet$ into $\FinSet$, and so extends to
-  morphism $\FinSet \to \cospan(\FinSet)$. We can define a monoidal natural
-  transformation $1(X) =1 \stackrel{\theta_X}\to GX = \{X \to D\}$ mapping the
-  unique element to the identity function $1_X\maps X \to X$.
+  This suggests an isomorphism; indeed, the isomorphism given by Theorem
+  \ref{thm.hypdeccorcats} does precisely this. We can construct one direction,
+  the one from the smaller to larger $\mc M$---that is, from $\mc M = \mc
+  I_{\FinSet}$ to $\mc M = \FinSet$---as a decorated corelations
+  functor.  Note that the identity on $\FinSet$ maps the subcategory $\mc
+  I_{\FinSet}$ into $\FinSet$, and so extends to a morphism $\FinSet \to
+  \cospan(\FinSet)$. Also recall that the `undecorated' cospan category
+  $\cospan(\FinSet)$ is equal to the decorated cospan category given by the
+  functor $1\maps \FinSet \to \Set$ mapping each finite set to some chosen one
+  element set $1$, and each morphism to the identity morphism on $1$. Define
+  monoidal natural transformation 
   \[
     \xymatrixrowsep{2ex}
     \xymatrix{
@@ -1221,57 +1292,100 @@ categories.
       \cospan(\FinSet) = \FinSet; \FinSet^\opp \ar[urr]_{G} 
     }
   \]
-  It is easy to verify that this is a monoidal natural transformation. This
-  gives the hypergraph functor we expect, mapping the undecorated cospan $X \to
-  N \leftarrow Y$ to $X \to X+Y \leftarrow Y$ decorated by $X+Y \to N$. 
-
-  Like so many examples before, it is easy to verify this is a full, faithful,
-  bijective-on-objects hypergraph functor.
+  with each $\theta_X \maps 1 \to GX$ mapping the unique element to the identity
+  function $1_X\maps X \to X$.  This gives the hypergraph functor we expect,
+  mapping the undecorated cospan $X \to N \leftarrow Y$ to the trivial cospan $X
+  \to X+Y \leftarrow Y$ decorated by $X+Y \to N$. It is now routine to verify
+  this is an isomorphism.
 \end{example}
 
-\begin{example}
-  The previous example extends to any finitely cocomplete category $\mc C$: the
-  hypergraph category $\cospan(\mc C)$ can always be constructed as (i)
-  trivially decorated $(\mc C, \mc I_{\mc C})$-corelations, or (ii) $(\mc I_{\mc
-  C}, \mc C)$-corelations decorated by equivalence classes of morphisms with
-  domain the apex of the corelation, and moreover the isomorphism of these
-  hypergraph categories is given by a monoidal natural transformation between
-  the decorating functors.
+The previous example extends to any finitely cocomplete category $\mc C$: the
+hypergraph category $\cospan(\mc C)$ can always be constructed as (i)
+trivially decorated $(\mc C, \mc I_{\mc C})$-corelations, or (ii) $(\mc I_{\mc
+C}, \mc C)$-corelations decorated by equivalence classes of morphisms with
+domain the apex of the corelation, and moreover the isomorphism of these
+hypergraph categories is given by the analogous monoidal natural transformation
+between the decorating functors.
 
-  More general still, a category of trivially decorated $(\mc E, \mc
-  M)$-corelations in $\mc C$ can always be constructed also as $(\mc I_{\mc C},
-  \mc C)$-corelations decorated by equivalence classes of morphisms in $\mc E$
-  with domain the apex of the corelation, and the isomorphism of these
-  hypergraph categories is given by a monoidal natural transformation between
-  the decorating functors.
+More general still, a category of trivially decorated $(\mc E, \mc
+M)$-corelations in $\mc C$ can always be constructed also as $(\mc I_{\mc C},
+\mc C)$-corelations decorated by equivalence classes of morphisms in $\mc E$
+with domain the apex of the corelation, and the isomorphism of these
+hypergraph categories a decorated corelations functor.
 
-  Most general, the theorem implies that any category of decorated
-  corelations can be constructed also as $(\mc I_{\mc C}, \mc C)$-corelations
-  decorated by codomain decorated morphisms in $\mc E$. The latter are specified
-  by a functor $\cospan(\mc C) \to \Set$, as in the theorem.
+Most generally, we can still perform this construction on decorated corelation
+categories: Theorem \ref{thm.hypdeccorcats} implies any category of $(\mc E,\mc
+M)$-decorated corelations can be constructed also as $(\mc I_{\mc C}, \mc
+C)$-corelations decorated by codomain decorated morphisms in $\mc E$. Given some
+lax symmetric monoidal functor
+\[
+  F\maps \mc C;\mc M^\opp \longrightarrow \Set,
+\]
+the decorated $(\mc I_{\mc C}, \mc C)$-corelations are specified by the (global
+sections) functor
+\[
+  F'\maps \cospan(\mc C) \longrightarrow \Set
+\]
+taking any object $Z \in \cospan(\mc C)$ to the pair $(Z \stackrel{e}\to N,
+1\stackrel{s}\to FN)$, where $e$ is a morphism in $\mc E$.
 
-  The latter form is good for constructing functors that have image the
-  corelation category.
-\end{example}
+What is the utility of this variety of constructions? The first is that some
+categories are very naturally constructed as corelation (or, dually, relation)
+categories, like the category of equivalence relations, relations, or linear
+relations. Here the factorisation system has an intuitive interpretation, like
+epimorphisms retaining only the structure in the apex that is `accessible' or
+`mapped onto' by the feet/boundary. Decorating this corelations retains the same
+sort of intuition.
 
-Note that with decorated corelations we have a method of constructing hypergraph
-categories from other hypergraph categories. This is black boxing. 
+On the other hand, the `fully decorated' latter form, where all interesting
+structure is carried by the apex of the decorated corelation, is useful for
+constructing functors into the given decorated corelation category. The ability
+to construct functors from one hypergraph category to another is essential for
+the understanding of hypergraph categories as network-type diagrammatic
+languages, with functors giving rise to notions of semantics, equivalence of
+diagrams, and reasoning.
+
+We will illustrate these principles in greater depth in the next path, which
+delves into applications of this philosophy and framework. We conclude this
+section and Part I with a collection of examples of a more abstract nature.
+
+
 
 \section{Examples} \label{sec:excor}
-\subsection{Path integrals and matrices}
+\subsection{Matrices}
 
-Let $R$ be a commutative ring. Take functor
+Let $R$ be a commutative ring. We will construct matrices over $R$ as decorated
+corelations over $\FinSet^\opp$. Here the coproduct is the Cartesian product
+$\times$ of sets, the initial object is the one element set $1$, and cospans are
+spans in $\FinSet$. The notation will thus be less confusing if we talk of
+decorated spans on $(\FinSet,\times)$ given by the contravariant lax monoidal
+functor
 \begin{align*}
-  R^{(-)}: (\mathrm{FinSet}^\opp,+) &\longrightarrow (\Set,\times) \\
-  X &\longmapsto R^X
+  R^{(-)}: (\mathrm{FinSet},\times) &\longrightarrow (\Set,\times); \\
+  N &\longmapsto R^N \\
+  \Big(f\maps N \to M\Big) &\longmapsto \Big(R^f\maps R^M \to R^N; v \mapsto v \circ
+  f\big).
+\end{align*}
+The coherence maps $\varphi_{X,Y}\maps R^X \times R^Y \to R^{X\times Y}$ take a
+pair $(s,t)$ of maps $s\maps X \to R$, $t\maps Y \to R$ to the pointwise product
+$s\cdot t \maps X\times Y \to R; (x,y) \mapsto s(x) \cdot t(y)$. As in the
+introduction, we show $R^{(-)}\mathrm{Cospan}$ is the category of `multivalued
+matrices' over $\R$, and $R^{(-)}\mathrm{Corel}$ is the category of matrices
+over $R$. 
+
+This becomes a decorated relations example if we extend $R^{(-)}$ to the functor
+\begin{align*}
+  R^{(-)}: (\mathrm{Span(FinSet)},\times) &\longrightarrow (\Set,\times); \\
+  N &\longmapsto R^N \\
+  \Big(f\maps N \to M\Big) &\longmapsto \Big(R^f\maps R^M \to R^N; v \mapsto v \circ
+  f\big) \\
+  \Big(g^\opp\maps N\to M\Big) &\longmapsto \Big(R^f\maps R^M \to R^N; v \mapsto v \circ
+  f\big).
 \end{align*}
 
-Then $R^{(-)}\mathrm{Cospan}$ is path integrals, $R^{(-)}\mathrm{Corel}$ is
-matrices over $R$. 
 
-Many aspects of this example are `atypical', regarding the intuition we have
-been working towards.
-Note that the monoidal product here is the tensor product of
+Many aspects of this example are `atypical' for the intuition we have been
+working towards.  Note that the monoidal product here is the tensor product of
 matrices, not the biproduct. Indeed, there is no special commutative Frobenius
 algebra in $\Vect$ if we use the biproduct, but if we use the tensor product
 then these correspond to orthonormal bases (Vicary). The comultiplication is the
@@ -1279,7 +1393,7 @@ diagonal map, multiplication is codiagonal. unit produces basis.
 
 We note that you could take decorations here in the category $R\mathrm{Mod}$ of
 $R$-modules. While Proposition \ref{prop.setdecorations} shows that the
-resulting decorated cospans category would be isomorphic, this hints at an
+resulting decorated cospans category would be isomorphic, this may hint at an
 enriched version of the theory.
 
 \subsection{Two constructions for linear relations}
