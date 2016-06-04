@@ -1250,21 +1250,21 @@ in Chapter \ref{ch.circuits}.
 
 \subsection{Labelled graphs}
 
-Recall that a \define{$(0,\infty)$-graph} $(N,E,s,t,r)$ comprises a finite set
+Recall that a \define{$[0,\infty)$-graph} $(N,E,s,t,r)$ comprises a finite set
 $N$ of vertices (or nodes), a finite set $E$ of edges, functions $s,t\colon  E \to N$
 describing the source and target of each edge, and a function $r\colon  E \to
-(0,\infty)$ labelling each edge. The decorated cospan framework allows us to
+[0,\infty)$ labelling each edge. The decorated cospan framework allows us to
 construct a category with, roughly speaking, these graphs as morphisms. More
 precisely, our morphisms will consist of these graphs, together with subsets of
 the nodes marked, with multiplicity, as `input' and `output' connection points.
 
-Pick small categories equivalent to the category of $(0,\infty)$-graphs such
-that we may talk about the set of all $(0,\infty)$-graphs on each finite set
+Pick small categories equivalent to the category of $[0,\infty)$-graphs such
+that we may talk about the set of all $[0,\infty)$-graphs on each finite set
 $N$.  Then we may consider the functor
 \[
   \lgraph\colon  (\FinSet,+) \longrightarrow (\Set,\times)
 \]
-taking a finite set $N$ to the set $\lgraph(N)$ of $(0,\infty)$-graphs
+taking a finite set $N$ to the set $\lgraph(N)$ of $[0,\infty)$-graphs
 $(N,E,s,t,r)$ with set of nodes $N$. On
 morphisms let it take a function $f\colon N \to M$ to the function that pushes
 labelled graph structures on a set $N$ forward onto the set $M$:
@@ -1350,8 +1350,8 @@ provide semantics for the morphisms of $\mathrm{GraphCospan}$ as diagrams of
 networks of linear resistors.
 
 Intuitively, after choosing a unit of resistance, say ohms ($\Omega$), each
-$(0,\infty)$-graph can be viewed as a network of linear resistors, with the
-$(0,\infty)$-graph of the introduction now more commonly depicted as
+$[0,\infty)$-graph can be viewed as a network of linear resistors, with the
+$[0,\infty)$-graph of the introduction now more commonly depicted as
 \begin{center}
   \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
     \node[contact]         (A) at (0,0) {};
@@ -1388,17 +1388,17 @@ node of the circuit to as many additional components as we like.
 
 Moreover, Theorem \ref{thm:decoratedfunctors} provides semantics. Each node in a
 network of resistors can be assigned an electric potential and a net current
-outflow at that node, and so the set $N$ of vertices of a $(0,\infty)$-graph can
+outflow at that node, and so the set $N$ of vertices of a $[0,\infty)$-graph can
 be seen as generating a space $\R^N \oplus (\R^N)^\ast$ of electrical states of
 the network. We define a natural transformation 
 \[
   \res\colon  \lgraph \Longrightarrow \linsub
 \]
-mapping each $(0,\infty)$-graph on $N$, viewed as a network of resistors, to the
+mapping each $[0,\infty)$-graph on $N$, viewed as a network of resistors, to the
 linear subspace of $\R^N \oplus (\R^N)^\ast$ of electrical states permitted by
 Ohm's law.\footnote{Note that these states need not obey Kirchhoff's current
 law.} In detail, let $\psi \in \R^N$. We define the power $Q\colon  \R^N \to \R$
-corresponding to a $(0,\infty)$-graph $(N,E,s,t,r)$ to be the function
+corresponding to a $[0,\infty)$-graph $(N,E,s,t,r)$ to be the function
 \[
   Q(\psi) = \sum_{e \in E} \frac1{r(e)}
   \Big(\psi\big(t(e)\big)-\psi\big(s(e)\big)\Big)^2.

@@ -2,36 +2,280 @@
 
 When enough structure is available to us, we may decorate corelations too.
 Furthermore, and key to the idea of `black-boxing', we get a hypergraph functor
-from decorated cospans to decorated corelations.
+from decorated cospans to decorated corelations. The decorated corelations
+framework adds compositional operations to network-diagram representations, and
+handles composition of semantics too. 
 
-\section{Introduction}
-Consider the case
+\section{Black-boxed open systems}
 
-`flow networks' labelled graphs.
-
-Semantics live on boundaries only.
-
-We then introduce a new framework for working with hypergraph
-categories: decorated corelations.
-
-Decorated corelations adds compositional operations to network-diagram
-representations, and handles composition of semantics too. 
-
-Two main theorems: 
-\begin{theorem}
-Given a category $\mc C$ with finite colimits, factorisation system $(\mc E,\mc
-M)$ such that $\mc M$ is stable under pushouts, and a lax symmetric monoidal functor 
+Suppose we have devices built from paths that take the signal at some input,
+amplify it, and deliver it to some output. For simplicity let these signals be
+real numbers, and amplication be linear: we just multiply by some fixed scalar.
+We depict an example device like so:
 \[
-  \mc C; \mc M^\opp \longrightarrow \Set,
+    \tikzset{every path/.style={line width=.8pt}}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (-2.5, 1.5) {};
+		\node [style=sdot] (1) at (-2.5, -0) {};
+		\node [style=sdot] (2) at (-2.5, -1.5) {};
+		\node [style=amp] (3) at (-0.75, 2) {$5$};
+		\node [style=amp] (4) at (-0.75, 1.25) {$1$};
+		\node [style=amp] (5) at (-0.75, -1) {$-2$};
+		\node [style=amp] (6) at (-0.75, 0.25) {$2.1$};
+		\node [style=amp] (7) at (-0.75, -0.25) {$-0.4$};
+		\node [style=sdot] (8) at (1, -0.5) {};
+		\node [style=sdot] (9) at (1, -1.5) {};
+		\node [style=sdot] (10) at (1, 0.5) {};
+		\node [style=sdot] (11) at (1, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (3.west) to (0.center);
+		\draw (4.west) to (0.center);
+		\draw (6.west) to (1.center);
+		\draw (7.west) to (1.center);
+		\draw (5.west) to (2.center);
+		\draw (3) to (11);
+		\draw (4) to (11);
+		\draw (6) to (10);
+		\draw (7) to (8);
+		\draw (5) to (8);
+	\end{pgfonlayer}
+\end{tikzpicture}
 \]
-we may define a hypergraph category of with morphisms decorated corelations.
-\end{theorem}
+Here there are three inputs, four outputs, and five paths. Formally, we might
+model these devices as finite sets of inputs $X$, outputs $Y$, and paths $N$,
+together with functions $i\maps N \to X$ and $o\maps N \to Y$ describing the
+start and end of each path, and a function $s\maps N \to \R$ describing the
+amplification along it. In other words, these are cospans $X \to N \leftarrow Y$
+in $\FinSet^\opp$ decorated by `scalar assignment' functions $N \to \R$. This
+suggests a decorated cospans construction.
 
-\begin{theorem}
-Every hypergraph category can be constructed in this way.
-\end{theorem}
+Such a construction can be obtained from the lax symmetric monoidal functor
+$\mathbb R^{(-)}\maps \FinSet^\opp \to \Set$ taking a finite set $N$ to the set
+$\R^N$ of functions $s\maps N \to \R$, and opposite functions $f^\opp\maps N \to
+M$ to the map taking $s\maps N \to \R$ to $s \circ f \maps M \to \R$. Note that
+the coproduct in $\FinSet^\opp$ is the cartesian product of sets. The coherence
+maps of the functor which, recall, are critical for the composition of the
+decorations, are given by $\varphi_{N,M}\maps \R^N \times \R^M \to \R^{N\times
+M}$, taking $(s,t) \in \R^N \times \R^M$ to the function $s \cdot t\maps N
+\times M \to \R$ defined by pointwise multiplication in $\R$. 
 
-They apply to functors too.
+Composition in this decorated cospans category is thus given by the
+multiplication in $\R$. In detail, given decorated cospans $(X
+\xrightarrow{i_X^\opp} N \xleftarrow{o_Y^\opp} Y, N \xrightarrow{s} \R)$ and $(Y
+\xrightarrow{i_Y^\opp} M \xleftarrow{o_Z^\opp} Z, M \xrightarrow{t} \R)$, the
+composite has a path from $x \in X$ to $z \in Z$ for every triple $(y,n,m)$
+where $y \in Y$, $n \in N$, and $m \in M$, such that $n$ is a path from $x$ to
+$y$ and $m$ is a path from $y$ to $z$. The scalar assigned to this path is the
+product of those assigned to $n$ and $m$. For example, we have the following
+composite
+\[
+    \tikzset{every path/.style={line width=.8pt}}
+    \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (-2.5, 1.5) {};
+		\node [style=sdot] (1) at (-2.5, -0) {};
+		\node [style=sdot] (2) at (-2.5, -1.5) {};
+		\node [style=amp] (3) at (-0.75, 2) {$5$};
+		\node [style=amp] (4) at (-0.75, 1.25) {$1$};
+		\node [style=amp] (5) at (-0.75, -1) {$-2$};
+		\node [style=amp] (6) at (-0.75, 0.25) {$2.1$};
+		\node [style=amp] (7) at (-0.75, -0.25) {$-0.4$};
+		\node [style=sdot] (8) at (1, -0.5) {};
+		\node [style=sdot] (9) at (4.5, 0.5) {};
+		\node [style=sdot] (10) at (1, -1.5) {};
+		\node [style=sdot] (11) at (4.5, -1.5) {};
+		\node [style=amp] (12) at (2.75, -0.5) {$-1$};
+		\node [style=amp] (13) at (2.75, 1.25) {$3$};
+		\node [style=amp] (14) at (2.75, -1.5) {$-2.3$};
+		\node [style=amp] (15) at (2.75, 2) {$1$};
+		\node [style=sdot] (16) at (4.5, 1.5) {};
+		\node [style=amp] (17) at (2.75, -0) {$3$};
+		\node [style=sdot] (18) at (4.5, -0.5) {};
+		\node [style=sdot] (19) at (1, 0.5) {};
+		\node [style=sdot] (20) at (1, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (3.west) to (0.center);
+		\draw (4.west) to (0.center);
+		\draw (6.west) to (1.center);
+		\draw (7.west) to (1.center);
+		\draw (5.west) to (2.center);
+		\draw (16) to (15);
+		\draw (16) to (13);
+		\draw (18) to (12);
+		\draw (14) to (11);
+		\draw (10) to (14);
+		\draw (15) to (20);
+		\draw (13) to (20);
+		\draw (3) to (20);
+		\draw (4) to (20);
+		\draw (6) to (19);
+		\draw (7) to (8);
+		\draw (5) to (8);
+		\draw (12) to (8);
+		\draw (19) to (17);
+		\draw (17) to (18);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\qquad = \qquad
+\begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (-2.5, 1.5) {};
+		\node [style=sdot] (1) at (-2.5, -0) {};
+		\node [style=sdot] (2) at (-2.5, -1.5) {};
+		\node [style=amp] (3) at (-0.75, 1.75) {$15$};
+		\node [style=amp] (4) at (-0.75, 1.25) {$1$};
+		\node [style=amp] (5) at (-0.75, -1) {$2$};
+		\node [style=amp] (6) at (-0.75, -0) {$6.3$};
+		\node [style=amp] (7) at (-0.75, -0.5) {$0.4$};
+		\node [style=sdot] (8) at (1, -0.5) {};
+		\node [style=sdot] (9) at (1, -1.5) {};
+		\node [style=sdot] (10) at (1, 0.5) {};
+		\node [style=sdot] (11) at (1, 1.5) {};
+		\node [style=amp] (12) at (-0.75, 2.25) {$5$};
+		\node [style=amp] (13) at (-0.75, 0.75) {$3$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (3.west) to (0.center);
+		\draw (4.west) to (0.center);
+		\draw (6.west) to (1.center);
+		\draw (7.west) to (1.center);
+		\draw (5.west) to (2.center);
+		\draw (3) to (11);
+		\draw (4) to (11);
+		\draw (7) to (8);
+		\draw (5) to (8);
+		\draw (0) to (12);
+		\draw (12) to (11);
+		\draw (0) to (13);
+		\draw (13) to (11);
+		\draw (6) to (8);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+There are four paths between the top-most element $x_1$ of the domain and the
+top-most element $z_1$ of the codomain: we may first take the path that
+amplifies by $5\times$ and then the path that amplifies by $1\times$ for a total
+amplification of $5\times$, or $5\times$ and $3\times$ for $15\times$, and so
+on. This means we end up with four elements relating $x_1$ and $z_1$ in the
+composite. The apex of the composite is in fact given by the pullback $N
+\times_Y M$ of the cospan $N \xrightarrow{o_Y} Y \xleftarrow{i_Y} M$ in
+$\FinSet$.
+
+Here we again see the problem of decorated cospans: the composite of the above
+puts decorations on $N\times_Y M$, which can be of much larger cardinality than
+$N$ and $M$. We wish to avoid the size of our decorated cospan from growing so
+fast. Moreover, from our open systems perspective, we care not about the path
+but by the total amplification of the signal from some chosen input to some
+chosen output. The intuition is that if we black box the system, then we cannot
+tell what paths the signal took through the system, only the total amplification
+from input to output.
+
+We thus want to restrict our apex to contain at most one point for each
+input--output pair $(x,y)$, pushing the decoration along the quotient map $e$ in
+the epi-mono factorisation of the function $N\times_YM \stackrel{e}\to
+\overline{N\times_YM} \stackrel{m}\to X \times Z$. Put another way, we want
+the category of decorated corelations, not decorated cospans. Represented as
+decorated corelations, the above composite becomes
+\[
+    \tikzset{every path/.style={line width=.8pt}}
+    \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (-2.5, 1.5) {};
+		\node [style=sdot] (1) at (-2.5, -0) {};
+		\node [style=sdot] (2) at (-2.5, -1.5) {};
+		\node [style=amp] (3) at (-0.75, 1.5) {$6$};
+		\node [style=amp] (4) at (-0.75, -1) {$-2$};
+		\node [style=amp] (5) at (-0.75, 0.25) {$2.1$};
+		\node [style=amp] (6) at (-0.75, -0.25) {$-0.4$};
+		\node [style=sdot] (7) at (1, -0.5) {};
+		\node [style=sdot] (8) at (4.5, 0.5) {};
+		\node [style=sdot] (9) at (1, -1.5) {};
+		\node [style=sdot] (10) at (4.5, -1.5) {};
+		\node [style=amp] (11) at (2.75, -0.5) {$-1$};
+		\node [style=amp] (12) at (2.75, -1.5) {$-2.3$};
+		\node [style=amp] (13) at (2.75, 1.5) {$4$};
+		\node [style=sdot] (14) at (4.5, 1.5) {};
+		\node [style=amp] (15) at (2.75, -0) {$3$};
+		\node [style=sdot] (16) at (4.5, -0.5) {};
+		\node [style=sdot] (17) at (1, 0.5) {};
+		\node [style=sdot] (18) at (1, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (3.west) to (0.center);
+		\draw (5.west) to (1.center);
+		\draw (6.west) to (1.center);
+		\draw (4.west) to (2.center);
+		\draw (14) to (13);
+		\draw (16) to (11);
+		\draw (12) to (10);
+		\draw (9) to (12);
+		\draw (13) to (18);
+		\draw (3) to (18);
+		\draw (5) to (17);
+		\draw (6) to (7);
+		\draw (4) to (7);
+		\draw (11) to (7);
+		\draw (17) to (15);
+		\draw (15) to (16);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\qquad = \qquad
+\begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (-2.5, 1.5) {};
+		\node [style=sdot] (1) at (-2.5, -0) {};
+		\node [style=sdot] (2) at (-2.5, -1.5) {};
+		\node [style=amp] (3) at (-0.75, 1.5) {$24$};
+		\node [style=amp] (4) at (-0.75, -1) {$2$};
+		\node [style=amp] (5) at (-0.75, -0.25) {$6.7$};
+		\node [style=sdot] (6) at (1, -0.5) {};
+		\node [style=sdot] (7) at (1, -1.5) {};
+		\node [style=sdot] (8) at (1, 0.5) {};
+		\node [style=sdot] (9) at (1, 1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (3.west) to (0.center);
+		\draw (5.west) to (1.center);
+		\draw (4.west) to (2.center);
+		\draw (3) to (9);
+		\draw (5) to (6);
+		\draw (4) to (6);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+Note that composite is not simply the composite as decorated cospans, but the
+composite decorated cospan reduced to a decorated corelation. We will we show
+that this decorated corelations category is equivalent to the category of real
+vector spaces and linear maps, with monoidal product the tensor product.
+
+We prove two main theorems in this section. The first is that these decorated
+cospans do form a hypergraph category. That is, given a category $\mc C$ with
+finite colimits, factorisation system $(\mc E,\mc M)$ such that $\mc M$ is
+stable under pushouts, and a lax symmetric monoidal functor 
+\[
+  F\maps \mc C; \mc M^\opp \longrightarrow \Set,
+\]
+we may define a hypergraph category $F\mathrm{Corel}$ with objects those of $\mc
+C$ and morphisms decorated corelations. As usual, functors between these
+so-called decorated corelations categories can be defined from natural
+transformations between these functors.
+
+The second major theorem is that every hypergraph category and hypergraph
+functor can be constructed in this way. This shows our decorated corelations
+construction is as general as we need for the study of hypergraph categories,
+and hence network-style diagrammatic languages.
+
 
 \section{Decorated corelations} \label{sec:dcorc}
 
@@ -1352,6 +1596,11 @@ section and Part I with a collection of examples of a more abstract nature.
 
 
 \section{Examples} \label{sec:excor}
+We give two extended examples. Our first example is to revisit the matrix
+example from the introduction, having now developed the necessary material. Our
+second example is to revisit the category of linear relations once more, showing
+that we can also construct it as a decorated corelation category. 
+
 \subsection{Matrices}
 
 Let $R$ be a commutative ring. We will construct matrices over $R$ as decorated
@@ -1366,23 +1615,50 @@ functor
   \Big(f\maps N \to M\Big) &\longmapsto \Big(R^f\maps R^M \to R^N; v \mapsto v \circ
   f\big).
 \end{align*}
-The coherence maps $\varphi_{X,Y}\maps R^X \times R^Y \to R^{X\times Y}$ take a
-pair $(s,t)$ of maps $s\maps X \to R$, $t\maps Y \to R$ to the pointwise product
-$s\cdot t \maps X\times Y \to R; (x,y) \mapsto s(x) \cdot t(y)$. As in the
-introduction, we show $R^{(-)}\mathrm{Cospan}$ is the category of `multivalued
-matrices' over $\R$, and $R^{(-)}\mathrm{Corel}$ is the category of matrices
-over $R$. 
+The coherence maps $\varphi_{N,M}\maps R^N \times R^M \to R^{N\times M}$ take a
+pair $(s,t)$ of maps $s\maps N \to R$, $t\maps M \to R$ to the pointwise product
+$s\cdot t \maps N\times M \to R; (n,m) \mapsto s(n) \cdot t(m)$. The unit
+coherence map $\varphi_1\maps 1 \to R^1$ sounds almost tautological: it takes
+the unique element of the one element set $1$ to the function $1 \to R$ that
+maps the unique element of the one element set to the multiplicative identity
+$1_R$ of the ring $R$.  As in the introduction, we show $R^{(-)}\mathrm{Cospan}$
+is the category of `multivalued matrices' over $R$, and $R^{(-)}\mathrm{Corel}$
+is the category of matrices over $R$. 
 
-This becomes a decorated relations example if we extend $R^{(-)}$ to the functor
+It is the coherence maps $\varphi_{N,M}$ that enact multiplication of scalars,
+with the composite of $(X \xleftarrow{i_X} N \xrightarrow{o_Y} Y, N
+\xrightarrow{s} R)$ and $(Y \xleftarrow{i_Y} M \xrightarrow{o_Z} Z, M
+\xrightarrow{t} R)$ the span $X \leftarrow N\times_YM \rightarrow Z$ decorated
+by the map
+\[
+  N \times_YM \hooklongrightarrow N \times M \stackrel{s \cdot t}\longrightarrow
+  R,
+\]
+where the inclusion from $N \times_YM$ into $N \times M$ is that given by the
+categorical product. We discussed the intuition for this composition rule in the
+introduction. 
+
+These morphisms are multivalued matrices in the following sense: the cardinality
+of the domain and the codomain give the dimension of the matrix, and the apex
+$N$ indexes the entries of the matrix.
+
+As $\varphi_1$ essentially selects the multiplicative identity $1_R$ of $R$, the
+empty decoration on any set $N$ is the function that sends every element of $N$
+to $1_R$.
+
+This becomes a decorated relations example if we extend $R^{(-)}$ to the
+contravariant functor
+\[
+  R^{(-)}: (\mathrm{Span(FinSet)},\times) \longrightarrow (\Set,\times)
+\]
+mapping now a span $N \stackrel{f}\leftarrow A \stackrel{g}\to M$ to the
+function
 \begin{align*}
-  R^{(-)}: (\mathrm{Span(FinSet)},\times) &\longrightarrow (\Set,\times); \\
-  N &\longmapsto R^N \\
-  \Big(f\maps N \to M\Big) &\longmapsto \Big(R^f\maps R^M \to R^N; v \mapsto v \circ
-  f\big) \\
-  \Big(g^\opp\maps N\to M\Big) &\longmapsto \Big(R^f\maps R^M \to R^N; v \mapsto v \circ
-  f\big).
+  R^{f^\opp;g}\maps R^M &\longrightarrow R^N; \\
+  v &\longmapsto \Big(n \mapsto \sum_{a \in f^{-1}(n)} v\circ g(a)\Big).
 \end{align*}
 
+empty decoration
 
 Many aspects of this example are `atypical' for the intuition we have been
 working towards.  Note that the monoidal product here is the tensor product of
@@ -1415,11 +1691,17 @@ We can also construct linear relations in $\Vect^\opp$.
 Then $\mathrm{Cospan}$ is cospans decorated by subspaces, and $\mathrm{Corel}$
 is linear relations. This is important for circuits work \cite{BF,BSZ}.
 
-\subsection{Automata}
-This construction comes immediately from Walters et al. Automata are alphabet
-labelled graphs. There is a decorated cospan functor to categories enriched over
-languages, and this factors nicely to get a decorated corelation category with
-morphisms languages recognised between points in domain and codomain.
+%\subsection{Automata}
+%This construction comes immediately from Walters et al. Automata are alphabet
+%labelled graphs. There is a decorated cospan functor to categories enriched over
+%languages, and this factors nicely to get a decorated corelation category with
+%morphisms languages recognised between points in domain and codomain.
+%
+%a category of nondeterministic finite state automata
+%
+%a category of regular languages
+%
+%idea of black boxing is a Kleene theorem.
 
 
 
