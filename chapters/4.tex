@@ -1443,7 +1443,7 @@ R \circ F'\Rightarrow F$.
 In the case of small categories, it is not difficult to show Theorems
 \ref{thm.hypdeccorcats} and \ref{thm.hypdeccorfunctors} imply:
 
-\begin{theorem}
+\begin{theorem} \label{thm.equivhypdccor}
   There is an equivalence of categories
 \[
   \mathrm{HypCat} \cong \Set\int \mathrm{LaxSymMon}(\cospan(\FinSet_{-}), \Set).
@@ -1453,6 +1453,18 @@ In the case of small categories, it is not difficult to show Theorems
 The 2-categorical version of the above equivalence is the also the subject of a
 forthcoming paper by Vagner, Spivak, and Schultz, from their operadic
 perspective \cite{SpiSchRup}.
+
+\begin{remark}
+  It is prudent, to wonder, in the definition of hypergraph category, why it is
+  useful to define a structure---the Frobenius maps---on a category that does
+  not interact with the morphisms of the category. Colloquially termed `evil',
+  this affects, for example, invariance under equivalence of symmetric monoidal
+  categories: given two equivalent symmetric monoidal categories, the
+  hypergraph structures on these categories need not be in one-to-one
+  correspondence. The Frobenius maps, however, are seen by the monoidal product
+  and by hypergraph functors. Theorem \ref{thm.equivhypdccor} provides a more
+  invariant definition of the category of hypergraph categories.
+\end{remark}
 
 \subsection{Factorisations as decorations}
 
@@ -1621,13 +1633,13 @@ $s\cdot t \maps N\times M \to R; (n,m) \mapsto s(n) \cdot t(m)$. The unit
 coherence map $\varphi_1\maps 1 \to R^1$ sounds almost tautological: it takes
 the unique element of the one element set $1$ to the function $1 \to R$ that
 maps the unique element of the one element set to the multiplicative identity
-$1_R$ of the ring $R$.  As in the introduction, we show $R^{(-)}\mathrm{Cospan}$
-is the category of `multivalued matrices' over $R$, and $R^{(-)}\mathrm{Corel}$
-is the category of matrices over $R$. 
+$1_R$ of the ring $R$.  As described in the introduction, we show
+$R^{(-)}\mathrm{Cospan}$ is the category of `multivalued matrices' over $R$, and
+$R^{(-)}\mathrm{Corel}$ is the category of matrices over $R$. 
 
 It is the coherence maps $\varphi_{N,M}$ that enact multiplication of scalars,
-with the composite of $(X \xleftarrow{i_X} N \xrightarrow{o_Y} Y, N
-\xrightarrow{s} R)$ and $(Y \xleftarrow{i_Y} M \xrightarrow{o_Z} Z, M
+with the composite of $(X \xleftarrow{i_X} N \xrightarrow{o_Y} Y,\enspace N
+\xrightarrow{s} R)$ and $(Y \xleftarrow{i_Y} M \xrightarrow{o_Z} Z,\enspace M
 \xrightarrow{t} R)$ the span $X \leftarrow N\times_YM \rightarrow Z$ decorated
 by the map
 \[
@@ -1635,18 +1647,127 @@ by the map
   R,
 \]
 where the inclusion from $N \times_YM$ into $N \times M$ is that given by the
-categorical product. We discussed the intuition for this composition rule in the
-introduction. 
-
-These morphisms are multivalued matrices in the following sense: the cardinality
-of the domain and the codomain give the dimension of the matrix, and the apex
-$N$ indexes the entries of the matrix.
+categorical product. We discussed the intuition for this composition rule, in
+terms of paths between elements of $X$ and those of $Z$, in the introduction. 
 
 As $\varphi_1$ essentially selects the multiplicative identity $1_R$ of $R$, the
 empty decoration on any set $N$ is the function that sends every element of $N$
-to $1_R$.
+to $1_R$. This implies the identity map is that represented by the diagram
+\[
+    \tikzset{every path/.style={line width=.8pt}}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (1.75, 0.5) {};
+		\node [style=sdot] (1) at (-1.75, -1) {};
+		\node [style=sdot] (2) at (1.75, -1) {};
+		\node [style=none] (3) at (0, -0.25) {$\vdots$};
+		\node [style=amp] (4) at (0, -1) {$1$};
+		\node [style=amp] (5) at (0, 1) {$1$};
+		\node [style=sdot] (6) at (1.75, 1) {};
+		\node [style=amp] (7) at (0, 0.5) {$1$};
+		\node [style=sdot] (8) at (-1.75, 0.5) {};
+		\node [style=sdot] (9) at (-1.75, 1) {};
+		\node [style=none] (10) at (1.75, -0.25) {$\vdots$};
+		\node [style=none] (11) at (-1.75, -0.25) {$\vdots$};
+		\node [style=none] (12) at (-2.125, 1) {$x_1$};
+		\node [style=none] (13) at (-2.125, 0.5) {$x_2$};
+		\node [style=none] (14) at (-2.125, -1) {$x_n$};
+		\node [style=none] (15) at (2.125, 1) {$x_1$};
+		\node [style=none] (16) at (2.125, 0.5) {$x_2$};
+		\node [style=none] (17) at (2.125, -1) {$x_n$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (6) to (5);
+		\draw (4) to (2);
+		\draw (1) to (4);
+		\draw (5) to (9);
+		\draw (8) to (7);
+		\draw (7) to (0);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\]
+while the Frobenius multiplication and unit are 
+\[
+    \tikzset{every path/.style={line width=.8pt}}
+  \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (1.75, -0.5) {};
+		\node [style=sdot] (1) at (1.75, -2.25) {};
+		\node [style=none] (2) at (0, -1.25) {$\vdots$};
+		\node [style=amp] (3) at (0, -2.25) {$1$};
+		\node [style=amp] (4) at (0, 1.5) {$1$};
+		\node [style=sdot] (5) at (1.75, 1.5) {};
+		\node [style=amp] (6) at (0, -0.5) {$1$};
+		\node [style=sdot] (7) at (-1.75, -0.5) {};
+		\node [style=none] (8) at (1.75, -1.25) {$\vdots$};
+		\node [style=none] (9) at (-1.75, -1.25) {$\vdots$};
+		\node [style=sdot] (10) at (-1.75, -2.25) {};
+		\node [style=sdot] (11) at (-1.75, 1.5) {};
+		\node [style=none] (12) at (2.125, 1.5) {$x_1$};
+		\node [style=none] (13) at (2.125, -0.5) {$x_2$};
+		\node [style=none] (14) at (2.125, -2.25) {$x_n$};
+		\node [style=none] (15) at (-2.5, 1.5) {$(x_1,x_1)$};
+		\node [style=none] (16) at (-2.5, -0.5) {$(x_2,x_2)$};
+		\node [style=none] (17) at (-2.5, -2.25) {$(x_n,x_n)$};
+		\node [style=none] (18) at (-2.5, 1) {$(x_1,x_2)$};
+		\node [style=sdot] (19) at (-1.75, 1) {};
+		\node [style=none] (21) at (-1.75, 0.5) {$\vdots$};
+		\node [style=none] (22) at (1.75, 0.75) {$\vdots$};
+		\node [style=sdot] (23) at (-1.75, -0) {};
+		\node [style=none] (24) at (-2.5, -0) {$(x_2,x_1)$};
+		\node [style=sdot] (25) at (-1.75, -1.75) {};
+		\node [style=none] (26) at (-2.7, -1.75) {$(x_n,x_{n-1})$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5) to (4);
+		\draw (3) to (1);
+		\draw (7) to (6);
+		\draw (6) to (0);
+		\draw (10) to (3);
+		\draw (4) to (11);
+	\end{pgfonlayer}
+\end{tikzpicture}
+  \end{aligned}
+  \qquad \mbox{and} \qquad
+  \begin{aligned}
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=sdot] (0) at (1.75, 0.5) {};
+		\node [style=sdot] (1) at (1.75, -1) {};
+		\node [style=none] (2) at (0, -0.25) {$\vdots$};
+		\node [style=amp] (3) at (0, -1) {$1$};
+		\node [style=amp] (4) at (0, 1) {$1$};
+		\node [style=sdot] (5) at (1.75, 1) {};
+		\node [style=amp] (6) at (0, 0.5) {$1$};
+		\node [style=sdot] (7) at (-1.75, -0) {};
+		\node [style=none] (8) at (1.75, -0.25) {$\vdots$};
+		\node [style=none] (9) at (2.125, 1) {$x_1$};
+		\node [style=none] (10) at (2.125, 0.5) {$x_2$};
+		\node [style=none] (11) at (2.125, -1) {$x_n$};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (5) to (4);
+		\draw (3) to (1);
+		\draw (7) to (6);
+		\draw (6) to (0);
+		\draw (7) to (4);
+		\draw (7) to (3);
+	\end{pgfonlayer}
+\end{tikzpicture}
+  \end{aligned}
+\]
+respectively, with the comultiplication and counit the mirror images.
 
-This becomes a decorated relations example if we extend $R^{(-)}$ to the
+These morphisms are multivalued matrices in the following sense: the
+cardinalities of the domain $X$ and the codomain $Y$ give the dimensions of the
+matrix, and the apex $N$ indexes its entries. If $n \in N$ maps to $x \in X$ and
+$y \in Y$, we say there is an entry of value $s(n) \in \R$ in the $x$th row and
+$y$th column of the matrix. It is multivalued in the sense that there may be
+multiple entries in any position $(x,y)$ of the matrix.
+
+
+To construct matrices proper as decorated relations, we extend $R^{(-)}$ to the
 contravariant functor
 \[
   R^{(-)}: (\mathrm{Span(FinSet)},\times) \longrightarrow (\Set,\times)
@@ -1657,15 +1778,30 @@ function
   R^{f^\opp;g}\maps R^M &\longrightarrow R^N; \\
   v &\longmapsto \Big(n \mapsto \sum_{a \in f^{-1}(n)} v\circ g(a)\Big).
 \end{align*}
+It is simply a matter of computation to check this is functorial.
 
-empty decoration
+Decorated corelations in this category then comprise trivial spans $X
+\xleftarrow{\pi_X} X \times Y \xrightarrow{\pi_Y} Y$, where $\pi$ is the
+projection given by the categorical product, together with a decoration $X\times
+Y \to R$. Such morphisms give a value of $R$ for each pair $(x,y) \in X \times
+Y$, and thus are trivially in one-to-one correspondence with $\lvert X \rvert
+\times \lvert Y\rvert$-matrices. 
 
-Many aspects of this example are `atypical' for the intuition we have been
-working towards.  Note that the monoidal product here is the tensor product of
-matrices, not the biproduct. Indeed, there is no special commutative Frobenius
-algebra in $\Vect$ if we use the biproduct, but if we use the tensor product
-then these correspond to orthonormal bases (Vicary). The comultiplication is the
-diagonal map, multiplication is codiagonal. unit produces basis.
+The map $R^{-}\mathrm{Cospan} \to R^{-}\mathrm{Corel}$ transports the decoration
+$N\times_YM \to R$ along the function $N \times_YM \to N \times M$ that
+identifies elements over the same pair $(x,y)$. In terms of the multivalued
+matrices, this sums over (the potentially empty) set of entries over $(x,y)$ to
+create a single entry. It is thus easily observed that composition in this
+category is matrix multiplication. Moreover, it is not difficult to check that
+the monoidal product is the Kroenecker product of matrices, and thus that
+$R^{-}\mathrm{Corel}$ is monoidally equivalent to the monoidal category of
+finite dimensional vector spaces and linear maps.
+
+%Many aspects of this example are `atypical' for the intuition we have been
+%working towards.  Note that the monoidal product here is the tensor product of
+%matrices, not the biproduct. Indeed, there is no special commutative Frobenius
+%algebra in $\Vect$ if we use the biproduct, but if we use the tensor product
+%then these correspond to orthonormal bases (Vicary), as they do here.  
 
 We note that you could take decorations here in the category $R\mathrm{Mod}$ of
 $R$-modules. While Proposition \ref{prop.setdecorations} shows that the
@@ -1674,22 +1810,41 @@ enriched version of the theory.
 
 \subsection{Two constructions for linear relations}
 
-We saw earlier that linear relations are epi-mono corelations in $\Vect$. The
-hypergraph structure is given by addition. We show how to recover this in
-another construction. We also get a hypergraph functor between them. This is
-very useful for compositional linear relations semantics of diagrams.
+We saw earlier that linear relations are epi-mono corelations in $\Vect$. As
+linear relations thus form a hypergraph category $\LinRel$, we can also give a
+decorated corelations construction. 
 
-We can also construct linear relations in $\Vect^\opp$.
+Indeed, the global sections functor of the hypergraph category $\LinRel$, which
+we shall write
+\[
+  \mathrm{Lin} \maps\mathrm{Cospan}(\mathrm{FinSet}) \longrightarrow \mathrm{Set}
+\]
+takes a finite set $N$ to the set $\mathrm{Lin}(N)$ of linear subspaces of the
+vector space $k^N$. Moreover, the image $\mathrm{Lin}(f)$ of a function $f\maps
+N \to M$ maps a subspace $L \subseteq k^N$ to $\{v \mid v\circ f \in L\}
+\subseteq k^M$, while the image $\mathrm{Lin}(f^\opp)$ of an opposite function
+$g^\opp: N \to M$ maps a subspace $L \subseteq k^N$ to $\{v = u \circ g \mid u
+\in L\} \subseteq k^M$. 
 
-\begin{align*}
-  \maps\mathrm{Cospan}(\mathrm{FinSet}) &\longrightarrow \mathrm{Set} \\
-  X &\longmapsto \{\mathrm{subspaces of }k^X\} \\
-  f: X \to Y &\longmapsto L \mapsto \{v \mid v\circ f \in L\} \\
-  f^\opp: X \to Y &\longmapsto L \mapsto \{v = u \circ f \mid u \in L\}
-\end{align*}
+Given this functor, $\mathrm{LinCospan}$ is the category of cospans decorated by
+subspaces, and $\mathrm{LinCorel}$ is the category of linear relations. 
 
-Then $\mathrm{Cospan}$ is cospans decorated by subspaces, and $\mathrm{Corel}$
-is linear relations. This is important for circuits work \cite{BF,BSZ}.
+This is important for circuits work \cite{BF,BSZ}. Recall the functor
+$\linsub\maps \FinSet \to \Set$ of Section \ref{sec:ex}, which takes a finite
+set $X$ to the set of subspaces of $\R^X \oplus (\R^X)^*$.  This may be extended
+to a functor $\cospan(\FinSet) \to \Set$, giving a decorated corelations
+category of linear relations between a vector space and its dual. Recall also
+that in Section \ref{sec:ex} we discussed a functor 
+\[
+  \mathrm{GraphCospan} \to \mathrm{LinSubCospan}
+\]
+interpreting labelled graphs as linear subspaces. Composing this with the
+quotient functor $\mathrm{LinSubCospan} \to \mathrm{LinSubCorel}\cong \LinRel$,
+this gives a compositional linear relations semantics for circuit diagrams. This
+hints at the material we explore in greater depth in Chapter REF.
+
+
+%DISCUSS HYPERGRAPH STRUCTURE?
 
 %\subsection{Automata}
 %This construction comes immediately from Walters et al. Automata are alphabet
