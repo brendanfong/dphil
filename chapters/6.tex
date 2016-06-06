@@ -378,7 +378,7 @@ accomplish the minimization of Dirichlet forms (Theorem \ref{thm:sympmin}).
 Together, our results show that these three concepts---Kirchhoff's laws from circuit theory, 
 the analytic idea of minimizing power dissipation, and the algebraic idea of symplectification of corelations---are merely different faces of one law: the law of composition of circuits.
 
-\subsection{Finding your way through this paper}
+\subsection{Outline}
 This paper is split into three parts, addressing in turn the questions:
 \begin{enumerate}[I.]
   \item What do circuit diagrams mean?
@@ -1563,202 +1563,7 @@ relations.  First, however, we develop a category theoretic framework, based
 around decorated cospans, to define the category of circuits itself and
 understand its basic properties.
 
-\section{The category of passive linear circuits} \label{sec:circdef}
-In this part we move our focus from the semantics of circuit diagrams to the
-syntax, addressing the question ``How do we interact with circuit diagrams?''.
-Informally, the answer to this is that we interact with them by connecting them
-to each other, perhaps after moving them into the right form by rotating or
-reflecting them, or by crossing or bending some of the wires. To formalize this,
-we adopt a category theoretic viewpoint, defining various dagger compact
-categories with circuits and their behaviors as morphisms. We claim a formal
-analysis of this structure, especially of the composition or connection of
-circuits, has been overlooked in analysis of circuits thus far. This part
-culminates in the definition of two important categories, the category $\Circ$
-of circuit diagrams, and the category $\LagrRel$ containing all behaviors of
-circuits. We also develop the technical material required to appreciate the
-structure of these categories, and that aids understanding of the relationship
-between the two, to be addressed in Part .
-
-%%fakesubsection
-In Part  we defined a circuit of linear resistors to be a labelled graph with marked input and output terminals, as in the example:
-\[
-\begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
-\node[contact] (I1) at (0,2) {};
-\node[contact] (I2) at (0,0) {};
-\coordinate (int1) at (2.83,1) {};
-\coordinate (int2) at (5.83,1) {};
-\node[contact] (O1) at (8.66,2) {};
-\node[contact] (O2) at (8.66,0) {};
-\node (input) at (-2,1) {\small{\textsf{inputs}}};
-\node (output) at (10.66,1) {\small{\textsf{outputs}}};
-\draw (I1) 	to [resistor] node [label={[label distance=2pt]85:{$1\Omega$}}] {} (int1);
-\draw (I2)	to [resistor] node [label={[label distance=2pt]275:{$1\Omega$}}] {} (int1)
-				to [resistor] node [label={[label distance=3pt]90:{$2\Omega$}}] {} (int2);
-\draw (int2) 	to [resistor] node [label={[label distance=2pt]95:{$1\Omega$}}] {} (O1);
-\draw (int2)		to [resistor] node [label={[label distance=2pt]265:{$3\Omega$}}] {} (O2);
-\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (input) edge (I1);		\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (input) edge (I2);		
-\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (output) edge (O1);
-\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (output) edge (O2);
-\end{tikzpicture}
-\]
-We then defined general passive linear circuits by replacing resistances with
-impedances chosen from a set of positive elements $\F^+$ in any field $\F$.
-In fact, these circuits are examples of decorated cospans.  This gives a dagger compact category $\Circ$ whose morphisms are circuits, with the
-dagger compact structure expressing standard operations on circuits.
-
-We actually give two constructions of this category, first arriving at a category of
-cospans decorated by $\F^+$-graphs, and then showing that this is
-a full subcategory of the decategorification of a bicategory of cospans of
-$\F^+$-graphs.
-
-\subsection{A decorated cospan construction}
-
-We officially defined a `circuit' in Definition \ref{def_circuit_2}, but now we can give an equivalent definition using cospans:
-
-\begin{lemma} A circuit is a cospan of finite sets $X \stackrel{i}{\longrightarrow} N
-\stackrel{o}{\longleftarrow} Y$ together with an $\F^+$-graph whose set
-of nodes is $N$.
-\end{lemma}
-
-\begin{proof}
-This is just a matter of remembering the terminology: recall that an $\F^+$-graph
-is a graph whose edges are labelled with elements of $\F^+$, our chosen set of positive
-elements in the field $\F$.
-\end{proof}
-
-This suggests that circuits should be morphisms in a decorated  cospan category. Indeed, we can show that the map taking a finite set $N$ to the set of $\F^+$-graphs with
-set $N$ of nodes in fact forms a lax symmetric monoidal functor. This allows us to apply
-decorated cospans to construct a category of circuits.
-
-To this end, define the functor
-\[
-  \mathrm{Circuit}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
-\]
-to take a finite set $N$, as an object of $\mathrm{FinSet}$, to the set
-$\mathrm{Circuit}(N)$ of $\F^+$-graphs $(N,E,s,t,r)$ with $N$ as their
-set of nodes. On
-morphisms let it take a function $f\maps N \to M$ to the function that pushes
-labelled graph structures on a set $N$ forward onto the set $M$:
-\begin{align*}
-  \mathrm{Circuit}(f)\maps \mathrm{Circuit}(N) &\longrightarrow
-  \mathrm{Circuit}(M); \\
-  (N,E,s,t,r) &\longmapsto (M,E,f \circ s, f \circ t, r).
-\end{align*}
-Note that as this map simply acts by post-composition, our map
-$\mathrm{Circuit}$ is indeed functorial.
-
-We then arrive at a lax symmetric monoidal functor by equipping this functor with the
-natural transformation 
-\begin{align*}
-  \rho_{N,M}\maps \mathrm{Circuit}(N) \times \mathrm{Circuit}(M)
-  &\longrightarrow \mathrm{Circuit}(N+M); \\
-  \big( (N,E,s,t,r), (M,F,s',t',r') \big) &\longmapsto
-  \big(N+M,E+F,s+s',t+t',[r,r']\big),
-\end{align*}
-together with the unit map
-\begin{align*}
-  \rho_1\maps 1 &\longrightarrow \mathrm{Circuit}(\varnothing); \\
-  \bullet &\longmapsto
-  (\varnothing,\varnothing,\varnothing,\varnothing,\varnothing),
-\end{align*}
-where we use $\varnothing$ to denote both the empty set and the unique function
-of the appropriate codomain with domain the empty set. The naturality of this
-collection of morphisms, as well as the coherence laws for lax symmetric
-monoidal functors, follow from the universal property of the coproduct. 
-
-\begin{definition}
-  We define
-  \[
-    \mbox{\define{Circ}} = \mathrm{CircuitCospan} .
-  \]
-\end{definition}
-
-\begin{corollary}
-The category $\Circ$ is a dagger compact category. 
-\end{corollary}
-
-The different structures of this category capture different operations that can
-be performed with circuits. The composition expresses the fact that we can
-connect the outputs of one circuit to the inputs of the next, while the monoidal
-composition models the placement of circuits side-by-side. The symmetric
-monoidal structure allows us reorder input and output wires, and the compactness
-captures the interchangeability between input and outputs of
-circuits---that is, the fact that we can choose any input to our
-circuit and consider it instead as an output, and vice versa.  Finally, the
-dagger structure expresses the fact that we may reflect a whole circuit, switching
-all inputs with all outputs.
-
-\subsection{A bicategory of circuits}
-
-As shown by B\'enabou \cite{Be}, cospans are most naturally thought of as
-1-morphisms in a bicategory.  To obtain the category we are calling
-$\mathrm{Cospan}(\mc C)$, we `decategorify' this bicategory by discarding
-2-morphisms and identifying isomorphic 1-morphisms. Since we are studying
-circuits using decorated cospans, this suggests that circuits, too, are most
-naturally thought of as 1-morphisms in a bicategory.  Indeed this is the case.  
-
-One route to the bicategory whose 1-morphisms are circuits would be to take
-the theory of decorated cospans \cite{Fon} and show that it can be enhanced to
-create not merely categories whose morphisms are isomorphism classes of
-decorated cospans, but bicategories whose 1-morphisms are exactly decorated
-cospans.  A less powerful but easier approach is as follows.
-
-Recall that we define a graph to be a pair of functions $s,t \maps E \to
-N$ where $E$ and $N$ are finite sets, and an $L$-graph to be a graph further
-equipped with a function $r\maps E \to L$.  Thus, an $L$-graph looks like this:
-\[
-\xymatrix{
-L & E \ar@<2.5pt>[r]^{s} \ar@<-2.5pt>[r]_{t} \ar[l]_{r} & N
-}
-\]
-Given $L$-graphs $\Gamma = (E,N,s,t,r)$ and $\Gamma' = (E',N',s',t',r')$, a
-morphism of $L$-graphs $\Gamma \to \Gamma'$ is a pair of functions $\eps\maps E \to
-E'$, $v\maps N \to N'$ such that the following diagrams commute:
-\[
-\xymatrix @R=5.7pt{
-& E \ar[dl]_{r} \ar[dd]^{\eps} \\
-L \\
-& E' \ar[ul]^{r'}
-}
-\qquad\qquad
-\xymatrix{
-E \ar[r]^{s} \ar[d]_{\eps} & N \ar[d]^{v}  \\
-E' \ar[r]_{s'} & N'
-}
-\qquad\qquad
-\xymatrix{
-E \ar[r]^{t} \ar[d]_{\eps} & N \ar[d]^{v}  \\
-E' \ar[r]_{t'} & N'.
-}
-\]
-These $L$-graphs and their morphisms form a category \define{$L$-Graph}. Using
-results about colimits in the category of sets, it is straightforward to check
-that this category has finite colimits.
-
-B\'enabou \cite{Be} gave a general construction of bicategories starting from any
-category with pushouts.  Since $L$-Graph has pushouts, it follows that 
-there is a bicategory \define{Cospan($L$-Graph)} with
-\begin{itemize}
-\item $L$-labelled graphs as objects,
-\item cospans in $L$-Graphas morphisms, and 
-\item maps of cospans as 2-morphisms.
-\end{itemize}
-Since $L$-Graph also has coproducts, this bicategory is symmetric monoidal and 
-in fact compact, thanks to the work of Stay \cite{St}.   We make the following definition:
-
-\begin{definition}
-The bicategory \define{$2\mbox{-}\Circ$} is the full and 2-full sub-bicategory of
-$\mathrm{Cospan(}\F^+\mbox{-}\mathrm{Graph})$ with objects those $\F^+$-graphs with no edges.
-\end{definition}
-
-It can be shown that every object in Cospan($\F^+$-Graph) is self-dual, and this
-implies that $2\mbox{-}\Circ$ is again a compact closed bicategory.
-Note that the category obtained by decategorifying this bicategory has
-finite sets as objects, with morphisms being isomorphism classes of cospans in 
-$\F^+$-Graph with feet such objects.   Thus, decategorifying $2\mbox{-}\Circ$
-gives a category equivalent to our previously defined category $\Circ$.
-
-\section{Circuits as Lagrangian relations} \label{sec:circlagr}
+\section{Networks as Lagrangian relations} \label{sec:circlagr}
 %%fakesubsection
 In the first part of this paper, we explored the semantic content contained in
 circuit diagrams, leading to an understanding of circuit diagrams as expressing
@@ -2216,6 +2021,147 @@ symmetric monoidal dagger category.
 Moreover, every object in $\mathrm{LagrRel}$ has a dagger dual: it is clear that
 $\eta^\dagger = \eps \circ \s$.   This category thus becomes a dagger compact
 category.
+
+\section{The category of passive linear networks} \label{sec:circdef}
+In this part we move our focus from the semantics of circuit diagrams to the
+syntax, addressing the question ``How do we interact with circuit diagrams?''.
+Informally, the answer to this is that we interact with them by connecting them
+to each other, perhaps after moving them into the right form by rotating or
+reflecting them, or by crossing or bending some of the wires. To formalize this,
+we adopt a category theoretic viewpoint, defining various dagger compact
+categories with circuits and their behaviors as morphisms. We claim a formal
+analysis of this structure, especially of the composition or connection of
+circuits, has been overlooked in analysis of circuits thus far. This part
+culminates in the definition of two important categories, the category $\Circ$
+of circuit diagrams, and the category $\LagrRel$ containing all behaviors of
+circuits. We also develop the technical material required to appreciate the
+structure of these categories, and that aids understanding of the relationship
+between the two, to be addressed in Part .
+
+%%fakesubsection
+In Part  we defined a circuit of linear resistors to be a labelled graph with marked input and output terminals, as in the example:
+\[
+\begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
+\node[contact] (I1) at (0,2) {};
+\node[contact] (I2) at (0,0) {};
+\coordinate (int1) at (2.83,1) {};
+\coordinate (int2) at (5.83,1) {};
+\node[contact] (O1) at (8.66,2) {};
+\node[contact] (O2) at (8.66,0) {};
+\node (input) at (-2,1) {\small{\textsf{inputs}}};
+\node (output) at (10.66,1) {\small{\textsf{outputs}}};
+\draw (I1) 	to [resistor] node [label={[label distance=2pt]85:{$1\Omega$}}] {} (int1);
+\draw (I2)	to [resistor] node [label={[label distance=2pt]275:{$1\Omega$}}] {} (int1)
+				to [resistor] node [label={[label distance=3pt]90:{$2\Omega$}}] {} (int2);
+\draw (int2) 	to [resistor] node [label={[label distance=2pt]95:{$1\Omega$}}] {} (O1);
+\draw (int2)		to [resistor] node [label={[label distance=2pt]265:{$3\Omega$}}] {} (O2);
+\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (input) edge (I1);		\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (input) edge (I2);		
+\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (output) edge (O1);
+\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (output) edge (O2);
+\end{tikzpicture}
+\]
+We then defined general passive linear circuits by replacing resistances with
+impedances chosen from a set of positive elements $\F^+$ in any field $\F$.
+In fact, these circuits are examples of decorated cospans.  This gives a dagger compact category $\Circ$ whose morphisms are circuits, with the
+dagger compact structure expressing standard operations on circuits.
+
+We actually give two constructions of this category, first arriving at a category of
+cospans decorated by $\F^+$-graphs, and then showing that this is
+a full subcategory of the decategorification of a bicategory of cospans of
+$\F^+$-graphs.
+
+\subsection{A decorated cospan construction}
+
+We officially defined a `circuit' in Definition \ref{def_circuit_2}, but now we can give an equivalent definition using cospans:
+
+\begin{lemma} A circuit is a cospan of finite sets $X \stackrel{i}{\longrightarrow} N
+\stackrel{o}{\longleftarrow} Y$ together with an $\F^+$-graph whose set
+of nodes is $N$.
+\end{lemma}
+
+\begin{proof}
+This is just a matter of remembering the terminology: recall that an $\F^+$-graph
+is a graph whose edges are labelled with elements of $\F^+$, our chosen set of positive
+elements in the field $\F$.
+\end{proof}
+
+This suggests that circuits should be morphisms in a decorated  cospan category. Indeed, we can show that the map taking a finite set $N$ to the set of $\F^+$-graphs with
+set $N$ of nodes in fact forms a lax symmetric monoidal functor. This allows us to apply
+decorated cospans to construct a category of circuits.
+
+To this end, define the functor
+\[
+  \mathrm{Circuit}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
+\]
+to take a finite set $N$, as an object of $\mathrm{FinSet}$, to the set
+$\mathrm{Circuit}(N)$ of $\F^+$-graphs $(N,E,s,t,r)$ with $N$ as their
+set of nodes. On
+morphisms let it take a function $f\maps N \to M$ to the function that pushes
+labelled graph structures on a set $N$ forward onto the set $M$:
+\begin{align*}
+  \mathrm{Circuit}(f)\maps \mathrm{Circuit}(N) &\longrightarrow
+  \mathrm{Circuit}(M); \\
+  (N,E,s,t,r) &\longmapsto (M,E,f \circ s, f \circ t, r).
+\end{align*}
+Note that as this map simply acts by post-composition, our map
+$\mathrm{Circuit}$ is indeed functorial.
+
+We then arrive at a lax symmetric monoidal functor by equipping this functor with the
+natural transformation 
+\begin{align*}
+  \rho_{N,M}\maps \mathrm{Circuit}(N) \times \mathrm{Circuit}(M)
+  &\longrightarrow \mathrm{Circuit}(N+M); \\
+  \big( (N,E,s,t,r), (M,F,s',t',r') \big) &\longmapsto
+  \big(N+M,E+F,s+s',t+t',[r,r']\big),
+\end{align*}
+together with the unit map
+\begin{align*}
+  \rho_1\maps 1 &\longrightarrow \mathrm{Circuit}(\varnothing); \\
+  \bullet &\longmapsto
+  (\varnothing,\varnothing,\varnothing,\varnothing,\varnothing),
+\end{align*}
+where we use $\varnothing$ to denote both the empty set and the unique function
+of the appropriate codomain with domain the empty set. The naturality of this
+collection of morphisms, as well as the coherence laws for lax symmetric
+monoidal functors, follow from the universal property of the coproduct. 
+
+\begin{definition}
+  We define
+  \[
+    \mbox{\define{Circ}} = \mathrm{CircuitCospan} .
+  \]
+\end{definition}
+
+\begin{corollary}
+The category $\Circ$ is a dagger compact category. 
+\end{corollary}
+
+The different structures of this category capture different operations that can
+be performed with circuits. The composition expresses the fact that we can
+connect the outputs of one circuit to the inputs of the next, while the monoidal
+composition models the placement of circuits side-by-side. The symmetric
+monoidal structure allows us reorder input and output wires, and the compactness
+captures the interchangeability between input and outputs of
+circuits---that is, the fact that we can choose any input to our
+circuit and consider it instead as an output, and vice versa.  Finally, the
+dagger structure expresses the fact that we may reflect a whole circuit, switching
+all inputs with all outputs.
+
+
+Note that by Section and the work of Courser, we in fact have a symmetric
+monoidal bicategory $2\mbox{-}\Circ$ of circuits with 
+\begin{itemize}
+\item $L$-labelled graphs as objects,
+\item cospans in $L$-Graphas morphisms, and 
+\item maps of cospans as 2-morphisms.
+\end{itemize}
+
+It can be shown that every object in Cospan($\F^+$-Graph) is self-dual, and this
+implies that $2\mbox{-}\Circ$ is again a compact closed bicategory \cite{St}.
+Note that the category obtained by decategorifying this bicategory has
+finite sets as objects, with morphisms being isomorphism classes of cospans in 
+$\F^+$-Graph with feet such objects.   Thus, decategorifying $2\mbox{-}\Circ$
+gives a category equivalent to our previously defined category $\Circ$.
 
 \section{Ideal wires and corelations} \label{sec:corel}
 %%fakesubsection
@@ -3215,7 +3161,7 @@ the concept of `twisted' symplectification introduced in the introduction.} The 
   \]
 \end{remark}
 
-\section{Defining the black box functor} \label{sec:blackbox}
+\section{The black box functor} \label{sec:blackbox}
 %%fakesection
 We have now developed enough machinery to prove Theorem \ref{main_theorem}:
 there is a symmetric monoidal dagger functor, the black box functor
@@ -3508,7 +3454,7 @@ Then we have the equalities of sets, and thus Lagrangian relations:
 We see now that Theorem \ref{thm:main} is a restatement of Theorem
 \ref{main_theorem} in the introduction.
 
-\section{Proof of functoriality} \label{sec:proof}
+\subsection{Proof of functoriality} \label{sec:proof}
 %%fakesubsection
 To prove that the black box construction is indeed functorial, we
 factor it into three functors. These functors are each symmetric monoidal dagger

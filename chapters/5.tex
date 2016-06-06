@@ -135,7 +135,7 @@ We can express \eqref{eq:examplesfg} as a string diagram, a notation for the
 arrows of monoidal categories made popular by Joyal and Street \cite{JS}, by
 forgetting the directionality of wires and composing the following basic
 building blocks using the operations of monoidal categories.
-\begin{multline*}
+\[
 \copygen \mathrel{;} 
 \!\!\!\!\!\!\!
 \begin{array}{c} \delaygen \\ \oplus \\ \id \end{array} 
@@ -147,7 +147,6 @@ building blocks using the operations of monoidal categories.
  \begin{array}{c} \copygen \\ \oplus \\ \id \end{array} 
 \!\!\!\!\!
 \mathrel{;}
-\\
 \!\!\!\!\! 
  \begin{array}{c} \minonegen \\ \oplus \\ \id \end{array} 
 \!\!\!\!\! 
@@ -166,7 +165,7 @@ building blocks using the operations of monoidal categories.
  \mathrel{;}
 \!\!\!\!\! 
  \begin{array}{c} \discardgen \\ \oplus \\ \id \end{array} 
-\end{multline*}
+\]
 The building blocks come from the signature of an algebraic theory---a
 \emph{symmetric monoidal theory} to be exact. The terms of this theory comprise
 the morphisms of a \emph{prop}, a symmetric monoidal category in which the
@@ -222,7 +221,7 @@ We hope, however, the greatest advantage will be the way these properties can be
 leveraged in analysis of controllability. In Theorem \ref{cor.spanreps}, we
 show that in our setting controllability has an elegant structural
 characterisation.  Compositionality pays off here, with our proof system giving
-a new technique for reasoning about control of compound systems (Prop.
+a new technique for reasoning about control of compound systems (Proposition
 \ref{prop:veryexciting}).  From the systems theoretic point of view, these
 results are promising since the compositional, diagrammatic techniques we bring
 to the subject seem well-suited to problems such as controllability of
@@ -277,7 +276,7 @@ input. The input/output behaviour is thus that of a stateless wire.  The
 equational presentation in this case is the theory $\ih_{k[s]}$ of
 interacting Hopf algebras \cite{BSZ2}, and indeed, in $\ih_{k[s]}$:
 \begin{equation}\label{eq:exampleproof}
-\lower12pt\hbox{$\includegraphics[height=1.2cm]{pics/exampleproof.pdf}$} 
+\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
 \end{equation}
 
 Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
@@ -513,17 +512,17 @@ behaviours and polynomial matrix algebra.
 %\[
 %\mathfrak{B}:=\{w:\mathbb{Z} \rightarrow \k^q \mid \mbox{\rm s.t.~} R(\sigma,\sigma^{-1})w=0\}\; .
 %\]
-%and (for \emph{controllable} behaviors) the \emph{image representation}
+%and (for \emph{controllable} behaviours) the \emph{image representation}
 %\begin{equation}\label{eq:im}
 %w=M(\sigma,\sigma^{-1})\ell\; ,
 %\end{equation}
-%where $M\in\R^{q\times m}[s,s^{-1}]$, defining the behavior
+%where $M\in\R^{q\times m}[s,s^{-1}]$, defining the behaviour
 %\[
 %\mathfrak{B}:=\{w:\mathbb{Z} \rightarrow \R^q \mid  \mbox{\rm exists } \ell:\mathbb{Z}\rightarrow \R^m \mbox{\rm s.t. (\ref{eq:ker}) holds}\}\; ,
 %\]}
 %
 %
-\begin{theorem}[Willems {\cite[Th. 5]{Wi3}}] \label{thm.kernelreps}
+\begin{theorem}[Willems {\cite[Theorem 5]{Wi3}}] \label{thm.kernelreps}
   Let $\bb$ be a subset of $(\k^n)^\z$ for some $n \in \mathbb N$. Then $\bb$ is
   an LTI behaviour iff there exists $M \in
   \mat\pk$ such that $\bb = \mathrm{ker}(\vectfun M)$.
@@ -607,14 +606,13 @@ Consider the diagram below, where the pushout is calculated in $\mat\pk$.
 }
 \]
 To show that $\cospanfun$ preserves composition we must verify that 
-\begin{multline*}
-\{(\mathbf{x},\mathbf{y})\,|\, \theta CA_1\mathbf{x} = \theta DB_2\mathbf{y}\}
-= \\
-\{(\mathbf{x},\mathbf{z})\,|\, \theta A_1\mathbf{x} = \theta B_1\mathbf{z}\} ; 
-\{(\mathbf{z},\mathbf{y})\,|\, \theta A_2\mathbf{z} = \theta B_2\mathbf{y}\}.
-\end{multline*}
+\[
+  \{(\mathbf{x},\mathbf{y})\,|\, \theta CA_1\mathbf{x} = \theta DB_2\mathbf{y}\} =
+  \{(\mathbf{x},\mathbf{z})\,|\, \theta A_1\mathbf{x} = \theta B_1\mathbf{z}\} ; 
+  \{(\mathbf{z},\mathbf{y})\,|\, \theta A_2\mathbf{z} = \theta B_2\mathbf{y}\}.
+\]
 The inclusion $\subseteq$ follows from properties of pushouts in $\mat\pk$ (see
-\cite[Prop. 5.7]{BSZ2}).  To see $\supseteq$, we need to show that if there
+\cite[Proposition 5.7]{BSZ2}).  To see $\supseteq$, we need to show that if there
 exists $\mathbf{z}$ such that $\theta A_1\mathbf{x} = \theta B_1\mathbf{z}$ and
 $\theta A_2\mathbf{z} = \theta B_2\mathbf{y}$, then $\theta CA_1\mathbf{x} =
 \theta DB_2\mathbf{y}$.  But $\theta CA_1\mathbf{x}=\theta CB_1\mathbf{z}=\theta
@@ -625,7 +623,7 @@ DA_2\mathbf{z}=\theta DB_2\mathbf{y}$.
 
 %Paolo's original remark
 %\begin{remark}\rm
-%\textcolor{red}{The result of Prop. \ref{prop:Kfunct} can be interpreted from a system theory point of view as identifying with a terminal decomposition $w=(w_1,w_2)$ of the variables of a LTI behavior $\bb$ and associated kernel representation
+%\textcolor{red}{The result of Proposition \ref{prop:Kfunct} can be interpreted from a system theory point of view as identifying with a terminal decomposition $w=(w_1,w_2)$ of the variables of a LTI behaviour $\bb$ and associated kernel representation
 %\begin{equation}\label{eq:ker}
 %R_1(\sigma,\sigma^{-1})w_1=R_2(\sigma,\sigma^{-1})w_2\; ,
 %\end{equation} 
@@ -681,7 +679,7 @@ the set of generators:
 \zerogen,
 \copygen,
 \discardgen,
-\delaygen, \\
+\delaygen, 
 \addopgen,
 \zeroopgen,
 \copyopgen,
@@ -777,7 +775,7 @@ behaviour in $\ltids$ has a syntactic representation in $\syntax$.
     }
   \]
   The functor $\cospanfunrest$ is full by definition. The existence and fullness
-  of the functor $\mathbb{S}\to\cospan\pk$ follows from \cite[Th. 3.41]{Za}. We
+  of the functor $\mathbb{S}\to\cospan\pk$ follows from \cite[Theorem 3.41]{Za}. We
   give details in the next two subsections.
 \end{proof}
 
@@ -797,16 +795,16 @@ $\mat\pk$ and in \S\ref{subsec:eqcospan}, the equations for cospans of matrices.
 
 To obtain a presentation of $\mat\pk$ as an SMT we only require 
 some of the generators:
-\begin{multline*}
-\{
+\[
+  \{
 \addgen,
 \zerogen,
 \copygen,
 \discardgen,
 \delaygen,
-\delayopgen\} \\
+\delayopgen\}
 \cup \{ \scalargen \mid a\in\k \,\}
-\end{multline*}
+\]
 and the
 % of
 %Fig.\ref{fig:generators}, $\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayop.pdf}$}$
@@ -850,7 +848,7 @@ Finally, we insist that the algebra of $\k$ be compatible with the bimonoid stru
 \]
 The three sets of equations above form the theory of Hopf algebras. Write
 $\ha_\pk$ for the prop induced by the SMT consisting of the equations
-above. The following follows from~\cite[Prop.~3.9]{Za}.
+above. The following follows from~\cite[Proposition~3.9]{Za}.
 \begin{proposition}
 $\mat\pk\cong\ha_\pk$.
 \end{proposition}
@@ -935,11 +933,11 @@ generators, axiomatising pushouts in $\mat\pk$.
 Let $\ihcsp$ denote the resulting SMT.
 The procedure for obtaining the equations from a distributive law of props 
 is explained in~\cite[\S{3.3}]{Za}.
-\begin{proposition}[Zanasi~{\cite[Th.~3.41]{Za}}]\label{prop:cospanpresentation}
+\begin{proposition}[Zanasi~{\cite[Theorem~3.41]{Za}}]\label{prop:cospanpresentation}
 \[\cospan \mat\pk \cong \ihcsp.\]
 \end{proposition}
 
-Using Prop.~\ref{prop:cospanpresentation} and the existence of $\cospanfunrest$,
+Using Proposition~\ref{prop:cospanpresentation} and the existence of $\cospanfunrest$,
 %\[
 %  \cospanfun \maps \cospan\mat\pk \longrightarrow \ltids
 %\]
@@ -1128,7 +1126,7 @@ Schumacher \cite[pp.7--9]{Sc}.
   For functoriality, start from $\vectfun\maps\mat\pk \to
   \vect_\k$. Now (i) $\vect_k$ has an epi-mono factorisation system, (ii)
   $\vectfun$ maps epis to epis and (iii) split monos to monos, so $\vectfun$
-  preserves factorisations. Since it is a corollary of Prop. \ref{prop.funct}
+  preserves factorisations. Since it is a corollary of Proposition \ref{prop.funct}
   that $\theta$ preserves colimits, it follows that $\vectfun$ extends to
    $\Psi\maps\corel\mat\pk \to \corel\vect_\k$. But $\corel\vect_\k$ is
   isomorphic to $\linrel_\k$ (see %Appendix \ref{app.corellinrel} and~
@@ -1377,7 +1375,7 @@ Among the various equivalent conditions for controllability, the existence of
   An LTI behaviour $\bb$ is controllable iff $\exists\; M \in \mat\pk$ such that $\bb = \im \theta M$.
 \end{proposition}
 
-Restated in our language, Prop. \ref{thm.imagereps} states that controllable
+Restated in our language, Proposition \ref{thm.imagereps} states that controllable
 systems are precisely those representable as \emph{spans} of matrices. 
 
 \begin{theorem} \label{cor.spanreps}
@@ -1400,7 +1398,7 @@ systems are precisely those representable as \emph{spans} of matrices.
     \Phi(\xleftarrow{R}\xrightarrow{S}) = \im \vectfun \left[
     \begin{matrix} R \\ S \end{matrix} \right].
   \]
-  The result then follows immediately from Prop. \ref{thm.imagereps}.  
+  The result then follows immediately from Proposition \ref{thm.imagereps}.  
 \end{proof}
 
 In terms of the graphical theory, this means that a term in the 
@@ -1412,8 +1410,8 @@ representation for controllable systems.
 Span representations also lead to a test for controllability: take
 the pullback of the cospan and check whether the system described by it
 coincides with the original one. Indeed, note that as $\pk$ is a PID, the
-category $\mat\pk$ has pullbacks. A further consequence of Th.
-\ref{cor.spanreps}, together with Prop.  \ref{prop.magic}, is the following. 
+category $\mat\pk$ has pullbacks. A further consequence of Theorem
+\ref{cor.spanreps}, together with Proposition  \ref{prop.magic}, is the following. 
 
 \begin{proposition} \label{prop.ctrlablepart}
   Let $m \xrightarrow{A} d \xleftarrow{B} n$ be a cospan in $\mat\pk$, and write
@@ -1533,7 +1531,7 @@ First, consider the following proposition.
   \[
   \lower25pt\hbox{$\includegraphics[height=2.6cm]{pics/68diag3.pdf}$}
   \]
-  Prop. \ref{prop:veryexciting} states that it is enough to consider the
+  Proposition \ref{prop:veryexciting} states that it is enough to consider the
   controllability of the subsystem
   \[
   \lower17pt\hbox{$\includegraphics[height=1.4cm]{pics/68diag4orig.pdf}$}.
@@ -1567,7 +1565,7 @@ in the analysis of controllability of \emph{systems over networks} (see
 complicated such analysis is using standard algebraic methods and
 dynamical system theory even for the highly restrictive case of two systems that
 compose to make a single-input, single-output system.  See also pp. 513--516 of
-\cite{FH}, where a generalization of the result of Prop. \ref{prop:veryexciting}
+\cite{FH}, where a generalization of the result of Proposition \ref{prop:veryexciting}
 is given in a polynomial- and operator-theoretic setting. 
 
 In the following we abuse notation by writing a matrix for its image under the
@@ -1582,7 +1580,7 @@ single-output case.
   and only if the greatest common divisor $\gcd(A,B)$ of $A$ and $B$ is $1$.
 \end{proposition}
 
-Using the notation of Prop. \ref{prop:veryexciting}, the trajectories of
+Using the notation of Proposition \ref{prop:veryexciting}, the trajectories of
 $\mathscr{B}$ and $\mathscr{C}$ respectively are those $(w_1,w_2) \in (\k^n)^\z
 \oplus (\k^m)^\z$ and $(w_2',w_3) \in (\k^m)^\z \oplus (\k^p)^\z$ such that 
 \begin{equation}\label{eq:imBnC}
@@ -1606,28 +1604,28 @@ interconnection:
 w_1\\w_2\\w_2^\prime\\w_3\\0
 \end{bmatrix}&=&\begin{bmatrix} B_1&0\\B_2&0\\0&C_1\\ 0&C_2 \\ B_2&-C_1 \end{bmatrix} \begin{bmatrix} \ell_1\\\ell_2\end{bmatrix}\; .
 \end{eqnarray}
-Prop. \ref{prop:veryexciting} concerns the controllability of the set
+Proposition \ref{prop:veryexciting} concerns the controllability of the set
 $\mathscr{C} \circ \mathscr{B}$ of trajectories $(w_1,w_3)$ for which there
 exist trajectories $w_2$, $w_2^\prime$, $\ell_1$, $\ell_2$ such that
 (\ref{eq:hybBnC}) holds. 
 
-To obtain a representation of such behavior the variables $\ell_1$, $\ell_2$,
+To obtain a representation of such behaviour the variables $\ell_1$, $\ell_2$,
 $w_2$ and $w_2^\prime$ must be eliminated from (\ref{eq:hybBnC}) via algebraic
 manipulations (see the discussion on p. 237 of \cite{Wi2}). Denote
 $G=\gcd(B_1,C_2)$, and write $C_2=G C_2^\prime$ and $B_1=G B_1^\prime$, where
 $\gcd(B_1^\prime, C_2^\prime)=1$.  Without entering in the algebraic details, it
-can be shown that a kernel representation of the projection of the behavior of
+can be shown that a kernel representation of the projection of the behaviour of
 (\ref{eq:hybBnC}) on the variables $w_1$ and $w_3$ is
 \begin{equation}\label{eq:extafterelim}
   \begin{bmatrix} C_2^\prime B_2& -B_1^\prime C_2\end{bmatrix} 
   \begin{bmatrix} w_1\\ w_3\end{bmatrix}=0\; .
 \end{equation}
-We now restrict to the single-input single-output case. Recalling Prop.
-\ref{prop.controlkernel}, the behavior represented by (\ref{eq:extafterelim}) is
+We now restrict to the single-input single-output case. Recalling Proposition
+\ref{prop.controlkernel}, the behaviour represented by (\ref{eq:extafterelim}) is
 controllable if and only if $\gcd(C_2^\prime B_2, B_1^\prime C_1)=1$. 
 
 Finally then, to complete our alternate proof of the single-input single-output
-case of Prop. \ref{prop:veryexciting}, note that
+case of Proposition \ref{prop:veryexciting}, note that
 $\cospanfunrest(\xrightarrow{B_2}\xleftarrow{C_1})$ is controllable if
 $\gcd(B_2, C_1)=1$.  Given the observability assumption, this implies
 $\gcd(C_2^\prime B_2, B_1^\prime C_1)=1$, and so the interconnected behaviour
@@ -1637,7 +1635,7 @@ controllable.
 In the multi-input, multi-output case stating explicit conditions on the
 controllability of the interconnection given properties of the
 representations of the individual systems and their interconnection is rather
-complicated. This makes the simplicity of Prop. \ref{prop:veryexciting} and the
+complicated. This makes the simplicity of Proposition \ref{prop:veryexciting} and the
 straightforward nature of its proof all the more appealing.
 
 
