@@ -107,14 +107,14 @@ to each terminal.   Thus, if we fix $\psi$, the total power dissipated will be t
 \]
 The function $Q \maps \R^{\partial N} \to \R$ is again a Dirichlet form.  We call it the `power functional' of the circuit.  
 
-Now, suppose we are unable to see the internal workings of a circuit, and can only observe its `external behavior': that is, the potentials at its terminals and the currents flowing into or out of these terminals.   Remarkably, this behavior is completely determined by the power functional $Q$.  The reason is that the current at any terminal can be obtained by differentiating $Q$ with respect to the potential at this terminal, and relations of this form are \emph{all} the relations that hold between potentials and currents at the terminals.
+Now, suppose we are unable to see the internal workings of a circuit, and can only observe its `external behaviour': that is, the potentials at its terminals and the currents flowing into or out of these terminals.   Remarkably, this behaviour is completely determined by the power functional $Q$.  The reason is that the current at any terminal can be obtained by differentiating $Q$ with respect to the potential at this terminal, and relations of this form are \emph{all} the relations that hold between potentials and currents at the terminals.
 
 The Laplace transform allows us to generalize this immediately to circuits that
 can also contain linear inductors and capacitors, simply by changing the field we work over, replacing $\R$ by the field $\R(s)$ of rational functions of a single real variable,
 and talking of `impedance' where we previously talked of resistance.  We obtain
 a category $\Circ$ where an object is a finite set, a morphism $f \maps X \to Y$ is a circuit with input set $X$ and output set $Y$, and composition is given by identifying the outputs of one circuit with the inputs of the next, and taking the resulting union of labelled graphs.  Each such circuit gives rise to a Dirichlet form, now defined over
 $\R(s)$, and this Dirichlet form completely describes the externally observable
-behavior of the circuit.  
+behaviour of the circuit.  
 
 We can take equivalence classes of circuits, where two circuits count as the
 same if they have the same Dirichlet form.  We wish for these equivalence classes of circuits to form a category. Although
@@ -204,7 +204,7 @@ times; we draw this:
 This allows us to connect two distinct outputs to the above double
 input.
 
-Given a set $X$ of inputs or outputs, we understand the electrical behavior on this set 
+Given a set $X$ of inputs or outputs, we understand the electrical behaviour on this set 
 by considering the symplectic vector space $\vectf{X}$, the direct sum of the space
 $\F^X$ of potentials and the space ${(\F^X)}^\ast$ of currents at these points.
 A Lagrangian relation specifies which states of the output space $\vectf{Y}$ are
@@ -263,7 +263,7 @@ In this example the input and output functions $i,o$ are simply the identity
 functions on a one element set, so the symplectification of the output function
 is simply the identity linear transformation, and the twisted symplectification
 of the input function is the isomorphism  between conjugate
-symplectic vector spaces $\F\oplus\F^\ast \to \overline{\F\oplus\F^\ast}$ mapping $(\phi,i)$ to $(\phi,-i)$ This implies that the behavior associated to this
+symplectic vector spaces $\F\oplus\F^\ast \to \overline{\F\oplus\F^\ast}$ mapping $(\phi,i)$ to $(\phi,-i)$ This implies that the behaviour associated to this
 circuit is the Lagrangian relation
 \[
   \big\{(\psi_1,i,\psi_2,i) \,\big|\, \psi_1,\psi_2 \in \F, i =
@@ -309,7 +309,7 @@ The Lagrangian relation does not shed any light on the internal workings of a
 circuit.  Thus, we call the process of computing this relation `black boxing':
 it is like encasing the circuit in an opaque box, leaving only its terminals
 accessible. Fortunately, the Lagrangian relation of a circuit is enough to
-completely characterize its external behavior, including how it interacts when
+completely characterize its external behaviour, including how it interacts when
 connected with other circuits. 
 
 Put more precisely, the black boxing process is \emph{functorial}: we can 
@@ -319,7 +319,7 @@ prove that $\Circ$ and $\LagrRel$ are dagger compact categories, and
 the black box functor preserves all this extra structure:
 
 \begin{theorem} \label{main_theorem}
-  There exists a symmetric monoidal dagger functor, the \define{black box functor}   
+  There exists a hypergraph functor, the \define{black box functor}   
   \[ \blacksquare\maps \Circ \to \LagrRel, \]
    mapping a finite set $X$ to the symplectic vector space
   $\vectf{X}$ it generates, and a circuit $\big((N,E,s,t,r),i,o\big)$ to the Lagrangian     
@@ -331,88 +331,52 @@ the black box functor preserves all this extra structure:
   where $Q$ is the circuit's power functional.
 \end{theorem}
 
-The goal of this paper is to prove and explain this result. The proof itself is
-more tricky than one might first expect, but our approach introduces various
-concepts that should be useful throughout the study of networks, such as
-`decorated cospans' and `corelations'.  These provide a general framework for
-discussing open networked systems---and not only the passive linear systems
-discussed here, but also others, such as Markov processes \cite{BFP}.
-
-Cospans are already familiar as a formalism for making entities with an
-arbitrarily designated `input end' and `output end' into the morphisms of a
-category.  For example, in topological quantum field theory we use special
-cospans called `cobordisms' to describe pieces of spacetime \cite{BL,BaezStay}.
-Earlier we introduced `decorated cospans' to describe
-circuits with specified inputs and outputs.  Later, with the help of machinery
-developed in a companion paper \cite{Fon}, we use decorated cospans to set up
-several functors that appear as factors of the black box functor, as steps in 
-proving its functoriality.
-
-Just as a relation is an isomorphism class of spans of a special sort, namely
-jointly monic spans, a `corelation' is an isomorphism class of jointly epic
-cospans.  While corelations are less widely used than relations, they turn out
-to be perfectly suited for describing circuits of ideal perfectly conductive
-wires---precisely the class of circuits that cannot be modeled simply as
-Dirichlet forms, since the power functional becomes infinite when it includes
-terms where the resistance is zero.  We introduce corelations in Section
-\ref{sec:corel}, and they too play a key role in constructing the black box
-functor.
-
-With these tools in hand, the black box functor turns out to rely on a tight
-relationship between Kirchhoff's laws, the minimization of Dirichlet forms, and
-the `symplectification' of corelations. It is well-known that away from the terminals,
-a circuit must obey two rules known as Kirchhoff's laws.  We have already noted that 
-the principle of minimum power states that a circuit will `choose' potentials on its interior
-that minimize the power functional.  We clarify the relation between these points
-in Theorems \ref{thm:realizablepotentials} and \ref{thm:dirichletminimization}, 
-which together show that minimizing a Dirichlet form over some subset amounts to
+The goal of this chapter is to prove and explain this result, demonstrating how
+the mathematical machinery of Part I provides clarity. With these tools in hand,
+the black box functor turns out to rely on a tight relationship between
+Kirchhoff's laws, the minimization of Dirichlet forms, and the
+`symplectification' of corelations. It is well-known that away from the
+terminals, a circuit must obey two rules known as Kirchhoff's laws.  We have
+already noted that the principle of minimum power states that a circuit will
+`choose' potentials on its interior that minimize the power functional.  We
+clarify the relation between these points in Theorems
+\ref{thm:realizablepotentials} and \ref{thm:dirichletminimization}, which
+together show that minimizing a Dirichlet form over some subset amounts to
 assuming that the corresponding circuit obeys Kirchhoff's laws on that subset.
 
-We have also mentioned the symplectification of functions above.  Extending this to
-allow symplectification of corelations, this process gives a map sending corelations
-to Lagrangian relations that describe the behavior of ideal perfectly conductive wires. 
-We prove that these symplectified corelations simultaneously impose Kirchhoff's 
-laws (Proposition \ref{prop:sympfunctor} and Example \ref{ex:sympfunction}) and 
-accomplish the minimization of Dirichlet forms (Theorem \ref{thm:sympmin}).  
+We have also mentioned the symplectification of functions above.  Extending this
+to allow symplectification of epi-mono corelations in $\FinSet$, this process
+gives a map sending corelations to Lagrangian relations that describe the
+behaviour of ideal perfectly conductive wires.  We prove that these
+symplectified corelations simultaneously impose Kirchhoff's laws (Proposition
+\ref{prop:sympfunctor} and Example \ref{ex:sympfunction}) and accomplish the
+minimization of Dirichlet forms (Theorem \ref{thm:sympmin}).  
 
-Together, our results show that these three concepts---Kirchhoff's laws from circuit theory, 
-the analytic idea of minimizing power dissipation, and the algebraic idea of symplectification of corelations---are merely different faces of one law: the law of composition of circuits.
+Together, our results show that these three concepts---Kirchhoff's laws from
+circuit theory, the analytic idea of minimizing power dissipation, and the
+algebraic idea of symplectification of corelations---are merely different faces
+of one law: the law of composition of circuits.
 
-\subsection{Outline}
-This paper is split into three parts, addressing in turn the questions:
-\begin{enumerate}[I.]
-  \item What do circuit diagrams mean?
-  \item How do we interact with circuit diagrams?
-  \item How is meaning preserved under these interactions?
-\end{enumerate}
-
-We begin Part , on the semantics of circuit diagrams, with
-a discussion of circuits of linear resistors, developing the intuition for the
-governing laws of passive linear circuits---Ohm's law, Kirchhoff's voltage law,
-and Kirchhoff's current law---in a time-independent setting (Section
-\ref{sec:resistors}). This allows us to develop the concept of
-Dirichlet form as a representation of power consumption, and understand their
-composition as minimizing power, an expression of the current law. In Section
+\paragraph{Outline.}
+First we discuss the semantics of circuit diagrams. We begin with a discussion
+of circuits of linear resistors, developing the intuition for the governing laws
+of passive linear circuits---Ohm's law, Kirchhoff's voltage law, and Kirchhoff's
+current law---in a time-independent setting (Section \ref{sec:resistors}), and
+showing that Dirichlet forms represent circuit behaviours.  In Section
 \ref{sec:plcs}, the Laplace transform then allows us to recapitulate these ideas
 after introducing inductors and capacitors, speaking of impedance where we
 formerly spoke of resistance, and generalizing Dirichlet forms from the field
-$\R$ to the field $\R(s)$ of real rational functions. While in this setting the
-principle of minimum power is replaced by a variational principle,
-the intuitions gained from circuits of resistors still remain useful. 
+$\R$ to the field $\R(s)$ of real rational functions. 
 
-At the end of this part, we show that Dirichlet forms alone do not provide the 
-flexibility to construct a category representing the semantics of circuit diagrams. 
-The fundamental reason is that they do not allow us to describe circuits involving 
-ideal perfectly conductive wires.  This motivates the development of more powerful machinery.
+The goal of this applications chapter is to show how decorated corelations can
+make these semantics compositional. As a network-style diagrammatic language, it
+should thus be no surprise that we begin by constructing a hypergraph category
+of circuits (Section \ref{sec:circdef}). At the end of this section, however, we
+show that Dirichlet forms do not provide the flexibility to construct a category
+of behaviours of circuits.  This motivates the development of more powerful
+machinery.
 
-Part , on the syntax of circuit diagrams, contains the main
-technical contributions of the paper. It begins with Section,
-which develops machinery to construct what we call categories of decorated
-cospans. These are categories where the objects are finite sets and the morphisms
-are cospans in the category of finite sets together with some extra structure on
-the apex. Circuits, as defined above, are naturally an example of such a
-construction, and Section \ref{sec:circdef} lays out the details of this.
-In Section \ref{sec:circlagr} we then review the basic theory of linear
+In Section \ref{sec:circlagr} we review the basic theory of linear
 Lagrangian relations, giving details to the correspondence we have defined
 between Dirichlet forms, and hence passive linear circuits, and Lagrangian
 relations. Section \ref{sec:corel} then takes immediate advantage of the added
@@ -420,18 +384,16 @@ flexibility of Lagrangian relations, discussing the `trivial' circuits
 comprising only perfectly conductive wires, which mediate the notion of composition
 of circuits.
 
-Having introduced these prerequisites, we get to the point in Part .
-In Section \ref{sec:blackbox} we introduce the black box functor,  and  in Section \ref{sec:proof} we prove our main result.
+With these tools, we prove the functoriality of black-boxing circuits in Section
+\ref{sec:blackbox}.
 
 \section{Circuits of linear resistors} \label{sec:resistors}
 %%fakesubsection
-In this part we review the meaning of circuit diagrams comprising resistors,
-inductors, and capacitors, giving an answer to the question ``What do circuit
-diagrams mean?''. 
+Our first concern is for semantics: ``What do circuit diagrams mean?''. 
 
 To elaborate, while circuit diagrams model electric circuits according to their
 physical form, another, often more relevant, way to understand a circuit is by
-its external behavior. This means the following. To an electric circuit we
+its external behaviour. This means the following. To an electric circuit we
 associate two quantities to each edge: voltage and current. We are not free,
 however, to choose these quantities as we like; circuits are subject to
 governing laws that imply voltages and currents must obey certain relationships.
@@ -444,7 +406,7 @@ when two circuits are equivalent.
 In order to let physical intuition lead the way, we begin by specialising to the
 case of linear resistors. In this section we describe how to find the function
 of a circuit from its form, advocating in particular the perspective of the
-principle of minimum power. This allows us to identify the external behavior of a
+principle of minimum power. This allows us to identify the external behaviour of a
 circuit with a so-called Dirichlet form representing the dependence of its power
 consumption on potentials at its terminals.
 
@@ -799,7 +761,7 @@ Bamberg and Sternberg \cite{BS} describe another way to solve the Dirichlet prob
 
 We have seen that boundary potentials determine, essentially uniquely, the value of all the electric properties across the entire circuit. But from the perspective of control theory, this internal structure is irrelevant: we can only access the circuit at its terminals, and hence only need concern ourselves with the relationship between boundary potentials and boundary currents. In this section we streamline our investigations above to state the precise way in which boundary currents depend on boundary potentials. In particular, we shall see that the relationship is completely captured by the functional taking boundary potentials to the minimum power used by any extension of that boundary potential. Furthermore, each such power functional determines a different boundary potential--boundary current relationship, and so we can conclude that two circuits are equivalent if and only if they have the same power functional. 
 
-An `external behavior', or \define{behavior} for short, is an equivalence class of circuits, where two are considered equivalent when the boundary current is the same function of the boundary potential. The idea is that the boundary current and boundary potential are all that can be observed `from outside', i.e. by making measurements at the terminals.  Restricting our attention to what can be observed by making measurements at the terminals amounts to treating a circuit as a `black box': that is, treating its interior as hidden from view.  So, two circuits give the same behavior when they behave the same as `black boxes'.
+An `external behaviour', or \define{behaviour} for short, is an equivalence class of circuits, where two are considered equivalent when the boundary current is the same function of the boundary potential. The idea is that the boundary current and boundary potential are all that can be observed `from outside', i.e. by making measurements at the terminals.  Restricting our attention to what can be observed by making measurements at the terminals amounts to treating a circuit as a `black box': that is, treating its interior as hidden from view.  So, two circuits give the same behaviour when they behave the same as `black boxes'.
 
 First let us check that the boundary current is a function of the boundary potential.  For this we introduce an important quadratic form on the space of boundary potentials:
 
@@ -848,7 +810,7 @@ Note this only depends on $Q$, which makes no mention of the potentials at
 nonterminals. This is amazing: the way power depends on boundary potentials
 completely characterizes the way boundary currents depend on boundary
 potentials. In particular, in Part  we shall see that this
-allows us to define a composition rule for behaviors of circuits.
+allows us to define a composition rule for behaviours of circuits.
 
 To demonstrate these notions, we give a basic example of equivalent circuits.
 
@@ -904,7 +866,7 @@ and so the circuits are equivalent.
 \subsection{Dirichlet forms}
 
 In the previous subsection we claimed that power functionals are quadratic forms
-on the boundary of the circuit whose behavior they represent. They comprise, in
+on the boundary of the circuit whose behaviour they represent. They comprise, in
 fact, precisely those quadratic forms known as Dirichlet forms.
 
 \begin{definition}
@@ -1018,7 +980,7 @@ In summary, in this section we have shown the existence of a surjective function
     \mbox{Dirichlet forms on $\partial N$}\bigg\}
 \]
 mapping two circuits to the same Dirichlet form if and only if they have the same
-external behavior.  In the next section we extend this result to encompass
+external behaviour.  In the next section we extend this result to encompass
 inductors and capacitors too.
 
 
@@ -1035,15 +997,12 @@ constant of proportionality is known as the impedance of the component.
 
 As for resistors, the interconnection of such components may be understood, at
 least formally, as a minimization of some quantity, and we may represent the
-behaviors of this class of circuits with a more general idea of Dirichlet form.
-We conclude this section by noting an obstruction to building a composition rule
-for Dirichlet forms, motivating our work in Part . 
-
+behaviours of this class of circuits with a more general idea of Dirichlet form.
 
 \subsection{The frequency domain and Ohm's law revisited}
 
 In broadening the class of electrical circuit components under examination, we
-find ourselves dealing with components whose behaviors depend on the rates of
+find ourselves dealing with components whose behaviours depend on the rates of
 change of current and voltage with respect to time. We thus now consider
 time-varying voltages $v \maps [0,\infty) \to \R$ and currents $i \maps
   [0,\infty) \to \R$, where $t \in [0,\infty)$ is a real variable representing
@@ -1126,7 +1085,7 @@ crucial properties of the Laplace transform are then:
 \end{enumerate}
 Writing $V(s)$ and $I(s)$ for the Laplace transform of the voltage $v(t)$ and
 current $i(t)$ across a component respectively, and recalling that by assumption
-$v(t) = i(t) = 0$ for $t \le 0$, the $s$-domain behaviors of components become,
+$v(t) = i(t) = 0$ for $t \le 0$, the $s$-domain behaviours of components become,
 for a resistor of resistance $R$:
 \[
   V(s) = RI(s),
@@ -1151,12 +1110,43 @@ we are applying it to complex values of $s$, and demanding that its real part be
 positive in the open left half-plane.  Positive real functions were introduced by Otto 
 Brune in 1931, and they play a basic role in circuit theory \cite{Brune}.  
 
-Indeed, Brune convincingly argued that for any conceivable passive linear component we have this generalization of Ohm's law:
+Indeed, Brune convincingly argued that for any conceivable passive linear
+component with two terminals we have this generalization of Ohm's law:
 \[
   V(s)=Z(s)I(s)
 \]
 where $I \in \R(s)$ is the \define{current}, $V \in \R(s)$ is the \define{voltage}
-and $Z \in \R(s)^+$ is the \define{impedance} of the component.   As we shall see, generalizing from circuits of linear resistors to arbitrary passive linear circuits is just a matter of formally replacing resistances by  impedances.  This amounts to replacing the field $\R$ by the larger field $\R(s)$, and replacing the set of positive reals, $\R^+ = (0,\infty)$, by the set of positive real functions, $\R(s)^+$.  From a mathematical perspective we might as well work with any field with a mildly well-behaved notion of `positive element', and we do this in the next section.
+and $Z \in \R(s)^+$ is the \define{impedance} of the component.   As we shall
+see, generalizing from circuits of linear resistors to arbitrary passive linear
+circuits is just a matter of formally replacing resistances by  impedances.
+This amounts to replacing the field $\R$ by the larger field $\R(s)$, and
+replacing the set of positive reals, $\R^+ = (0,\infty)$, by the set of positive
+real functions, $\R(s)^+$.  From a mathematical perspective we might as well
+work with any field with a notion of `positive element'. 
+
+\begin{definition} 
+  Given a field $\F$, we define a \define{set of positive elements} for $\F$ to be  
+  any subset $\F^+\subset \F$ not containing $0$.
+\end{definition}
+
+Our first motivating example arises from circuits made of resistors.  Here $\F =
+\R$ is the field of real numbers and we take $\F^+ = (0,\infty)$.   Our second
+motivating example arises from general passive linear circuits.  Here $\F =
+\R(s)$ is the field of rational functions in one real variable, and we take
+$\F^+ = \R(s)^+$ to be the positive real functions, as defined in the last
+section.  
+
+In all that follows, we fix a field $\F$ of characteristic zero equipped with a
+set of positive elements $\F^+$.  By a `circuit', we shall henceforth mean a
+circuit over $\F^+$, as explained in Definition \ref{def_circuit}.   To fix the
+notation:
+
+\begin{definition} \label{def_circuit_2}
+A \define{(passive linear) circuit} is a graph $s,t \maps E \to N$ with $E$ as its set of \define{edges} and $N$ as its set of \define{nodes}, equipped with function $Z \maps E \to \F^+$ assigning each edge an \define{impedance}, together with finite sets $X$, $Y$, and functions $i \maps X \to N$ and $o\maps Y \to  N$. We call the sets $i(X)$, $o(Y)$, and $\partial N = i(X) \cup o(Y)$ the \define{inputs}, \define{outputs}, and \define{terminals} or \define{boundary} of the circuit, respectively.
+\end{definition}
+
+We next remark on the analogy between electronics and mechanics in light of
+these new components.
 
 \subsection{The mechanical analogy} \label{sec:mechanical}
 
@@ -1231,43 +1221,32 @@ work applies to a wide class of networked systems, not just electrical circuits.
 
 \subsection{Generalized Dirichlet forms} \label{sec:generalized}
 
-To understand the behavior of passive linear circuits we need to
-understand how the behaviors of individual components, governed by Ohm's law,
-fit together give the behavior of an entire network.
+To understand the behaviour of passive linear circuits we need to
+understand how the behaviours of individual components, governed by Ohm's law,
+fit together give the behaviour of an entire network.
 Kirchhoff's laws still hold, and so does a version of the principle of minimum power.
-To see this, we generalize our remarks so far to any field with a set of `positive
-elements'.
 
-\begin{definition} 
-  Given a field $\F$, we define a \define{set of positive elements} for $\F$ to be     
-  any subset $\F^+\subset \F$ containing $1$ but not $0$, and closed under 
-  addition, multiplication and division.  
-\end{definition}
+Like before, to each passive linear circuit we associate a generalised Dirichlet
+form.
 
-Our first motivating example arises from circuits made of resistors.  Here $\F =
-\R$ is the field of real numbers and we take $\F^+ = (0,\infty)$.   Our second
-motivating example arises from general passive linear circuits.  Here $\F =
-\R(s)$ is the field of rational functions in one real variable, and we take
-$\F^+ = \R(s)^+$ to be the positive real functions, as defined in the last
-section.  
-
-In all that follows, we fix a field $\F$ equipped with a set of positive
-elements $\F^+$.  By a `circuit', we shall henceforth mean a circuit over
-$\F^+$, as explained in Definition \ref{def_circuit}.   To fix the notation:
-
-\begin{definition} \label{def_circuit_2}
-A \define{(passive linear) circuit} is a graph $s,t \maps E \to N$ with $E$ as its set of \define{edges} and $N$ as its set of \define{nodes}, equipped with function $Z \maps E \to \F^+$ assigning each edge an \define{impedance}, together with finite sets $X$, $Y$, and functions $i \maps X \to N$ and $o\maps Y \to  N$. We call the sets $i(X)$, $o(Y)$, and $\partial N = i(X) \cup o(Y)$ the \define{inputs}, \define{outputs}, and \define{terminals} or \define{boundary} of the circuit, respectively.
+\begin{definition} Given a field $\F$ and
+  a finite set $S$, a \define{Dirichlet form over $\F$} on $S$ is a quadratic form   
+  $Q\maps \F^S \to \F$ given by the formula 
+  \[ 
+    Q(\psi) = \sum_{i,j \in S} c_{ij} (\psi_i - \psi_j)^2,
+  \]
+  where $c_{i j} \in \F$.  
 \end{definition}
 
 Generalizing from circuits of resistors, we define the
 \define{extended power functional} $P\maps \F^N \to \F$ of any circuit by
 \[
-  P(\varphi) = \frac{1}{2} \sum_{e \in E} \frac1{Z(e)}\big(\varphi(t(e))-\varphi(s(e))\big)^2.
+  P(\varphi) = \frac{1}{2} \sum_{e \in E}
+  \frac1{Z(e)}\big(\varphi(t(e))-\varphi(s(e))\big)^2.
 \]
-and we call $\varphi \in \F^N$ a \define{potential}.  Note that a field of
-characteristic 2 cannot be given a set of positive elements, so dividing by 2 is
-allowed.  Note also that the extended power functional is a Dirichlet form on
-$N$.
+and we call $\varphi \in \F^N$ a \define{potential}. Note that $\F$ has
+characteristic not equal to 2, so dividing by 2 is allowed.  Note also that the
+extended power functional is a Dirichlet form on $N$.
 
 Although it is not clear what it means to minimize over the field $\F$, we can
 use formal derivatives to formulate an analogue of the principle of minimum 
@@ -1310,27 +1289,14 @@ states---that is, potential--current pairs---that are compatible with the
 governing laws of a circuit is given by the set of realizable potentials
 together with their induced currents. 
 
-We now generalize the theory of Dirichlet forms:
-
-\begin{definition} Given a field $\F$ with a set of positive elements $\F^+$ and
-  a finite set $S$, a \define{Dirichlet form over $\F$} on $S$ is a quadratic form   
-  $Q\maps \F^S \to \F$ given by the formula 
-  \[ Q(\psi) = \sum_{i,j \in S} c_{ij} 
-  (\psi_i - \psi_j)^2 \] for some choice of $c_{i j} \in \F^+ \cup \{0\}$.  
-\end{definition}
-
-Note that the extended power functional of any circuit is a Dirichlet form,
-since $Z(e) \in \F^+$ implies $\frac{1}{2}\frac{1}{Z(e)} \in \F^+$.
-
 \subsection{A generalized minimizability result}
 
-We begin to move from a discussion of the intrinsic behaviors of circuits to a
-discussion of their behaviors under composition. The key fact for composition of
-generalized Dirichlet forms is that, in analogy with Proposition
+We begin to move from a discussion of the intrinsic behaviours of circuits to a
+discussion of their behaviours under composition. The key fact for composition
+of generalized Dirichlet forms is that, in analogy with Proposition
 \ref{dirichlet_minimization}, we may speak of a formal version of minimization
-of Dirichlet forms. We detail this here.  In what follows, fix a field $\F$ with a 
-set of positive elements $\F^+$, and let $P$ be a Dirichlet form over $\F$ on 
-some finite set $S$. 
+of Dirichlet forms. We detail this here.  In what follows let $P$ be a Dirichlet
+form over $\F$ on some finite set $S$. 
 
 Recall that given $R \subseteq S$, we
 call $\tilde\psi \in \F^S$ an \define{extension} of $\psi \in \F^R$ if
@@ -1423,8 +1389,9 @@ inductively.
   is Dirichlet on $S \setminus \{s\}$. Multiplying through by the constant
   $(\sum_k c_{ks})^2 \in \F^+$, it further suffices to check
   \begin{align*}
-    \sum_\ell c_{\ell s}\left(\sum_k c_{ks} \psi_\ell - \sum_k c_{ks}
-    \psi_k\right)^2 &= \sum_\ell c_{\ell s} \left(\sum_k c_{ks} (\psi_\ell -
+    &\quad \sum_\ell c_{\ell s}\left(\sum_k c_{ks} \psi_\ell - \sum_k c_{ks}
+    \psi_k\right)^2 \\
+    &= \sum_\ell c_{\ell s} \left(\sum_k c_{ks} (\psi_\ell -
     \psi_k)\right)^2 \\
     &= \sum_\ell c_{\ell s} \left(2 \sum_{\substack{k,m \\ k \ne m}} c_{k s} c_{ms}
     (\psi_\ell-\psi_k)(\psi_\ell - \psi_m) + \sum_{k} c_{k
@@ -1474,21 +1441,383 @@ The \define{power functional} $Q \maps \R^{\partial N} \to \R$ of a circuit with
 \end{definition}
 
 As before, we define two circuits to be \define{equivalent} if they have the same
-power functional, and define the \define{behavior} of a circuit to be its equivalence
+power functional, and define the \define{behaviour} of a circuit to be its equivalence
 class.  
 
-\subsection{Composition of Dirichlet forms}
 
-It would be nice to have a category in which circuits are morphisms, and a
-category in which Dirichlet forms are morphisms, such that the map sending
-a circuit to its behavior is a functor.  Here we present a na\"ive attempt to
-constructed the category with Dirichlet forms as morphisms, using the principle
-of minimum power to compose these morphisms.  Unfortunately the proposed category does not include identity morphisms.  However, it points in the right direction, and underlines the importance of the cospan formalism we then turn to develop.
+\section{A compositional perspective} \label{sec:circdef}
+%%fakesubsection
+Thus far our focus has been on the semantics of circuit diagrams, explaining how
+labelled graphs represent Dirichlet forms. We now wish to work towards a
+\emph{compositional} semantics. 
 
-We can define a composition rule for Dirichlet forms that reflects composition of circuits.
-Given finite sets $S$ and $T$, let $S+T$ denote their disjoint union.  Let
-$D(S,T)$ be the set of Dirichlet forms on $S+T$. There is a way
-to compose these Dirichlet forms
+A prerequisite for this is compositional structure on our circuit diagrams and
+Dirichlet forms. We desire a compositional structure that captures the syntax of
+circuit diagrams, addressing the question: ``How do we interact with circuit
+diagrams?'' Informally, the answer is that we interact with them by connecting them
+to each other, perhaps after moving them into the right form by rotating or
+reflecting them, or by crossing, bending, splitting, and combining some of the
+wires. In line with the overarching philosophy of this thesis, it should come as
+no surprise that we hence model circuits as morphisms in a hypergraph category. 
+
+We begin this section by defining a hypergraph category of circuits. We then
+want to define a hypergraph category of behaviours. We have three desiderata for
+such a category. First, the category of behaviours should have a unique morphism
+for each distinct circuit behaviour. Second, the map taking a circuit to its
+behaviour should be structure preserving: that is, it should be a hypergraph
+functor to a hypergraph category. Third, and somewhat vaguely, the category of
+behaviours and its composition rule should be easy to define and work with. 
+
+It turns out, as we shall see, that Dirichlet forms are not quite general enough
+to accommodate our needs. In Subsection \ref{ssec.noidentities} we discuss an
+attempt to construct a `natural' category of Dirichlet forms, with composition
+of Dirichlet forms given by minimisating their sum over the `interior'
+terminals, but find that this operation does not have an identity. Despite this,
+we give an ad hoc construction of a category of Dirichlet corelations that
+suffices.
+
+\subsection{The category of open circuits}
+
+In Definition \ref{def_circuit_2}, we defined a circuit of linear resistors to
+be a labelled graph with marked input and output terminals, as in the example:
+\[
+\begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
+\node[contact] (I1) at (0,2) {};
+\node[contact] (I2) at (0,0) {};
+\coordinate (int1) at (2.83,1) {};
+\coordinate (int2) at (5.83,1) {};
+\node[contact] (O1) at (8.66,2) {};
+\node[contact] (O2) at (8.66,0) {};
+\node (input) at (-2,1) {\small{\textsf{inputs}}};
+\node (output) at (10.66,1) {\small{\textsf{outputs}}};
+\draw (I1) 	to [resistor] node [label={[label distance=2pt]85:{$1\Omega$}}] {} (int1);
+\draw (I2)	to [resistor] node [label={[label distance=2pt]275:{$1\Omega$}}] {} (int1)
+				to [resistor] node [label={[label distance=3pt]90:{$2\Omega$}}] {} (int2);
+\draw (int2) 	to [resistor] node [label={[label distance=2pt]95:{$1\Omega$}}] {} (O1);
+\draw (int2)		to [resistor] node [label={[label distance=2pt]265:{$3\Omega$}}] {} (O2);
+\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (input) edge (I1);		\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (input) edge (I2);		
+\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (output) edge (O1);
+\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (output) edge (O2);
+\end{tikzpicture}
+\]
+We then defined general passive linear circuits by replacing resistances with
+impedances chosen from a set of positive elements $\F^+$ in any field $\F$.
+These circuits are examples of decorated cospans.  We now use decorated cospans
+to construct a hypergraph category $\Circ$ whose morphisms are circuits, such
+that the hypergraph structure expresses the syntactic operations on circuits
+discussed above.
+
+Indeed, observe that a circuit is just an $\F^+$-graph, as defined in the
+introduction to Chapter \ref{ch.deccospans}.  Recall from Subsection
+\ref{ssec.exlabelledgraphs} the lax symmetric monoidal functor
+\[
+  \mathrm{Graph}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
+\]
+mapping each finite set $N$ to the set $\mathrm{Graph}(N)$ of
+$[0,\infty)$-graphs $(N,E,s,t,r)$ with $N$ as their set of nodes. Redefine
+$\mathrm{Graph}$, generalising it, so that $N$ is mapped to the set of
+$\F^+$-graphs.
+  
+\begin{definition}
+  We define the hypergraph category
+  \[
+    \mathrm{Circ} = \mathrm{GraphCospan} .
+  \]
+\end{definition}
+
+\begin{aside}
+  As discussed in Subsection \ref{ssec.bicatdeccospan}, by the work of Courser
+  \cite{Cou16} we in fact have a symmetric monoidal bicategory $2\mbox{-}\Circ$
+  of circuits with 
+  \begin{center}
+    \begin{tabular}{ c | p{.65\textwidth} }
+      \textbf{objects} & finite sets \\ 
+      \textbf{morphisms} & cospans of finite sets decorated by $\F^+$-graphs \\ 
+      \textbf{2-morphisms} & maps of decorated cospans \\
+    \end{tabular}
+  \end{center}
+  Moreover, the work of Stay \cite{Sta16} can be used to show this bicategory is
+  compact closed.  Decategorifying $2\mbox{-}\Circ$ gives a category equivalent
+  to our previously defined category $\Circ$.
+\end{aside}
+
+The hypergraph structure, including the compactness and dagger, captures the
+aforementioned syntactic operations that can be performed on circuits. The
+composition expresses the fact that we can connect the outputs of one circuit to
+the inputs of the next, like so:
+\[
+  \begin{array}{c}
+    \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+      graphic,scale=.7]
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+      (-3,-1.3) {};
+      \node at (-3,-3.2) {\footnotesize $X$};
+      \node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B) at (3,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (C) at (1.5,-2.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+      (6,-.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y2) at
+      (6,-2) {};
+      \node at (6,-3.2) {\footnotesize $Y$};
+      \coordinate         (ua) at (.5,.25) {};
+      \coordinate         (ub) at (2.5,.25) {};
+      \coordinate         (la) at (.5,-.25) {};
+      \coordinate         (lb) at (2.5,-.25) {};
+      \path (A) edge (ua);
+      \path (A) edge (la);
+      \path (B) edge (ub);
+      \path (B) edge (lb);
+      \path (ua) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[above] {\footnotesize $2\Omega$} (ub);
+      \path (la) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[below] {\footnotesize $3\Omega$} (lb);
+      \path (A) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[left] {\footnotesize $1\Omega$} (C);
+      \path (C) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[right] {\footnotesize $1\Omega$} (B);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (B);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y2)
+      edge (B);
+      \node[circle,draw,inner sep=1pt,fill]         (A') at (9,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B') at (12,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (C') at (10.5,-2.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (z1) at
+      (15,-.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (z2) at (15,-2) {};
+      \node at (15,-3.2) {\footnotesize $Z$};
+      \path (A') edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[above] {\footnotesize $5\Omega$} (B');
+      \path (C') edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[right] {\footnotesize $8\Omega$} (B');
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (A');
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y2)
+      edge (C');
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (z1) edge (B');
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+      (z2) edge (C');
+    \end{tikzpicture} \\
+    \Downarrow \\
+    \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+      graphic,scale=0.7]
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at (-4,-1.3) {};
+      \node at (-4,-3.2) {\footnotesize $X$};
+      \node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B) at (3,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (C) at (1.5,-2.6) {};
+      \node[circle,draw,inner sep=1pt,fill]         (D) at (6,0) {};
+      \coordinate         (ua) at (.5,.25) {};
+      \coordinate         (ub) at (2.5,.25) {};
+      \coordinate         (la) at (.5,-.25) {};
+      \coordinate         (lb) at (2.5,-.25) {};
+      \coordinate         (ub2) at (3.5,.25) {};
+      \coordinate         (ud) at (5.5,.25) {};
+      \coordinate         (lb2) at (3.5,-.25) {};
+      \coordinate         (ld) at (5.5,-.25) {};
+      \path (A) edge (ua);
+      \path (A) edge (la);
+      \path (B) edge (ub);
+      \path (B) edge (lb);
+      \path (B) edge (ub2);
+      \path (B) edge (lb2);
+      \path (D) edge (ud);
+      \path (D) edge (ld);
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (z1) at
+      (10,-.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (z2) at (10,-2) {};
+      \node at (10,-3.2) {\footnotesize $Z$};
+      \path (ua) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[above] {\footnotesize $2\Omega$} (ub);
+      \path (la) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[below] {\footnotesize $3\Omega$} (lb);
+      \path (A) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[left] {\footnotesize $1\Omega$} (C);
+      \path (C) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[right] {\footnotesize $1\Omega$} (B);
+      \path (ub2) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[above] {\footnotesize $5\Omega$} (ud);
+      \path (lb2) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[below] {\footnotesize $8\Omega$} (ld);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (z1)
+      edge (D);
+      \path[bend left, color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (z2)
+      edge (B);
+    \end{tikzpicture}
+  \end{array}
+\]
+The monoidal composition models the placement of
+circuits side-by-side:
+\[
+  \begin{aligned}
+    \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+      graphic,scale=.7]
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+      (-2.8,-1.3) {};
+      \node at (-2.8,-3.2) {\footnotesize $X$};
+      \node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B) at (3,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (C) at (1.5,-2.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+      (5.8,-.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y2) at
+      (5.8,-2) {};
+      \node at (5.8,-3.2) {\footnotesize $Y$};
+      \coordinate         (ua) at (.5,.25) {};
+      \coordinate         (ub) at (2.5,.25) {};
+      \coordinate         (la) at (.5,-.25) {};
+      \coordinate         (lb) at (2.5,-.25) {};
+      \path (A) edge (ua);
+      \path (A) edge (la);
+      \path (B) edge (ub);
+      \path (B) edge (lb);
+      \path (ua) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[above] {\footnotesize $2\Omega$} (ub);
+      \path (la) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[below] {\footnotesize $3\Omega$} (lb);
+      \path (A) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[left] {\footnotesize $1\Omega$} (C);
+      \path (C) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[right] {\footnotesize $1\Omega$} (B);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (B);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y2)
+      edge (B);
+      \node at (1.5,-3.5) {$\otimes$};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+      (-2.8,-5) {};
+      \node at (-2.8,-6.5) {\footnotesize $X'$};
+      \node[circle,draw,inner sep=1pt,fill]         (A) at (0,-5) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B) at (3,-5) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+      (5.8,-5) {};
+      \node at (5.8,-6.5) {\footnotesize $Y'$};
+      \coordinate         (ua1) at (.5,-4.75) {};
+      \coordinate         (ub1) at (2.5,-4.75) {};
+      \coordinate         (la1) at (.5,-5.25) {};
+      \coordinate         (lb1) at (2.5,-5.25) {};
+      \path (A) edge (ua1);
+      \path (A) edge (la1);
+      \path (B) edge (ub1);
+      \path (B) edge (lb1);
+      \path (ua1) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+      size=width {5} height 1.5] node[above] {\footnotesize $5\Omega$} (ub1);
+      \path (la1) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+      size=width {5} height 1.5] node[below] {\footnotesize $1\Omega$} (lb1);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (B);
+    \end{tikzpicture}
+  \end{aligned}
+  \Rightarrow
+  \begin{aligned}
+    \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+      graphic,scale=.7]
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+      (-2.8,-1.3) {};
+      \node at (-2.8,-5.5) {\footnotesize $X+X'$};
+      \node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B) at (3,0) {};
+      \node[circle,draw,inner sep=1pt,fill]         (C) at (1.5,-2.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+      (5.8,-.6) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y2) at
+      (5.8,-2) {};
+      \node at (5.8,-5.5) {\footnotesize $Y+Y'$};
+      \coordinate         (ua) at (.5,.25) {};
+      \coordinate         (ub) at (2.5,.25) {};
+      \coordinate         (la) at (.5,-.25) {};
+      \coordinate         (lb) at (2.5,-.25) {};
+      \path (A) edge (ua);
+      \path (A) edge (la);
+      \path (B) edge (ub);
+      \path (B) edge (lb);
+      \path (ua) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[above] {\footnotesize $2\Omega$} (ub);
+      \path (la) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[below] {\footnotesize $3\Omega$} (lb);
+      \path (A) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[left] {\footnotesize $1\Omega$} (C);
+      \path (C) edge  [resistor, circuit symbol unit=5pt, circuit symbol size=width {5} height 1.5] node[right] {\footnotesize $1\Omega$} (B);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (B);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y2)
+      edge (B);
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x2) at
+      (-2.8,-2.7) {};
+      \node[circle,draw,inner sep=1pt,fill]         (A1) at (0,-4) {};
+      \node[circle,draw,inner sep=1pt,fill]         (B1) at (3,-4) {};
+      \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y3) at
+      (5.8,-3.4) {};
+      \coordinate         (ua1) at (.5,-3.75) {};
+      \coordinate         (ub1) at (2.5,-3.75) {};
+      \coordinate         (la1) at (.5,-4.25) {};
+      \coordinate         (lb1) at (2.5,-4.25) {};
+      \path (A1) edge (ua1);
+      \path (A1) edge (la1);
+      \path (B1) edge (ub1);
+      \path (B1) edge (lb1);
+      \path (ua1) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+      size=width {5} height 1.5] node[above] {\footnotesize $5\Omega$} (ub1);
+      \path (la1) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+      size=width {5} height 1.5] node[below] {\footnotesize $1\Omega$} (lb1);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->,
+      >=stealth] (x2) edge (A1);
+      \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->,
+      >=stealth] (y3) edge (B1);
+    \end{tikzpicture}
+  \end{aligned}
+\]
+Identities and Frobenius maps result from identifying points. For example, the
+identity on a single point is the (empty) decorated cospan
+\[
+      \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+	graphic]
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+	(-2.8,0) {};
+	\node at (-2.8,-.5) {\footnotesize $X$};
+	\node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+	(2.8,0) {};
+	\node at (2.8,-.5) {\footnotesize $Y$};
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->,
+	>=stealth] (y1) edge (A);
+      \end{tikzpicture}
+\]
+while the multiplication on a point is the empty decorated cospan
+\[
+      \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+	graphic]
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+	(-2.8,0) {};
+	\node at (-2.8,-1.3) {\footnotesize $X$};
+	\node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+	(2.8,.8) {};
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y2) at
+	(2.8,-.8) {};
+	\node at (2.8,-1.3) {\footnotesize $Y$};
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->,
+	>=stealth] (y1) edge (A);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->,
+	>=stealth] (y2) edge (A);
+      \end{tikzpicture}
+\]
+These identifications represent interconnection via ideal, perfectly conductive
+wires: if two terminals are connected by such wires, then the electrical
+behaviour at both terminals must be identical. The Frobenius maps allow us to
+split, combine, and discard wires.  The symmetric monoidal structure allows
+us reorder input and output wires. Derived from these, the compactness captures the
+interchangeability between input and outputs of circuits---that is, the fact
+that we can choose any input to our circuit and consider it instead as an
+output, and vice versa---while the dagger structure expresses the fact that we
+may reflect a whole circuit, switching all inputs with all outputs.
+
+Recall that we consider two circuit diagrams equivalent if they have the same
+behaviour, or power functional. Now that we have constructed a hypergraph
+category where our morphisms are circuit diagrams---our `syntactic' category for
+our diagrammatic language---we would also like to construct a hypergraph
+category with morphisms behaviours of circuits, and show that the map from a
+circuit to its behaviour is functorial.
+
+
+\subsection{An obstruction to black boxing} \label{ssec.noidentities}
+
+It would be nice to have a category in which Dirichlet forms are morphisms, such
+that the map sending a circuit to its behaviour is a functor.  Here we present a
+na\"ive attempt to constructed the category with Dirichlet forms as morphisms,
+using the principle of minimum power to compose these morphisms.  Unfortunately
+the proposed category does not include identity morphisms.  However, it points
+in the right direction, and underlines the importance of the cospan formalism we
+then turn to develop.
+
+We can define a composition rule for Dirichlet forms that reflects composition
+of circuits.  Given finite sets $S$ and $T$, let $S+T$ denote their disjoint
+union.  Let $D(S,T)$ be the set of Dirichlet forms on $S+T$. There is a way to
+compose these Dirichlet forms
 \[ 
 \circ \maps D(T,U) \times D(S,T) \to D(S,U) 
 \]
@@ -1525,7 +1854,7 @@ Dirichlet forms with large values of $k$---corresponding to resistors with
 resistance close to zero---act as `approximate identities'.
 
 In this way we might interpret the identities we wish to introduce
-into this category as the behaviors of idealized components with zero
+into this category as the behaviours of idealized components with zero
 resistance: perfectly conductive wires. Unfortunately, the power functional of a
 purely conductive wire is undefined: the formula for it involves division by
 zero.  In real life, coming close to this situation leads to the disaster that
@@ -1552,32 +1881,220 @@ There is a semicategory where:
 We would like to make this into a category. One easy way to do this is to
 formally adjoin identity morphisms; this trick works for any semicategory.
 However, we obtain a better category if we include \emph{more} morphisms: more
-behaviors corresponding to circuits made of perfectly conductive wires. As the
-expression for the extended power functional includes the reciprocals of
-impedances, such circuits cannot be expressed within the framework we have
-developed thus far. Indeed, for these idealized circuits there is no function
-taking boundary potentials to boundary currents: the vanishing impedance would
-imply that any difference in potentials at the boundary induces `infinite'
-currents. To deal with this issue, we generalize Dirichlet forms to Lagrangian
-relations.  First, however, we develop a category theoretic framework, based
-around decorated cospans, to define the category of circuits itself and
-understand its basic properties.
+behaviours corresponding to circuits made of perfectly conductive wires.
+The key constraint is that the expression for the extended power functional
+includes the reciprocals of impedances, such circuits cannot be expressed within
+the framework we have developed thus far. Similarly, the Frobenius maps also
+have semantics as ideal wires, and cannot be represented using Dirichlet forms.
+Indeed, for these idealized circuits there is no function taking boundary
+potentials to boundary currents: the vanishing impedance would imply that any
+difference in potentials at the boundary induces `infinite' currents. One way of
+dealing with this is to using decorated cospans.
+
+
+\subsection{Categories of Dirichlet cospans and corelations}
+
+Although we cannot have Dirichlet forms be the morphisms of a category
+themselves, we have a standard trick for turning objects, like circuit diagrams,
+into the morphisms of a category: we decorate cospans with them. The cospans
+then handle the composition for us. In this section we construct a category of
+cospans and a category of corelations decorated by Dirichlet forms. We shall
+think of the former as having extended power functionals as morphisms, and the
+latter as power functionals.
+
+
+\paragraph{Dirichlet cospans.}
+Let
+\[
+  \mathrm{Dirich}\maps (\mathrm{FinSet};\mathrm{Inj}^\opp,+) \longrightarrow (\mathrm{Set},\times)
+\]
+map a finite set $X$ to the set $\mathrm{Dirich}(X)$ of Dirichlet forms $Q\maps
+\F^X \to \F$ on $X$, and map a function $f\maps X \to Y$ between finite sets to
+the pushforward function
+\begin{align*}
+  \mathrm{Dirich}(f)\maps \mathrm{Dirich}(X) &\longrightarrow \mathrm{Dirich}(Y); \\
+  Q &\longmapsto \Big(f_{\ast}Q\maps \phi \mapsto Q(\phi\circ f)\Big).
+\end{align*}
+As composition of functions is associative and has an identity, this defines a
+functor.
+
+To make this functor lax symmetric monoidal, we equip it with the natural family of maps
+\begin{align*}
+  \delta_{N,M}\maps \mathrm{Dirich}(N) \times \mathrm{Dirich}(M) &\longrightarrow
+  \mathrm{Dirich}(N+M) \\
+  (Q_N,Q_M) &\longmapsto {\iota_N}_\ast Q_N+{\iota_M}_\ast Q_M
+\end{align*}
+and also with the unit
+\begin{align*}
+  \delta_1\maps 1 &\longrightarrow \mathrm{Dirich}(\varnothing);\\
+  \bullet &\longmapsto (\F^\varnothing \to \F; ! \mapsto 0).
+\end{align*}
+Note that the sum of two Dirichlet forms is given pointwise by the addition in
+$\F$. The naturality of the $\delta_{N,M}$ follows from the universal property
+of the coproduct in $\FinSet$, while the coherence axioms follow from the
+associativity, unitality, and commutativity of addition in $\F$.
+
+Using decorated cospans, we thus obtain a hypergraph category
+$\mathrm{DirichCospan}$ where a morphism is a cospan of finite sets whose apex
+is equipped with a Dirichlet form.  
+
+
+\paragraph{From circuits to Dirichlet cospans.}
+Next, we construct a strict hypergraph functor $\Circ \to \mathrm{DirichCospan}$
+sending a circuit to a cospan decorated by its extended power functional. By
+decorated cospans, it suffices to show that we have a monoidal natural
+transformation 
+\[
+  \alpha\maps (\mathrm{Graph},\rho) \Longrightarrow
+  (\mathrm{Dirich},\delta).
+\]
+Define $\alpha$ to be the collection of maps
+\begin{align*}
+  \alpha_N\maps \mathrm{Graph}(N) &\longrightarrow \mathrm{Dirich}(N); \\
+  (N,E,s,t,r) &\longmapsto \left(\phi \in \F^N \mapsto \frac{1}{2} \sum_{e \in E}
+  \frac{1}{r(e)}\big(\phi(s(e))-\phi(t(e))\big)^2\right).
+\end{align*}
+We prove this a well-defined monoidal natural transformation. 
+
+Naturality requires that the square
+\[
+  \xymatrix{
+    \mathrm{Graph}(N) \ar[r]^{\alpha_N} \ar[d]_{\mathrm{Graph}(f)} &
+    \mathrm{Dirich}(N) \ar[d]^{\mathrm{Dirich}(f)}  \\
+    \mathrm{Graph}(M) \ar[r]_{\alpha_M} & \mathrm{Dirich}(M)
+  }
+\]
+commutes. Let $(N,E,s,t,r)$ be an $\F^+$-graph on $N$ and $f\maps N \to M$ be a
+function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \alpha_N$ and $\alpha_M
+\circ \mathrm{Graph}(f)$ map $(N,E,s,t,r)$ to the Dirichlet form
+\begin{align*}
+  \F^M &\longrightarrow \F;\\
+  \psi &\longmapsto \frac{1}{2} \sum_{e \in E}\frac{1}{r(e)}
+  \big(\psi(f(s(e)))-\psi(f(t(e)))\big)^2.
+\end{align*}
+Thus both methods of constructing a power functional on a set of nodes $M$ from
+a circuit on $N$ and a function $N \to M$ produce the same power functional.
+
+To show that $\alpha$ is a monoidal natural transformation, we must check that
+the square
+\[
+\xymatrix{
+  \mathrm{Graph}(N) \times \mathrm{Graph}(M) \ar[r]^{\alpha_N \times
+  \alpha_M} \ar[d]_{\rho_{N,M}} & \mathrm{Dirich}(N) \times \mathrm{Dirich}(M)
+  \ar[d]^{\delta_{N,M}}  \\
+  \mathrm{Graph}(N+M) \ar[r]_{\alpha_{N+M}} & \mathrm{Dirich}(N+M)
+}
+\]
+and the triangle
+\[
+\xymatrix{
+  & 1 \ar[dl]_{\rho_\varnothing} \ar[dr]^{\delta_\varnothing}\\
+\mathrm{Graph}(\varnothing)  \ar[rr]_{\alpha_\varnothing} &&
+\mathrm{Dirich}(\varnothing)
+}
+\]
+commute. It is readily observed that both paths around the square lead to taking
+two graphs and summing their corresponding Dirichlet forms, and that the
+triangle commutes immediately as all objects in it are the one element set.
+
+From decorated cospans, we thus obtain a strict hypergraph functor
+\[
+  Q \maps \Circ = \mathrm{GraphCospan} \longrightarrow \mathrm{DirichCospan}.
+\]
+
+Informally, this says that the process of composition for circuit diagrams is
+the same as that of composition for Dirichlet cospans. Note that although this
+functor preserves much of the information in circuit diagrams, it is not a
+faithful functor.  For example, applying $Q$ to a circuit 
+\[
+\begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+	graphic,scale=.8]
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+	(-2.8,0) {};
+	\node at (-2.8,-1) {\footnotesize $X$};
+	\node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+	\node[circle,draw,inner sep=1pt,fill]         (B) at (3,0) {};
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at
+	(5.8,0) {};
+	\node at (5.8,-1) {\footnotesize $Y$};
+	\coordinate         (ua) at (.5,.25) {};
+	\coordinate         (ub) at (2.5,.25) {};
+	\coordinate         (la) at (.5,-.25) {};
+	\coordinate         (lb) at (2.5,-.25) {};
+	\path (A) edge (ua);
+	\path (A) edge (la);
+	\path (B) edge (ub);
+	\path (B) edge (lb);
+	\path (ua) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+	size=width {5} height 1.5] node[label={[label
+	distance=1pt]90:{\footnotesize $r$}}] {} (ub);
+	\path (la) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+	size=width {5} height 1.5] node[label={[label
+	distance=1pt]270:{\footnotesize $s$}}] {} (lb);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (B);
+      \end{tikzpicture}
+    \]
+with two parallel edges of resistance $r$ and $s$ respectively, we obtain
+the same result as for the circuit
+\[
+\begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
+	graphic,scale=.8]
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at
+	(-2.8,0) {};
+	\node at (-2.8,-1) {\footnotesize $X$};
+	\node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+	\node[circle,draw,inner sep=1pt,fill]         (B) at (3,0) {};
+	\node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y) at
+	(5.8,0) {};
+	\node at (5.8,-1) {\footnotesize $Y$};
+	\path (A) edge  [resistor, circuit symbol unit=5pt, circuit symbol
+	size=width {5} height 1.5] node[label={[label
+	distance=1pt]90:{\footnotesize $t$}}] {} (B);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+	\path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y) edge (B);
+      \end{tikzpicture}
+    \]
+with just a single edge with resistance
+\[
+  t = \frac{1}{\tfrac{1}{r} + \tfrac{1}{s}}.
+\]
+That is, both map to the Dirichlet cospan $X=\{x\} \to \{x,y\} \leftarrow \{y\}
+= Y$ with $\{x,y\}$ decorated by the Dirichlet form $P(\psi) =
+\tfrac{1}{t}(\psi_x-\psi_y)^2$.
+
+
+Having constructed a category corresponding to extended power functionals, we
+would like a category of power functionals, with minimisation over the interior
+a functor mapping $\mathrm{DirichCospan}$ onto it. In terms of decorated
+corelations, we want a decorated corelation category where the Dirichlet form is
+not to be defined on any apex $N$ of a cospan, but on the terminals $X+Y$
+themselves. This suggests the use of an isomorphism-morphism factorisation
+system. Nonetheless, in the next section we show this is not possible: there is
+no Dirichlet form that corresponds to an identity map.
+
+The category $\mathrm{DirichCorel}$ thus satisfies the two precise desiderata
+for a semantic category: each behaviour is uniquely represented, and the map of
+a circuit to its behaviour preserves all necessary structure. The category and
+its composition rule, however, are quite ad hoc. To deal with this issue, we
+generalize Dirichlet forms to Lagrangian relations.  We will find this provides
+a cleaner formalism.
 
 \section{Networks as Lagrangian relations} \label{sec:circlagr}
 %%fakesubsection
-In the first part of this paper, we explored the semantic content contained in
+In the first part of this chapter, we explored the semantic content contained in
 circuit diagrams, leading to an understanding of circuit diagrams as expressing
 some relationship between the potentials and currents that can simultaneously be
 imposed on some subset, the so-called terminals, of the nodes of the circuit. We
-called this collection of possible relationships the behavior of the circuit.
+called this collection of possible relationships the behaviour of the circuit.
 While in that setting we used the concept of Dirichlet forms to describe this
 relationship, we saw in the end that describing circuits as Dirichlet forms does
 not allow for a straightforward notion of composition of circuits. 
 
 In this section, inspired by the principle of least action of classical
 mechanics in analogy with the principle of minimum power, we develop a setting
-for describing behaviors that allows for easy discussion of composite
-behaviors: Lagrangian subspaces of symplectic vector spaces. These Lagrangian
+for describing behaviours that allows for easy discussion of composite
+behaviours: Lagrangian subspaces of symplectic vector spaces. These Lagrangian
 subspaces provide a more direct, invariant perspective, comprising precisely the
 set of vectors describing the possible simultaneous potential and current
 readings at all terminals of a given circuit. As we shall see, one immediate and
@@ -1729,7 +2246,7 @@ put a natural symplectic structure on the quotient space.
 
 \subsection{Lagrangian subspaces from quadratic forms}
 
-Lagrangian subspaces are of relevance to us here as the behavior of any passive
+Lagrangian subspaces are of relevance to us here as the behaviour of any passive
 linear circuit forms a Lagrangian subspace of the symplectic vector space
 generated by the nodes of the circuit. We think of this vector space as
 comprising two parts: a space $\F^N$ of potentials at each node, and a dual
@@ -1748,10 +2265,15 @@ quadratic forms.
   where $dQ_\phi \in {(\F^N)}^\ast$ is the formal differential of $Q$ at $\phi
   \in \F^N$, is Lagrangian. Moreover, this construction gives a one-to-one correspondence 
   \[ 
-    \bigg\{\mbox{Quadratic forms over $\F$ on $N$}\bigg\} \longleftrightarrow
-    \bigg\{\begin{array}{c} \mbox{Lagrangian subspaces of $\vectf{N}$}\\
-      \mbox{with trivial intersection with $\{0\} \oplus {(\F^N)}^\ast \subseteq
-      \vectf{N}$} \end{array} \bigg\}.  
+    \left\{\begin{array}{c} 
+      \\ \mbox{Quadratic forms over $\F$ on $N$} \\ \phantom{.}
+    \end{array} \right\} 
+    \longleftrightarrow
+    \left\{\begin{array}{c} 
+      \mbox{Lagrangian subspaces of $\vectf{N}$}\\
+      \mbox{with trivial intersection with} \\ 
+      \{0\} \oplus {(\F^N)}^\ast \subseteq \vectf{N} 
+    \end{array} \right\}.  
   \]
 \end{proposition}
 \begin{proof}
@@ -1782,7 +2304,7 @@ quadratic forms.
   such that $(\phi,i_\phi) \in L$. Indeed, if $i_\phi$ and $i_\phi'$ were
   distinct elements of ${(\F^N)}^\ast$ with this property, then by linearity
   $(0,i_\phi-i_\phi')$ would be a nonzero element of $L \cap (\{0\} \oplus
-  {(\F^N)}^\ast$, contradicting the hypothesis about trivial intersection. We
+  {(\F^N)}^\ast)$, contradicting the hypothesis about trivial intersection. We
   thus can define a function, indeed a linear map, $\F^N \to {(\F^N)}^\ast; \phi
   \mapsto i_\phi$. This defines a bilinear form $Q(\phi,\psi) = i_\phi(\psi)$ on
   $\F^N \oplus \F^N$, and so $Q(\phi) = i_\phi(\phi)$ defines a quadratic form
@@ -1850,11 +2372,12 @@ Lagrangian, once we account for the complement.
   Lagrangian if and only if it is equal to its complement. The lemma is then
   immediate from the way taking the symplectic complement interacts with sums
   and intersections:
-  \[
+  \begin{multline*}
     ((L\cap S^\circ) +S)^\circ = (L\cap S^\circ)^\circ \cap S^\circ = (L^\circ +
-    (S^\circ)^\circ) \cap S^\circ = (L+S) \cap S^\circ = (L \cap S^\circ)+(S
+    (S^\circ)^\circ) \cap S^\circ \\
+    = (L+S) \cap S^\circ = (L \cap S^\circ)+(S
     \cap S^\circ) = (L\cap S^\circ) +S.
-  \]
+  \end{multline*}
   Since $(L\cap S^\circ) +S$ is equal to its complement, it is Lagrangian.
 \end{proof}
 
@@ -1929,11 +2452,11 @@ relations is again a Lagrangian relation.
   $\Delta^\circ/\Delta = \overline{V_1} \oplus V_3$, as required.
 \end{proof}
 
-Note that this composition is associative. We shall see later that this
-composition agrees with composition of Dirichlet forms, and hence also
-composition of circuits. 
+Note that this composition is associative. We shall prove this composition
+agrees with composition of Dirichlet forms, and hence also composition of
+circuits. 
 
-\subsection{The dagger compact category of Lagrangian relations}
+\subsection{The symmetric monoidal category of Lagrangian relations}
 
 Lagrangian relations solve the identity problems we had with Dirichlet forms:
 given a symplectic vector space $V$, the Lagrangian relation $\idn\maps V \to V$
@@ -1947,13 +2470,6 @@ acts as an identity for composition of relations. We thus have a category.
   We write \define{$\LagrRel$} for the category with symplectic
   vector spaces as objects and Lagrangian relations as morphisms. 
 \end{definition}
-
-In fact the move to the setting of Lagrangian relations, rather than Dirichlet
-forms, adds far richer structure than just identity morphisms. The category
-$\LagrRel$ can be viewed as endowed with the structure of a dagger
-compact category. We lay this out in steps.
-
-\subsubsection*{Symmetric monoidal structure}
 
 We define the tensor product of two objects of $\LagrRel$ to be their
 direct sum. Similarly, we define the tensor product of two morphisms $L\maps U
@@ -1990,183 +2506,19 @@ maps come from symplectomorphisms between the domain and codomain. From this
 viewpoint it is immediate that all the necessary diagrams commute, so we
 have a symmetric monoidal category. 
 
-\subsubsection*{Duals for objects}
-
-Each object $V$ of $\LagrRel$ is dual to its conjugate space $\overline
-V$, with cup $\eta\maps \{0\} \to \overline{V} \oplus V$ given by 
-\[
-  \eta = \{(0,v,v) \mid v \in V\} \subseteq \overline{\{0\}} \oplus \overline{V}
-  \oplus V
-\]
-and cap $\eps\maps V \oplus \overline{V} \to \{0\}$ given by
-\[
-  \eps = \{(v,v,0) \mid v \in V\} \subseteq \overline{V \oplus \overline{V}}
-  \oplus \{0\}.
-\]
-It is straightforward to check these satisfy the zigzag identities.
-
-\subsubsection*{Dagger structure}
-
-Given symplectic vector spaces $U,V$, observe that the map
-\begin{align*}
-  (-)^\dagger\maps \overline{U} \oplus V &\longrightarrow \overline{V} \oplus U; \\
-  (u,v) &\longmapsto (v,u)
-\end{align*} 
-takes Lagrangian subspaces of the domain to Lagrangian subspaces of the
-codomain. Thus we can view it as a map $(-)^\dagger$ taking morphisms $L\maps U \to V$
-of $\LagrRel$ to morphisms $L^\dagger\maps V \to U$. This defines a
-dagger structure on $\LagrRel$, which makes this category into a
-symmetric monoidal dagger category.
-
-Moreover, every object in $\mathrm{LagrRel}$ has a dagger dual: it is clear that
-$\eta^\dagger = \eps \circ \s$.   This category thus becomes a dagger compact
-category.
-
-\section{The category of passive linear networks} \label{sec:circdef}
-In this part we move our focus from the semantics of circuit diagrams to the
-syntax, addressing the question ``How do we interact with circuit diagrams?''.
-Informally, the answer to this is that we interact with them by connecting them
-to each other, perhaps after moving them into the right form by rotating or
-reflecting them, or by crossing or bending some of the wires. To formalize this,
-we adopt a category theoretic viewpoint, defining various dagger compact
-categories with circuits and their behaviors as morphisms. We claim a formal
-analysis of this structure, especially of the composition or connection of
-circuits, has been overlooked in analysis of circuits thus far. This part
-culminates in the definition of two important categories, the category $\Circ$
-of circuit diagrams, and the category $\LagrRel$ containing all behaviors of
-circuits. We also develop the technical material required to appreciate the
-structure of these categories, and that aids understanding of the relationship
-between the two, to be addressed in Part .
-
-%%fakesubsection
-In Part  we defined a circuit of linear resistors to be a labelled graph with marked input and output terminals, as in the example:
-\[
-\begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
-\node[contact] (I1) at (0,2) {};
-\node[contact] (I2) at (0,0) {};
-\coordinate (int1) at (2.83,1) {};
-\coordinate (int2) at (5.83,1) {};
-\node[contact] (O1) at (8.66,2) {};
-\node[contact] (O2) at (8.66,0) {};
-\node (input) at (-2,1) {\small{\textsf{inputs}}};
-\node (output) at (10.66,1) {\small{\textsf{outputs}}};
-\draw (I1) 	to [resistor] node [label={[label distance=2pt]85:{$1\Omega$}}] {} (int1);
-\draw (I2)	to [resistor] node [label={[label distance=2pt]275:{$1\Omega$}}] {} (int1)
-				to [resistor] node [label={[label distance=3pt]90:{$2\Omega$}}] {} (int2);
-\draw (int2) 	to [resistor] node [label={[label distance=2pt]95:{$1\Omega$}}] {} (O1);
-\draw (int2)		to [resistor] node [label={[label distance=2pt]265:{$3\Omega$}}] {} (O2);
-\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (input) edge (I1);		\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (input) edge (I2);		
-\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right] (output) edge (O1);
-\path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left] (output) edge (O2);
-\end{tikzpicture}
-\]
-We then defined general passive linear circuits by replacing resistances with
-impedances chosen from a set of positive elements $\F^+$ in any field $\F$.
-In fact, these circuits are examples of decorated cospans.  This gives a dagger compact category $\Circ$ whose morphisms are circuits, with the
-dagger compact structure expressing standard operations on circuits.
-
-We actually give two constructions of this category, first arriving at a category of
-cospans decorated by $\F^+$-graphs, and then showing that this is
-a full subcategory of the decategorification of a bicategory of cospans of
-$\F^+$-graphs.
-
-\subsection{A decorated cospan construction}
-
-We officially defined a `circuit' in Definition \ref{def_circuit_2}, but now we can give an equivalent definition using cospans:
-
-\begin{lemma} A circuit is a cospan of finite sets $X \stackrel{i}{\longrightarrow} N
-\stackrel{o}{\longleftarrow} Y$ together with an $\F^+$-graph whose set
-of nodes is $N$.
-\end{lemma}
-
-\begin{proof}
-This is just a matter of remembering the terminology: recall that an $\F^+$-graph
-is a graph whose edges are labelled with elements of $\F^+$, our chosen set of positive
-elements in the field $\F$.
-\end{proof}
-
-This suggests that circuits should be morphisms in a decorated  cospan category. Indeed, we can show that the map taking a finite set $N$ to the set of $\F^+$-graphs with
-set $N$ of nodes in fact forms a lax symmetric monoidal functor. This allows us to apply
-decorated cospans to construct a category of circuits.
-
-To this end, define the functor
-\[
-  \mathrm{Circuit}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
-\]
-to take a finite set $N$, as an object of $\mathrm{FinSet}$, to the set
-$\mathrm{Circuit}(N)$ of $\F^+$-graphs $(N,E,s,t,r)$ with $N$ as their
-set of nodes. On
-morphisms let it take a function $f\maps N \to M$ to the function that pushes
-labelled graph structures on a set $N$ forward onto the set $M$:
-\begin{align*}
-  \mathrm{Circuit}(f)\maps \mathrm{Circuit}(N) &\longrightarrow
-  \mathrm{Circuit}(M); \\
-  (N,E,s,t,r) &\longmapsto (M,E,f \circ s, f \circ t, r).
-\end{align*}
-Note that as this map simply acts by post-composition, our map
-$\mathrm{Circuit}$ is indeed functorial.
-
-We then arrive at a lax symmetric monoidal functor by equipping this functor with the
-natural transformation 
-\begin{align*}
-  \rho_{N,M}\maps \mathrm{Circuit}(N) \times \mathrm{Circuit}(M)
-  &\longrightarrow \mathrm{Circuit}(N+M); \\
-  \big( (N,E,s,t,r), (M,F,s',t',r') \big) &\longmapsto
-  \big(N+M,E+F,s+s',t+t',[r,r']\big),
-\end{align*}
-together with the unit map
-\begin{align*}
-  \rho_1\maps 1 &\longrightarrow \mathrm{Circuit}(\varnothing); \\
-  \bullet &\longmapsto
-  (\varnothing,\varnothing,\varnothing,\varnothing,\varnothing),
-\end{align*}
-where we use $\varnothing$ to denote both the empty set and the unique function
-of the appropriate codomain with domain the empty set. The naturality of this
-collection of morphisms, as well as the coherence laws for lax symmetric
-monoidal functors, follow from the universal property of the coproduct. 
-
-\begin{definition}
-  We define
-  \[
-    \mbox{\define{Circ}} = \mathrm{CircuitCospan} .
-  \]
-\end{definition}
-
-\begin{corollary}
-The category $\Circ$ is a dagger compact category. 
-\end{corollary}
-
-The different structures of this category capture different operations that can
-be performed with circuits. The composition expresses the fact that we can
-connect the outputs of one circuit to the inputs of the next, while the monoidal
-composition models the placement of circuits side-by-side. The symmetric
-monoidal structure allows us reorder input and output wires, and the compactness
-captures the interchangeability between input and outputs of
-circuits---that is, the fact that we can choose any input to our
-circuit and consider it instead as an output, and vice versa.  Finally, the
-dagger structure expresses the fact that we may reflect a whole circuit, switching
-all inputs with all outputs.
-
-
-Note that by Section and the work of Courser, we in fact have a symmetric
-monoidal bicategory $2\mbox{-}\Circ$ of circuits with 
-\begin{itemize}
-\item $L$-labelled graphs as objects,
-\item cospans in $L$-Graphas morphisms, and 
-\item maps of cospans as 2-morphisms.
-\end{itemize}
-
-It can be shown that every object in Cospan($\F^+$-Graph) is self-dual, and this
-implies that $2\mbox{-}\Circ$ is again a compact closed bicategory \cite{St}.
-Note that the category obtained by decategorifying this bicategory has
-finite sets as objects, with morphisms being isomorphism classes of cospans in 
-$\F^+$-Graph with feet such objects.   Thus, decategorifying $2\mbox{-}\Circ$
-gives a category equivalent to our previously defined category $\Circ$.
+In fact the move to the setting of Lagrangian relations, rather than Dirichlet
+forms, adds far richer structure than just identity morphisms. In the next
+section we show $\LagrRel$ is a hypergraph category.
 
 \section{Ideal wires and corelations} \label{sec:corel}
 %%fakesubsection
+
+Key point: examining the graphical elements that facilitate composition---here
+ideal wires---shows us how to define hypergraph structure and get decorated
+corelations construction.
+
 In the previous section our exploration of the meaning of circuit diagrams 
-culminated with our understanding of behaviors as Lagrangian subspaces.  We now 
+culminated with our understanding of behaviours as Lagrangian subspaces.  We now 
 turn our attention to how circuit components fit together, and the category of 
 operations.  In this section we shall see that the algebra of connections is 
 described by the concept of corelations, a generalization of the notion of 
@@ -2174,7 +2526,7 @@ function that forgets the directionality from the domain to the codomain. We
 then observe that Kirchhoff's laws follow directly from interpreting these
 structures in the category of linear relations.
 
-\subsection{Ideal wires}
+\subsection{Ideal wires as corelations}
 
 To motivate the definition of this category, let us start with a set of input
 terminals $X$, and a set of output terminals $Y$.  We may connect these
@@ -2495,7 +2847,6 @@ Ellerman gives a detailed treatment of corelations from a logic viewpoint in
 Rosebrugh \cite{LR}.  However, to make this paper self-contained, we explain them
 here.
 
-\subsection{The category of corelations}
 
 In the category of sets we hold the fundamental relationship between sets to be
 that of functions. These encode the idea of a deterministic process that takes
@@ -2639,12 +2990,7 @@ monoidal and indeed dagger compact: the braiding and cups and caps are
 respectively given by the partitions of $(X+Y)+(Y+X)$ and $X+X$ where two
 elements are in the same part of the partition if and only if they are equal as
 elements of $X$ or $Y$, while a dagger is given by simply considering a
-partition of $X+Y$ as a partition of $Y+X$..\footnote{In fact, if we take a
-  skeleton of $\mathrm{Corel}$ we obtain the PROP for `extraspecial commutative
-  Frobenius monoids', as defined by Baez and Erbele \cite{BE}.  We do not need
-  this here, but it helps tie our current work to other work on categories in
-  electrical engineering.  A proof can be assembled from Baez--Erbele together
-  with the work of Lack \cite{La}.}
+partition of $X+Y$ as a partition of $Y+X$.
 
 We can get a corelation $\alpha \maps X \to Y$ from a surjection $f \maps X + Y
 \to S$ for some set $S$, by taking the sets in the partition $\alpha = (A_1,
@@ -2665,7 +3011,7 @@ epic cospan gives the composite corelation $\beta \circ \alpha\maps X \to Z$.
 More precisely, we have the following proposition.
 
 \begin{proposition}
-  There is a strict symmetric monoidal dagger functor
+  There is a strict hypergraph functor
   \[
     \xymatrix{
       \mathrm{Cospan(FinSet)}  \ar@<.5ex>[r] & \mathrm{Corel} 
@@ -2673,35 +3019,14 @@ More precisely, we have the following proposition.
   \]
   mapping any cospan to the corelation it defines.
 \end{proposition}
-\begin{proof}
-  This functor maps each finite sets to itself.  We thus need only discuss how
-  it acts on morphisms.  A cospan in $\mathrm{FinSet}$ comprises a pair of
-  functions $X \stackrel{f}\rightarrow N \stackrel{g}\leftarrow Y$. Restricting
-  the apex $N$ down to the joint image $f(X) \cup g(Y)$ gives a jointly epic
-  cospan $X \stackrel{f}\rightarrow f(X) \cup g(Y) \stackrel{g}\leftarrow Y$,
-  and so a corelation $X \rightarrow Y$. As the elements of the apex not in the
-  image of maps from the feet play only a trivial role in the pushout, and hence
-  in composition of cospans, this map is functorial. It is now readily observed
-  that the functor is symmetric monoidal.
-\end{proof}
 
-All this is dual to the more familiar connection between spans and relations,
-where a relation is seen as an isomorphism class of jointly monic spans.  This
-explains the name `corelation'. Note that neither relations nor corelations are
-a generalization of the other.  The key property of corelations here is that it
-forms a \emph{compact} category with disjoint union of finite sets as the
-monoidal product.  This is not true of the category of relations between finite
-sets.
-
-
-Via the above proposition, the symmetric monoidal dagger functor embedding
-$\mathrm{FinSet}$ into $\mathrm{Cospan(FinSet)}$ gives rise to a symmetric
-monoidal dagger functor embedding $\mathrm{FinSet}$ into $\mathrm{Corel}$.
-Composing this with the dagger structure on $\mathrm{Corel}$, we also obtain a
-symmetric monoidal dagger functor embedding $\mathrm{FinSet}^{\mathrm{op}}$ into
-$\mathrm{Corel}$.  Corelations thus give a method of composing functions
-regardless of the direction of those functions.  Given some not necessarily
-directed path of functions, for example
+Via the above proposition, the hypergraph functor embedding $\mathrm{FinSet}$
+into $\mathrm{Cospan(FinSet)}$ gives rise to a hypergraph functor embedding
+$\mathrm{FinSet}$ into $\mathrm{Corel}$.  Composing this with the dagger
+structure on $\mathrm{Corel}$, we also obtain a hypergraph functor embedding
+$\mathrm{FinSet}^{\mathrm{op}}$ into $\mathrm{Corel}$.  Corelations thus give a
+method of composing functions regardless of the direction of those functions.
+Given some not necessarily directed path of functions, for example
 \[
   A \longrightarrow B \longleftarrow C \longleftarrow D \longrightarrow E
   \longrightarrow F,
@@ -2742,7 +3067,7 @@ remainder of this section is to build a functor
   S\maps \mathrm{Corel} \longrightarrow \LagrRel
 \]
 that expresses this interpretation. We break this functor down into the sum 
-of two parts, according to the behaviors of potentials and currents
+of two parts, according to the behaviours of potentials and currents
 respectively. 
 
 The consideration of potentials gives a functor $\Phi\maps \mathrm{Corel}
@@ -2766,7 +3091,7 @@ vector space of $\F$-valued functions on that set.
   morphisms by sending a corelation $\alpha\maps X \to Y$ to the linear subspace
   $\Phi(\alpha)$ of $\F^X \oplus \F^Y$ comprising functions $\phi =
   [\phi_X,\phi_Y]\maps X+Y \to \F$ that are constant on each element of
-  $\alpha$.  This is a symmetric monoidal dagger functor.
+  $\alpha$.  This is a hypergraph functor.
 \end{proposition}
 
 \begin{proof}
@@ -2826,7 +3151,7 @@ vector space of $\F$-valued functions on that set.
 \end{proof}
 
 To recap, we have now constructed a functor $\Phi\maps \mathrm{Corel} \to
-\mathrm{LinRel}$ expressing the behavior of potentials on corelations interpreted
+\mathrm{LinRel}$ expressing the behaviour of potentials on corelations interpreted
 as ideal wires. We now do the same for currents.
 
 \subsection{Currents on corelations}
@@ -2856,7 +3181,7 @@ of elements of that set.
   \[
     \sum_{x \in A_i \cap X} \lambda_x = \sum_{y \in A_i \cap Y} \lambda_y.
   \]
-  This is a symmetric monoidal dagger functor.
+  This is a hypergraph functor.
 \end{proposition}
 \begin{proof}
 The coherence maps are the natural isomorphisms $(\F^X)^\ast \oplus (\F^Y)^\ast
@@ -2920,12 +3245,12 @@ property. This proves the claim.
 Using elementary methods, an algorithm can also
 be given to construct an explicit solution.
 
-\subsection{The functor from Corel to LagrRel}
+\subsection{The symplectification functor}
 
 We have now defined functors that, when interpreting corelations as connections
-of ideal wires, describe the behaviors of the currents and potentials at the
+of ideal wires, describe the behaviours of the currents and potentials at the
 terminals of these wires. In this section, we combine these to define a single
-functor $S\maps \mathrm{Corel} \to \LagrRel$ describing the behavior of both
+functor $S\maps \mathrm{Corel} \to \LagrRel$ describing the behaviour of both
 currents and potentials as a Lagrangian subspace.
 
 \begin{proposition} \label{prop:sympfunctor}
@@ -2942,13 +3267,13 @@ currents and potentials as a Lagrangian subspace.
   S(\alpha) = \Phi(\alpha) \oplus I(\alpha) \subseteq \overline{\F^X \oplus
   (\F^X)^\ast}\oplus \F^Y \oplus (\F^Y)^\ast.
 \]
-  Then $S$ is a symmetric monoidal dagger functor, with coherence maps inherited
+  Then $S$ is a hypergraph functor, with coherence maps inherited
   from $\Phi$ and $I$.
 \end{proposition}
 \begin{proof}
   As $S$ is the tensor product in $\mathrm{LinRel}$ of the symmetric monoidal
   dagger functors $\Phi, I\maps \mathrm{Corel} \to \mathrm{LinRel}$, it is
-  itself a symmetric monoidal dagger functor $\mathrm{Corel} \to
+  itself a hypergraph functor $\mathrm{Corel} \to
   \mathrm{LinRel}$. Thus it only remains to be checked that, with respect to the
   symplectic structure we put on the objects $S(X)$, the image of each
   corelation $S(\alpha)$ is Lagrangian. 
@@ -2965,7 +3290,8 @@ currents and potentials as a Lagrangian subspace.
     &= \sum_{x \in X} \lambda_x dx(\phi_X') - \sum_{y \in Y} \lambda_y dy(\phi_Y') +
     \sum_{y \in Y} \lambda_y' dy(\phi_Y) - \sum_{x \in X} \lambda_x' dx(\phi_X)\\
     &= \sum_{A_j \in \alpha}\left(\sum_{x \in A_j \cap X} \lambda_x dx(\phi_X') -
-    \sum_{y \in A_j \cap Y} \lambda_y dy(\phi_Y')\right)+ \sum_{A_j \in
+    \sum_{y \in A_j \cap Y} \lambda_y dy(\phi_Y')\right) \\
+    &\qquad \qquad+ \sum_{A_j \in
     \alpha}\left(\sum_{x \in A_j \cap X} \lambda_x'dx(\phi_X) - \sum_{y \in A_j
     \cap Y} \lambda_y' dy(\phi_Y)\right)\\
     &= \sum_{A_j \in \alpha}\left(\sum_{x \in A_j \cap X} \lambda_x - \sum_{y \in
@@ -3161,28 +3487,155 @@ the concept of `twisted' symplectification introduced in the introduction.} The 
   \]
 \end{remark}
 
+\subsection{Lagrangian relations as decorated corelations}
+We have a wide functor $\cospan(\FinSet) \to \LagrRel$ (skeleton). Thus
+$\LagrRel$ is a hypergraph category. This means we can construct it as decorated
+corelations on its monoidal global sections functor.
+
+We begin by describing a category where morphisms are cospans decorated by
+Lagrangian subspaces.
+
+\begin{proposition}
+Define 
+\[
+  \mathrm{Lagr}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
+\]
+as follows. For objects let $\mathrm{Lagr}$ map a finite set $X$ to the set
+$\mathrm{Lagr}(X)$ of Lagrangian subspaces of the symplectic vector space
+$\vectf{X}$.  For morphisms, recall that a function $f\maps X \to Y$ between
+finite sets may be considered as a corelation, and the symplectification functor
+$S$ thus maps this corelation to some Lagrangian relation $Sf\maps \vectf{X}
+\to \vectf{Y}$. As Lagrangian relations map Lagrangian subspaces to Lagrangian
+subspaces (Proposition \ref{prop:lagrangian_composition}), this gives a map: 
+\begin{align*}
+  \mathrm{Lagr}(f)\maps \mathrm{Lagr}(X) &\longrightarrow \mathrm{Lagr}(Y); \\
+  L &\longmapsto Sf(L).
+\end{align*}
+Moreover, equipping this functor with the family of maps
+\begin{align*}
+  \lambda_{N,M}\maps \mathrm{Lagr}(N) \times \mathrm{Lagr}(M) &\longrightarrow
+  \mathrm{Lagr}(N+M);\\
+  (L_N,L_M) &\longmapsto L_N \oplus L_M,
+\end{align*}
+and unit
+\begin{align*}
+  \lambda_1\maps 1 &\longrightarrow \mathrm{Lagr}(\varnothing);\\
+  \bullet &\longmapsto \{0\}
+\end{align*}
+defines a lax symmetric monoidal functor.
+\end{proposition}
+\begin{proof}
+  The functoriality of this construction follows from the functoriality of $S$;
+  the lax symmetric monoidality from the relevant properties of the direct sum
+  of vector spaces.
+\end{proof}
+We thus obtain a dagger compact category $\mathrm{LagrCospan}$.
+
+At this point we have checked that the process of reinterpreting a circuit as a
+Lagrangian subspace of behaviours is functorial. Our task is now to integrate
+this information as more than just a `decoration' on our morphisms. This process
+constitutes a monoidal dagger functor
+\[
+  \mathrm{LagrCospan} \longrightarrow \LagrRel.
+\]
+This factor of the black box functor is the one that gives it its name;
+through this functor we finally seal off the inner structure of our circuits,
+leaving us access only to the behaviour at the terminals. Its purpose is to take a 
+Lagrangian cospan, which captures information about the behaviours of a 
+circuit measured at every node, and restrict it down to a 
+relation detailing the behaviours simply on the terminals. 
+
+\begin{proposition}
+We may define a hypergraph functor
+\[
+  \mathrm{LagrCospan} \longrightarrow \mathrm{LagrRel}
+\]
+as follows. On objects let this functor take a finite set $X$ to the symplectic
+vector space $\F^X \oplus (\F^X)^\ast$. On morphisms let it take a Lagrangian
+cospan
+\[
+  \big(X\stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y; L
+  \subseteq \F^N \oplus (\F^N)^\ast\big)
+\]
+to the Lagrangian relation
+\[
+  (S^t\!X\oplus SY) \circ S[i,o]^\dagger \circ L \subseteq
+  \overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y \oplus (\F^Y)^\ast.  
+\]  
+\end{proposition}
+
+The coherence maps here are the usual natural isomorphisms
+\[
+  \vectf{X} \oplus \vectf{Y} \stackrel{\sim}{\longrightarrow} \vectf{X+Y} 
+\]
+and
+\[
+  \{0\} \stackrel{\sim}{\longrightarrow} \vectf{\varnothing}.
+\]
+
+The three functors of this section compose to give the black box functor
+\[
+\blacksquare\maps \Circ \to \LagrRel.
+\] 
+Since they are each separately hypergraph functors, the black box
+functor is too.
+
+
+\subsubsection*{Duals for objects}
+
+Each object $V$ of $\LagrRel$ is dual to its conjugate space $\overline
+V$, with cup $\eta\maps \{0\} \to \overline{V} \oplus V$ given by 
+\[
+  \eta = \{(0,v,v) \mid v \in V\} \subseteq \overline{\{0\}} \oplus \overline{V}
+  \oplus V
+\]
+and cap $\eps\maps V \oplus \overline{V} \to \{0\}$ given by
+\[
+  \eps = \{(v,v,0) \mid v \in V\} \subseteq \overline{V \oplus \overline{V}}
+  \oplus \{0\}.
+\]
+It is straightforward to check these satisfy the zigzag identities.
+
+\subsubsection*{Dagger structure}
+
+Given symplectic vector spaces $U,V$, observe that the map
+\begin{align*}
+  (-)^\dagger\maps \overline{U} \oplus V &\longrightarrow \overline{V} \oplus U; \\
+  (u,v) &\longmapsto (v,u)
+\end{align*} 
+takes Lagrangian subspaces of the domain to Lagrangian subspaces of the
+codomain. Thus we can view it as a map $(-)^\dagger$ taking morphisms $L\maps U \to V$
+of $\LagrRel$ to morphisms $L^\dagger\maps V \to U$. This defines a
+dagger structure on $\LagrRel$, which makes this category into a
+hypergraph category.
+
+Moreover, every object in $\mathrm{LagrRel}$ has a dagger dual: it is clear that
+$\eta^\dagger = \eps \circ \s$.   This category thus becomes a dagger compact
+category.
+
+
 \section{The black box functor} \label{sec:blackbox}
 %%fakesection
 We have now developed enough machinery to prove Theorem \ref{main_theorem}:
-there is a symmetric monoidal dagger functor, the black box functor
+there is a hypergraph functor, the black box functor
 \[  
 \blacksquare\maps \Circ \to \LagrRel 
 \]
-taking passive linear circuits to their behaviors. To recap, we have so far
+taking passive linear circuits to their behaviours. To recap, we have so far
 developed two categories: $\Circ$, in which morphisms are passive linear
-circuits, and $\LagrRel$, which captures the external behavior of such circuits.
-We now define a functor that maps each circuit to its behavior, before proving
-it is indeed a symmetric monoidal dagger functor. 
+circuits, and $\LagrRel$, which captures the external behaviour of such circuits.
+We now define a functor that maps each circuit to its behaviour, before proving
+it is indeed a hypergraph functor. 
 
 The role of the functor we construct here is to identify all circuits with the
-same external behavior, making the internal structure of the circuit
+same external behaviour, making the internal structure of the circuit
 inaccessible. Circuits treated this way are frequently referred to as
 `black boxes', so we call this functor the \define{black box functor},
 \[
 \blacksquare\maps \Circ \to \LagrRel.
 \] 
 In this section we first provide the definition of this functor, and then check
-that our definition really does map a circuit to its behavior.
+that our definition really does map a circuit to its behaviour.
 
 \subsection{Definition}
 It should be no surprise that the black box functor maps a finite set $X$ to the
@@ -3354,7 +3807,7 @@ and
 
 
 \begin{theorem} \label{thm:main}
-  The black box functor is a well-defined symmetric monoidal dagger functor.
+  The black box functor is a well-defined hypergraph functor.
 \end{theorem}
 
 The next, and final, section is devoted to the proof of this theorem. Before we
@@ -3457,7 +3910,7 @@ We see now that Theorem \ref{thm:main} is a restatement of Theorem
 \subsection{Proof of functoriality} \label{sec:proof}
 %%fakesubsection
 To prove that the black box construction is indeed functorial, we
-factor it into three functors. These functors are each symmetric monoidal dagger
+factor it into three functors. These functors are each hypergraph
 functors, so the black box functor is too.
 
 We first make use, twice, of our results on decorated cospans, showing the
@@ -3484,207 +3937,23 @@ The following subsections deal with these functors in sequence, defining and
 proving the existence of each one using the techniques of Part
 .
 
-
-\subsection{From circuits to Dirichlet cospans}
-To begin, we define a category of cospans of finite sets decorated by Dirichlet
-forms. This might be seen as a solution to our sought after composition rule for
-Dirichlet forms---but not quite, as it also requires the additional data of a
-cospan. Nonetheless, it has the property that there is a functor from the
-category of circuits to this so-called category of Dirichlet cospans.
-
-\subsubsection*{The category of Dirichlet cospans} 
-
-\begin{proposition}
-Let
-\[
-  \mathrm{Dirich}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
-\]
-map a finite set $X$ to the set $\mathrm{Dirich}(X)$ of Dirichlet forms on $X$,
-and map a function $f\maps X \to Y$ between finite sets to the pushforward function
-\begin{align*}
-  \mathrm{Dirich}(f)\maps \mathrm{Dirich}(X) &\longrightarrow \mathrm{Dirich}(Y); \\
-  Q &\longmapsto f_{\ast}Q,
-\end{align*}
-where $f_\ast Q$ maps $\phi \in \F^Y$ to $Q(\phi \circ f))$. This defines a
-functor.
-
-Moreover, equipping this functor with the family of maps
-\begin{align*}
-  \delta_{N,M}\maps \mathrm{Dirich}(N) \times \mathrm{Dirich}(M) &\longrightarrow
-  \mathrm{Dirich}(N+M);\\
-  (Q_N,Q_M) &\longmapsto Q_N(-\circ \iota_N) +Q_M(-\circ \iota_M),
-\end{align*}
-where $\iota_N\maps N \to N+M$, $\iota_M\maps M \to N+M$ are the injections for
-the coproduct, and with unit
-\begin{align*}
-  \delta_1\maps 1 &\longrightarrow \mathrm{Dirich}(\varnothing);\\
-  \bullet &\longmapsto (\F^\varnothing \to \F; \varnothing \mapsto 0)
-\end{align*}
-defines a lax symmetric monoidal functor.
-\end{proposition}
-
-\begin{proof}
-  Functoriality is just the associativity of composition of functions;
-  lax symmetric monoidality is the associativity, unitality, and commutativity
-  of addition of Dirichlet forms.
-\end{proof}
-  
-By decorated cospans, we thus obtain a category $\mathrm{DirichCospan}$
-where a morphism is a cospan of finite sets whose apex is equipped with a 
-Dirichlet form.  In particular, note that we have overcome our inability to define a category whose morphisms are Dirichlet forms.   An identity morphism in $\mathrm{DirichCospan}$ is a circuit whose set of inputs is equal to its set of
-outputs, with all of its nodes being terminals, and no edges:
-\[
-  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor iec graphic]
-    \node[contact] (c1) at (0,2) {};
-    \node[contact] (c2) at (0,0) {};
-    \node(input) at (-2,1) {\small{\textsf{inputs}}};
-    \node(output) at (2,1) {\small{\textsf{outputs}}};
-    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left]
-    (input) edge (c1);		
-    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right]
-    (input) edge (c2);	
-    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right]
-    (output) edge (c1);
-    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left]
-    (output) edge (c2);
-  \end{tikzpicture}
-\]
-
-\subsubsection*{The functor $\Circ \to \mathrm{DirichCospan}$}
-
-We have now constructed two symmetric monoidal functors
-\[
-  (\mathrm{Circuit},\rho), (\mathrm{Dirich},\delta)\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
-\]
-that describe the circuit structures and Dirichlet forms we may put on the set
-respectively. We have also seen, motivating our discussion of Dirichlet forms,
-that from any circuit we can obtain a Dirichlet form describing the power usage
-of that circuit. Now we shall see that this process respects the tensor product.
-More precisely, it specifies a monoidal natural transformation between
-$\mathrm{Circuit}$ and $\mathrm{Dirich}$. By the decorated cospan construction,
-this gives us a strict symmetric monoidal dagger
-functor $\Circ \to \mathrm{DirichCospan}$.
-
-\begin{proposition}
-  Let
   \[
-    \alpha\maps (\mathrm{Circuit},\rho) \Longrightarrow (\mathrm{Dirich},\delta)
+    \xymatrixcolsep{4pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      (\FinSet,+) \ar^{\mathrm{Graph}}[r] \ar@{=}[d] \drtwocell
+      \omit{_\:\theta_1} & (\Set,\times) \ar@{=}[d]  \\
+      (\FinSet,+) \ar^{\mathrm{Dirich}}[r] \ar[d] \drtwocell
+      \omit{_\:\theta_2} & (\Set,\times) \ar@{=}[d]  \\
+      (\cospan(\FinSet),+) \ar_{\mathrm{Lagr}}[r] & (\Set,\times).
+    }
   \]
-  be the collection of functions
-  \begin{align*}
-    \alpha_N\maps \mathrm{Circuit}(N) &\longrightarrow \mathrm{Dirich}(N); \\
-    (N,E,s,t,r) &\longmapsto \left(\phi \in \F^N \mapsto \frac{1}{2} \sum_{e \in E}
-    \frac{1}{r(e)}\big(\phi(s(e))-\phi(t(e))\big)^2\right).
-  \end{align*}
-  Then $\alpha$ is a monoidal natural transformation.
-\end{proposition}
-
-\begin{proof}
-Naturality requires that the square
-\[
-\xymatrix{
-  \mathrm{Circuit}(N) \ar[r]^{\alpha_N} \ar[d]_{\mathrm{Circuit}(f)} &
-  \mathrm{Dirich}(N) \ar[d]^{\mathrm{Dirich}(f)}  \\
-  \mathrm{Circuit}(M) \ar[r]_{\alpha_M} & \mathrm{Dirich}(M)
-}
-\]
-commutes. Let $(N,E,s,t,r)$ be an $\F^+$-graph on $N$ and $f\maps N \to M$ be a
-function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \alpha_N$ and $\alpha_M
-\circ \mathrm{Circuit}(f)$ map $(N,E,s,t,r)$ to the Dirichlet form
-\begin{align*}
-  \F^M &\longrightarrow \F;\\
-  \psi &\longmapsto \frac{1}{2} \sum_{e \in E}\frac{1}{r(e)}
-  \big(\psi(f(s(e)))-\psi(f(t(e)))\big)^2.
-\end{align*}
-Thus both methods of constructing a power functional on a set of nodes $M$ from
-a circuit on $N$ and a function $N \to M$ produce the same power functional.
-
-To show that $\alpha$ is a monoidal natural transformation, we must check that
-the square
-\[
-\xymatrix{
-  \mathrm{Circuit}(N) \times \mathrm{Circuit}(M) \ar[r]^{\alpha_N \times
-  \alpha_M} \ar[d]_{\rho_{N,M}} & \mathrm{Dirich}(N) \times \mathrm{Dirich}(M)
-  \ar[d]^{\delta_{N,M}}  \\
-  \mathrm{Circuit}(N+M) \ar[r]_{\alpha_{N+M}} & \mathrm{Dirich}(N+M)
-}
-\]
-and the triangle
-\[
-\xymatrix{
-  & 1 \ar[dl]_{\rho_\varnothing} \ar[dr]^{\delta_\varnothing}\\
-\mathrm{Circuit}(\varnothing)  \ar[rr]_{\alpha_\varnothing} &&
-\mathrm{Dirich}(\varnothing)
-}
-\]
-commute. It is readily observed that both paths around the square lead to taking
-two graphs and summing their corresponding Dirichlet forms, and that the
-triangle commutes immediately as all objects in it are the one element set.
-\end{proof}
-
-From decorated cospans, we thus obtain a strict symmetric monoidal dagger functor
-\[
-  Q \maps \Circ = \mathrm{CircuitCospan} \longrightarrow \mathrm{DirichCospan}.
-\]
-Roughly, this says that the process of composition for circuit diagrams is the
-same as that of composition for Dirichlet cospans. Note that although this
-functor preserves much of the information in circuit diagrams, it is not a
-faithful functor.  For example, applying $Q$ to a circuit with edges $e,e'$ from
-the node $m$ to the node $n$ of resistance $r_e$ and $r_{e'}$ respectively, we
-obtain the same result as for the circuit with just one edge $e''$ from $m$ to
-$n$ whose resistance $r_{e''}$ is given by
-\[
-           \frac{1}{r_{e''}} = \frac{1}{r_e} + \frac{1}{r_{e'}}  .
-\]
-
-\subsection{From Dirichlet cospans to Lagrangian cospans}
 
 The next step is to show that our process of turning a Dirichlet form into a Lagrangian subspace---by taking the graph of its differential---is functorial.
 
-\subsubsection*{The category of Lagrangian cospans}
-
-We begin by describing a category where morphisms are cospans decorated by
-Lagrangian subspaces.
-
-\begin{proposition}
-Define 
-\[
-  \mathrm{Lagr}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
-\]
-as follows. For objects let $\mathrm{Lagr}$ map a finite set $X$ to the set
-$\mathrm{Lagr}(X)$ of Lagrangian subspaces of the symplectic vector space
-$\vectf{X}$.  For morphisms, recall that a function $f\maps X \to Y$ between
-finite sets may be considered as a corelation, and the symplectification functor
-$S$ thus maps this corelation to some Lagrangian relation $Sf\maps \vectf{X}
-\to \vectf{Y}$. As Lagrangian relations map Lagrangian subspaces to Lagrangian
-subspaces (Proposition \ref{prop:lagrangian_composition}), this gives a map: 
-\begin{align*}
-  \mathrm{Lagr}(f)\maps \mathrm{Lagr}(X) &\longrightarrow \mathrm{Lagr}(Y); \\
-  L &\longmapsto Sf(L).
-\end{align*}
-Moreover, equipping this functor with the family of maps
-\begin{align*}
-  \lambda_{N,M}\maps \mathrm{Lagr}(N) \times \mathrm{Lagr}(M) &\longrightarrow
-  \mathrm{Lagr}(N+M);\\
-  (L_N,L_M) &\longmapsto L_N \oplus L_M,
-\end{align*}
-and unit
-\begin{align*}
-  \lambda_1\maps 1 &\longrightarrow \mathrm{Lagr}(\varnothing);\\
-  \bullet &\longmapsto \{0\}
-\end{align*}
-defines a lax symmetric monoidal functor.
-\end{proposition}
-\begin{proof}
-  The functoriality of this construction follows from the functoriality of $S$;
-  the lax symmetric monoidality from the relevant properties of the direct sum
-  of vector spaces.
-\end{proof}
-We thus obtain a dagger compact category $\mathrm{LagrCospan}$.
-
 \subsubsection*{The functor $\mathrm{DirichCospan} \to \mathrm{LagrCospan}$}
 
-We now wish to construct a strict symmetric monoidal dagger functor
+We now wish to construct a strict hypergraph functor
 $\mathrm{DirichCospan} \to \mathrm{LagrCospan}$.  For this we need a monoidal natural transformation 
 \[
   (\mathrm{Dirich},\delta), (\mathrm{Lagr},\lambda)\maps (\mathrm{FinSet},+)
@@ -3766,410 +4035,13 @@ summand Dirichlet forms, while there is only a unique map $1 \to
 \mathrm{Lagr}(\varnothing)$.
 \end{proof}
 
-We thus obtain a strict symmetric monoidal dagger functor 
+We thus obtain a strict hypergraph functor 
 \[   
 \mathrm{DirichCospan} \to \mathrm{LagrCospan},
 \]
 which simply replaces the decoration on each cospan in $\mathrm{DirichCospan}$
 with the corresponding Lagrangian subspace.
 
-\subsection{From cospans to relations}
-
-At this point we have checked that the process of reinterpreting a circuit as a
-Lagrangian subspace of behaviors is functorial. Our task is now to integrate
-this information as more than just a `decoration' on our morphisms. This process
-constitutes a monoidal dagger functor
-\[
-  \mathrm{LagrCospan} \longrightarrow \LagrRel.
-\]
-This factor of the black box functor is the one that gives it its name;
-through this functor we finally seal off the inner structure of our circuits,
-leaving us access only to the behavior at the terminals. Its purpose is to take a 
-Lagrangian cospan, which captures information about the behaviors of a 
-circuit measured at every node, and restrict it down to a 
-relation detailing the behaviors simply on the terminals. 
-
-\begin{proposition}
-We may define a symmetric monoidal dagger functor
-\[
-  \mathrm{LagrCospan} \longrightarrow \mathrm{LagrRel}
-\]
-as follows. On objects let this functor take a finite set $X$ to the symplectic
-vector space $\F^X \oplus (\F^X)^\ast$. On morphisms let it take a Lagrangian
-cospan
-\[
-  \big(X\stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y; L
-  \subseteq \F^N \oplus (\F^N)^\ast\big)
-\]
-to the Lagrangian relation
-\[
-  (S^t\!X\oplus SY) \circ S[i,o]^\dagger \circ L \subseteq
-  \overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y \oplus (\F^Y)^\ast.  
-\]  
-\end{proposition}
-
-\begin{proof}
-The coherence maps here are the usual natural isomorphisms
-\[
-  \vectf{X} \oplus \vectf{Y} \stackrel{\sim}{\longrightarrow} \vectf{X+Y} 
-\]
-and
-\[
-  \{0\} \stackrel{\sim}{\longrightarrow} \vectf{\varnothing}.
-\]
-It is now routine to observe the symmetric monoidality and dagger-preserving
-nature of this construction, as well as that it preserves identities. Finally,
-we must check that composition is preserved.  
-
-Using the concept of names introduced in Chapter refONE, this comes
-down to checking this equality of Lagrangian subspaces:
-\[
-\begin{aligned}
-  \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-1.75, 0.5) {};
-		\node [style=none] (1) at (-1.25, 0.5) {};
-		\node [style=none] (2) at (-1.75, -0) {};
-		\node [style=none] (3) at (-1.25, -0) {};
-		\node [style=none] (4) at (-1.75, 1.25) {};
-		\node [style=none] (5) at (-1.5, -0.75) {};
-		\node [style=none] (6) at (-1.5, 0.5) {};
-		\node [style=none] (7) at (-1.5, -0) {};
-		\node [style=none] (8) at (-0.5, -0) {};
-		\node [style=none] (9) at (-0.5, 0.75) {};
-		\node [style=none] (10) at (-1, 2) {};
-		\node [style=none] (11) at (-1.5, 1.5) {};
-		\node [style=none] (12) at (-0.5, 1.5) {};
-		\node [style=none] (13) at (-1, 1.5) {};
-		\node [style=none] (14) at (-1.75, 0.75) {};
-		\node [style=none] (15) at (-0.25, 1.25) {};
-		\node [style=none] (16) at (-0.25, 0.75) {};
-		\node [style=none] (17) at (-1.5, 0.75) {};
-		\node [style=none] (18) at (-1, 1.25) {};
-		\node [style=none] (19) at (0.25, 0.75) {};
-		\node [style=none] (20) at (1.75, 1.25) {};
-		\node [style=none] (21) at (1, 1.5) {};
-		\node [style=none] (22) at (1.75, 0.75) {};
-		\node [style=none] (23) at (0.5, -0) {};
-		\node [style=none] (24) at (0.75, 0.5) {};
-		\node [style=none] (25) at (1.5, 0.75) {};
-		\node [style=none] (26) at (1, 1.25) {};
-		\node [style=none] (27) at (1.5, -0.75) {};
-		\node [style=none] (28) at (0.5, 0.75) {};
-		\node [style=none] (29) at (0.25, 0.5) {};
-		\node [style=none] (30) at (0.25, -0) {};
-		\node [style=none] (31) at (0.5, 0.5) {};
-		\node [style=none] (32) at (1, 2) {};
-		\node [style=none] (33) at (1.5, 1.5) {};
-		\node [style=none] (34) at (0.25, 1.25) {};
-		\node [style=none] (35) at (0.5, 1.5) {};
-		\node [style=none] (36) at (0.75, -0) {};
-		\node [style=none] (37) at (0, -0.5) {};
-		\node [style=none] (38) at (-1, 1.75) {$L$};
-		\node [style=none] (39) at (1, 1.75) {$K$};
-		\node [style=none] (40) at (-1, 1) {$S[i_X,o_Y]^\dagger$};
-		\node [style=none] (41) at (1, 1) {$S[i_Y,o_Z]^\dagger$};
-		\node [style=none] (42) at (-1.5, 0.25) {$S^t\!X$};
-		\node [style=none] (43) at (0.5, 0.25) {$S^t\!Y$};
-		\node [style=none] (44) at (-1.5, -1) {$\displaystyle\overline{\blacksquare(X)}$};
-		\node [style=none] (45) at (1.5, -1) {$\displaystyle\blacksquare(Z)$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (7.center) to (5.center);
-		\draw (8.center) to (9.center);
-		\draw (10.center) to (11.center);
-		\draw (11.center) to (12.center);
-		\draw (12.center) to (10.center);
-		\draw (4.center) to (14.center);
-		\draw (14.center) to (16.center);
-		\draw (16.center) to (15.center);
-		\draw (15.center) to (4.center);
-		\draw (13.center) to (18.center);
-		\draw (17.center) to (6.center);
-		\draw (29.center) to (24.center);
-		\draw (24.center) to (36.center);
-		\draw (36.center) to (30.center);
-		\draw (30.center) to (29.center);
-		\draw (27.center) to (25.center);
-		\draw (32.center) to (35.center);
-		\draw (35.center) to (33.center);
-		\draw (33.center) to (32.center);
-		\draw (34.center) to (19.center);
-		\draw (19.center) to (22.center);
-		\draw (22.center) to (20.center);
-		\draw (20.center) to (34.center);
-		\draw (21.center) to (26.center);
-		\draw (28.center) to (31.center);
-		\draw [bend right=45, looseness=1.00] (8.center) to (37.center);
-		\draw [bend right=45, looseness=1.00] (37.center) to (23.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-  \end{aligned}
-  \qquad
-  =
-  \qquad
-  \begin{aligned}
-    \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.75, -0.25) {};
-		\node [style=none] (1) at (-0.25, -0.25) {};
-		\node [style=none] (2) at (-0.75, -0.75) {};
-		\node [style=none] (3) at (-0.25, -0.75) {};
-		\node [style=none] (4) at (-0.75, 1.25) {};
-		\node [style=none] (5) at (-0.5, -1) {};
-		\node [style=none] (6) at (-0.5, -0.25) {};
-		\node [style=none] (7) at (-0.5, -0.75) {};
-		\node [style=none] (8) at (0, 0.5) {};
-		\node [style=none] (9) at (0, 0.75) {};
-		\node [style=none] (10) at (-0.5, 2) {};
-		\node [style=none] (11) at (-1, 1.5) {};
-		\node [style=none] (12) at (0, 1.5) {};
-		\node [style=none] (13) at (-0.5, 1.5) {};
-		\node [style=none] (14) at (-0.75, 0.75) {};
-		\node [style=none] (15) at (0.75, 1.25) {};
-		\node [style=none] (16) at (0.75, 0.75) {};
-		\node [style=none] (17) at (-0.5, -0) {};
-		\node [style=none] (18) at (-0.5, 1.25) {};
-		\node [style=none] (19) at (-0.75, -0) {};
-		\node [style=none] (20) at (0.75, 0.5) {};
-		\node [style=none] (21) at (0.5, 1.25) {};
-		\node [style=none] (22) at (0.75, -0) {};
-		\node [style=none] (23) at (0.5, -0) {};
-		\node [style=none] (24) at (0.5, 1.5) {};
-		\node [style=none] (25) at (0.5, -1) {};
-		\node [style=none] (26) at (0.5, 2) {};
-		\node [style=none] (27) at (1, 1.5) {};
-		\node [style=none] (28) at (-0.75, 0.5) {};
-		\node [style=none] (29) at (0, 1.5) {};
-		\node [style=none] (30) at (-0.5, 1.75) {$L$};
-		\node [style=none] (31) at (0.5, 1.75) {$K$};
-		\node [style=none] (32) at (0, 1) {$S[j_N,j_M]$};
-		\node [style=none] (33) at (0, 0.25) {$\scriptscriptstyle
-		  \stackrel{S[j_N \circ i_X,}{j_M \circ o_Z]^\dagger}$};
-		\node [style=none] (34) at (-0.5, -0.5) {$S^t\!X$};
-		\node [style=none] (35) at (-0.5, -1.25) {$\displaystyle\overline{\blacksquare(X)}$};
-		\node [style=none] (36) at (0.5, -1.25) {$\displaystyle\blacksquare(Z)$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (7.center) to (5.center);
-		\draw (8.center) to (9.center);
-		\draw (10.center) to (11.center);
-		\draw (11.center) to (12.center);
-		\draw (12.center) to (10.center);
-		\draw (4.center) to (14.center);
-		\draw (14.center) to (16.center);
-		\draw (16.center) to (15.center);
-		\draw (15.center) to (4.center);
-		\draw (13.center) to (18.center);
-		\draw (17.center) to (6.center);
-		\draw (25.center) to (23.center);
-		\draw (26.center) to (29.center);
-		\draw (29.center) to (27.center);
-		\draw (27.center) to (26.center);
-		\draw (28.center) to (19.center);
-		\draw (19.center) to (22.center);
-		\draw (22.center) to (20.center);
-		\draw (20.center) to (28.center);
-		\draw (21.center) to (24.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-  \end{aligned}
-\]
-where the left hand side is the composite in $\LagrRel$ of the images of
-the Lagrangian cospans $(X\stackrel{i_X}{\longrightarrow} N
-\stackrel{o_Y}{\longleftarrow} Y; L)$ and $(Y\stackrel{i_Y}{\longrightarrow} M
-\stackrel{o_Z}{\longleftarrow} Z; K)$, and the right hand side is the image of
-their composite in $\mathrm{LagrCospan}$. (Recall that we write $j_N: N \to
-N+_YM$ and $j_M: M \to N+_YM$ for the maps given by the pushout.)
-
-Recalling Remark \ref{rmk:dualitydiagrams} pertaining to the functor $S$ and
-duals for objects, this implies that it is enough to check the equality of
-corelations
-\[
-  \begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-1.75, 0.5) {};
-		\node [style=none] (1) at (-1.75, 1.25) {};
-		\node [style=none] (2) at (-1.5, -0) {};
-		\node [style=none] (3) at (-0.5, 0.75) {};
-		\node [style=none] (4) at (-1, 1.75) {};
-		\node [style=none] (5) at (-1.75, 0.75) {};
-		\node [style=none] (6) at (-0.25, 1.25) {};
-		\node [style=none] (7) at (-0.25, 0.75) {};
-		\node [style=none] (8) at (-1.5, 0.75) {};
-		\node [style=none] (9) at (-1, 1.25) {};
-		\node [style=none] (10) at (0.25, 0.75) {};
-		\node [style=none] (11) at (1.75, 1.25) {};
-		\node [style=none] (12) at (1, 1.75) {};
-		\node [style=none] (13) at (1.75, 0.75) {};
-		\node [style=none] (14) at (0.5, 0.75) {};
-		\node [style=none] (15) at (1.5, 0.75) {};
-		\node [style=none] (16) at (1, 1.25) {};
-		\node [style=none] (17) at (1.5, -0) {};
-		\node [style=none] (18) at (0.25, 1.25) {};
-		\node [style=none] (19) at (0, 0.25) {};
-		\node [style=none] (20) at (-1, 2) {$\displaystyle N$};
-		\node [style=none] (21) at (1, 2) {$\displaystyle M$};
-		\node [style=none] (22) at (-1, 1) {$[i_X,o_Y]^\dagger$};
-		\node [style=none] (23) at (1, 1) {$[i_Y,o_Z]^\dagger$};
-		\node [style=none] (24) at (-1.5, -0.25) {$\displaystyle X$};
-		\node [style=none] (25) at (1.5, -0.25) {$\displaystyle Z$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (1.center) to (5.center);
-		\draw (5.center) to (7.center);
-		\draw (7.center) to (6.center);
-		\draw (6.center) to (1.center);
-		\draw (4.center) to (9.center);
-		\draw (8.center) to (2.center);
-		\draw (17.center) to (15.center);
-		\draw (18.center) to (10.center);
-		\draw (10.center) to (13.center);
-		\draw (13.center) to (11.center);
-		\draw (11.center) to (18.center);
-		\draw (12.center) to (16.center);
-		\draw [bend right=45, looseness=1.00] (3.center) to (19.center);
-		\draw [bend right=45, looseness=1.00] (19.center) to (14.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-  \end{aligned}
-  \qquad
-  =
-  \qquad
-  \begin{aligned}
-  \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.75, 1.25) {};
-		\node [style=none] (1) at (-0.5, -0.25) {};
-		\node [style=none] (2) at (0, 0.5) {};
-		\node [style=none] (3) at (0, 0.75) {};
-		\node [style=none] (4) at (-0.5, 1.5) {};
-		\node [style=none] (5) at (-0.75, 0.75) {};
-		\node [style=none] (6) at (0.75, 1.25) {};
-		\node [style=none] (7) at (0.75, 0.75) {};
-		\node [style=none] (8) at (-0.5, -0) {};
-		\node [style=none] (9) at (-0.5, 1.25) {};
-		\node [style=none] (10) at (-0.75, -0) {};
-		\node [style=none] (11) at (0.75, 0.5) {};
-		\node [style=none] (12) at (0.5, 1.25) {};
-		\node [style=none] (13) at (0.75, -0) {};
-		\node [style=none] (14) at (0.5, -0) {};
-		\node [style=none] (15) at (0.5, 1.5) {};
-		\node [style=none] (16) at (0.5, -0.25) {};
-		\node [style=none] (17) at (-0.75, 0.5) {};
-		\node [style=none] (18) at (-0.5, 1.75) {$\displaystyle N$};
-		\node [style=none] (19) at (0.5, 1.75) {$\displaystyle M$};
-		\node [style=none] (20) at (0, 1) {$[j_N,j_M]$};
-		\node [style=none] (21) at (0, 0.25) {$\scriptscriptstyle \stackrel{[j_N
-		\circ i_X,}{j_M \circ o_Z]^\dagger}$};
-		\node [style=none] (22) at (-0.5, -0.5) {$\displaystyle X$};
-		\node [style=none] (23) at (0.5, -0.5) {$\displaystyle Z$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (2.center) to (3.center);
-		\draw (0.center) to (5.center);
-		\draw (5.center) to (7.center);
-		\draw (7.center) to (6.center);
-		\draw (6.center) to (0.center);
-		\draw (4.center) to (9.center);
-		\draw (8.center) to (1.center);
-		\draw (16.center) to (14.center);
-		\draw (17.center) to (10.center);
-		\draw (10.center) to (13.center);
-		\draw (13.center) to (11.center);
-		\draw (11.center) to (17.center);
-		\draw (12.center) to (15.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-  \end{aligned}
-\]
-Writing this instead as a commutative diagram, we wish to prove the equality of
-the two corelations $N+M \to X+Y$:
-\[
-  \xymatrix@C=30pt@R=5pt{
-    &&& N+_YM \\
-    N+M \ar^{[j_N,j_M]}[urrr] && && && X+Z
-    \ar@{^{(}->}[dll]^(.48){\textrm{incl}_{X+Z}} 
-    \ar_{[j_N\circ i_X, j_M \circ o_Z]}[ulll] \\
-    && X+Y+Y+Z \ar[ull]^(.58){[i_X,o_Y]+[i_Y,o_Z]\quad}
-    \ar[rr]_(.53){\idn_X+[\idn_Y,\idn_Y]+\idn_Z} && X+Y+Z
-  }
-\]
-As the right-hand part admits the factorization 
-\[
-  \xymatrix@C=30pt@R=5pt{
-    &&&N+_YM \\
-    &&&& && X+Z
-    \ar@{^{(}->}[dll]^(.48){\textrm{incl}_{X+Z}} 
-    \ar_{[j_N\circ i_X, j_M \circ o_Z]}[ulll] \\
-    &&&& X+Y+Z \ar[uul]^{[j_N\circ i_X,j_N\circ o_Y,j_M\circ o_Z]\qquad}
-  }
-\]
-it is enough to check the following diagram commutes when interpreted as a pair
-of morphisms from $N+M$ to $X+Y+Z$ in the category of corelations: 
-\[
-  \xymatrix{
-    & N+_YM \\
-    N+M \ar[ur]^{[j_N,j_M]} && X+Y+Z \ar[ul]_{\qquad\quad[j_N\circ i_X,j_N\circ o_Y,j_M\circ o_Z]} \\
-    & X+Y+Y+Z \ar[ul]^{[i_X,o_Y]+[i_Y,o_Z]\qquad} \ar[ur]_{\qquad\idn_X+[\idn_Y,\idn_Y]+\idn_Z} 
-  }
-\]
-By Lemma \ref{lem:pushoutcorelations}, this is equivalent to checking that it is
-a pushout square in $\mathrm{FinSet}$.  This is so: the square commutes in
-$\mathrm{FinSet}$ as it is the sum along the lower right edges of the three
-commutative squares
-\[
-\xymatrix@=1.5em{
-& N+_YM \\
-N+M \ar[ur]^{[j_N,j_M]} && X \ar[ul]_{j_N\circ i_X} \\
-& X \ar[ur]_{\idn_X} \ar[ul]^{i_X} 
-}
-\quad
-\xymatrix@=1.5em{
-& N+_YM \\
-N+M \ar[ur]^{[j_N,j_M]} && Y \ar[ul]_{\quad j_N\circ o_Y=j_M\circ i_Y} \\
-& Y+Y \ar[ul]^{o_Y+i_Y} \ar[ur]_{[\idn_Y,\idn_Y]} 
-} 
-\xymatrix@=1.5em{
-& N+_YM \\
-N+M \ar[ur]^{[j_N,j_M]} && Z \ar[ul]_{j_M\circ o_Z} \\
-& Z \ar[ul]^{o_Z} \ar[ur]_{\idn_Z} 
-} 
-\]
-and given any other object $T$ and maps $f,g$ such that
-\[
-  \xymatrix{
-    & T \\
-    N+M \ar[ur]^{f} && X+Y+Z \ar[ul]_{g} \\
-    & X+Y+Y+Z \ar[ul]^{[i_X,o_Y]+[i_Y,o_Z]\quad} \ar[ur]_{\qquad \idn_X+[\idn_Y,\idn_Y]+\idn_Z} 
-  }
-\]
-commutes, there is a unique map $N+_YM \to T$ defined by sending $a$ in $N+_YM$
-to $f(\hat a)$, where $\hat a$ is a preimage of $a$ in $N+M$ under the coproduct
-of pushout maps $[j_N,j_M]$. This is well-defined as the preimage of $a$ is
-either unique or equal to $\{o_Y(y),i_Y(y)\}$ for some element $y \in Y$, and
-the commutativity of the above square containing $T$ implies that $f(o_Y(y)) =
-f(i_Y(y))$. This proves the functoriality of the map $\mathrm{LagrCospan} \to
-\LagrRel$ defined above.
-\end{proof}
-
-The three functors of this section compose to give the black box functor
-\[
-\blacksquare\maps \Circ \to \LagrRel.
-\] 
-Since they are each separately symmetric monoidal dagger functors, the black box
-functor is too.
-
 
 %\section{Concluding remarks}
-
 

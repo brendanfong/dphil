@@ -1,4 +1,4 @@
-\chapter{Decorated cospans: from closed systems to open}
+\chapter{Decorated cospans: from closed systems to open} \label{ch.deccospans}
 
 In the previous chapter we discussed hypergraph categories as a model for
 network languages, and showed that cospans provide a method of constructing such
@@ -763,7 +763,7 @@ categories $1_{\mathcal C}\mathrm{Cospan} \rightarrow F\mathrm{Cospan}$. This
 provides an example of a more general way to construct hypergraph functors
 between decorated cospan categories. We detail this in the next section.
 
-\subsection{A bicategory of decorated cospans}
+\subsection{A bicategory of decorated cospans} \label{ssec.bicatdeccospan}
 As shown by B\'enabou \cite{Be}, cospans are most naturally thought of as
 1-morphisms in a bicategory.  To obtain the category we are calling
 $\mathrm{Cospan}(\mc C)$, we `decategorify' this bicategory by discarding
@@ -1255,7 +1255,7 @@ theoretical development of decorated cospans in the next chapter. Armed with
 these additional tools, we will return to the application for a full discussion
 in Chapter \ref{ch.circuits}.
 
-\subsection{Labelled graphs}
+\subsection{Labelled graphs} \label{ssec.exlabelledgraphs}
 
 Recall that a \define{$[0,\infty)$-graph} $(N,E,s,t,r)$ comprises a finite set
 $N$ of vertices (or nodes), a finite set $E$ of edges, functions $s,t\colon  E \to N$
@@ -1304,7 +1304,27 @@ lax braided monoidal functors, follow from the universal property of the coprodu
 
 Theorem \ref{thm:fcospans} thus allows us to construct a hypergraph category
 $\mathrm{GraphCospan}$.  For an intuitive visual understanding of the morphisms
-of this category and its composition rule, see this paper's introduction.
+of this category and its composition rule, see this paper's introduction. The
+main idea is that composition glues together any pair of terminal that have the same
+preimage under the cospan maps. An identity morphism is a circuit whose set of
+inputs is equal to its set of outputs, with all of its nodes being terminals,
+and no edges:
+\[
+  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor iec graphic]
+    \node[contact] (c1) at (0,2) {};
+    \node[contact] (c2) at (0,0) {};
+    \node(input) at (-2,1) {\small{\textsf{inputs}}};
+    \node(output) at (2,1) {\small{\textsf{outputs}}};
+    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left]
+    (input) edge (c1);		
+    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right]
+    (input) edge (c2);	
+    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend right]
+    (output) edge (c1);
+    \path[color=gray, very thick, shorten >=10pt, ->, >=stealth, bend left]
+    (output) edge (c2);
+  \end{tikzpicture}
+\]
 
 \subsection{Linear relations} 
 Another example of a decorated cospan category arising from a functor $(\FinSet,+)
