@@ -10,7 +10,9 @@ decorated corelations framework will show this semantics is functorial.
 In late 1940s, just as Feynman was developing his diagrams for processes in particle physics, Eilenberg and Mac Lane initiated their work on category theory.  Over the subsequent decades, and especially in the work of Joyal and Street in the 1980s \cite{JS1,JS2}, it became clear that these developments were profoundly linked: monoidal categories have a precise graphical representation in terms of string diagrams, and conversely monoidal categories provide an algebraic foundation for the intuitions behind Feynman diagrams.  The key insight is the use of categories where morphisms describe physical processes, rather than structure-preserving maps between mathematical objects \cite{BaezStay,CP}.
 
 In work on fundamental physics, the cutting edge has moved from categories
-to higher categories \cite{BL}.  But the same techniques have filtered into more immediate applications, particularly in computation and quantum computation \cite{AC,Ba1,Se}.  This paper is part of a still nascent program of applying string diagrams to engineering, with the aim of giving diverse diagram languages a unified foundation based on category theory \cite{BE,BSZ,KSW,RSW,Sp}. 
+to higher categories \cite{BL}.  But the same techniques have filtered into more
+immediate applications, particularly in computation and quantum computation
+\cite{AC,Ba1,Se}.  This chapter is part of a still nascent program of applying string diagrams to engineering, with the aim of giving diverse diagram languages a unified foundation based on category theory \cite{BE,BSZ,KSW,RSW,Sp}. 
 
 Indeed, even before physicists began using Feynman diagrams, various branches of engineering were using diagrams that in retrospect are closely related.   Foremost among these are the ubiquitous electrical circuit diagrams. Although less well-known, similar diagrams are used to describe networks consisting of mechanical, hydraulic, thermodynamic and chemical systems.   Further work, pioneered in particular by 
 Forrester \cite{Fo} and Odum \cite{Od}, applies similar diagrammatic methods to biology, ecology, and economics.
@@ -46,7 +48,9 @@ Chemistry & moles & molar flow & chemical momentum & chemical potential \\
 
 While diagrams of networks have been independently introduced in many disciplines, we do not expect formalizing these diagrams to immediately help the practitioners of these disciplines.  At first the flow of information will mainly go in the other direction: by translating ideas from these disciplines into the language of modern mathematics, we can provide mathematicians with food for thought and interesting new problems to solve.  We hope that in the long run mathematicians can return the favor by bringing new insights to the table.
 
-Although we shall keep the broad applicability of network diagrams in the back of our minds, we couch our discussion in terms of electrical circuits, for the sake of familiarity. In this paper our goal is somewhat limited.  We only study circuits built from `passive' components: that is, those that do not produce energy.  Thus, we exclude batteries and current sources.  We only consider components that respond linearly to an applied voltage.   Thus, we exclude components such as nonlinear resistors or diodes.  Finally, we only consider components with one input and one output, so that a circuit can be described as a graph with edges labeled by components.  Thus, we also exclude transformers.  The most familiar components our framework covers are linear resistors, capacitors and inductors.
+Although we shall keep the broad applicability of network diagrams in the back
+of our minds, we couch our discussion in terms of electrical circuits, for the
+sake of familiarity. In this chapter our goal is somewhat limited.  We only study circuits built from `passive' components: that is, those that do not produce energy.  Thus, we exclude batteries and current sources.  We only consider components that respond linearly to an applied voltage.   Thus, we exclude components such as nonlinear resistors or diodes.  Finally, we only consider components with one input and one output, so that a circuit can be described as a graph with edges labeled by components.  Thus, we also exclude transformers.  The most familiar components our framework covers are linear resistors, capacitors and inductors.
 
 While we hope to expand our scope in future work, the class of circuits made from these components has appealing mathematical properties, and is worthy of deep study.  Indeed, this class has been studied intensively for many decades by electrical engineers \cite{AV,Budak,Slepian}.  Even circuits made exclusively of resistors have inspired work by mathematicians of the caliber of Weyl \cite{Weyl} and Smale \cite{Smale}.  
 
@@ -493,8 +497,7 @@ to this relation, giving in this case the composite circuit:
 
 \vskip 1em
 
-More formally, we define a \define{graph}\footnote{In this paper we refer
-to directed multigraphs simply as graphs.} to be a pair of functions $s,t\maps E \to N$ where $E$ and $N$ are finite sets.  We call elements of $E$ \define{edges} and elements of $N$ \define{vertices} or
+More formally, we define a \define{graph} to be a pair of functions $s,t\maps E \to N$ where $E$ and $N$ are finite sets.  We call elements of $E$ \define{edges} and elements of $N$ \define{vertices} or
 \define{nodes}.  We say that the edge $e \in E$ has \define{source} $s(e)$ and
 \define{target} $t(e)$, and also say that $e$ is an edge \define{from} $s(e)$
 \define{to} $t(e)$.
@@ -1440,9 +1443,14 @@ The \define{power functional} $Q \maps \R^{\partial N} \to \R$ of a circuit with
 \]
 \end{definition}
 
-As before, we define two circuits to be \define{equivalent} if they have the same
-power functional, and define the \define{behaviour} of a circuit to be its equivalence
-class.  
+As before, we define two circuits to be \define{equivalent} if they have the
+same power functional, and define the \define{behaviour} of a circuit to be its
+equivalence class. 
+
+We now have a complete description of the semantics of diagrams of passive
+linear networks. The purpose of this chapter is to show how to use decorated
+corelations to make this semantics compositional. We make a start on this in the
+next section.
 
 
 \section{A compositional perspective} \label{sec:circdef}
@@ -1465,8 +1473,9 @@ want to define a hypergraph category of behaviours. We have three desiderata for
 such a category. First, the category of behaviours should have a unique morphism
 for each distinct circuit behaviour. Second, the map taking a circuit to its
 behaviour should be structure preserving: that is, it should be a hypergraph
-functor to a hypergraph category. Third, and somewhat vaguely, the category of
-behaviours and its composition rule should be easy to define and work with. 
+functor to a hypergraph category. A third, less formal desideratum is that the
+category of behaviours and its composition rule should be easy to define and
+work with. 
 
 It turns out, as we shall see, that Dirichlet forms are not quite general enough
 to accommodate our needs. In Subsection \ref{ssec.noidentities} we discuss an
@@ -1815,17 +1824,17 @@ in the right direction, and underlines the importance of the cospan formalism we
 then turn to develop.
 
 We can define a composition rule for Dirichlet forms that reflects composition
-of circuits.  Given finite sets $S$ and $T$, let $S+T$ denote their disjoint
-union.  Let $D(S,T)$ be the set of Dirichlet forms on $S+T$. There is a way to
+of circuits.  Given finite sets $X$ and $Y$, let $X+Y$ denote their disjoint
+union.  Let $D(X,Y)$ be the set of Dirichlet forms on $X+Y$. There is a way to
 compose these Dirichlet forms
 \[ 
-\circ \maps D(T,U) \times D(S,T) \to D(S,U) 
+\circ \maps D(Y,Z) \times D(X,Y) \to D(X,Z) 
 \]
-defined as follows.  Given $P \in D(T,U)$ and $Q \in D(S,T)$, let
+defined as follows.  Given $P \in D(Y,Z)$ and $Q \in D(X,Y)$, let
 \[ 
-  (P \circ Q)(\alpha, \gamma) = \min_{T} Q(\alpha, \beta) + P(\beta, \gamma),
+  (P \circ Q)(\alpha, \gamma) = \min_{Y} Q(\alpha, \beta) + P(\beta, \gamma),
 \]
-where $\alpha \in F^S, \gamma \in F^U$. This operation has a clear
+where $\alpha \in \F^X, \gamma \in \F^Z$. This operation has a clear
 interpretation in terms of electrical circuits: the power used by the entire
 circuit is just the sum of the power used by its parts. 
 
@@ -1833,7 +1842,7 @@ It is immediate from Theorem \ref{thm:dirichletminimization} that this
 composition rule is well-defined: the composite of two Dirichlet forms is again
 a Dirichlet form. Moreover, this composition is associative. However, it fails
 to provide the structure of a category, as there is typically no Dirichlet form
-$1_S \in D(S,S)$ playing the role of the identity for this composition. For an
+$1_X \in D(X,X)$ playing the role of the identity for this composition. For an
 indication of why this is so, let $\{\bullet\}$ be a set with one element, and
 suppose that some Dirichlet form $I(\beta,\gamma) = k(\beta-\gamma)^2 \in
 D(\{\bullet\},\{\bullet\})$ acts as an identity on the right for this
@@ -1868,11 +1877,11 @@ There is a semicategory where:
 \begin{itemize}
 \item the objects are finite sets,
 
-\item a morphism from $T$ to $S$ is a Dirichlet form $Q \in D(S,T)$.  
+\item a morphism from $X$ to $Y$ is a Dirichlet form $Q \in D(X,Y)$.  
 
 \item composition of morphisms is given by 
 \[
-(R \circ Q)(\gamma, \alpha) = \min_{T} Q(\gamma, \beta) + R(\beta, \alpha).
+(P \circ Q)(\gamma, \alpha) = \min_{Y} Q(\gamma, \beta) + P(\beta, \alpha).
 \]
 
 \end{itemize}
@@ -1882,43 +1891,54 @@ We would like to make this into a category. One easy way to do this is to
 formally adjoin identity morphisms; this trick works for any semicategory.
 However, we obtain a better category if we include \emph{more} morphisms: more
 behaviours corresponding to circuits made of perfectly conductive wires.
-The key constraint is that the expression for the extended power functional
-includes the reciprocals of impedances, such circuits cannot be expressed within
-the framework we have developed thus far. Similarly, the Frobenius maps also
-have semantics as ideal wires, and cannot be represented using Dirichlet forms.
-Indeed, for these idealized circuits there is no function taking boundary
-potentials to boundary currents: the vanishing impedance would imply that any
-difference in potentials at the boundary induces `infinite' currents. One way of
-dealing with this is to using decorated cospans.
+The expression for the extended power functional includes the reciprocals of
+impedances, such circuits cannot be expressed within the framework we have
+developed thus far. Similarly, the Frobenius maps also have semantics as ideal
+wires, and cannot be represented using Dirichlet forms.  Indeed, for these
+idealized circuits there is no function taking boundary potentials to boundary
+currents: the vanishing impedance would imply that any difference in potentials
+at the boundary induces `infinite' currents. One way of dealing with this is to
+using decorated cospans.
 
 
 \subsection{Categories of Dirichlet cospans and corelations}
 
 Although we cannot have Dirichlet forms be the morphisms of a category
-themselves, we have a standard trick for turning objects, like circuit diagrams,
-into the morphisms of a category: we decorate cospans with them. The cospans
-then handle the composition for us. In this section we construct a category of
-cospans and a category of corelations decorated by Dirichlet forms. We shall
-think of the former as having extended power functionals as morphisms, and the
-latter as power functionals.
+themselves, we have a standard trick for turning data into the morphisms of a
+category: we decorate cospans with them. The cospans then handle the composition
+for us. In this section we construct a category of cospans and a category of
+corelations decorated by Dirichlet forms. We shall think of the former as having
+extended power functionals as morphisms, and the latter as power functionals.
 
+Consider a cospan of finite sets $X \to N \leftarrow Y$ together with a
+Dirichlet form $Q_N$ on the apex $N$. We call this a \define{Dirichlet cospan}.
+To compose such cospans, say when given another cospan $Y \to M \leftarrow Z$
+decorated by Dirichlet form $Q_M$, we decorated the composite cospan $X \to
+N+_YM \leftarrow Z$ with the Dirichlet form
+\begin{align*}
+  \Big({j_N}_\ast Q_N+ {j_M}_\ast Q_M\Big)\maps \F^{N+_YM} &\longrightarrow \F;\\
+  \phi &\longmapsto Q_N(\phi\circ j_N)+Q_M(\phi\circ j_M),
+\end{align*}
+where the $j$ are the maps include $N$ and $M$ into the pushout as usual.
+Interpreted in terms of extended power functionals, this simply says that the
+power consumed by the interconnected circuit is just the power consumed by each
+part. These form the morphisms of a decorated cospan category.
 
-\paragraph{Dirichlet cospans.}
-Let
+\begin{proposition}
+The following defines a lax symmetric monoidal functor
+$(\mathrm{Dirich},\delta)$: let
 \[
-  \mathrm{Dirich}\maps (\mathrm{FinSet};\mathrm{Inj}^\opp,+) \longrightarrow (\mathrm{Set},\times)
+  \mathrm{Dirich}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
 \]
-map a finite set $X$ to the set $\mathrm{Dirich}(X)$ of Dirichlet forms $Q\maps
-\F^X \to \F$ on $X$, and map a function $f\maps X \to Y$ between finite sets to
-the pushforward function
+map a finite set $X$ to the set $\mathrm{Dirich}(X)$ of Dirichlet forms
+$Q\maps \F^X \to \F$ on $X$, and map a function $f\maps X \to Y$ between finite
+sets to the pushforward function
 \begin{align*}
   \mathrm{Dirich}(f)\maps \mathrm{Dirich}(X) &\longrightarrow \mathrm{Dirich}(Y); \\
   Q &\longmapsto \Big(f_{\ast}Q\maps \phi \mapsto Q(\phi\circ f)\Big).
 \end{align*}
-As composition of functions is associative and has an identity, this defines a
-functor.
 
-To make this functor lax symmetric monoidal, we equip it with the natural family of maps
+For coherence maps, equip $\mathrm{Dirich}$ with the natural family of maps
 \begin{align*}
   \delta_{N,M}\maps \mathrm{Dirich}(N) \times \mathrm{Dirich}(M) &\longrightarrow
   \mathrm{Dirich}(N+M) \\
@@ -1930,32 +1950,39 @@ and also with the unit
   \bullet &\longmapsto (\F^\varnothing \to \F; ! \mapsto 0).
 \end{align*}
 Note that the sum of two Dirichlet forms is given pointwise by the addition in
-$\F$. The naturality of the $\delta_{N,M}$ follows from the universal property
-of the coproduct in $\FinSet$, while the coherence axioms follow from the
-associativity, unitality, and commutativity of addition in $\F$.
+$\F$.
+\end{proposition}
+\begin{proof}
+  As composition of functions is associative and has an identity,
+  $\mathrm{Dirich}$ is a functor.  The naturality of the $\delta_{N,M}$ follows
+  from the universal property of the coproduct in $\FinSet$, while the symmetric
+  monoidal coherence axioms follow from the associativity, unitality, and
+  commutativity of addition in $\F$.
+\end{proof}
+
 
 Using decorated cospans, we thus obtain a hypergraph category
 $\mathrm{DirichCospan}$ where a morphism is a cospan of finite sets whose apex
-is equipped with a Dirichlet form.  
+is equipped with a Dirichlet form.  Next, we use decorated cospans to construct
+a strict hypergraph functor $\Circ \to \mathrm{DirichCospan}$ sending a circuit
+to a cospan decorated by its extended power functional. For this we need a
+monoidal natural transformation $\alpha\maps (\mathrm{Graph},\rho) \Rightarrow
+(\mathrm{Dirich},\delta)$.
 
-
-\paragraph{From circuits to Dirichlet cospans.}
-Next, we construct a strict hypergraph functor $\Circ \to \mathrm{DirichCospan}$
-sending a circuit to a cospan decorated by its extended power functional. By
-decorated cospans, it suffices to show that we have a monoidal natural
-transformation 
-\[
-  \alpha\maps (\mathrm{Graph},\rho) \Longrightarrow
-  (\mathrm{Dirich},\delta).
-\]
-Define $\alpha$ to be the collection of maps
+\begin{proposition} 
+  The collection of maps
 \begin{align*}
   \alpha_N\maps \mathrm{Graph}(N) &\longrightarrow \mathrm{Dirich}(N); \\
   (N,E,s,t,r) &\longmapsto \left(\phi \in \F^N \mapsto \frac{1}{2} \sum_{e \in E}
   \frac{1}{r(e)}\big(\phi(s(e))-\phi(t(e))\big)^2\right).
 \end{align*}
-We prove this a well-defined monoidal natural transformation. 
-
+defines a monoidal natural transformation
+\[
+  \alpha\maps (\mathrm{Graph},\rho) \Longrightarrow
+  (\mathrm{Dirich},\delta).
+\]
+\end{proposition}
+\begin{proof}
 Naturality requires that the square
 \[
   \xymatrix{
@@ -1996,15 +2023,14 @@ and the triangle
 commute. It is readily observed that both paths around the square lead to taking
 two graphs and summing their corresponding Dirichlet forms, and that the
 triangle commutes immediately as all objects in it are the one element set.
+\end{proof}
 
 From decorated cospans, we thus obtain a strict hypergraph functor
 \[
   Q \maps \Circ = \mathrm{GraphCospan} \longrightarrow \mathrm{DirichCospan}.
 \]
-
 Informally, this says that the process of composition for circuit diagrams is
-the same as that of composition for Dirichlet cospans. Note that although this
-functor preserves much of the information in circuit diagrams, it is not a
+the same as that of composition for Dirichlet cospans. Note that this is not a
 faithful functor.  For example, applying $Q$ to a circuit 
 \[
 \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC
@@ -2061,17 +2087,41 @@ with just a single edge with resistance
 \]
 That is, both map to the Dirichlet cospan $X=\{x\} \to \{x,y\} \leftarrow \{y\}
 = Y$ with $\{x,y\}$ decorated by the Dirichlet form $P(\psi) =
-\tfrac{1}{t}(\psi_x-\psi_y)^2$.
+\tfrac{1}{t}(\psi_x-\psi_y)^2$. Nonetheless, this functor is far from the
+desired semantic functor: many different extended power functionals can restrict
+to the same power functional on the boundary. 
 
+To construct a category in which all circuits with the same behaviour have the
+same image, we wish to map a circuit to its power functional. We will use
+decorated corelations to construct such a category. Ideally, we would like to
+use an isomorphism-morphism factorisation on $\FinSet$, so that for a map $X \to
+Y$ the Dirichlet form decorates the set $X+Y$, and we need not talk at all about
+cospans. We saw however, in the previous section, that a category with morphisms
+Dirichlet forms on the disjoint union of the domain and codomain is not posible.
+Instead recall that $\FinSet$ has an epi-mono factorisation system
+$(\mathrm{Sur},\mathrm{Inj})$, with $\mathrm{Inj}$ stable under pushout. We will
+construct a category of decorated jointly epic cospans. 
 
-Having constructed a category corresponding to extended power functionals, we
-would like a category of power functionals, with minimisation over the interior
-a functor mapping $\mathrm{DirichCospan}$ onto it. In terms of decorated
-corelations, we want a decorated corelation category where the Dirichlet form is
-not to be defined on any apex $N$ of a cospan, but on the terminals $X+Y$
-themselves. This suggests the use of an isomorphism-morphism factorisation
-system. Nonetheless, in the next section we show this is not possible: there is
-no Dirichlet form that corresponds to an identity map.
+The key idea is that given an injection $m\maps \overline N \to N$, we may
+minimise a Dirichlet form on $N$ over the complement of the image of $\overline
+N$ to obtain, in effect, a Dirichlet form on $\overline N$. Given a circuit $X
+\to Y$, we may factor the function $X+Y \to N$ as $X+Y \stackrel{e}\to
+\overline{N} \stackrel{m}\to N$, where $e$ is a surjection and $m$ is an
+injection. Note the image $m(\overline{N})$ of $m$ in $N$ is equal to the
+boundary $\partial N$ of the circuit. Thus if we map a circuit to its extended
+power functional, and then minimise the Dirichlet form onto $\overline N$, we
+obtain the power functional of the circuit. We show that this view of
+minimisation allows us to define a decorated corelations category with
+jointly epic cospans decorated by power functionals as morphisms, and
+composition given by minimising the sum of the power functionals over the new
+interior nodes.
+
+\begin{proposition}
+  There is an extension of 
+\[
+  \mathrm{Dirich}\maps (\mathrm{FinSet};\mathrm{Inj}^\opp,+) \longrightarrow (\mathrm{Set},\times)
+\]
+\end{proposition} 
 
 The category $\mathrm{DirichCorel}$ thus satisfies the two precise desiderata
 for a semantic category: each behaviour is uniquely represented, and the map of
@@ -2515,7 +2565,8 @@ section we show $\LagrRel$ is a hypergraph category.
 
 Key point: examining the graphical elements that facilitate composition---here
 ideal wires---shows us how to define hypergraph structure and get decorated
-corelations construction.
+corelations construction. Decorated corelations says that to turn a semantic
+function into a semantic functor, it's enough to look at the Frobenius maps. 
 
 In the previous section our exploration of the meaning of circuit diagrams 
 culminated with our understanding of behaviours as Lagrangian subspaces.  We now 
@@ -2844,9 +2895,7 @@ dagger compact category of fundamental importance: the category of \emph{corelat
 
 Ellerman gives a detailed treatment of corelations from a logic viewpoint in
 \cite{E}, while basic category theoretic aspects can be found in Lawvere and
-Rosebrugh \cite{LR}.  However, to make this paper self-contained, we explain them
-here.
-
+Rosebrugh \cite{LR}.  
 
 In the category of sets we hold the fundamental relationship between sets to be
 that of functions. These encode the idea of a deterministic process that takes
@@ -3615,7 +3664,7 @@ category.
 
 
 \section{The black box functor} \label{sec:blackbox}
-%%fakesection
+%%fakesubsection
 We have now developed enough machinery to prove Theorem \ref{main_theorem}:
 there is a hypergraph functor, the black box functor
 \[  
@@ -3913,19 +3962,6 @@ To prove that the black box construction is indeed functorial, we
 factor it into three functors. These functors are each hypergraph
 functors, so the black box functor is too.
 
-We first make use, twice, of our results on decorated cospans, showing the
-existence of categories of cospans decorated by Dirichlet forms and then
-Lagrangian subspaces, and the existence of functors from the category of
-circuits to each of these. This proceeds by defining functors $\mathrm{Dirich}$
-and $\mathrm{Lagr}$ to construction decorated cospan categories, and then by
-defining the relevant natural transformations to construct the desired decorated
-cospan functors.
-
-The third functor takes cospans decorated by Lagrangian subspaces, and black
-boxes them to give Lagrangian relations between the feet of such cospans. The
-functoriality of this process relies on interpreting corelations as Lagrangian
-relations.
-
 This gives a factorization
 \[
   \xymatrix{
@@ -3933,9 +3969,6 @@ This gives a factorization
     \mathrm{LagrCospan} \ar[r] & \LagrRel
   }
 \]
-The following subsections deal with these functors in sequence, defining and
-proving the existence of each one using the techniques of Part
-.
 
   \[
     \xymatrixcolsep{4pc}
