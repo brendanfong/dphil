@@ -1443,9 +1443,9 @@ The \define{power functional} $Q \maps \R^{\partial N} \to \R$ of a circuit with
 \]
 \end{definition}
 
-As before, we define two circuits to be \define{equivalent} if they have the
-same power functional, and define the \define{behaviour} of a circuit to be its
-equivalence class. 
+As before, we call two circuits equivalent if they have the same power
+functional, and define the \define{behaviour} of a circuit to be its equivalence
+class. 
 
 We now have a complete description of the semantics of diagrams of passive
 linear networks. The purpose of this chapter is to show how to use decorated
@@ -1473,17 +1473,17 @@ want to define a hypergraph category of behaviours. We have three desiderata for
 such a category. First, the category of behaviours should have a unique morphism
 for each distinct circuit behaviour. Second, the map taking a circuit to its
 behaviour should be structure preserving: that is, it should be a hypergraph
-functor to a hypergraph category. A third, less formal desideratum is that the
-category of behaviours and its composition rule should be easy to define and
+functor to a hypergraph category. The third desideratum is one of aesthetics:
+the category of behaviours and its composition rule should be easy to define and
 work with. 
 
 It turns out, as we shall see, that Dirichlet forms are not quite general enough
 to accommodate our needs. In Subsection \ref{ssec.noidentities} we discuss an
 attempt to construct a `natural' category of Dirichlet forms, with composition
-of Dirichlet forms given by minimisating their sum over the `interior'
+of Dirichlet forms given by taking their sum and minimising over the `interior'
 terminals, but find that this operation does not have an identity. Despite this,
 we give an ad hoc construction of a category of Dirichlet corelations that
-suffices.
+at least fulfils the two technical desiderata above.
 
 \subsection{The category of open circuits}
 
@@ -1523,14 +1523,14 @@ introduction to Chapter \ref{ch.deccospans}.  Recall from Subsection
   \mathrm{Graph}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
 \]
 mapping each finite set $N$ to the set $\mathrm{Graph}(N)$ of
-$[0,\infty)$-graphs $(N,E,s,t,r)$ with $N$ as their set of nodes. Redefine
-$\mathrm{Graph}$, generalising it, so that $N$ is mapped to the set of
-$\F^+$-graphs.
+$[0,\infty)$-graphs $(N,E,s,t,r)$ with $N$ as their set of nodes. Define the lax
+symmetric monoidal functor $\mathrm{Circuit}$, generalising $\mathrm{Graph}$,
+so that the set $N$ is mapped to the set of $\F^+$-graphs.
   
 \begin{definition}
   We define the hypergraph category
   \[
-    \mathrm{Circ} = \mathrm{GraphCospan} .
+    \mathrm{Circ} = \mathrm{CircuitCospan} .
   \]
 \end{definition}
 
@@ -1898,10 +1898,10 @@ wires, and cannot be represented using Dirichlet forms.  Indeed, for these
 idealized circuits there is no function taking boundary potentials to boundary
 currents: the vanishing impedance would imply that any difference in potentials
 at the boundary induces `infinite' currents. One way of dealing with this is to
-using decorated cospans.
+use decorated cospans.
 
 
-\subsection{Categories of Dirichlet cospans and corelations}
+\subsection{The category of Dirichlet cospans}
 
 Although we cannot have Dirichlet forms be the morphisms of a category
 themselves, we have a standard trick for turning data into the morphisms of a
@@ -1966,19 +1966,19 @@ $\mathrm{DirichCospan}$ where a morphism is a cospan of finite sets whose apex
 is equipped with a Dirichlet form.  Next, we use decorated cospans to construct
 a strict hypergraph functor $\Circ \to \mathrm{DirichCospan}$ sending a circuit
 to a cospan decorated by its extended power functional. For this we need a
-monoidal natural transformation $\alpha\maps (\mathrm{Graph},\rho) \Rightarrow
+monoidal natural transformation $\alpha\maps (\mathrm{Circuit},\rho) \Rightarrow
 (\mathrm{Dirich},\delta)$.
 
 \begin{proposition} 
   The collection of maps
 \begin{align*}
-  \alpha_N\maps \mathrm{Graph}(N) &\longrightarrow \mathrm{Dirich}(N); \\
+  \alpha_N\maps \mathrm{Circuit}(N) &\longrightarrow \mathrm{Dirich}(N); \\
   (N,E,s,t,r) &\longmapsto \left(\phi \in \F^N \mapsto \frac{1}{2} \sum_{e \in E}
   \frac{1}{r(e)}\big(\phi(s(e))-\phi(t(e))\big)^2\right).
 \end{align*}
 defines a monoidal natural transformation
 \[
-  \alpha\maps (\mathrm{Graph},\rho) \Longrightarrow
+  \alpha\maps (\mathrm{Circuit},\rho) \Longrightarrow
   (\mathrm{Dirich},\delta).
 \]
 \end{proposition}
@@ -1986,14 +1986,14 @@ defines a monoidal natural transformation
 Naturality requires that the square
 \[
   \xymatrix{
-    \mathrm{Graph}(N) \ar[r]^{\alpha_N} \ar[d]_{\mathrm{Graph}(f)} &
+    \mathrm{Circuit}(N) \ar[r]^{\alpha_N} \ar[d]_{\mathrm{Circuit}(f)} &
     \mathrm{Dirich}(N) \ar[d]^{\mathrm{Dirich}(f)}  \\
-    \mathrm{Graph}(M) \ar[r]_{\alpha_M} & \mathrm{Dirich}(M)
+    \mathrm{Circuit}(M) \ar[r]_{\alpha_M} & \mathrm{Dirich}(M)
   }
 \]
 commutes. Let $(N,E,s,t,r)$ be an $\F^+$-graph on $N$ and $f\maps N \to M$ be a
 function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \alpha_N$ and $\alpha_M
-\circ \mathrm{Graph}(f)$ map $(N,E,s,t,r)$ to the Dirichlet form
+\circ \mathrm{Circuit}(f)$ map $(N,E,s,t,r)$ to the Dirichlet form
 \begin{align*}
   \F^M &\longrightarrow \F;\\
   \psi &\longmapsto \frac{1}{2} \sum_{e \in E}\frac{1}{r(e)}
@@ -2006,17 +2006,17 @@ To show that $\alpha$ is a monoidal natural transformation, we must check that
 the square
 \[
 \xymatrix{
-  \mathrm{Graph}(N) \times \mathrm{Graph}(M) \ar[r]^{\alpha_N \times
+  \mathrm{Circuit}(N) \times \mathrm{Circuit}(M) \ar[r]^{\alpha_N \times
   \alpha_M} \ar[d]_{\rho_{N,M}} & \mathrm{Dirich}(N) \times \mathrm{Dirich}(M)
   \ar[d]^{\delta_{N,M}}  \\
-  \mathrm{Graph}(N+M) \ar[r]_{\alpha_{N+M}} & \mathrm{Dirich}(N+M)
+  \mathrm{Circuit}(N+M) \ar[r]_{\alpha_{N+M}} & \mathrm{Dirich}(N+M)
 }
 \]
 and the triangle
 \[
 \xymatrix{
   & 1 \ar[dl]_{\rho_\varnothing} \ar[dr]^{\delta_\varnothing}\\
-\mathrm{Graph}(\varnothing)  \ar[rr]_{\alpha_\varnothing} &&
+\mathrm{Circuit}(\varnothing)  \ar[rr]_{\alpha_\varnothing} &&
 \mathrm{Dirich}(\varnothing)
 }
 \]
@@ -2027,7 +2027,7 @@ triangle commutes immediately as all objects in it are the one element set.
 
 From decorated cospans, we thus obtain a strict hypergraph functor
 \[
-  Q \maps \Circ = \mathrm{GraphCospan} \longrightarrow \mathrm{DirichCospan}.
+  Q \maps \Circ = \mathrm{CircuitCospan} \longrightarrow \mathrm{DirichCospan}.
 \]
 Informally, this says that the process of composition for circuit diagrams is
 the same as that of composition for Dirichlet cospans. Note that this is not a
@@ -2091,16 +2091,22 @@ That is, both map to the Dirichlet cospan $X=\{x\} \to \{x,y\} \leftarrow \{y\}
 desired semantic functor: many different extended power functionals can restrict
 to the same power functional on the boundary. 
 
-To construct a category in which all circuits with the same behaviour have the
-same image, we wish to map a circuit to its power functional. We will use
-decorated corelations to construct such a category. Ideally, we would like to
-use an isomorphism-morphism factorisation on $\FinSet$, so that for a map $X \to
-Y$ the Dirichlet form decorates the set $X+Y$, and we need not talk at all about
-cospans. We saw however, in the previous section, that a category with morphisms
-Dirichlet forms on the disjoint union of the domain and codomain is not posible.
-Instead recall that $\FinSet$ has an epi-mono factorisation system
-$(\mathrm{Sur},\mathrm{Inj})$, with $\mathrm{Inj}$ stable under pushout. We will
-construct a category of decorated jointly epic cospans. 
+\subsection{A category of behaviours}
+
+For our functorial semantics, we wish to map a circuit to its power functional.
+We take a moment to briefly sketch how one could use decorated corelations to
+construct a codomain for such a functor. The result, however, is a little ad
+hoc, and we shall not pursue it in depth. Instead, in the next section, we shall
+generalize Dirichlet forms to Lagrangian relations.
+
+Indeed, ideally we would have liked to use an isomorphism-morphism factorisation on
+$\FinSet$, to construct isomorphism-morphism corelations decorated by Dirichlet
+forms. Then for a map $X \to Y$ the Dirichlet form must decorate the set
+$X+Y$, and we need not talk at all about cospans. We saw however, in the
+previous section, that a category with morphisms Dirichlet forms on the disjoint
+union of the domain and codomain is not posible.  As a consolation prize we may
+use the epi-mono factorisation system $(\mathrm{Sur},\mathrm{Inj})$ on
+$\FinSet$. 
 
 The key idea is that given an injection $m\maps \overline N \to N$, we may
 minimise a Dirichlet form on $N$ over the complement of the image of $\overline
@@ -2110,25 +2116,58 @@ N$ to obtain, in effect, a Dirichlet form on $\overline N$. Given a circuit $X
 injection. Note the image $m(\overline{N})$ of $m$ in $N$ is equal to the
 boundary $\partial N$ of the circuit. Thus if we map a circuit to its extended
 power functional, and then minimise the Dirichlet form onto $\overline N$, we
-obtain the power functional of the circuit. We show that this view of
-minimisation allows us to define a decorated corelations category with
-jointly epic cospans decorated by power functionals as morphisms, and
-composition given by minimising the sum of the power functionals over the new
-interior nodes.
+obtain the power functional of the circuit. 
+
+This motivates the following proposition. 
 
 \begin{proposition}
-  There is an extension of 
+  There is a lax symmetric monoidal functor
 \[
-  \mathrm{Dirich}\maps (\mathrm{FinSet};\mathrm{Inj}^\opp,+) \longrightarrow (\mathrm{Set},\times)
+  \mathrm{Dirich}\maps (\mathrm{FinSet};\mathrm{Inj}^\opp,+) \longrightarrow
+  (\mathrm{Set},\times),
 \]
-\end{proposition} 
+extending the functor $\mathrm{Dirich} \maps (\FinSet,+) \rightarrow
+(\Set,\times)$, such that the image of the cospan $N \stackrel{f}\to A
+\stackrel{m}\hookleftarrow M$, where $f$ is a function and $m$ an injection, is the
+map
+\begin{align*}
+  \mathrm{Dirich}(f;m^\opp)\maps \mathrm{Dirich}(N) &\longrightarrow
+  \mathrm{Dirich}(M);\\
+  Q &\longmapsto \min_{A\setminus M} f_\ast Q.
+\end{align*}
+Note that in writing $A \setminus M$ we are considering $M$ as a subset of $A$
+by way of the injection $m$.
 
-The category $\mathrm{DirichCorel}$ thus satisfies the two precise desiderata
-for a semantic category: each behaviour is uniquely represented, and the map of
-a circuit to its behaviour preserves all necessary structure. The category and
-its composition rule, however, are quite ad hoc. To deal with this issue, we
-generalize Dirichlet forms to Lagrangian relations.  We will find this provides
-a cleaner formalism.
+\end{proposition} 
+By extending the previous functor $\mathrm{Dirich}$, we mean the triangle
+\[
+  \xymatrixcolsep{3pc}
+  \xymatrixrowsep{1pc}
+  \xymatrix{
+    (\FinSet, +) \ar[dr]^{\mathrm{Dirich}} \ar@{^{(}->}[dd] \\
+    & (\Set,\times) \\
+ (\mathrm{FinSet};\mathrm{Inj}^\opp,+) \ar[ur]_{\mathrm{Dirich}}.
+  }
+\]
+commutes, where the vertical map is the subcategory inclusion.
+
+There are two aspects of this proposition that require detailed proof: that the
+map $\mathrm{Dirich}$ preserves composition, and that the coherence maps
+$\delta$ are still natural in this larger category. Both facts come down to
+proving that the minimisation and pushforward commute in certain required circumstances. 
+
+This extended functor $\mathrm{Dirich}$ then gives rise to a decorated
+corelations category $\mathrm{DirichCorel}$ with morphisms jointly-epic cospans
+decorated by Dirichlet forms; composition is given by summing the Dirichlet
+forms on the factors, then minimising over the interior.
+
+This category satisfies the two precise desiderata for a semantic category: each
+behaviour is uniquely represented, and the map of a circuit to its behaviour
+preserves all compositional structure. Nonetheless, we will not pursue this
+construction in depth, feeling that this construction uses corelations to
+shoehorn in the necessary compositional structure. Instead, we find that a
+cleaner construction, based on the idea of a linear relation, can be given by
+a slight generalisation of our decorations.
 
 \section{Networks as Lagrangian relations} \label{sec:circlagr}
 %%fakesubsection
@@ -2150,6 +2189,9 @@ set of vectors describing the possible simultaneous potential and current
 readings at all terminals of a given circuit. As we shall see, one immediate and
 important advantage of this setting is that we may model wires of zero
 resistance.
+
+They also have a Willems-esque aesthetic to them, choosing to define physical
+systems by listing their possible states.
 
 Recall that we write $\F$ for some field, which for our applications is
 usually the field $\R$ of real numbers or the field $\R(s)$ of rational
@@ -2562,7 +2604,8 @@ section we show $\LagrRel$ is a hypergraph category.
 
 \section{Ideal wires and corelations} \label{sec:corel}
 %%fakesubsection
-
+We want to give a decorated corelations construction of $\LagrRel$ for two main
+reasons: first, it endows $\LagrRel$ with a hypergraph structure, and second, 
 Key point: examining the graphical elements that facilitate composition---here
 ideal wires---shows us how to define hypergraph structure and get decorated
 corelations construction. Decorated corelations says that to turn a semantic
@@ -2578,6 +2621,9 @@ then observe that Kirchhoff's laws follow directly from interpreting these
 structures in the category of linear relations.
 
 \subsection{Ideal wires as corelations}
+
+The term corelation in this section we exclusively refer to epi-mono corelations
+in $\FinSet$. As such, we write this hypergraph category $\mathrm{Corel}$. 
 
 To motivate the definition of this category, let us start with a set of input
 terminals $X$, and a set of output terminals $Y$.  We may connect these
@@ -2890,12 +2936,8 @@ we may combine these circuits in to a circuit $X$ to $Z$
 \end{aligned}
 \]
 by taking the transitive closure of the two equivalence relations, and then
-restricting this to an equivalence relation on $X+Z$. This in fact defines a
-dagger compact category of fundamental importance: the category of \emph{corelations}. 
+restricting this to an equivalence relation on $X+Z$. 
 
-Ellerman gives a detailed treatment of corelations from a logic viewpoint in
-\cite{E}, while basic category theoretic aspects can be found in Lawvere and
-Rosebrugh \cite{LR}.  
 
 In the category of sets we hold the fundamental relationship between sets to be
 that of functions. These encode the idea of a deterministic process that takes
@@ -2910,12 +2952,10 @@ cospans and pushouts to address this.  Cospans, however, come with an apex, whic
 represents extraneous structure beyond the two sets we wish to specify a
 relationship between. Corelations arise from omitting this information.
 
-\begin{definition}
-  A \define{corelation} $\alpha\maps X \to Y$ between finite sets $X$ and $Y$ is a
+  A corelation $\alpha\maps X \to Y$ between finite sets $X$ and $Y$ is a
 partition $\alpha$ of the disjoint union $X+Y$.
-\end{definition}
 
-That is, for finite sets $X$ and $Y$, a corelation is a collection of nonempty subsets
+To introduce some notation, for finite sets $X$ and $Y$, a corelation is a collection of nonempty subsets
 $\alpha = \{A_1,A_2,\dots,A_n\}$ of $X+Y$ such that
 \begin{enumerate}[(i)] 
   \item $\alpha$ does not contain the empty set.  
@@ -3021,92 +3061,6 @@ for $j,k$ varying over indices such that
 This rule for composition is associative, as both pairwise methods of composing relations
 $\alpha\maps X \to Y$, $\beta\maps Y \to Z$, and $\gamma\maps Z \to W$ amount to finding the finest partition on $X+Y+Z+W$ that is coarser than each of $\alpha$, $\beta$, and $\gamma$ when restricted to the relevant subset, and then restricting this
 partition to a partition on $X+W$.  The pictures in the previous section make this clear.
-
-The identity corelation $1_X\maps X \to X$ on a set $X$ is the map $[1_X,1_X]\maps X+X \to X$. Equivalently, it is the partition of $X+X$ such that each partition
-comprises exactly two elements: an element $x \in X$ considered as an element of
-both the first and then the second summand of $X+X$. We thus define a category:
-
-\begin{definition}
-  Let \define{$\mathrm{Corel}$} be the category with finite sets as objects and
-  corelations between finite sets as morphisms. 
-\end{definition}
-
-This category becomes monoidal under disjoint union of finite sets, using the
-fact that the union of partition of $X + Y$ and a partition of $X' + Y'$ is a
-partition of $(X+X') + (Y+Y')$. Moreover, the commutativity and associativity of
-the coproduct of finite sets also allows implies the category is symmetric
-monoidal and indeed dagger compact: the braiding and cups and caps are
-respectively given by the partitions of $(X+Y)+(Y+X)$ and $X+X$ where two
-elements are in the same part of the partition if and only if they are equal as
-elements of $X$ or $Y$, while a dagger is given by simply considering a
-partition of $X+Y$ as a partition of $Y+X$.
-
-We can get a corelation $\alpha \maps X \to Y$ from a surjection $f \maps X + Y
-\to S$ for some set $S$, by taking the sets in the partition $\alpha = (A_1,
-\dots, A_n)$ of $X+Y$ to be the inverse images of the points of $S$.  Two
-surjections $f \maps X + Y \to S$, $f \maps X + Y \to S'$ give the same
-corelation if and only if there is an isomorphism $g \maps S \to S'$ making the
-obvious triangle commute: $f' = g \circ f$.
-
-By the universal property of the coproduct, surjections $X+Y \to A$ are in
-one-to-one correspondence with jointly epic cospans $X \rightarrow A \leftarrow
-Y$.   Thus, corelations can also be seen as isomorphism classes of jointly epic
-cospans.  This lets us compose corelations by composing cospans and applying a
-correction.  That is: given corelations $\alpha\maps X \to Y$, $\beta\maps Y \to
-Z$, we may choose cospans representing them and compose these cospans.   The
-composite cospan may not be jointly epic.  However, we can then replace the apex
-of the composite cospan by the joint image of the feet.  The resulting jointly
-epic cospan gives the composite corelation $\beta \circ \alpha\maps X \to Z$.
-More precisely, we have the following proposition.
-
-\begin{proposition}
-  There is a strict hypergraph functor
-  \[
-    \xymatrix{
-      \mathrm{Cospan(FinSet)}  \ar@<.5ex>[r] & \mathrm{Corel} 
-    }
-  \]
-  mapping any cospan to the corelation it defines.
-\end{proposition}
-
-Via the above proposition, the hypergraph functor embedding $\mathrm{FinSet}$
-into $\mathrm{Cospan(FinSet)}$ gives rise to a hypergraph functor embedding
-$\mathrm{FinSet}$ into $\mathrm{Corel}$.  Composing this with the dagger
-structure on $\mathrm{Corel}$, we also obtain a hypergraph functor embedding
-$\mathrm{FinSet}^{\mathrm{op}}$ into $\mathrm{Corel}$.  Corelations thus give a
-method of composing functions regardless of the direction of those functions.
-Given some not necessarily directed path of functions, for example
-\[
-  A \longrightarrow B \longleftarrow C \longleftarrow D \longrightarrow E
-  \longrightarrow F,
-\]
-considering these functions as corelations gives a way to compose them.
-
-In particular, while this mode of composition is simply composition of functions
-for two functions head to tail, and turning a cospan into a corelation for two
-functions head to head, for two tail to tail functions $C \leftarrow D
-\rightarrow E$ we compute the composite of cospans
-\[
-  \xymatrix{
-  & C && E \\
-  C \ar@{=}[ur]^{1_C} && D \ar[ul] \ar[ur] && E \ar@{=}[ul]_{1_E}
-  }
-\]
-before restricting the apex to arrive at a surjective function from $C+E$. This
-implies the following lemma. 
-
-\begin{lemma} \label{lem:pushoutcorelations}
-  Let 
-\[
-  \xymatrix{
-    & P \\
-    A \ar[ur] && B \ar[ul] \\
-    & N \ar[ur] \ar[ul]
-  }
-\]
-be a pushout square in $\mathrm{FinSet}$. Then the composites of corelations $A
-\rightarrow P \leftarrow B$ and $A \leftarrow N \rightarrow B$ are equal.
-\end{lemma}
 
 \subsection{Potentials on corelations} \label{ssec:potentialsoncorelations}
 
@@ -3316,13 +3270,13 @@ currents and potentials as a Lagrangian subspace.
   S(\alpha) = \Phi(\alpha) \oplus I(\alpha) \subseteq \overline{\F^X \oplus
   (\F^X)^\ast}\oplus \F^Y \oplus (\F^Y)^\ast.
 \]
-  Then $S$ is a hypergraph functor, with coherence maps inherited
+  Then $S$ is a strong symmetric monoidal functor, with coherence maps inherited
   from $\Phi$ and $I$.
 \end{proposition}
 \begin{proof}
-  As $S$ is the tensor product in $\mathrm{LinRel}$ of the symmetric monoidal
-  dagger functors $\Phi, I\maps \mathrm{Corel} \to \mathrm{LinRel}$, it is
-  itself a hypergraph functor $\mathrm{Corel} \to
+  As $S$ is the monoidal product in $\mathrm{LinRel}$ of the strong symmetric
+  monoidal functors $\Phi, I\maps \mathrm{Corel} \to \mathrm{LinRel}$, it is
+  itself a strong symmetric monoidal functor $\mathrm{Corel} \to
   \mathrm{LinRel}$. Thus it only remains to be checked that, with respect to the
   symplectic structure we put on the objects $S(X)$, the image of each
   corelation $S(\alpha)$ is Lagrangian. 
@@ -3409,132 +3363,6 @@ relevant observations.
   This gives us the above representation of $Sf$ when $f$ is a function.
 \end{example}
 
-%High road is probably better:
-%Recall that given a Lagrangian subspace $L \subseteq V$, its image $f(L)$ 
-%under a Lagrangian relation $f\maps V \nrightarrow W$ is a Lagrangian subspace of $W$.  
-
-\begin{remark} \label{rmk:dualitydiagrams}
-  We make a remark on our conventions for string diagrams representing the cups
-  and caps of the dualities in $\mathrm{Corel}$ and $\LagrRel$. 
-  
-  Note that by the cap duality diagram
-  \[
-  \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.5, 0.5) {};
-		\node [style=none] (1) at (0.5, 0.5) {};
-		\node [style=none] (2) at (0, -0) {};
-		\node [style=none] (3) at (-0.5, 0.75) {$X$};
-		\node [style=none] (4) at (0.5, 0.75) {$X$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw [in=180, out=-90, looseness=1.00] (0.center) to (2.center);
-		\draw [in=-90, out=0, looseness=1.00] (2.center) to (1.center);
-	\end{pgfonlayer}
-\end{tikzpicture}  
-  \]
-  in $\mathrm{Corel}$ we mean the corelation $\cup_X\maps (X+X \stackrel{[1,1]}{\rightarrow} X \stackrel{!}{\leftarrow} \varnothing)$, whereas by the cap
-  \[
-    \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.5, 0.5) {};
-		\node [style=none] (1) at (0.5, 0.5) {};
-		\node [style=none] (2) at (0, -0) {};
-		\node [style=none] (3) at (-0.5, 0.75) {$V$};
-		\node [style=none] (4) at (0.5, 0.75) {$\overline{V}$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw [in=180, out=-90, looseness=1.00] (0.center) to (2.center);
-		\draw [in=-90, out=0, looseness=1.00] (2.center) to (1.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-  \]
-  in $\LagrRel$ we mean the Lagrangian relation $\cup_V\maps V\oplus \overline{V}
-  \to 0$ given by the Lagrangian subspace $\{(v,v) \in \overline{V \oplus
-  \overline{V}} \mid v \in V\}$. Although we represent them similarly, the
-  functor $S$ does not map these directly onto each other: the image of $\cup_X$
-  under $S$ is the Lagrangian relation $S(\cup_X)\maps \F^X \oplus (\F^X)^\ast \oplus
-  \F^X \oplus (\F^X)^\ast \to 0$ given by the Lagrangian subspace
-  \[
-    \{(\phi,i,\phi, -i)\mid \phi \in \F^X, i \in (\F^X)^\ast\} \subseteq
-    \overline{\F^X \oplus (\F^X)^\ast \oplus \F^X \oplus (\F^X)^\ast},
-  \]
-  and in particular a Lagrangian relation $\F^X \oplus (\F^X)^\ast \oplus \F^X
-  \oplus (\F^X)^\ast \to 0$ and not $\F^X \oplus (\F^X)^\ast \oplus
-  \overline{\F^X \oplus (\F^X)^\ast} \to 0$. As the cup diagrams in these
-  categories simply denote the dagger image of these caps, the analogous
-  statements apply to them too. 
-  
-  This is an expression of the fact that in cospan categories and
-  $\mathrm{Corel}$ there is a canonical self-duality, while for Lagrangian
-  relations a basis must be picked before there is an isomorphism between a
-  symplectic vector space and its conjugate, the conjugate being a canonical
-  dual object. Nonetheless as the functor $S$ uses the set $X$ to generate a
-  symplectic vector space, each object in the image of $S$ has a canonical
-  symplectomorphism with its dual $S^t\!X\maps \F^X \oplus (F^X)^\ast \to
-  \overline{\F^X \oplus (F^X)^\ast}$, with name the Lagrangian subspace
-  $\{(\phi,i,\phi, -i)\mid \phi \in \F^X, i \in (\F^X)^\ast\}$.\footnote{While we could
-  treat $S^t\!X$ as an atomic notation, we write it here to evoke the idea of
-the concept of `twisted' symplectification introduced in the introduction.} The image of the
-  canonical self-duality $\mathrm{Corel}$ is thus given by the composite of this
-  symplectomorphism with canonical duality in $\LagrRel$; that is
-  \[
-    S
-    \begin{aligned}
-      \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.5, 0.5) {};
-		\node [style=none] (1) at (0.5, 0.5) {};
-		\node [style=none] (2) at (0, -0) {};
-		\node [style=none] (3) at (-0.5, 1.25) {};
-		\node [style=none] (4) at (0.5, 1.25) {};
-		\node [style=none] (5) at (-0.5, 1.5) {$X$};
-		\node [style=none] (6) at (0.5, 1.5) {$X$};
-	  \node[outer sep=0pt, left delimiter=(, right delimiter=),
-	  align=center, fit = (0) (1) (2) (3) (4) (5) (6)] {};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw [in=180, out=-90, looseness=1.00] (0.center) to (2.center);
-		\draw [in=-90, out=0, looseness=1.00] (2.center) to (1.center);
-		\draw (0.center) to (3.center);
-		\draw (1.center) to (4.center);
-	\end{pgfonlayer}
-\end{tikzpicture}  
-\end{aligned}
-\qquad 
-=
-\qquad
-\begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-0.5, 0.5) {};
-		\node [style=none] (1) at (0.5, 0.5) {};
-		\node [style=none] (2) at (0, 0) {};
-		\node [style=none] (3) at (-0.5, 1.25) {};
-		\node [style=none] (4) at (0.5, 1.25) {};
-		\node [style=none] (5) at (0.25, 1) {};
-		\node [style=none] (6) at (0.75, 1) {};
-		\node [style=none] (7) at (0.25, 0.5) {};
-		\node [style=none] (8) at (0.75, 0.5) {};
-		\node [style=none] (9) at (0.5, 1) {};
-		\node [style=none] (10) at (0.5, 0.75) {$S^t\!X$};
-		\node [style=none] (11) at (-0.5, 1.5) {$S(X)$};
-		\node [style=none] (12) at (0.5, 1.5) {$S(X)$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw [in=180, out=-90, looseness=1.00] (0.center) to (2.center);
-		\draw [in=-90, out=0, looseness=1.00] (2.center) to (1.center);
-		\draw (0.center) to (3.center);
-		\draw (4.center) to (9.center);
-		\draw (5.center) to (6.center);
-		\draw (6.center) to (8.center);
-		\draw (8.center) to (7.center);
-		\draw (7.center) to (5.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-  \]
-\end{remark}
 
 \subsection{Lagrangian relations as decorated corelations}
 We have a wide functor $\cospan(\FinSet) \to \LagrRel$ (skeleton). Thus
@@ -3578,7 +3406,7 @@ defines a lax symmetric monoidal functor.
   the lax symmetric monoidality from the relevant properties of the direct sum
   of vector spaces.
 \end{proof}
-We thus obtain a dagger compact category $\mathrm{LagrCospan}$.
+We thus obtain a hypergraph category $\mathrm{LagrCospan}$.
 
 At this point we have checked that the process of reinterpreting a circuit as a
 Lagrangian subspace of behaviours is functorial. Our task is now to integrate
@@ -3974,7 +3802,7 @@ This gives a factorization
     \xymatrixcolsep{4pc}
     \xymatrixrowsep{3pc}
     \xymatrix{
-      (\FinSet,+) \ar^{\mathrm{Graph}}[r] \ar@{=}[d] \drtwocell
+      (\FinSet,+) \ar^{\mathrm{Circuit}}[r] \ar@{=}[d] \drtwocell
       \omit{_\:\theta_1} & (\Set,\times) \ar@{=}[d]  \\
       (\FinSet,+) \ar^{\mathrm{Dirich}}[r] \ar[d] \drtwocell
       \omit{_\:\theta_2} & (\Set,\times) \ar@{=}[d]  \\
