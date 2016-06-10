@@ -10,6 +10,8 @@
 \usepackage{stmaryrd,mathrsfs}
 \usepackage{anyfontsize}
 
+\usepackage{tikz-cd}
+
 
 %% headers
 \fancyfoot{}
@@ -82,7 +84,7 @@
 
 
 \newcommand\z{{\mathbb Z}}
-\renewcommand\k{\mathsf{k}}   
+\renewcommand\k{k}   
 \newcommand\nn{{\mathbb N}}
 \newcommand\bb{{\mathscr B}}
 \newcommand{\idn}{\mathrm{id}}
@@ -97,15 +99,15 @@
 \newcommand{\cospanfunrest}{\overline{\Theta}}
 \newcommand{\ha}{\mathbb{HA}}
 \newcommand{\ih}{\mathbb{IH}}
-\newcommand{\ihcsp}{\ih^{\mathsf{Csp}}}
-\newcommand{\ihcor}{\ih^{\mathsf{Cor}}}
-\DeclareMathOperator{\mat}{\mathsf{Mat}}
-\DeclareMathOperator{\vect}{\mathsf{Vect}}
-\DeclareMathOperator{\ltids}{\mathsf{LTI}}
-\DeclareMathOperator{\Span}{\mathsf{Span}}
-\DeclareMathOperator{\rel}{\mathsf{Rel}}
-\DeclareMathOperator{\linrel}{\mathsf{LinRel}}
-\DeclareMathOperator{\fmod}{\mathsf{FMod}}
+\newcommand{\ihcsp}{\ih^{\mathrm{Csp}}}
+\newcommand{\ihcor}{\ih^{\mathrm{Cor}}}
+\DeclareMathOperator{\mat}{\mathrm{Mat}}
+\DeclareMathOperator{\vect}{\mathrm{Vect}}
+\DeclareMathOperator{\ltids}{\mathrm{LTI}}
+\DeclareMathOperator{\Span}{\mathrm{Span}}
+\DeclareMathOperator{\rel}{\mathrm{Rel}}
+\DeclareMathOperator{\linrel}{\mathrm{LinRel}}
+\DeclareMathOperator{\fmod}{\mathrm{FMod}}
 \DeclareMathOperator{\op}{op}
 \DeclareMathOperator{\bit}{bit}
 
@@ -129,7 +131,20 @@
 \newcommand\twist{\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/twist.pdf}$}}
 \newcommand\id{\lower3pt\hbox{$\includegraphics[height=0.3cm]{pics/id.pdf}$}}
 \newcommand\syntax{\mathbb{S}}
-  
+ 
+  \makeatletter
+     \def\moverlay{\mathpalette\mov@rlay}
+     \def\mov@rlay#1#2{\leavevmode\vtop{%
+        \baselineskip\z@skip \lineskiplimit-\maxdimen
+        \ialign{\hfil$#1##$\hfil\cr#2\crcr}}}
+   \makeatother
+\newcommand\twarr[2]{%
+\mathrel{\mathop{\moverlay{\scriptstyle\xrightarrow{\,#1\,}\cr{\lower.2em\hbox{$\scriptstyle{}_{#2}$}}}}}}
+\newcommand{\dtrans}[2]{\hbox{$\;\twarr{#1}{#2}\;$}}
+\newcommand{\labelSep}{\,}
+\newcommand{\derivationRule}[3]{{\prooftree{ #1}\justifies{ #2}\using\ruleLabel{#3}\endprooftree}}
+
+
 
 %% from circuits
 

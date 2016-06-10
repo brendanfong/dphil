@@ -272,15 +272,15 @@ are equal to other arrangements of tiles. How do we formalise this structure
 algebraically? The theory of monoidal categories provides an answer. 
 
 Hypergraph categories are first monoidal categories, indeed symmetric monoidal
-categories.  A monoidal category is a category with two notions of composition:
+categories.  Monoidal categories are categories with two notions of composition:
 ordinary categorical composition and monoidal composition, with the monoidal
 composition only associative and unital up to natural isomorphism. They are the
 algebra of processes that may occur simultaneously as well as sequentially.
 First defined by B\'enabou and Mac Lane in the 1960s \cite{Ben63, Mac63}, their
-theory and their links with graphical representation are well explored. We
-bootstrap on this, using monoidal categories to define hypergraph categories,
-and so immediately arriving at an understanding of how hypergraph categories
-formalise our network languages. 
+theory and their links with graphical representation are well explored
+\cite{JS91, Sel11}. We bootstrap on this, using monoidal categories to define
+hypergraph categories, and so immediately arriving at an understanding of how
+hypergraph categories formalise our network languages. 
 
 Moreover, symmetric monoidal functors play a key role in our framework for
 defining and working with hypergraph categories: decorated cospans and
@@ -716,7 +716,8 @@ while monoidal composition is just juxtaposition:
 \]
 
 Only the `topology' of the diagrams matters: if two diagrams with the same
-domain and codomain are homotopy equivalent, they represent the same morphism.
+domain and codomain are equivalent up to isotopy, they represent the same
+morphism.
 On the other hand, two algebraic expressions might have the same diagrammatic
 representation. For example, the equivalent diagrams
 \[
@@ -872,7 +873,9 @@ read as all of the equivalent algebraic expressions
 and so on. The coherence theorem says that this does not matter: if two
 algebraic expressions have the same diagrammatic representation, then the
 algebraic expressions are equal. In more formal language, the graphical calculus
-is sound and complete for the axioms of monoidal categories.
+is sound and complete for the axioms of monoidal categories. See Joyal--Street
+for details \cite{JS91}.
+
 
 The coherence theorem thus implies that the graphical calculi goes beyond
 visualisations of morphisms: it can provide provide bona-fide proofs of
@@ -1936,11 +1939,12 @@ using decorated corelations.
   
   The monoidal structure is given as follows. Given a list $X$ of objects in
   $\mc H$, write $PX$ for the corresponding monoidal product in $\mc H$ with all
-  open parathesis at the front.  The monoidal product of two objects is given by
-  concatenation $\cdot$ of lists; the monoidal unit is the empty list. The
-  monoidal product of two morphisms is given by their monoidal product in $\mc
-  H$ pre- and post-composed with the necessary canonical maps: given $f\maps X
-  \to Y$ and $g\maps Z \to W$, their product $f\cdot g\maps X\cdot Y \to Z \cdot
+  open parenthesis at the front.  The monoidal product of objects in $\mc
+  H_{\mathrm{str}}$ is given by concatenation $\cdot$ of lists; the monoidal
+  unit is the empty list. The monoidal product of two morphisms is given by
+  their monoidal product in $\mc H$ pre- and post-composed with the necessary
+  canonical maps: given $f\maps X \to Y$ and $g\maps Z \to W$, their product
+  $f\cdot g\maps X\cdot Y \to Z \cdot
   W$ is \[ P(X \cdot Y) \longrightarrow PX \ot PY \stackrel{f \ot
   g}{\longrightarrow} PZ \ot PW \longrightarrow P(Z \cdot W).  \] By design, the
   associators and unitors are simply identity maps. The braiding $X \cdot Y \to
@@ -1948,8 +1952,8 @@ using decorated corelations.
   similarly pre- and post-composed with the necessary canonical maps. This
   defines a strict symmetric monoidal category \cite{Mac98}.
 
-  To make $\mc H_{\mathrm{str}}$ into a hypergraph category, we equip each
-  object $[x_1,\dots,x_n]$ with a special commutative Frobenius monoid in a
+  To make $\mc H_{\mathrm{str}}$ into a hypergraph category, we make each
+  object $[x_1,\dots,x_n]$ into a special commutative Frobenius monoid in a
   similar way. For example, the multiplication on $[x_1,\dots,x_n]$ is given by 
   \[
     \xymatrixcolsep{-4pt}
@@ -2156,11 +2160,11 @@ morphisms in some cospan category $\mathrm{Cospan}(\mathcal C)$; we of course
 refer instead to the isomorphism class of the said cospan.
  
 It is not difficult to show that we in fact have a functor from the category
-with objects categories with finite colimits and morphisms colimit preserving
-functors to the category of hypergraph categories and hypergraph functors. Our
-next task will be to show that this extends to a functor from the category of
-symmetric lax monoidal presheaves over categories with finite colimits. This is
-known as the decorated cospans construction.
+having categories with finite colimits as objects and colimit preserving
+functors as morphisms to the category of hypergraph categories and hypergraph
+functors. In the next chapter we show that this extends to a functor from the
+category of symmetric lax monoidal presheaves over categories with finite
+colimits. This is known as the decorated cospans construction.
 
 %Walters: cospan graph is the generic special commutative Frobenius monoid.  The
 %free hypergraph category on a single object in the category of cospans in the
@@ -2175,9 +2179,9 @@ that commute over $C$. We will prove the following.
   The category of hypergraph categories is equivalent to the category of
   lax symmetric monoidal functors
   \[
-    (\mathrm{Cospan}(\mathrm{Mon}_C),+) \to (\Set,\times).
+    (\mathrm{Cospan}(\FinSet_{\mc O}),+) \to (\Set,\times).
   \]
-  varying over sets $C$.
+  varying over sets $\mc O$.
 \end{theorem}
 This theorem, couched in the language of algebras for operads, is also the
 subject of a forthcoming paper by Vagner, Spivak, and Schultz \cite{VagSpiSch}.

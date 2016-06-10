@@ -84,6 +84,51 @@ creating structural and compositional techniques for modelling
 interconnection, open systems, and formal analogies, or isomorphisms, between
 different fields.
 
+In late 1940s, just as Feynman was developing his diagrams for processes in
+particle physics, Eilenberg and Mac Lane initiated their work on category
+theory.  Over the subsequent decades, and especially in the work of Joyal and
+Street in the 1980s \cite{JS91,JS93}, it became clear that these developments were profoundly linked: monoidal categories have a precise graphical representation in terms of string diagrams, and conversely monoidal categories provide an algebraic foundation for the intuitions behind Feynman diagrams.  The key insight is the use of categories where morphisms describe physical processes, rather than structure-preserving maps between mathematical objects \cite{BaezStay,CP}.
+
+In work on fundamental physics, the cutting edge has moved from categories
+to higher categories \cite{BL}.  But the same techniques have filtered into more
+immediate applications, particularly in computation and quantum computation
+\cite{AC04,Ba1,Sel07}.  This chapter is part of a still nascent program of
+applying string diagrams to engineering, with the aim of giving diverse diagram
+languages a unified foundation based on category theory \cite{BE,BSZ,KSW,RSW05,Sp}. 
+
+
+
+\smallskip
+Summing up, our original technical contributions are:
+\begin{itemize}
+\item a characterisation of the class of LTI systems as a category of corelations of matrices
+\item a presentation of this category of corelations of matrices as a symmetric
+  monoidal theory
+\item an operational semantics that agrees with the standard systems theoretic
+semantics of signal flow graphs
+\item a characterisation of controllability
+\end{itemize}
+
+\smallskip
+
+Our work lies in the intersection of computer science, mathematics, and systems
+theory.  From computer science, we use concepts  of formal semantics of
+programming languages, with an emphasis on compositionality and a firm
+denotational foundation for operational definitions.  From a mathematical
+perspective, we obtain presentations of several relevant domains, and identify
+the rich underlying algebraic structures.  For systems theory, our insight is
+that mere matrices are not optimised for discussing behaviour; instead it is
+profitable to use signal flow graphs, which treat linear subspaces rather than
+linear transformations as the primitive concept and are thus closer to the idea
+of system as a set of trajectories. At the core is the maxim---perhaps best
+understood by computer scientists---that the right language allows deeper
+insights into the underlying structure.
+
+Work on categorical approaches to control systems goes back at least to Goguen
+\cite{Go} and Arbib and Manes \cite{AM}. In recent years, there has been a
+resurgence of interest in the topic, including work by Baez and Erbele
+\cite{BE}, Vagner, Spivak, and Lerman \cite{VSL}, as well as Bonchi, Zanasi, and
+the second author \cite{BSZ1,BSZ2,BSZ3,Za}. 
 \paragraph{A diagrammatic approach.}
 
 In this program Odum, diagrams. universal language SBGN, UML

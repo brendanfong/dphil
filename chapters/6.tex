@@ -7,13 +7,6 @@ decorated corelations framework will show this semantics is functorial.
 
 \section{Introduction}\label{sec:intro}
 %%fakesubsection
-In late 1940s, just as Feynman was developing his diagrams for processes in particle physics, Eilenberg and Mac Lane initiated their work on category theory.  Over the subsequent decades, and especially in the work of Joyal and Street in the 1980s \cite{JS1,JS2}, it became clear that these developments were profoundly linked: monoidal categories have a precise graphical representation in terms of string diagrams, and conversely monoidal categories provide an algebraic foundation for the intuitions behind Feynman diagrams.  The key insight is the use of categories where morphisms describe physical processes, rather than structure-preserving maps between mathematical objects \cite{BaezStay,CP}.
-
-In work on fundamental physics, the cutting edge has moved from categories
-to higher categories \cite{BL}.  But the same techniques have filtered into more
-immediate applications, particularly in computation and quantum computation
-\cite{AC,Ba1,Se}.  This chapter is part of a still nascent program of applying string diagrams to engineering, with the aim of giving diverse diagram languages a unified foundation based on category theory \cite{BE,BSZ,KSW,RSW,Sp}. 
-
 Indeed, even before physicists began using Feynman diagrams, various branches of engineering were using diagrams that in retrospect are closely related.   Foremost among these are the ubiquitous electrical circuit diagrams. Although less well-known, similar diagrams are used to describe networks consisting of mechanical, hydraulic, thermodynamic and chemical systems.   Further work, pioneered in particular by 
 Forrester \cite{Fo} and Odum \cite{Od}, applies similar diagrammatic methods to biology, ecology, and economics.
 
@@ -23,34 +16,29 @@ describe networks in engineering needs to take symplectic geometry as well as ca
 theory into account. 
 
 \vskip 1em
-\begin{small}
+\begin{scriptsize}
 \begin{center}
-\begin{tabular}{|c||c|c|c|c|}
+  \begin{tabular}{|c|c c c c|}
 \hline
 & displacement  &  flow & momentum & effort \\
 & $q$ & $\dot{q}$ & $p$ & $\dot{p}$ \\
-\hline\hline
+\hline
 Electronics & charge & current & flux linkage & voltage\\
-\hline
 Mechanics (translation) & position & velocity & momentum & force\\
-\hline
 Mechanics (rotation) & angle & angular velocity & angular momentum & torque\\
-\hline
 Hydraulics & volume & flow & pressure momentum & pressure\\
-\hline
 Thermodynamics & entropy & entropy flow & temperature momentum & temperature \\
-\hline
 Chemistry & moles & molar flow & chemical momentum & chemical potential \\
 \hline
 \end{tabular}
 \end{center}
-\end{small}
+\end{scriptsize}
 
 While diagrams of networks have been independently introduced in many disciplines, we do not expect formalizing these diagrams to immediately help the practitioners of these disciplines.  At first the flow of information will mainly go in the other direction: by translating ideas from these disciplines into the language of modern mathematics, we can provide mathematicians with food for thought and interesting new problems to solve.  We hope that in the long run mathematicians can return the favor by bringing new insights to the table.
 
 Although we shall keep the broad applicability of network diagrams in the back
 of our minds, we couch our discussion in terms of electrical circuits, for the
-sake of familiarity. In this chapter our goal is somewhat limited.  We only study circuits built from `passive' components: that is, those that do not produce energy.  Thus, we exclude batteries and current sources.  We only consider components that respond linearly to an applied voltage.   Thus, we exclude components such as nonlinear resistors or diodes.  Finally, we only consider components with one input and one output, so that a circuit can be described as a graph with edges labeled by components.  Thus, we also exclude transformers.  The most familiar components our framework covers are linear resistors, capacitors and inductors.
+sake of familiarity. In this section our goal is somewhat limited.  We only study circuits built from `passive' components: that is, those that do not produce energy.  Thus, we exclude batteries and current sources.  We only consider components that respond linearly to an applied voltage.   Thus, we exclude components such as nonlinear resistors or diodes.  Finally, we only consider components with one input and one output, so that a circuit can be described as a graph with edges labeled by components.  Thus, we also exclude transformers.  The most familiar components our framework covers are linear resistors, capacitors and inductors.
 
 While we hope to expand our scope in future work, the class of circuits made from these components has appealing mathematical properties, and is worthy of deep study.  Indeed, this class has been studied intensively for many decades by electrical engineers \cite{AV,Budak,Slepian}.  Even circuits made exclusively of resistors have inspired work by mathematicians of the caliber of Weyl \cite{Weyl} and Smale \cite{Smale}.  
 
@@ -1966,19 +1954,19 @@ $\mathrm{DirichCospan}$ where a morphism is a cospan of finite sets whose apex
 is equipped with a Dirichlet form.  Next, we use decorated cospans to construct
 a strict hypergraph functor $\Circ \to \mathrm{DirichCospan}$ sending a circuit
 to a cospan decorated by its extended power functional. For this we need a
-monoidal natural transformation $\alpha\maps (\mathrm{Circuit},\rho) \Rightarrow
+monoidal natural transformation $\theta\maps (\mathrm{Circuit},\rho) \Rightarrow
 (\mathrm{Dirich},\delta)$.
 
 \begin{proposition} 
   The collection of maps
 \begin{align*}
-  \alpha_N\maps \mathrm{Circuit}(N) &\longrightarrow \mathrm{Dirich}(N); \\
+  \theta_N\maps \mathrm{Circuit}(N) &\longrightarrow \mathrm{Dirich}(N); \\
   (N,E,s,t,r) &\longmapsto \left(\phi \in \F^N \mapsto \frac{1}{2} \sum_{e \in E}
   \frac{1}{r(e)}\big(\phi(s(e))-\phi(t(e))\big)^2\right).
 \end{align*}
 defines a monoidal natural transformation
 \[
-  \alpha\maps (\mathrm{Circuit},\rho) \Longrightarrow
+  \theta\maps (\mathrm{Circuit},\rho) \Longrightarrow
   (\mathrm{Dirich},\delta).
 \]
 \end{proposition}
@@ -1986,13 +1974,13 @@ defines a monoidal natural transformation
 Naturality requires that the square
 \[
   \xymatrix{
-    \mathrm{Circuit}(N) \ar[r]^{\alpha_N} \ar[d]_{\mathrm{Circuit}(f)} &
+    \mathrm{Circuit}(N) \ar[r]^{\theta_N} \ar[d]_{\mathrm{Circuit}(f)} &
     \mathrm{Dirich}(N) \ar[d]^{\mathrm{Dirich}(f)}  \\
-    \mathrm{Circuit}(M) \ar[r]_{\alpha_M} & \mathrm{Dirich}(M)
+    \mathrm{Circuit}(M) \ar[r]_{\theta_M} & \mathrm{Dirich}(M)
   }
 \]
 commutes. Let $(N,E,s,t,r)$ be an $\F^+$-graph on $N$ and $f\maps N \to M$ be a
-function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \alpha_N$ and $\alpha_M
+function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \theta_N$ and $\theta_M
 \circ \mathrm{Circuit}(f)$ map $(N,E,s,t,r)$ to the Dirichlet form
 \begin{align*}
   \F^M &\longrightarrow \F;\\
@@ -2002,21 +1990,21 @@ function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \alpha_N$ and $\alpha_M
 Thus both methods of constructing a power functional on a set of nodes $M$ from
 a circuit on $N$ and a function $N \to M$ produce the same power functional.
 
-To show that $\alpha$ is a monoidal natural transformation, we must check that
+To show that $\theta$ is a monoidal natural transformation, we must check that
 the square
 \[
 \xymatrix{
-  \mathrm{Circuit}(N) \times \mathrm{Circuit}(M) \ar[r]^{\alpha_N \times
-  \alpha_M} \ar[d]_{\rho_{N,M}} & \mathrm{Dirich}(N) \times \mathrm{Dirich}(M)
+  \mathrm{Circuit}(N) \times \mathrm{Circuit}(M) \ar[r]^{\theta_N \times
+  \theta_M} \ar[d]_{\rho_{N,M}} & \mathrm{Dirich}(N) \times \mathrm{Dirich}(M)
   \ar[d]^{\delta_{N,M}}  \\
-  \mathrm{Circuit}(N+M) \ar[r]_{\alpha_{N+M}} & \mathrm{Dirich}(N+M)
+  \mathrm{Circuit}(N+M) \ar[r]_{\theta_{N+M}} & \mathrm{Dirich}(N+M)
 }
 \]
 and the triangle
 \[
 \xymatrix{
   & 1 \ar[dl]_{\rho_\varnothing} \ar[dr]^{\delta_\varnothing}\\
-\mathrm{Circuit}(\varnothing)  \ar[rr]_{\alpha_\varnothing} &&
+\mathrm{Circuit}(\varnothing)  \ar[rr]_{\theta_\varnothing} &&
 \mathrm{Dirich}(\varnothing)
 }
 \]
@@ -2250,7 +2238,7 @@ equal to $1$ when $i =j$, and $0$ otherwise. A symplectomorphism maps symplectic
 bases to symplectic bases, and conversely, any map that takes a symplectic basis
 to another symplectic basis is a symplectomorphism.
 
-\begin{example}[The symplectic vector space generated by a finite set]
+\begin{example}
   \label{ex:symplectic_space_generated_by_set}
   Given a finite set $N$, we consider the vector space $\vectf{N}$ a symplectic
   vector space $(\vectf{N},\omega)$, with symplectic form 
@@ -2261,6 +2249,11 @@ to another symplectic basis is a symplectomorphism.
   $N \to \F$ mapping $n$ to $1$ and all other elements of $n$ to $0$, and let
   $\{i_n\}_{n \in N} \subseteq {(\F^N)}^\ast$ be the dual basis. Then
   $\{(\phi_n,0),(0,i_n)\}_{n\in N}$ forms a symplectic basis for $\vectf{N}$.  
+
+  This is known as the \define{standard symplectic space}; an important
+  structure theorem states that every finite dimensional symplectic vector space
+  is symplectomorphic---that is, isomorphic as a symplectic vector space---to
+  one of this form. 
 \end{example}
 
 There are two common ways we will build symplectic spaces from other
@@ -2272,6 +2265,26 @@ consider their direct sum $U \oplus V$ a symplectic vector space with the
 symplectic form $\nu+\omega$, and call this the \define{sum} of the two
 symplectic vector spaces. Note that this is not a product in the category of
 symplectic vector spaces and symplectic maps.
+
+\begin{example}
+  \label{ex:symplectomorphisms}
+  A symplectic vector space and its conjugate are symplectomorphic. This is a
+  necessary consequence of the fact that they have the same dimension, and so
+  are both symplectomorphic to the same standard symplectic space. 
+  
+  We also define the conjugate of the standard symplectic space,
+  $\overline{\vectf{N}}$, as the vector space $\vectf{N}$ together with the
+  (unsurprising) symplectic form
+  \[
+    \omega\big((\phi,i),(\phi',i')\big) = i(\phi')-i'(\phi).  
+  \] 
+  We write 
+  \[
+    \overline{\idn_N}\maps \vectf{N} \longrightarrow \overline{\vectf{N}}
+  \]
+  for the symplectomorphism mapping $(\phi,i)$ to $(\phi,-i)$ relating these two
+  spaces.
+\end{example}
 
 The symplectic form provides a notion of orthogonal complement.  Given a subspace $S$ of $V$, we define its \define{complement}
 \[
@@ -2428,7 +2441,6 @@ symplectic vector space $\overline{V_1} \oplus V_2$. This gives us a
 way to think of certain Lagrangian subspaces, such as those arising from
 circuits, as morphisms, giving a way to compose them.
 
-Recall discussion of names/conames in Chapter refONE.
 \begin{definition}
   A \define{Lagrangian relation} $L\maps V_1 \to V_2$ is a Lagrangian subspace $L$
   of $\overline{V_1} \oplus V_2$. 
@@ -2556,11 +2568,13 @@ specified by the Lagrangian subspace
 \[
   \idn = \{(v,v) \mid v \in V\} \subseteq \overline{V} \oplus V,
 \]
-acts as an identity for composition of relations. We thus have a category.
+acts as an identity for composition of relations. We thus have a category. As
+our circuits have finitely many nodes, we choose only the finite dimensional
+symplectic vector spaces as objects.
 
 \begin{definition}
-  We write \define{$\LagrRel$} for the category with symplectic
-  vector spaces as objects and Lagrangian relations as morphisms. 
+  We write \define{$\LagrRel$} for the category with finite dimensional
+  symplectic vector spaces as objects and Lagrangian relations as morphisms. 
 \end{definition}
 
 We define the tensor product of two objects of $\LagrRel$ to be their
@@ -2600,32 +2614,39 @@ have a symmetric monoidal category.
 
 In fact the move to the setting of Lagrangian relations, rather than Dirichlet
 forms, adds far richer structure than just identity morphisms. In the next
-section we show $\LagrRel$ is a hypergraph category.
+section we endow $\LagrRel$ with a hypergraph structure.
 
 \section{Ideal wires and corelations} \label{sec:corel}
 %%fakesubsection
 We want to give a decorated corelations construction of $\LagrRel$ for two main
-reasons: first, it endows $\LagrRel$ with a hypergraph structure, and second, 
-Key point: examining the graphical elements that facilitate composition---here
-ideal wires---shows us how to define hypergraph structure and get decorated
-corelations construction. Decorated corelations says that to turn a semantic
-function into a semantic functor, it's enough to look at the Frobenius maps. 
+reasons: first, it endows $\LagrRel$ with a hypergraph structure, and second, it
+allows us to use decorated corelations to construct functors to it.  
 
-In the previous section our exploration of the meaning of circuit diagrams 
-culminated with our understanding of behaviours as Lagrangian subspaces.  We now 
-turn our attention to how circuit components fit together, and the category of 
-operations.  In this section we shall see that the algebra of connections is 
-described by the concept of corelations, a generalization of the notion of 
-function that forgets the directionality from the domain to the codomain. We
-then observe that Kirchhoff's laws follow directly from interpreting these
-structures in the category of linear relations.
+The key takeaway of this section is that examining the graphical elements that
+facilitate composition---here ideal wires---shows us how to define hypergraph
+structure and hence obtain a decorated corelations construction. More broadly,
+to turn a semantic function into a semantic \emph{functor}, it's enough to look
+at the Frobenius maps.
+
+In this section we shall see that these ideal wires are modelled by epi-mono
+corelations in $\FinSet$, a generalization of the notion of function that
+forgets the directionality from the domain to the codomain. We then observe
+that Kirchhoff's laws follow directly from interpreting these structures in the
+category of linear relations.
+
+A more powerful route to the same conclusion might be to directly define a
+hypergraph structure on $\mathrm{LagrRel}$ and then use Theorem . to obtain a
+decorated corelations construction; we nonetheless favour the following as it
+sheds insight into remarkable links between the corelations and ideal wires, the
+contravariant `free' vector space functor and Kirchhoff's voltage law, and the
+covariant free vector space functor and Kirchhoff's current law. 
 
 \subsection{Ideal wires as corelations}
 
-The term corelation in this section we exclusively refer to epi-mono corelations
+The term corelation in this section we exclusively refers to epi-mono corelations
 in $\FinSet$. As such, we write this hypergraph category $\mathrm{Corel}$. 
 
-To motivate the definition of this category, let us start with a set of input
+To motivate the use of this category, let us start with a set of input
 terminals $X$, and a set of output terminals $Y$.  We may connect these
 terminals with ideal wires of zero impedance, whichever way we like---input to
 input, output to output, input to output---producing something like:
@@ -2938,12 +2959,13 @@ we may combine these circuits in to a circuit $X$ to $Z$
 by taking the transitive closure of the two equivalence relations, and then
 restricting this to an equivalence relation on $X+Z$. 
 
-
 In the category of sets we hold the fundamental relationship between sets to be
 that of functions. These encode the idea of a deterministic process that takes
 each element of one set to a unique element of the other. For the study of
 networks this is less appropriate, as the relationship between terminals is not
-an input-output one, but rather one of interconnection. 
+an input-output one, but rather one of interconnection. Willems has repeatedly
+emphasised the prevalence of input-output thinking as a limitation of current
+techniques in control theory \cite{Wi,Wi2}.  
 
 In particular, the direction of a function becomes irrelevant, and to describe
 these interconnections via the category of sets we must develop an understanding
@@ -2952,120 +2974,10 @@ cospans and pushouts to address this.  Cospans, however, come with an apex, whic
 represents extraneous structure beyond the two sets we wish to specify a
 relationship between. Corelations arise from omitting this information.
 
-  A corelation $\alpha\maps X \to Y$ between finite sets $X$ and $Y$ is a
-partition $\alpha$ of the disjoint union $X+Y$.
-
-To introduce some notation, for finite sets $X$ and $Y$, a corelation is a collection of nonempty subsets
-$\alpha = \{A_1,A_2,\dots,A_n\}$ of $X+Y$ such that
-\begin{enumerate}[(i)] 
-  \item $\alpha$ does not contain the empty set.  
-  \item $\bigcup_{i=1}^n A_i = X+Y$.
-  \item $A_i \cap A_j = \varnothing$ whenever $i \ne j$.
-\end{enumerate}
-
-For example, we can take a circuit of ideal wires with $X$ as the set of inputs
-and $Y$ as the set of outputs:
-\[
-  \begin{tikzpicture}[circuit ee IEC]
-	\begin{pgfonlayer}{nodelayer}
-		\node [contact] (0) at (-2, 1) {};
-		\node [contact] (1) at (-2, 0.5) {};
-		\node [contact] (2) at (-2, -0) {};
-		\node [contact] (3) at (-2, -0.5) {};
-		\node [contact] (4) at (-2, -1) {};
-		\node [contact] (5) at (1, 0.75) {};
-		\node [contact] (6) at (1, 0.25) {};
-		\node [contact] (7) at (1, -0.25) {};
-		\node [contact] (8) at (1, -0.75) {};
-		\node [style=none] (9) at (-2.75, -0) {$X$};
-		\node [style=none] (10) at (1.75, -0) {$Y$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-	  \draw [thick] (0.center) to (5.center);
-		\draw [thick] (5.center) to (1.center);
-		\draw [thick] (6.center) to (1.center);
-		\draw [thick] (3.center) to (2.center);
-		\draw [thick] (4.center) to (8.center);
-		\draw [thick] (5.center) to (6.center);
-		\draw [thick] (6.center) to (0.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\]
-and define a corelation $\alpha \maps X \to Y$ for which terminals lie in 
-the same set of the partition $\alpha = \{A_1,A_2,\dots,A_n\}$ when we can travel from one terminal to another following a path of wires:
-\[
-  \begin{tikzpicture}[circuit ee IEC]
-	\begin{pgfonlayer}{nodelayer}
-		\node [contact, outer sep=5pt] (0) at (-2, 1) {};
-		\node [contact, outer sep=5pt] (1) at (-2, 0.5) {};
-		\node [contact, outer sep=5pt] (2) at (-2, -0) {};
-		\node [contact, outer sep=5pt] (3) at (-2, -0.5) {};
-		\node [contact, outer sep=5pt] (4) at (-2, -1) {};
-		\node [contact, outer sep=5pt] (5) at (1, 0.75) {};
-		\node [contact, outer sep=5pt] (6) at (1, 0.25) {};
-		\node [contact, outer sep=5pt] (7) at (1, -0.25) {};
-		\node [contact, outer sep=5pt] (8) at (1, -0.75) {};
-		\node [style=none] (9) at (-2.75, -0) {$X$};
-		\node [style=none] (10) at (1.75, -0) {$Y$};
-		\node [style=none] (11) at (-0.5, 0.625) {};
-		\node [style=none] (12) at (-0.5, -0.25) {};
-		\node [style=none] (13) at (-0.5, -0.875) {};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw [color=gray] (0.center) to (11.center);
-		\draw [color=gray] (1.center) to (11.center);
-		\draw [color=gray] (5.center) to (11.center);
-		\draw [color=gray] (6.center) to (11.center);
-		\draw [color=gray] (2.center) to (12.center);
-		\draw [color=gray] (12.center) to (3.center);
-		\draw [color=gray] (4.center) to (13.center);
-		\draw [color=gray] (13.center) to (8.center);
-		\draw [rounded corners=5pt, dotted] 
-   (node cs:name=0, anchor=north west) --
-   (node cs:name=1, anchor=south west) --
-   (node cs:name=6, anchor=south east) --
-   (node cs:name=5, anchor=north east) --
-   cycle;
-		\draw [rounded corners=5pt, dotted] 
-   (node cs:name=2, anchor=north west) --
-   (node cs:name=3, anchor=south west) --
-   (node cs:name=3, anchor=south east) --
-   (node cs:name=2, anchor=north east) --
-   cycle;
-		\draw [rounded corners=5pt, dotted] 
-   (node cs:name=4, anchor=north west) --
-   (node cs:name=4, anchor=south west) --
-   (node cs:name=8, anchor=south east) --
-   (node cs:name=8, anchor=north east) --
-   cycle;
-		\draw [rounded corners=5pt, dotted] 
-   (node cs:name=7, anchor=north west) --
-   (node cs:name=7, anchor=south west) --
-   (node cs:name=7, anchor=south east) --
-   (node cs:name=7, anchor=north east) --
-   cycle;
-	\end{pgfonlayer}
-\end{tikzpicture}
-\]
-
-The discussion in the previous section then motivates a rule for composing corelations. We compose a corelation $\alpha \maps X \to Y$ and a corelation $\beta \maps Y \to Z$ by finding the finest partition on $X+Y+Z$ that is coarser than both $\alpha$ and $\beta$ when restricted to $X+Y$ and $Y+Z$ respectively, and then restricting this to a
-partition on $X+Z$. More explicitly, the corelation $\beta\circ\alpha = \{C_1,
-C_2, \dots, C_m\}$ is the unique set of pairwise disjoint $C_i$ of the form 
-\[
-  C_i = \bigcup_j A_j \cap X \cup \bigcup_k B_k \cap Z
-\]
-for $j,k$ varying over indices such that 
-\[
-  \bigcup_j A_j \cap Y = \bigcup_k B_k \cap Y.
-\]
-This rule for composition is associative, as both pairwise methods of composing relations
-$\alpha\maps X \to Y$, $\beta\maps Y \to Z$, and $\gamma\maps Z \to W$ amount to finding the finest partition on $X+Y+Z+W$ that is coarser than each of $\alpha$, $\beta$, and $\gamma$ when restricted to the relevant subset, and then restricting this
-partition to a partition on $X+W$.  The pictures in the previous section make this clear.
-
 \subsection{Potentials on corelations} \label{ssec:potentialsoncorelations}
 
-Chasing our interpretation of corelations as ideal wires, our aim for the
-remainder of this section is to build a functor
+Chasing our interpretation of corelations as ideal wires, our aim now is to
+build a functor
 \[
   S\maps \mathrm{Corel} \longrightarrow \LagrRel
 \]
@@ -3081,9 +2993,9 @@ Kirchhoff's voltage law: it requires that if two elements are in the same part
 of the corelation partition---that is, if two nodes are connected by ideal
 wires---then the potential at those two points must be the same.
 
-This functor is a generalization of the
-contravariant functor $\mathrm{FinSet} \to \mathrm{Vect}$ that maps a set to the
-vector space of $\F$-valued functions on that set.
+To construct this functor, we recall Subsection , which shows that
+$\LinRel$ is the category of jointly-epic corelations in $\FinVect^\opp$, and
+then appeal to our results on functors between corelation categories.
 
 \begin{proposition}
   Define the functor 
@@ -3091,66 +3003,67 @@ vector space of $\F$-valued functions on that set.
     \Phi\maps \mathrm{Corel} \longrightarrow \mathrm{LinRel}, 
   \] 
   on objects by sending a finite set $X$ to the vector space $\F^X$, and on
-  morphisms by sending a corelation $\alpha\maps X \to Y$ to the linear subspace
-  $\Phi(\alpha)$ of $\F^X \oplus \F^Y$ comprising functions $\phi =
-  [\phi_X,\phi_Y]\maps X+Y \to \F$ that are constant on each element of
-  $\alpha$.  This is a hypergraph functor.
+  morphisms by sending a corelation $e\maps X \to Y$ to the linear subspace
+  $\Phi(e)$ of $\F^X \oplus \F^Y$ comprising functions $\phi\maps X+Y \to \F$
+  that are constant on each element of the equivalence class induced by
+  $e$.  This is a strong symmetric monoidal functor, with coherence maps
+  the usual natural isomorphisms $\F^X \oplus \F^Y \cong \F^{X + Y}$ and
+  $\{0\} \cong \F^\varnothing$. 
 \end{proposition}
-
 \begin{proof}
-  For coherence maps we take the usual natural isomorphisms $\F^X \oplus \F^Y
-  \cong \F^{X \times Y}$ and $\{0\} \cong \F^\varnothing$. We detail only the
-  proof that $\Phi$ preserves composition; the other properties are
-  straightforward to check.
+This functor $\Phi$ extends the contravariant functor $\FinSet \to \FinVect$
+that maps a set to the vector space of $\F$-valued functions on that set.
+Indeed, define the contravariant functor $\Psi\maps \FinSet \to \FinVect$
+mapping a finite set $X$ to the vector space $\F^X$, and the function $f\maps X
+\to Y$ to the linear map $f_\ast\maps \F^Y \to \F^X$ sending $\phi\maps Y \to \F$
+to $\phi \circ f\maps X \to \F$.
 
-  Let $\alpha\maps X \to Y$ and $\beta\maps Y \to Z$ be corelations. As $\Phi$
-  maps corelations to relations, it is enough to check both inclusions
-  $\Phi(\beta) \circ \Phi(\alpha) \subseteq \Phi(\beta\circ\alpha)$ and
-  $\Phi(\beta\circ\alpha) \subseteq \Phi(\beta) \circ \Phi(\alpha)$. 
+This functors maps finite colimits to finite limits. To show this, we need only
+check it maps coproducts to products and coequalisers to equalisers. The former
+follows from the same well-known natural isomorphisms as the coherence maps:
+$\F^X \oplus \F^Y \cong \F^{X\times Y}$. To see the latter, write $C = Y/\big(f(x)
+\sim g(x)\big)$ for the coequaliser of the diagram 
+\[
+\begin{tikzcd}
+X \ar[r,shift left=.75ex,"f"]
+  \ar[r,shift right=.75ex,swap,"g"]
+&
+Y.
+\end{tikzcd}
+\]
+This is the quotient of the set $Y$ by the equivalence relation induced by $f(x)
+\sim g(x)$ for all $x \in X$; write $c\maps Y \to C$ for the quotient map.  Now
+the equaliser of the image of this diagram under $\Psi$,
+\[
+\begin{tikzcd}
+\F^Y \ar[r,shift left=.75ex,"f_\ast"]
+  \ar[r,shift right=.75ex,swap,"g_\ast"]
+&
+\F^X,
+\end{tikzcd}
+\]
+is the kernel of $f_\ast-g_\ast$. This kernel comprises those $v \in \F^Y$ such
+that $v(f(x)) = v(g(x))$ for all $x \in X$. But this is precisely the image of
+$c_\ast\maps \F^C \to \F^Y$. Thus $\Psi$ sends coequalisers to equalisers, and
+hence finite colimits to finite limits.
 
-  \paragraph{$\Phi(\beta) \circ \Phi(\alpha) \subseteq \Phi(\beta\circ\alpha)$:}
-  Let $\phi = [\phi_X,\phi_Z] \in \Phi(\beta) \circ \Phi(\alpha)$. We wish to show
-  that for all $C_i \in \beta\circ\alpha$, for all $c,c' \in C_i$, we have
-  $\phi(c) = \phi(c')$. To this end, note that there exists some $\phi_Y\maps Y \to \F$
-  such that $\phi_{XY} := [\phi_X,\phi_Y] \in \Phi(\alpha)$ and $\phi_{YZ} :=
-  [\phi_Y,\phi_Z] \in \Phi(\beta)$.  Furthermore, by definition this $\phi_Y$ has
-  the property that for all $A_j \in \alpha$, for all $a,a' \in A_j$, we have
-  $\phi_{XY}(a) = \phi_{XY}(a')$, and for all $B_k \in \beta$, for all $b,b' \in
-  B_k$, we have $\phi_{YZ}(b) = \phi_{YZ}(b')$. Write $\phi_{XYZ} =
-  [\phi_X,\phi_Y,\phi_Z]\maps X+Y+Z \to \F$.
+Note also that the image of an injective function $m$ in $\FinSet$ is a
+surjective linear transformation $\F^Y \to \F^X$, and hence a monomorphism in
+$\FinVect^\opp$. Thus, considering $\Psi$ as a covariant functor $\FinSet \to
+\FinVect^\opp$, we have a functor that preserves finite colimits and such that
+the image of the monomorphisms of $\FinSet$ is contained in the monomorphisms of
+$\FinVect^\opp$.
 
-  Our desired fact is thus true: for all $c,c' \in C_i$, there exists a sequence $c=c_0,
-  c_1, \dots, c_n=c'$ in $X+Y+Z$ such that for all $\ell=0,1, \dots n-1$ we have
-  either $c_\ell, c_{\ell+1} \in A_j$ for some $j$ or $c_\ell,c_{\ell+1} \in B_k$
-  for some $k$, and hence that 
-  \[
-    \phi(c) = \phi_{X+Y+Z}(c_0)= \phi_{X+Y+Z}(c_1) = \dots = \phi_{X+Y+Z}(c_n) =
-    \phi(c')
-  \]
-  as required.
-
-  \paragraph{$\Phi(\beta\circ\alpha) \subseteq \Phi(\beta) \circ \Phi(\alpha)$:}
-  Let $\phi = [\phi_X,\phi_Z] \in \Phi(\beta\circ\alpha)$. We must show that there
-  exists $\phi_Y\maps Y \to \F$ such that $[\phi_X,\phi_Y] \in \Phi(\alpha)$ and
-  $[\phi_Y,\phi_Z] \in \Phi(\beta)$. We claim
-  \[
-    \phi_Y(y):= \begin{cases}
-      \phi(x) & \mbox{if } x \in X, \: x,y \in A_j \mbox{ for some }j;\\
-      \phi(z) & \mbox{if } z \in Z, \: y,z \in B_k \mbox{ for some }k;\\
-      0 & \mbox{if there exist no such }x \in X \mbox{ or }z \in Z
-    \end{cases}
-  \]
-  satisfies this. This is well-defined as for all $A_j$, $A_j \cap X \subseteq
-  C_i$ for some $i$, so $\phi$ is constant on $A_j$, and similarly for all $B_j$.
-  Thus it does not matter if there are many such $x$ or $z$ with $x, y \in A_j$ or
-  $y,z \in B_k$.  Furthermore, if there exists $y$ such that both $x,y \in A_j$
-  for some $x,A_j$ and $y,z \in B_k$ for some $z,B_k$, then the $C_i$ with $A_j
-  \cap X \subseteq C_i$ and $B_k \cap Z \subseteq C_i$ is unique, so the
-  definitions of $\phi_Y(y)$ do not conflict.
-
-  Moreover, by construction $[\phi_X,\phi_Y]$ is constant on all $A_j$, and
-  $[\phi_Y,\phi_Z]$ is constant on all $B_k$, so $[\phi_X,\phi_Y] \in
-  \Phi(\alpha)$ and $[\phi_Y,\phi_Z] \in \Phi(\beta)$ as required.
+Recall that $\FinVect^\opp$ has an epi-mono factorisation system, and that $\LinRel$
+is the category of corelations with respect to this factorisation system
+(Subsection ). Thus $\Psi$ extends to a functor 
+\[
+  \Phi\maps \corel(\FinSet) = \mathrm{Corel} \longrightarrow
+  \corel(\FinVect^\opp) \cong \LinRel.
+\]
+This functor maps a corelation $e= [i,o]\maps X+Y \to N$ to the linear relation
+$e_\ast(\F^N) \subset \F^X \oplus \F^Y$ comprising functions $X+Y \to \F$ that
+are constant on each equivalence class of elements of $X+Y$.
 \end{proof}
 
 To recap, we have now constructed a functor $\Phi\maps \mathrm{Corel} \to
@@ -3162,91 +3075,57 @@ as ideal wires. We now do the same for currents.
 Next we consider the case of currents, described by a functor $I\maps
 \mathrm{Corel} \to \mathrm{LinRel}$. This functor now expresses Kirchhoff's
 current law: it requires that the sum of currents flowing into each part of the
-corelation partition must equal to the sum of currents flowing out.  It may also
-be understood as a generalization of the covariant functor $\mathrm{Set} \to
-\mathrm{Vect}$ that maps a set to the vector space of $\F$-linear combinations
-of elements of that set.
-
+corelation partition must equal to the sum of currents flowing out.  
 \begin{proposition}
   Define the functor
   \[
     I\maps \mathrm{Corel} \longrightarrow \mathrm{LinRel}.
   \]
   as follows. On objects send a finite set $X$ to the vector space
-  $(\F^{X})^\ast$. On morphisms send a corelation $\alpha\maps X \to Y$
-  to the linear relation $I(\alpha)$ comprising precisely those 
+  $(\F^{X})^\ast=\F[X]$, the free vector space on $X$. On morphisms send a
+  corelation $e=[i,o]\maps X +Y \to N$ to the linear relation $I(e)$ comprising precisely
+  those 
   \[
     (i_X,i_Y) = \left(\sum_{x \in X} \lambda_xdx,\sum_{y \in Y}
     \lambda_ydy\right)  \in (\F^{X})^\ast \oplus (\F^{Y})^\ast
   \]
-  such that for all $A_i \in \alpha$ the sum of the coefficients of the elements
-  of $A_i \cap X$ is equal to that for $A_i \cap Y$:
+  such that for all $n \in N$ the sum of the coefficients of the elements
+  of $i^{-1}(n) \subseteq X$ is equal to that for $o^{-1}(n) \subseteq Y$:
   \[
-    \sum_{x \in A_i \cap X} \lambda_x = \sum_{y \in A_i \cap Y} \lambda_y.
+    \sum_{i(x)=n} \lambda_x = \sum_{o(y)=n} \lambda_y.
   \]
-  This is a hypergraph functor.
+  This is a strong symmetric monoidal functor, with coherence maps the natural
+  isomorphisms $(\F^X)^\ast \oplus (\F^Y)^\ast \to (\F^{X+Y})^\ast$ and $\{0\}
+  \to (\F^\varnothing)^\ast$.
 \end{proposition}
 \begin{proof}
-The coherence maps are the natural isomorphisms $(\F^X)^\ast \oplus (\F^Y)^\ast
-\to (\F^{X+Y})^\ast$ and $\{0\} \to (\F^\varnothing)^\ast$. Again the only
-nontrivial task is to check this map $I$ preserves composition. Again we do this
-by checking inclusions $I(\beta) \circ I(\alpha) \subseteq I(\beta\circ\alpha)$
-and $I(\beta\circ\alpha) \subseteq I(\beta) \circ I(\alpha)$. 
+  This functor is a generalization of the covariant functor $\FinSet \to
+  \FinVect$ that maps a set to the vector space of $\F$-linear combinations of
+  elements of that set. We proceed in a similar fashion to the functor for
+  potentials. Define the functor $J\maps \FinSet \to \FinVect$ mapping a finite
+  set $X$ to the vector space $(\F^{X})^\ast$, the sum of formal linear
+  combinations of the symbols $dx$, where $x$ is an element of $X$. Given a
+  function $f\maps X \to Y$, $J$ maps $f$ to the linear map $f^\ast\maps
+  (\F^X)^\ast \to (\F^Y)^\ast$ taking $\sum_{x \in X} \lambda_x dx \in
+  (\F^X)^\ast$ to $\sum_{x \in X} \lambda_xd(fx)$.  
 
-\paragraph{$I(\beta) \circ I(\alpha) \subseteq I(\beta\circ\alpha)$:} Let
-$(i_X,i_Z) \in I(\beta)\circ I(\alpha)$, with $i_X = \sum_{x \in X} \lambda_x dx$
-and $i_Z = \sum_{z \in Z} \lambda_z dz$. Note that this implies that there is
-some $i_Y = \sum_{y \in Y} \lambda_y dy$ such that $(i_X,i_Y) \in I(\alpha)$,
-$(i_Y,i_Z) \in I(\beta)$. Then for each $C_i \in \beta\circ\alpha$ we have
-\begin{align*}
-  \sum_{x \in C_i \cap X} \lambda_x
-  &= \sum_{\substack{x \in A_j \cap X \\ A_j \cap X \subseteq C_i}}
-  \lambda_x \\
-  &= \sum_{\substack{y \in A_j \cap Y \\ A_j \cap X \subseteq C_i}}
-  \lambda_y \tag{By definition of $I(\alpha)$}\\
-  &= \sum_{\substack{y \in B_k \cap Y \\ B_k \cap Z \subseteq C_i}}
-  \lambda_y \tag{See composition of corelations}\\
-  &= \sum_{\substack{z \in B_k \cap Z \\ B_k \cap Z \subseteq C_i}}
-  \lambda_z \tag{By definition of $I(\beta)$} \\
-  &= \sum_{z \in C_i \cap Z} \lambda_z. 
-\end{align*}
-Thus $(i_X,i_Z) \in I(\beta\circ\alpha)$.
-
-\paragraph{$I(\beta\circ\alpha) \subseteq I(\beta) \circ I(\alpha)$:} The
-reverse inclusion requires a bit more effort. Let $(i_X,i_Z) \in
-I(\beta\circ\alpha)$. We wish to construct some $i_Y = \sum_{y \in Y} \lambda_y
-dy \in (\F^{Y})^\ast$ such that $(i_X,i_Y) \in I(\alpha)$ and $(i_Y,i_Z) \in
-I(\beta)$.  This means that we must find a vector $i_Y \in (\F^{Y})^\ast$
-satisfying the $\#\alpha$ linear constraints
-\[
-  \sum_{y \in A_j \cap Y} \lambda_y = \sum_{x \in A_j \cap X} \lambda_x
-\]
-and the $\#\beta$ linear constraints
-\[
-  \sum_{y \in B_j \cap Y} \lambda_y = \sum_{z \in B_j \cap Z} \lambda_z.
-\]
-Note, however, that for each $C_i \in \beta\circ\alpha$, summing over the $A_j$
-and $B_k$ that intersect $C_i$ shows a linear dependence between these constraints
-themselves, as
-\[
-  \sum_{\substack{y \in A_j \cap Y \\ A_j \cap X \subseteq C_i}} \lambda_y =
-  \sum_{x \in C_i \cap X} \lambda_x = \sum_{z \in C_i \cap Z}
-  \lambda_z = \sum_{\substack{y \in B_k \cap Y \\ B_k \cap Z \subseteq C_i}}
-  \lambda_y.
-\]
-Moreover, as each element of $Y$ lies in exactly one element of each $\alpha$
-and $\beta$, we may view them as edges in a graph on $\alpha+\beta$, with
-exactly $\#(\beta\circ\alpha)$ connected components. This implies that
-\[
-  \# Y > \#\alpha + \#\beta -\#(\beta\circ\alpha).
-\]
-Thus these constraints define an affine subspace of $(\F^{Y})^\ast$ of positive
-dimension, and hence we can always find a vector $i_Y$ with the desired
-property. This proves the claim. 
+  This is the restriction to $\FinSet$ of the free vector space functor $\Set
+  \to \Vect$. As the free vector space functor is left adjoint to the forgetful
+  functor, it preserves finite colimits. Hence $\FinSet$ also preserves finite
+  colimits. Moreover, $J$ maps monomorphisms in $\FinSet$ to monomorphisms in
+  $\FinVect$. By Proposition , $J$ thus extends to a functor
+  \[
+    I\maps \corel(\FinSet) = \mathrm{Corel} \longrightarrow \corel(\FinVect) =
+    \mathrm{LinRel}.
+  \]
+  This functor maps a corelation $e=[i,o]\maps X+Y \to N$ to the kernel
+  $\ker(Ie)$ of the linear map $Ie\maps (\F^X)^\ast \oplus (\F^Y)^\ast \to
+  (\F^N)^\ast$. This comprises all linear combinations $\left(\sum_{x \in X}
+  \lambda_xdx,\sum_{y \in Y} \lambda_ydy\right)$ such that $\sum_{x \in X}
+  \lambda_x d(ix) =  \sum_{y \in Y} \lambda_y d(oy)$. This is what we wanted to
+  show.
 \end{proof}
 
-Using elementary methods, an algorithm can also
-be given to construct an explicit solution.
 
 \subsection{The symplectification functor}
 
@@ -3262,62 +3141,80 @@ currents and potentials as a Lagrangian subspace.
     S\maps \mathrm{Corel} \longrightarrow \LagrRel
   \]
   sending a finite set $X$ to the symplectic vector space
-\[
-  S(X) = \F^X \oplus (\F^X)^\ast,
-\]
- and a corelation $\alpha\maps X \to Y$ to the Lagrangian relation
-\[
-  S(\alpha) = \Phi(\alpha) \oplus I(\alpha) \subseteq \overline{\F^X \oplus
-  (\F^X)^\ast}\oplus \F^Y \oplus (\F^Y)^\ast.
-\]
-  Then $S$ is a strong symmetric monoidal functor, with coherence maps inherited
-  from $\Phi$ and $I$.
+  \[
+    SX = \F^X \oplus (\F^X)^\ast,
+  \]
+  and a corelation $e=[i,o]\maps X+Y \to N$ to the Lagrangian relation
+  \[
+    Se = \Phi e \oplus Ie \subseteq \overline{\F^X \oplus
+    (\F^X)^\ast}\oplus \F^Y \oplus (\F^Y)^\ast.
+  \]
+  Then $S$ is a strong symmetric monoidal functor, with coherence maps those of
+  $\Phi$ and $I$.
 \end{proposition}
+Note that $\Phi e\oplus Ie$ is more properly a subspace of the vector space $\F^X
+\oplus \F^Y \oplus (\F^X)^\ast \oplus (\F^Y)^\ast$. In the above we consider it
+instead as a subspace of the symplectic vector space $\overline{\F^X \oplus
+(\F^X)^\ast}\oplus \F^Y \oplus (\F^Y)^\ast$, whose underlying vector space is
+canonically isomorphic to $\F^X \oplus \F^Y \oplus (\F^X)^\ast \oplus
+(\F^Y)^\ast$.
+
 \begin{proof}
   As $S$ is the monoidal product in $\mathrm{LinRel}$ of the strong symmetric
   monoidal functors $\Phi, I\maps \mathrm{Corel} \to \mathrm{LinRel}$, it is
   itself a strong symmetric monoidal functor $\mathrm{Corel} \to
   \mathrm{LinRel}$. Thus it only remains to be checked that, with respect to the
-  symplectic structure we put on the objects $S(X)$, the image of each
-  corelation $S(\alpha)$ is Lagrangian. 
+  symplectic structure we put on the objects $SX$, the image of each
+  corelation $Se$ is Lagrangian. 
 
+  
   This follows from condition (v) of Proposition
-  \ref{lagrangian_characterization}: $S(\alpha)$ is (i) isotropic as, for all 
-  $(\phi_X,i_X,\phi_Y,i_Y)$, $(\phi_X',i_X',\phi_Y',i_Y') \in S(\alpha)$ we have
+  \ref{lagrangian_characterization}: that a Lagrangian subspace is an isotropic
+  subspace of dimension half that of the symplectic vector space.
+
+  Given $(\phi_X,i_X,\phi_Y,i_Y) \in Se$, note that for each $n \in N$ there
+  exists a constant $\phi_n \in \F$ such that $\phi_n=\phi_X(x) = \phi_Y(y)$ for
+  all $x \in X$ such that $i(x) = n$ and all $y \in Y$ such that $o(y)= n$. 
+  Then $Se$ is isotropic as, for all 
+  $(\phi_X,i_X,\phi_Y,i_Y)$, $(\phi_X',i_X',\phi_Y',i_Y') \in Se$ we have
   \begin{align*}
     &\phantom{=} \enskip
     \omega\big((\phi_X,i_X,\phi_Y,i_Y),(\phi_X',i_X',\phi_Y',i_Y')\big)
     \\
+    &= \overline{\omega_X}\big((\phi_X,i_X),(\phi_X',i_X')\big) +
+    \omega_Y\big((\phi_Y,i_Y),(\phi_Y',i_Y')\big) \\
     &= -\big(i_X'(\phi_X)-i_X(\phi_X')\big) + i_Y'(\phi_Y)-i_Y(\phi_Y') \\
     &= i_X(\phi_X')-i_Y(\phi_Y') + i_X'(\phi_X)-i_Y'(\phi_Y) \\
     &= \sum_{x \in X} \lambda_x dx(\phi_X') - \sum_{y \in Y} \lambda_y dy(\phi_Y') +
     \sum_{y \in Y} \lambda_y' dy(\phi_Y) - \sum_{x \in X} \lambda_x' dx(\phi_X)\\
-    &= \sum_{A_j \in \alpha}\left(\sum_{x \in A_j \cap X} \lambda_x dx(\phi_X') -
-    \sum_{y \in A_j \cap Y} \lambda_y dy(\phi_Y')\right) \\
-    &\qquad \qquad+ \sum_{A_j \in
-    \alpha}\left(\sum_{x \in A_j \cap X} \lambda_x'dx(\phi_X) - \sum_{y \in A_j
-    \cap Y} \lambda_y' dy(\phi_Y)\right)\\
-    &= \sum_{A_j \in \alpha}\left(\sum_{x \in A_j \cap X} \lambda_x - \sum_{y \in
-    A_j \cap Y} \lambda_y \right)k'_{A_j} + \sum_{A_j \in \alpha}\left(\sum_{x \in
-    A_j \cap X} \lambda_x'- \sum_{y \in A_j \cap Y} \lambda_y'\right)k_{A_j}\\
-    &= 0,
+    &= \sum_{n \in N}\left(\sum_{i(x)=n} \lambda_x dx(\phi_X') -
+    \sum_{o(y)=n} \lambda_y dy(\phi_Y')\right) \\
+    &\qquad \qquad+ \sum_{n \in N}\left(\sum_{i(x)=n} \lambda_x'dx(\phi_X) -
+    \sum_{o(y)=n} \lambda_y' dy(\phi_Y)\right)\\
+    &= \sum_{n \in N}\left(\sum_{i(x)=n} \lambda_x - \sum_{o(y)=n} \lambda_y
+    \right)\phi'_n + \sum_{n \in N}\left(\sum_{i(x)=n} \lambda_x'- \sum_{o(y)=n}
+    \lambda_y'\right)\phi_n\\
+    &= 0.
   \end{align*}
-  and (ii) has dimension equal to 
-  \[
-    \dim(\Phi(\alpha))+ \dim(I(\alpha) = \#\alpha+\#(X+Y) - \#\alpha= \#(X+Y).
-  \]
+  Second, $Se$ has dimension equal to 
+  \begin{multline*}
+    \dim(\Phi e)+ \dim(Ie) = \#N+\#(X+Y) - \#N \\
+    = \#(X+Y) = \tfrac12
+    \dim\big(\overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y \oplus
+    (\F^Y)^\ast\big).
+  \end{multline*}
   This proves the proposition.
 \end{proof}
 
 We have thus shown we do indeed have a functor $S\maps \mathrm{Corel} \to
 \LagrRel$. In the next section we shall see that this functor provides
-the engine of our black box functor, playing the key role in showing that we
-may indeed treat circuit components as black boxes: that is, that circuits that
-behave the same compose the same. Before we get there, we quickly make two
-relevant observations.
+the engine of our black box functor. To get there, an understanding of the
+action of $S$ on functions will be helpful.
 
 \begin{example}[Symplectification of functions] \label{ex:sympfunction}
-  Let $f: X \to Y$ be a function. In this example we show that $Sf$ has the form 
+  Let $f: X \to Y$ be a function; we may also consider it as the corelation $X
+  \stackrel{f}\to Y \stackrel{\idn_Y}\leftarrow Y$. In this example we show that
+  $Sf$ has the form 
   \[
     Sf = \big\{(\phi_X,i_X,\phi_Y,i_Y) \, \big\vert \, \phi_X = f^\ast\phi_Y,
     i_Y = f_\ast i_X \big\} \subseteq \overline{\F^X \oplus (\F^X)^\ast} \oplus
@@ -3333,10 +3230,8 @@ relevant observations.
     f_\ast\maps (\F^X)^\ast &\longrightarrow (\F^Y)^\ast; \\
     i(-) &\longmapsto i(-\circ f).
   \end{align*}
-  (We shall also write $f_\ast$ for the more general map from functions on
-  $\F^X$ to functions on $\F^Y$ that takes a function $i(-)$ on $\F^X$ to the
-  function $i(-\circ f)$.) The claim is then that these pullback and pushforward
-  constructions express Kirchhoff's laws.
+  The claim is then that these pullback and pushforward constructions express
+  Kirchhoff's laws.
 
   Recall that the corelation corresponding to $f$ partitions $X+Y$ into $\#Y$
   parts, each of the form $f^{-1}(y) \cup \{y\}$. The linear relation $\Phi(f)$
@@ -3365,28 +3260,28 @@ relevant observations.
 
 
 \subsection{Lagrangian relations as decorated corelations}
-We have a wide functor $\cospan(\FinSet) \to \LagrRel$ (skeleton). Thus
-$\LagrRel$ is a hypergraph category. This means we can construct it as decorated
-corelations on its monoidal global sections functor.
-
-We begin by describing a category where morphisms are cospans decorated by
-Lagrangian subspaces.
+Recall that every finite dimensional symplectic vector space is isomorphic to
+one of the form $\vectf{X}$. For our finite circuits, Lagrangian relations are
+between these standard symplectic vector spaces are enough to represent the
+behaviours of all circuits. To assist in constructing the black box functor, we
+thus use decorated corelations to construct the full subcategory of the standard
+symplectic spaces in $\LagrRel$. Our functor is based on the monoidal global
+sections functor.
 
 \begin{proposition}
 Define 
 \[
-  \mathrm{Lagr}\maps (\mathrm{FinSet},+) \longrightarrow (\mathrm{Set},\times)
+  \mathrm{Lagr}\maps (\cospan(\FinSet),+) \longrightarrow (\mathrm{Set},\times)
 \]
 as follows. For objects let $\mathrm{Lagr}$ map a finite set $X$ to the set
 $\mathrm{Lagr}(X)$ of Lagrangian subspaces of the symplectic vector space
-$\vectf{X}$.  For morphisms, recall that a function $f\maps X \to Y$ between
-finite sets may be considered as a corelation, and the symplectification functor
-$S$ thus maps this corelation to some Lagrangian relation $Sf\maps \vectf{X}
-\to \vectf{Y}$. As Lagrangian relations map Lagrangian subspaces to Lagrangian
+$\vectf{X}$.  For morphisms, given a cospan of finite sets $c\maps X \to Y$ we
+take its jointly-epic part $e$, and thus obtain a map $Se\maps \vectf{X} \to
+\vectf{Y}$. As Lagrangian relations map Lagrangian subspaces to Lagrangian
 subspaces (Proposition \ref{prop:lagrangian_composition}), this gives a map: 
 \begin{align*}
   \mathrm{Lagr}(f)\maps \mathrm{Lagr}(X) &\longrightarrow \mathrm{Lagr}(Y); \\
-  L &\longmapsto Sf(L).
+  L &\longmapsto Se(L).
 \end{align*}
 Moreover, equipping this functor with the family of maps
 \begin{align*}
@@ -3406,90 +3301,70 @@ defines a lax symmetric monoidal functor.
   the lax symmetric monoidality from the relevant properties of the direct sum
   of vector spaces.
 \end{proof}
-We thus obtain a hypergraph category $\mathrm{LagrCospan}$.
 
-At this point we have checked that the process of reinterpreting a circuit as a
-Lagrangian subspace of behaviours is functorial. Our task is now to integrate
-this information as more than just a `decoration' on our morphisms. This process
-constitutes a monoidal dagger functor
+This functor gives us two categories. First, we can construct a decorated
+cospans category $\mathrm{LagrCospan}$ on the functor $\mathrm{Lagr}$ restricted
+to $\FinSet$, giving a category with each morphism a cospan of finite sets $X
+\to N \leftarrow Y$ decorated by a Lagrangian subspace of $\vectf{N}$. This will
+be useful for interpreting extended power functionals as Lagrangian subspaces in
+a compositional setting. 
+
+The second category is $\mathrm{LagrCorel}$. This as usual has finite sets as
+objects. For morphisms $X \to Y$ it has Lagrangian subspaces of 
 \[
-  \mathrm{LagrCospan} \longrightarrow \LagrRel.
+  \vectf{X+Y} \cong \vectf{X} \oplus \vectf{Y}
 \]
-This factor of the black box functor is the one that gives it its name;
-through this functor we finally seal off the inner structure of our circuits,
-leaving us access only to the behaviour at the terminals. Its purpose is to take a 
-Lagrangian cospan, which captures information about the behaviours of a 
-circuit measured at every node, and restrict it down to a 
-relation detailing the behaviours simply on the terminals. 
+\emph{not}, as might be expected, Lagrangian subspaces of $\overline{\vectf{X}}
+\oplus \vectf{Y}$. The reason is that composition is also a slightly tweaked
+from relational composition. 
 
-\begin{proposition}
-We may define a hypergraph functor
+Composition in $\mathrm{LagrCorel}$ is enacted by the symplectification of the
+cospan 
 \[
-  \mathrm{LagrCospan} \longrightarrow \mathrm{LagrRel}
+  X+Y+Y+Z \xrightarrow{\idn_X+[\idn_Y,\idn_Y]+\idn_Z} X+Y+Z
+  \xleftarrow{\iota_X+\iota_Z} X+Z.
 \]
-as follows. On objects let this functor take a finite set $X$ to the symplectic
-vector space $\F^X \oplus (\F^X)^\ast$. On morphisms let it take a Lagrangian
-cospan
+This relation relates 
 \[
-  \big(X\stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y; L
-  \subseteq \F^N \oplus (\F^N)^\ast\big)
+  (\phi_X,\phi_Y,\phi_Y',\phi_Z',i_X,i_Y,i_Y',i_Z') \in 
+  \F^{X+Y+Y+Z}\oplus (\F^{X+Y+Y+Z})^\ast
 \]
-to the Lagrangian relation
+with 
 \[
-  (S^t\!X\oplus SY) \circ S[i,o]^\dagger \circ L \subseteq
-  \overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y \oplus (\F^Y)^\ast.  
-\]  
-\end{proposition}
-
-The coherence maps here are the usual natural isomorphisms
-\[
-  \vectf{X} \oplus \vectf{Y} \stackrel{\sim}{\longrightarrow} \vectf{X+Y} 
+  (\phi_X,\phi_Z',i_X,i_Z') \in \F^{X+Z}\oplus (\F^{X+Z})^\ast
 \]
-and
+if and only if two conditions hold: (i) $\phi_Y = \phi_Y'$ and (ii) $i_Y +i_Y' =
+0$. Thus on the `potentials' $\phi$ we have relational composition, but on the
+`currents' we instead require $i_Y=-i_Y'$. We intepret this to mean that the
+decorations of $\mathrm{LagrCorel}$ record only the currents \emph{out} of the
+nodes of the circuit. Thus if we were to interconnect two nodes, the current out
+of the first must be equal to the negative of the current out---that is, the
+current \emph{in}---of the second node. It is remarkable that this physical fact
+is embedded so deeply in the underlying mathematics.
+
+As these categories are constructed using decorated corelations, we have for
+free a hypergraph functor 
 \[
-  \{0\} \stackrel{\sim}{\longrightarrow} \vectf{\varnothing}.
+  \mathrm{LagrCospan} \longrightarrow \mathrm{LagrCorel}.
 \]
-
-The three functors of this section compose to give the black box functor
+The above discussion shows that we also have an embedding 
 \[
-\blacksquare\maps \Circ \to \LagrRel.
-\] 
-Since they are each separately hypergraph functors, the black box
-functor is too.
-
-
-\subsubsection*{Duals for objects}
-
-Each object $V$ of $\LagrRel$ is dual to its conjugate space $\overline
-V$, with cup $\eta\maps \{0\} \to \overline{V} \oplus V$ given by 
-\[
-  \eta = \{(0,v,v) \mid v \in V\} \subseteq \overline{\{0\}} \oplus \overline{V}
-  \oplus V
+  \mathrm{LagrCorel} \hooklongrightarrow \mathrm{LagrRel}
 \]
-and cap $\eps\maps V \oplus \overline{V} \to \{0\}$ given by
+mapping a finite set $X$ to the standard symplectic space $\vectf{X}$, and a
+morphism $L \subset \vectf{X} \oplus \vectf{Y}$ to its image under the
+symplectomorphism 
 \[
-  \eps = \{(v,v,0) \mid v \in V\} \subseteq \overline{V \oplus \overline{V}}
-  \oplus \{0\}.
+  \overline{\idn_X} \oplus \idn_Y \maps\vectf{X} \oplus \vectf{Y}
+  \stackrel{\cong}\longrightarrow \overline{\vectf{X}} \oplus \vectf{Y}.
 \]
-It is straightforward to check these satisfy the zigzag identities.
-
-\subsubsection*{Dagger structure}
-
-Given symplectic vector spaces $U,V$, observe that the map
-\begin{align*}
-  (-)^\dagger\maps \overline{U} \oplus V &\longrightarrow \overline{V} \oplus U; \\
-  (u,v) &\longmapsto (v,u)
-\end{align*} 
-takes Lagrangian subspaces of the domain to Lagrangian subspaces of the
-codomain. Thus we can view it as a map $(-)^\dagger$ taking morphisms $L\maps U \to V$
-of $\LagrRel$ to morphisms $L^\dagger\maps V \to U$. This defines a
-dagger structure on $\LagrRel$, which makes this category into a
-hypergraph category.
-
-Moreover, every object in $\mathrm{LagrRel}$ has a dagger dual: it is clear that
-$\eta^\dagger = \eps \circ \s$.   This category thus becomes a dagger compact
-category.
-
+This is a fully faithful and essentially surjective strong symmetric monoidal
+functor. Recall that $\mathrm{LagrCorel}$ is a hypergraph category; indeed, the
+hypergraph structure is given by `ideal wires', as we have spent this chapter
+exploring. Choosing an isomorphism of each symplectic vector space with a
+standard symplectic vector space, we may equip each object of $\mathrm{LagrRel}$
+with special commutative Frobenius structure, and hence consider the above
+embedding an equivalence of hypergraph categories.
 
 \section{The black box functor} \label{sec:blackbox}
 %%fakesubsection
@@ -3511,37 +3386,24 @@ inaccessible. Circuits treated this way are frequently referred to as
 \[
 \blacksquare\maps \Circ \to \LagrRel.
 \] 
-In this section we first provide the definition of this functor, and then check
-that our definition really does map a circuit to its behaviour.
+In this section we first provide the definition of this functor, check
+that our definition really does map a circuit to its behaviour, and then finally
+use decorated corelations to verify its functoriality.
 
 \subsection{Definition}
 It should be no surprise that the black box functor maps a finite set $X$ to the
 symplectic vector space $\F^X \oplus (\F^X)^\ast$ of potentials and currents
 that may be placed on that set. The challenge is to provide a succinct
-statement of its action on the circuits themselves. To do this, we take
-advantage of four processes we developed in Parts  and
-.
+statement of its action on the circuits themselves. To do this we take advantage
+of three processes defined above.
 
-Let $\Gamma\maps X \to Y$ be a circuit, represented by the decorated cospan
-\[
-  \big(X \stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y,\:
-  \Gamma\big).
-\]
-Recall that this means that $X$ and $Y$ are finite sets, $\Gamma$ is a
-$\F$-graph $(N,E,s,t,r)$, and we have a cospan of finite sets
-\[
-  \xymatrix{
-    & \Gamma \\
-    X \ar[ur]^{i} && Y. \ar[ul]_{o}
-  }
-\]
-To define the image of $\Gamma$ under our functor $\blacksquare$, by definition
-a Lagrangian relation $\blacksquare(\Gamma): \blacksquare(X) \to
-\blacksquare(Y)$, we must specify a Lagrangian subspace 
-\[
-  \blacksquare(\Gamma) \subseteq \overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y
-  \oplus (\F^Y)^\ast.  
-\]
+Let $\Gamma\maps X \to Y$ be a circuit, that is a cospan of finite sets $X
+\stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y$ decorated by an
+$\F$-graph $(N,E,s,t,r)$. To define the image of $\Gamma$ under our functor
+$\blacksquare$, by definition a Lagrangian relation $\blacksquare(\Gamma):
+\blacksquare(X) \to \blacksquare(Y)$, we must specify a Lagrangian subspace
+$\blacksquare(\Gamma) \subseteq \overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y
+\oplus (\F^Y)^\ast$.  
 
 Recall that to each $\F^+$-graph $\Gamma$ we can associate a Dirichlet form, 
 the extended power functional 
@@ -3550,105 +3412,25 @@ the extended power functional
   \phi &\longmapsto \frac{1}{2} \sum_{e \in E} \frac{1}{r(e)} \big( \phi(t(e)) -
   \phi(s(e))  \big)^2,
 \end{align*}
-and to this Dirichlet form we associate a Lagrangian subspace 
+and to this Dirichlet form we associate a Lagrangian subspace, thought of as a
+Lagrangian relation:
 \[
-  \mathrm{Graph}(dP_\Gamma) = \{(\phi,d(P_\Gamma)_\phi) \mid \phi \in \F^N\}
-  \subseteq \F^N \oplus (\F^N)^\ast.
+  \mathrm{Graph}(dP_\Gamma) = \{(\phi,d(P_\Gamma)_\phi) \mid \phi \in
+  \F^N\}\maps \{0\} \to \F^N \oplus (\F^N)^\ast.
 \]
-We consider this Lagrangian subspace as a Lagrangian relation $\{0\} \to \F^N
-\oplus (\F^N)^\ast$.
-
-From the legs of the cospan $\Gamma$, the symplectification functor $S$ gives the
-Lagrangian relation
+Next, from the legs of the cospan $\Gamma$, the symplectification functor $S$
+gives the Lagrangian relation
 \[
-  S[i,o]^\dagger\maps \F^N \oplus (\F^N)^\ast \longrightarrow \F^X \oplus
+  S[i,o]^\opp\maps \F^N \oplus (\F^N)^\ast \longrightarrow \F^X \oplus
   (\F^X)^\ast \oplus \F^Y \oplus (\F^Y)^\ast.
 \]
-Writing $Y: Y \to Y$ for the identity morphism on the finite set $Y$, $S$ also
-provides a way of writing the identity morphism $SY: \F^Y \oplus (\F^Y)^\ast \to
-\F^Y \oplus (\F^Y)^\ast$. 
-
 Lastly, we have the symplectomorphism
 \begin{align*}
-  S^t\!X\maps \F^X \oplus (\F^X)^\ast &\longrightarrow \overline{\F^X \oplus
+  \overline{\idn_X}\maps \F^X \oplus (\F^X)^\ast &\longrightarrow \overline{\F^X \oplus
   (\F^X)^\ast}; \\
   (\phi,i) &\longmapsto (\phi,-i).
 \end{align*}
-
-The black box functor maps a circuit $\Gamma$ to the Lagrangian relation
-\[
-  (S^t\!X\oplus SY) \circ S[i,o]^\dagger \circ \mathrm{Graph}(P_\Gamma).
-\]
-
-As isomorphisms of cospans of $\F^+$-graphs amount to no more than a 
-relabelling of nodes and edges, this construction is independent of the cospan 
-chosen as representative of the isomorphism class of cospans forming the 
-circuit.
-
-We picture this as
-\[
-  \blacksquare(\Gamma) =\qquad 
-  \begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (-1.25, 0.5) {};
-		\node [style=none] (1) at (-0.75, 0.5) {};
-		\node [style=none] (2) at (-1.25, -0) {};
-		\node [style=none] (3) at (-0.75, -0) {};
-		\node [style=none] (4) at (-1.25, 1.25) {};
-		\node [style=none] (5) at (-1, -0.25) {};
-		\node [style=none] (6) at (-1, 0.5) {};
-		\node [style=none] (7) at (-1, -0) {};
-		\node [style=none] (8) at (0, -0.25) {};
-		\node [style=none] (9) at (0, 0.75) {};
-		\node [style=none] (10) at (-0.5, 2) {};
-		\node [style=none] (11) at (-1, 1.5) {};
-		\node [style=none] (12) at (0, 1.5) {};
-		\node [style=none] (13) at (-0.5, 1.5) {};
-		\node [style=none] (14) at (-1.25, 0.75) {};
-		\node [style=none] (15) at (0.25, 1.25) {};
-		\node [style=none] (16) at (0.25, 0.75) {};
-		\node [style=none] (17) at (-1, 0.75) {};
-		\node [style=none] (18) at (-0.5, 1.25) {};
-		\node [style=none] (19) at (-0.5, 1.75) {$L_\Gamma$};
-		\node [style=none] (20) at (-0.5, 1) {$S[i,o]^\dagger$};
-		\node [style=none] (21) at (-1, 0.25) {$S^t\! X$};
-		\node [style=none] (22) at (-1.5, -0.75) {};
-		\node [style=none] (23) at (-2, -0.25) {};
-		\node [style=none] (24) at (-2, 1.5) {};
-		\node [style=none] (25) at (-1, 2.5) {};
-		\node [style=none] (26) at (-1, -1.25) {};
-		\node [style=none] (27) at (-1, 2.75) {$\scriptstyle\blacksquare(X)$};
-		\node [style=none] (28) at (-1, -1.5) {$\scriptstyle\blacksquare(Y)$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (1.center);
-		\draw (1.center) to (3.center);
-		\draw (3.center) to (2.center);
-		\draw (2.center) to (0.center);
-		\draw (7.center) to (5.center);
-		\draw (8.center) to (9.center);
-		\draw (10.center) to (11.center);
-		\draw (11.center) to (12.center);
-		\draw (12.center) to (10.center);
-		\draw (4.center) to (14.center);
-		\draw (14.center) to (16.center);
-		\draw (16.center) to (15.center);
-		\draw (15.center) to (4.center);
-		\draw (13.center) to (18.center);
-		\draw (17.center) to (6.center);
-		\draw [in=90, out=-90, looseness=1.00] (8.center) to (26.center);
-		\draw [bend left=45, looseness=1.00] (5.center) to (22.center);
-		\draw [bend left=45, looseness=1.00] (22.center) to (23.center);
-		\draw (23.center) to (24.center);
-		\draw [in=-90, out=90, looseness=1.00] (24.center) to (25.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\]
-
-To summarize:
-
+Putting these all together:
 \begin{definition}
   We define the black box functor 
   \[
@@ -3658,38 +3440,29 @@ To summarize:
   \[
     \blacksquare(X) = \F^X \oplus (\F^X)^\ast.
   \]
-  and on morphisms by mapping a circuit $\Gamma\maps X \to Y$, represented by the
-  decorated cospan
+  and on morphisms by mapping a circuit $\big(X \stackrel{i}\to N
+  \stackrel{o}\leftarrow Y, \enspace (N,E,s,t,r)\big)$, to the Lagrangian
+  relation
   \[
-    \big(X \stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y,\:
-    \Gamma\big)
+    \blacksquare(\Gamma) = (\overline{\idn_X}\oplus \idn_Y) \circ S[i,o]^\opp
+    \circ \mathrm{Graph}(P_\Gamma).
   \]
-  to the Lagrangian relation
-  \[
-    \blacksquare(\Gamma) = (S^t\!X \oplus SY) \circ S[i,o]^\dagger \circ
-    \mathrm{Graph}(dP_\Gamma).
-  \]
+  The coherence maps are given by the natural isomorphisms $\F^X \oplus
+  (\F^X)^\ast \oplus \F^Y \oplus (\F^Y)^\ast \cong \F^{X+Y} \oplus
+  (\F^{X+Y})^\ast$ and $\{0\} \cong \F^\varnothing \oplus (\F^\varnothing)^\ast$
 \end{definition}
 
-The coherence maps are given by the natural isomorphisms
-\[
-  \blacksquare(X) \oplus \blacksquare(Y) = \F^X \oplus (\F^X)^\ast \oplus \F^Y
-  \oplus (\F^Y)^\ast \cong \F^{X+Y} \oplus (\F^{X+Y})^\ast = \blacksquare(X+Y)
-\]
-and
-  \[
-    \{0\} \cong \F^\varnothing \oplus (\F^\varnothing)^\ast =
-    \blacksquare(\varnothing).
-  \]
-
+As isomorphisms of cospans of $\F^+$-graphs amount to no more than a 
+relabelling of nodes and edges, this construction is independent of the cospan 
+chosen as representative of the isomorphism class of cospans forming the 
+circuit.
 
 \begin{theorem} \label{thm:main}
   The black box functor is a well-defined hypergraph functor.
 \end{theorem}
 
-The next, and final, section is devoted to the proof of this theorem. Before we
-get there, we first assure ourselves that we have indeed arrived at the theorem
-we set out to prove.
+We will prove this shortly. Before we get there, we first assure ourselves that
+we have indeed arrived at the theorem we set out to prove.
 
 \subsection{Minimization via composition of relations}
 
@@ -3714,13 +3487,13 @@ enact minimization.
   $\partial N$ given by minimization over $N \setminus \partial N$. Then we have an
   equality of Lagrangian subspaces
   \[
-    S\iota^\dagger \big( \mathrm{Graph}(dP)\big) = \mathrm{Graph}(dQ).
+    S\iota^\opp \big( \mathrm{Graph}(dP)\big) = \mathrm{Graph}(dQ).
   \]
 \end{theorem}
 \begin{proof}
-  Recall from Example \ref{ex:sympfunction} that $S\iota^\dagger$ is the Lagrangian relation
+  Recall from Example \ref{ex:sympfunction} that $S\iota^\opp$ is the Lagrangian relation
   \[
-    S\iota^\dagger = \big\{(\phi, \iota_\ast i,\phi \circ \iota, i) \, \big\vert
+    S\iota^\opp = \big\{(\phi, \iota_\ast i,\phi \circ \iota, i) \, \big\vert
       \, \phi \in \F^{N}, i \in (\F^{\partial N})^\ast \big\} \subseteq
       \overline{\F^N \oplus (\F^N)^\ast} \oplus \F^{\partial N} \oplus
       (\F^{\partial N})^\ast,
@@ -3731,7 +3504,7 @@ enact minimization.
   \]
   This implies that their composite is given by the set
   \[
-    S\iota^\dagger \circ \mathrm{Graph}(dP) = \big\{(\phi \circ \iota, i)
+    S\iota^\opp \circ \mathrm{Graph}(dP) = \big\{(\phi \circ \iota, i)
     \,\big\vert\, \phi \in \F^N, i \in (\F^{\partial N})^\ast, dP_\phi =
   \iota_\ast i \big\}.
   \]
@@ -3750,7 +3523,7 @@ enact minimization.
   henceforth write $\tilde\psi = \phi$. As $\iota$ is injective, $\psi = \phi
   \circ \iota$ gives no constraint on $\psi \in \F^{\partial N}$. 
  
-  We next observe that we can write $S\iota^\dagger \circ \mathrm{Graph}(dP) =
+  We next observe that we can write $S\iota^\opp \circ \mathrm{Graph}(dP) =
   \mathrm{Graph}(dO)$ for some quadratic form $O$. Recall that Proposition
   \ref{prop:qfls} states that a Lagrangian subspace $L$ of $\F^{\partial N}
   \oplus (\F^{\partial N})^\ast$ is of the form $\mathrm{Graph}(dO)$ if and only
@@ -3770,14 +3543,18 @@ Write $\iota: \partial N \to N$ for the inclusion of the terminals into the set
 of nodes of the circuit, and $i\rvert^{\partial N}: X \to \partial N$,
 $o\rvert^{\partial N}: Y \to \partial N$ for the respective corestrictions of
 the input and output map to $\partial N$. Note that $[i,o] = \iota \circ
-[i\rvert^{\partial N}, o\rvert^{\partial N}]$.
-Then we have the equalities of sets, and thus Lagrangian relations:
+[i\rvert^{\partial N}, o\rvert^{\partial N}]$. Also, in the introduction, we
+introduced the `twisted symplectification' $S^t$, which we can now understand as
+an application of the functor $S$ followed by the isomorphism
+$\overline{\idn_X}$ of a standard symplectic space with its conjugate.  Then we
+have the equalities of sets, and thus Lagrangian relations:
 \begin{align*}
-  (S^t\!X\oplus 1_Y) \circ S[i,o]^\dagger \circ \mathrm{Graph}(dP_\Gamma)
-  &= (S^t\!X\oplus SY) \circ S[i\rvert^{\partial
-  N},o\rvert^{\partial N}]^\dagger \circ S\iota^\dagger \circ \mathrm{Graph}(dP_\Gamma) \\
-  &= (S^t\!X\oplus SY) \circ S[i\rvert^{\partial
-  N},o\rvert^{\partial N}]^\dagger \circ \mathrm{Graph}(dQ_\Gamma) \\
+  &\phantom{= .}(\overline{\idn_X}\oplus \idn_Y) \circ S[i,o]^\opp \circ
+  \mathrm{Graph}(dP_\Gamma) \\
+  &= (\overline{\idn_X}\oplus \idn_Y) \circ S[i\rvert^{\partial
+  N},o\rvert^{\partial N}]^\opp \circ S\iota^\opp \circ \mathrm{Graph}(dP_\Gamma) \\
+  &= (\overline{\idn_X}\oplus \idn_Y) \circ S[i\rvert^{\partial
+  N},o\rvert^{\partial N}]^\opp \circ \mathrm{Graph}(dQ_\Gamma) \\
   &= \bigcup_{v \in \mathrm{Graph}(dQ)} S^ti\rvert^{\partial N}(v) \times
   So\rvert^{\partial N}(v)
 \end{align*}
@@ -3786,40 +3563,34 @@ We see now that Theorem \ref{thm:main} is a restatement of Theorem
 
 \subsection{Proof of functoriality} \label{sec:proof}
 %%fakesubsection
-To prove that the black box construction is indeed functorial, we
-factor it into three functors. These functors are each hypergraph
-functors, so the black box functor is too.
-
-This gives a factorization
+To prove that the black box functor is a hypergraph functor, we merely assemble
+it from other functors, almost all of which we have already discussed. Indeed,
+our factorisation will run
 \[
-  \xymatrix{
-    \blacksquare\maps \Circ \ar[r] & \mathrm{DirichCospan} \ar[r] &
-    \mathrm{LagrCospan} \ar[r] & \LagrRel
-  }
+    \blacksquare\maps \Circ \to \mathrm{DirichCospan} \to \mathrm{LagrCospan}
+    \to \mathrm{LagrCorel} \to \LagrRel.
 \]
-
+The first three of these functors are decorated corelations functors, assembled
+from the monoidal natural transformations
   \[
     \xymatrixcolsep{4pc}
     \xymatrixrowsep{3pc}
     \xymatrix{
       (\FinSet,+) \ar^{\mathrm{Circuit}}[r] \ar@{=}[d] \drtwocell
-      \omit{_\:\theta_1} & (\Set,\times) \ar@{=}[d]  \\
-      (\FinSet,+) \ar^{\mathrm{Dirich}}[r] \ar[d] \drtwocell
-      \omit{_\:\theta_2} & (\Set,\times) \ar@{=}[d]  \\
+      \omit{_\:\theta} & (\Set,\times) \ar@{=}[d]  \\
+      (\FinSet,+) \ar^{\mathrm{Dirich}}[r] \ar@{=}[d] \drtwocell
+      \omit{_\:\beta} & (\Set,\times) \ar@{=}[d]  \\
+      (\FinSet,+) \ar^{\mathrm{Lagr}}[r] \ar@{^{(}->}[d] \drtwocell
+      \omit{_\:\pi} & (\Set,\times) \ar@{=}[d]  \\
       (\cospan(\FinSet),+) \ar_{\mathrm{Lagr}}[r] & (\Set,\times).
     }
   \]
+The last functor is the hypergraph equivalence discussed at the end of
+Subsection .
 
-The next step is to show that our process of turning a Dirichlet form into a Lagrangian subspace---by taking the graph of its differential---is functorial.
+We have also already discussed the functors given by $\theta$ and $\pi$.
+It remains to address $\beta$.
 
-\subsubsection*{The functor $\mathrm{DirichCospan} \to \mathrm{LagrCospan}$}
-
-We now wish to construct a strict hypergraph functor
-$\mathrm{DirichCospan} \to \mathrm{LagrCospan}$.  For this we need a monoidal natural transformation 
-\[
-  (\mathrm{Dirich},\delta), (\mathrm{Lagr},\lambda)\maps (\mathrm{FinSet},+)
-  \longrightarrow (\mathrm{Set},\times).
-\]
 \begin{proposition}
 Let
 \[
@@ -3871,24 +3642,20 @@ so these two processes commute.
 
 Monoidality requires that the diagrams 
 \[
-\begin{aligned}
 \xymatrix{
   \mathrm{Dirich}(N) \times \mathrm{Dirich}(M) \ar[r]^(.52){\beta_N \times
   \beta_M} \ar[d]_{\delta_{N,M}} & \mathrm{Lagr}(N) \times \mathrm{Lagr}(M)
   \ar[d]^{\lambda_{N,M}}  \\
   \mathrm{Dirich}(N+M) \ar[r]_{\beta_{N+M}} & \mathrm{Lagr}(N+M)
 }
-\end{aligned}
-\quad
-\mbox{and}
-\quad
-\begin{aligned}
-\xymatrix{
+\]
+and
+\[
+  \xymatrix{
   & 1 \ar[dl]_{\delta_\varnothing} \ar[dr]^{\lambda_\varnothing}\\
 \mathrm{Dirich}(\varnothing)  \ar[rr]_{\beta_\varnothing} &&
 \mathrm{Lagr}(\varnothing)
 }
-\end{aligned}
 \]
 commute. These do: the Lagrangian subspace corresponding to the sum of Dirichlet
 forms is equal to the sum of the Lagrangian subspaces that correspond to the
@@ -3902,6 +3669,16 @@ We thus obtain a strict hypergraph functor
 \]
 which simply replaces the decoration on each cospan in $\mathrm{DirichCospan}$
 with the corresponding Lagrangian subspace.
+
+Observe now that the black box functor does indeed factor as described:
+\[
+    \blacksquare\maps \Circ \to \mathrm{DirichCospan} \to \mathrm{LagrCospan}
+    \to \mathrm{LagrCorel} \to \LagrRel.
+\]
+The first factor takes a circuit $\Gamma$ to its extended power functional
+$P_\Gamma$ and the second to its graph $\mathrm{Graph}(P_\Gamma)$. The next two
+functors turn this from a cospan of finite sets decorated by a Lagrangian
+subspace into a genuine Lagrangian relation.
 
 
 %\section{Concluding remarks}

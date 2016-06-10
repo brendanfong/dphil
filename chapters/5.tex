@@ -5,8 +5,7 @@ structure, motivated by the hints found in network-style diagrammatic languages.
 This new algebraic structure then provides a novel and powerful, compositional
 perspective on well-known structures.
 
-\section{Introduction}
-\subsection{Behavioural control}
+\section{Behavioural control: modelling by tearing, zooming, and linking}
 
 Control theory begins with the following picture:		
 \[
@@ -114,19 +113,24 @@ p_{A2} &= p_{B1} \\ f_{A2} &= - f_{B1}
 \end{align*}
 on the variables. Indeed in many contexts, hydraulics and electronics among them, connections between systems are characterised not by the `output' of one system forming the `input' of the next, but by \emph{variable sharing} between the systems. Such relations are often difficult to describe using the language of transfer functions and state space methods.
 
-\subsection{Signal flow}
 
-The remit of this paper is the development of a sound and fully complete
-equational theory of linear time-invariant (LTI) dynamical systems.  This theory
-is \emph{graphical}, with its terms---modelling the LTI
-systems themselves---best represented as diagrams closely resembling the signal
-flow graphs of Shannon~\cite{Sh}.  
+Willems first demonstrated the power of his behavioural approach in the setting
+of linear time-invariant discrete-time dynamical systems. One limitation was the
+lack of tools for representing and reasoning about the interconnection of
+systems. In this chapter we address this by developing a graphical language
+based on signal flow graphs.
+
+We shall use corelations to develop a sound and fully complete equational theory
+of linear time-invariant (LTI) dynamical systems.  This theory is
+\emph{graphical}, with its terms---modelling the LTI systems themselves---best
+represented as diagrams closely resembling the signal flow graphs of
+Shannon~\cite{Sh}.  
 
 To acquaint ourselves with signal flow graphs, we begin with the example below,
 rendered in traditional, directed notation.
 \begin{equation}\label{eq:examplesfg}
   \begin{aligned}
-\lower11pt\hbox{$\includegraphics[height=1.5cm]{pics/examplesfg.pdf}$}
+\lower11pt\hbox{$\includegraphics[height=2cm]{pics/examplesfg.pdf}$}
 \end{aligned}
 \end{equation}
 This system takes, as input on the left, a stream of values from a field $\k$,
@@ -191,7 +195,7 @@ system is at the core of the behavioural approach in control, originated by
 Willems~\cite{Wi3}. The algebra of symmetric monoidal categories thus seems a
 good fit for a formal account of these compositional principles.
 
-This paper is the first to make this link between monoidal categories and the
+This work is the first to make this link between monoidal categories and the
 behavioural approach to control explicit. Moreover, it is the first to endow
 signal flow graphs with their standard systems theoretic semantics in which the
 registers---the `$s$' gates---are permitted to hold \emph{arbitrary} values at
@@ -241,73 +245,7 @@ to the subject seem well-suited to problems such as controllability of
 interconnections, of primary interest for multiagent and spatially
 interconnected systems~\cite{OFM}.
 
-\smallskip
-Summing up, our original technical contributions are:
-\begin{itemize}
-\item a characterisation of the class of LTI systems as a category of corelations of matrices
-\item a presentation of this category of corelations of matrices as a symmetric
-  monoidal theory
-\item an operational semantics that agrees with the standard systems theoretic
-semantics of signal flow graphs
-\item a characterisation of controllability
-\end{itemize}
-
-\smallskip
-
-Our work lies in the intersection of computer science, mathematics, and systems
-theory.  From computer science, we use concepts  of formal semantics of
-programming languages, with an emphasis on compositionality and a firm
-denotational foundation for operational definitions.  From a mathematical
-perspective, we obtain presentations of several relevant domains, and identify
-the rich underlying algebraic structures.  For systems theory, our insight is
-that mere matrices are not optimised for discussing behaviour; instead it is
-profitable to use signal flow graphs, which treat linear subspaces rather than
-linear transformations as the primitive concept and are thus closer to the idea
-of system as a set of trajectories. At the core is the maxim---perhaps best
-understood by computer scientists---that the right language allows deeper
-insights into the underlying structure.
-
-\paragraph{Related work.}
-Work on categorical approaches to control systems goes back at least to Goguen
-\cite{Go} and Arbib and Manes \cite{AM}. In recent years, there has been a
-resurgence of interest in the topic, including work by Baez and Erbele
-\cite{BE}, Vagner, Spivak, and Lerman \cite{VSL}, as well as Bonchi, Zanasi, and
-the second author \cite{BSZ1,BSZ2,BSZ3,Za}. 
-
-%Of these approaches, the present papers owes most to the work by Bonchi, Zanasi,
-%and the second author. Yet all these approaches, in as far as they explicitly
-%discuss controllability, favour a state space approach to control. This work is
-%the first to use the behavioural definition.
-
-Although previous work~\cite{BSZ2,BSZ3,Za} made the connection between signal
-flow graphs and string diagrams, their operational semantics is more restrictive
-than that considered here, considering only trajectories with finite past and
-demanding that, initially, all the registers contain the value $0$.  Indeed,
-with this restriction, it is not difficult to see that the trajectories
-of~\eqref{eq:examplesfg} are those where the output is \emph{the same} as the
-input. The input/output behaviour is thus that of a stateless wire.  The
-equational presentation in this case is the theory $\ih_{k[s]}$ of
-interacting Hopf algebras \cite{BSZ2}, and indeed, in $\ih_{k[s]}$:
-\begin{equation}\label{eq:exampleproof}
-\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
-\end{equation}
-
-Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
-with our more liberal, operational semantics. Indeed, recall that when the
-registers of~\eqref{eq:examplesfg} initially hold values $1$ and $2$, the input
-$-1,1,-1,1,\dots$ results in the output $-2,2,-2,2,\dots$. This trajectory is
-not permitted by a stateless wire, so $\ih_{k[s]}$ is not sound for reasoning
-about LTI systems in general. The contribution of this paper is to provide sound
-and complete theory to do just that.
-
-In terms of the algebraic semantics, the difference from previous
-work~\cite{BSZ1,BSZ3} is that where there streams were handled with Laurent
-(formal power) series, here we use the aforementioned biinfinite streams.
-Indeed, this is the very extension that allows us to discuss non-controllable
-behaviours; in~\cite{BSZ1,BSZ3,Za,BE} all definable behaviours were
-controllable. 
-
-\paragraph{Structure of the paper.}
+\paragraph{Outline.}
 %We first review the prerequisite mathematical aspects. 
 In \S\ref{sec.systems} we develop a categorical account of complete LTI discrete
 dynamical systems. This serves as a denotational semantics for the graphical
@@ -319,83 +257,21 @@ In we relate this to the operational semantics. We conclude
 in \S\ref{sec.control} with a structural account of controllability.
 
 
-\section{Preliminaries}
-We assume familiarity with basic concepts of linear algebra and category theory.
 
-A \define{prop} is a strict symmetric monoidal category where the set of objects
-is the natural numbers $\nn$, and monoidal product ($\oplus$) on objects is
-addition. Homomorphism of props are identity-on-objects strict symmetric
-monoidal functors.
 
-A \define{symmetric monoidal theory} (SMT) is a presentation of a prop: a pair
-$(\Sigma,E)$ where $\Sigma$ is a set of \define{generators} $\sigma\colon m\to
-n$, where $m$ is the \define{arity} and $n$ the \define{coarity}. A
-$\Sigma$-term is a obtained from $\Sigma$, identity $\idn\colon 1\to 1$ and
-symmetry $\tw\colon 2\to 2$ by composition and monoidal product, according to
-the grammar
-\[
-  \tm\ ::=\ \sigma\ |\ \idn\ |\ \tw\ |\ \tm\mathrel{;}\tm\ |\ \tm\oplus \tm 
-\]
-where $\mathrel{;}$ and $\oplus$ satisfy the standard typing discipline that
-keeps track of the domains (arities) and codomains (coarities)
-\[
-\frac{\tm: m\to d \quad \tm': d\to n}
-{\tm\mathrel{;}\tm': m\to n}
-\quad
-\frac{\tm: m\to n \quad \tm': m'\to n'}
-{\tm\oplus \tm': m+m'\to n+n'}
-\]
-The second component $E$ of an SMT is a set of \define{equations}, where an
-equation is a pair $(\tm,\mu)$ of $\Sigma$-terms with compatible types, i.e.
-$\tm,\mu\colon m\to n$ for some $m,n\in\mathbb{N}$.
-
-Given an SMT $(\Sigma,E)$, the prop $\mathbf{S}_{(\Sigma,E)}$ has as arrows the
-$\Sigma$-terms quotiented by the smallest congruence that includes the laws of
-symmetric monoidal categories and equations $E$. We sometimes abuse
-notation by referring to $\mathbf{S}_{(\Sigma,E)}$ as an SMT. Given an arbitrary
-prop $\mathbb{X}$, a \define{presentation} of $\mathbb{X}$ is an SMT
-$(\Sigma,E)$ s.t.\ $\mathbb{X} \cong \mathbf{S}_{(\Sigma,E)}$.
-
-String diagrams play an important role in our work. Given generators
-$\Sigma$, we consider string diagrams to be arrows of
-$\mathbf{S}_{(\Sigma,\varnothing)}$, that is, syntactic objects constructed by
-composition from the generators, quotiented by the laws of symmetric monoidal
-categories. For example, consider generators $2\to 1$ and $0\to 1$, which we
- draw below, with `dangling wires' accounting for 
-arities and coarities:
-\[
-\addgen \quad \zerogen
-\]
-Armed with the graphical notation, we can present sets of equations as equations
-between diagrams. For example, the SMT of commutative monoids consists of these
-generators together with equations
-\[
-\includegraphics[height=.9cm]{pics/mon.pdf}
-\]
-that respectively are commutativity, associativity, and the unit law.
-
-A \define{split mono} is a morphism $m\colon X\to Y$ such that there exists
-$m'\colon Y\to X$ with $m'm=\idn_X$. 
-For the remainder of the paper $\k$ is a field: for concreteness one may take
-this to be the rationals $\mathbb{Q}$, the reals $\R$ or the booleans $\z_2$. 
 
 \section{Linear time-invariant dynamical systems} \label{sec.systems}
-
-This section focusses on the mathematical domains of interest for the remainder
-of the paper. We rely on definitions of the \emph{behavioural approach} in
-control, which is informed by compositional considerations~\cite{Wi}. The
-concepts are standard in systems theory. Our categorical insights are, to the
-best of our knowledge, original.
 
 Following Willems~\cite{Wi3}, a \define{dynamical system} $(T, W,\bb)$ is: a
 \define{time axis} $T$, a \define{signal space} $W$, and a \define{behaviour}
 $\bb \subseteq W^T$. We refer to $w \in \bb$ as \define{trajectories}. 
-%
-In this paper we are interested in discrete trajectories that are
-\define{biinfinite}: infinite in past and future.  Our time axis is thus the
-integers $\z$. The signal space is $\k^d$, where $d$ is the number of
-\define{terminals} of a system. These, in engineering terms, are the
-interconnection variables that enable interaction with an environment.
+
+Here we are interested in discrete trajectories that are \define{biinfinite}:
+infinite in past and future.  Our time axis is thus the integers $\z$.  Let $\k$
+be a field: for concreteness one may take this to be the rationals $\mathbb{Q}$,
+the reals $\R$ or the booleans $\z_2$.  The signal space is $\k^d$, where $d$ is
+the number of \define{terminals} of a system.  These, in engineering terms, are
+the interconnection variables that enable interaction with an environment.
 
 The dynamical systems of concern to us are thus specified by some natural number
 $d$ and a subset $\bb$ of $(\k^d)^\z$. The sets $(\k^d)^\z$ are $\k$-vector
@@ -420,22 +296,10 @@ tearing, zooming and linking~\cite{Wi}.
 
 Once the domains and codomains have been chosen, systems are linked by
 connecting terminals. In models of physical systems this means variable coupling
-or sharing~\cite{Wi}; in our discrete setting where behaviours are subsets of a
+or sharing; in our discrete setting where behaviours are subsets of a
 cartesian product---i.e.\ relations---it amounts to relational composition.
 Since behaviours are both relations and linear subspaces, a central underlying
-mathematical notion---as in previous work~\cite{BSZ1,BE}---is a linear relation. 
-\begin{definition}
-The monoidal category $\linrel_\k$ of $\k$-linear relations has $\k$-vector
-spaces as objects, and as arrows from $V$ to $W$, linear subspaces of $V\oplus
-W$, considered as $\k$-vector spaces.  Composition is relational: given $A\colon
-U\to V$, $B\colon V\to W$, $A\mathrel{;}B\colon U\to W$ is the  relation
-\[
-  \left\{\,(u,w)\,\middle|\,\exists v\in V \textrm{ s.t. } \,(u,v)\in A \textrm{ and } (v,w)\in B\,\right\} 
-\] 
-that is easily checked to be a linear subspace. Finally, the monoidal product on both
-objects and morphisms is direct sum.
-\end{definition}
-
+mathematical notion is a linear relation.  
 
 \smallskip
 %The next restriction is the property of \define{time-invariance}. 
@@ -447,12 +311,7 @@ Time-invariance brings with it a connection with the algebra of polynomials.
 Following the standard approach in control theory, going back to
 Rosenbrock~\cite{Ro}, we work with polynomials over an indeterminate $s$ as well
 as its formal inverse $s^{-1}$---i.e.\ the elements of the ring
-$\pk$.\footnote{The introduction of the formal inverse $s^{-1}$ is a departure
-from previous work~\cite{BSZ1,BSZ3} that dealt with Laurent streams (finite in
-the past, infinite in the future), and algebraically with the field of
-polynomial fractions. As we will see below, there is a natural action of $\pk$
-on biinfinite streams, but it does not make sense, in general, to define the
-action of a polynomial fraction on a biinfinite stream. }
+$\pk$.
 
 The indeterminate $s$ acts on a given biinfinite stream $w \in \k^\z$ as a
 one-step delay, and $s^{-1}$ as its inverse, a one step acceleration: 
@@ -464,9 +323,14 @@ polynomial $p\in \pk$ on $w$.  Since $\k^\z$ is a $\k$-vector space, any such
 $p$ defines a $\k$-linear map $\k^\z\to \k^\z$ ($w \mapsto p\cdot w$).
 
 Given this, we can view $n\times m$ matrices over $\pk$ as $\k$-linear maps from
-$(\k^m)^\z$ to $(\k^n)^\z$. This viewpoint can be explained succinctly as a functor from
-the prop $\mat\pk$, defined below, to the category of $\k$-vector spaces and
-linear transformations $\vect_\k$.
+$(\k^m)^\z$ to $(\k^n)^\z$. This viewpoint can be explained succinctly as a
+functor from the prop $\mat\pk$, defined below, to the category of $\k$-vector
+spaces and linear transformations $\vect_\k$.
+
+Recall that a \define{prop} is a strict symmetric monoidal category where the
+set of objects is the natural numbers $\nn$, and monoidal product ($\oplus$) on
+objects is addition. Homomorphism of props are identity-on-objects strict
+symmetric monoidal functors.
 
 \begin{definition}
   The prop $\mat\pk$ has as arrows $m \to n$ the $n\times m$-matrices over
@@ -554,28 +418,8 @@ has finite colimits, and thus it has pushouts.
 We can therefore define the prop $\cospan\mat\pk$ where arrows are (isomorphism
 classes of) cospans of matrices: arrows $m \to n$ comprise a natural number
 $d$ together with a $d\times m$ matrix $A$ and a $d\times n$ matrix $B$; we
-write this $m\xrightarrow{A} d \xleftarrow{B}n$. Composition is given by
-pushout, and isomorphic cospans are identified; for details see B\'enabou 
-\cite{Be}.
+write this $m\xrightarrow{A} d \xleftarrow{B}n$. 
 
-%; see Appendix~\ref{app.cospans} for further details.
-
-%Two cospans $m\xrightarrow{A} p
-%\xleftarrow{B}n$, $m\xrightarrow{A'} q \xleftarrow{B'}n$ are equivalent when
-%$p=g$ and there exists an invertible $p\times p$ matrix $U$ such that 
-%\[
-%\xymatrix@R=10pt{
-%& p \ar[dd]^U \\
-%m \ar[dr]_{A'} \ar[ur]^{A} & &  \ar[ul]_B n \ar[dl]^{B'} \\
-%& p 
-%}
-%\]
-%commutes: i.e. $A'=UA$ and $B'=UB$. 
-%
-%Composition in the category $\cospan\mat\pk$ is given by pushout of
-%representatives of equivalence classes: if $m\xrightarrow{A} p
-%\xleftarrow{B}n$ and $n\xrightarrow{C}q \xleftarrow{D}l$ are morphisms in
-%$\cospan\mat\pk$, then  
 We can then extend $\vectfun$ to the functor
 \[
   \cospanfun \maps \cospan\mat\pk \longrightarrow \linrel_\k
@@ -677,6 +521,35 @@ setting where these cospans are nonetheless \emph{equivalent}.
 \end{remark}
 
 \section{Presentation of $\ltids$} \label{sec.diagrams}
+Recall that a \define{symmetric monoidal theory} (SMT) is a presentation of a prop: a pair
+$(\Sigma,E)$ where $\Sigma$ is a set of \define{generators} $\sigma\colon m\to
+n$, where $m$ is the \define{arity} and $n$ the \define{coarity}. A
+$\Sigma$-term is a obtained from $\Sigma$, identity $\idn\colon 1\to 1$ and
+symmetry $\tw\colon 2\to 2$ by composition and monoidal product, according to
+the grammar
+\[
+  \tm\ ::=\ \sigma\ |\ \idn\ |\ \tw\ |\ \tm\mathrel{;}\tm\ |\ \tm\oplus \tm 
+\]
+where $\mathrel{;}$ and $\oplus$ satisfy the standard typing discipline that
+keeps track of the domains (arities) and codomains (coarities)
+\[
+\frac{\tm: m\to d \quad \tm': d\to n}
+{\tm\mathrel{;}\tm': m\to n}
+\quad
+\frac{\tm: m\to n \quad \tm': m'\to n'}
+{\tm\oplus \tm': m+m'\to n+n'}
+\]
+The second component $E$ of an SMT is a set of \define{equations}, where an
+equation is a pair $(\tm,\mu)$ of $\Sigma$-terms with compatible types, i.e.
+$\tm,\mu\colon m\to n$ for some $m,n\in\mathbb{N}$.
+
+Given an SMT $(\Sigma,E)$, the prop $\mathbf{S}_{(\Sigma,E)}$ has as arrows the
+$\Sigma$-terms quotiented by the smallest congruence that includes the laws of
+symmetric monoidal categories and equations $E$. We sometimes abuse
+notation by referring to $\mathbf{S}_{(\Sigma,E)}$ as an SMT. Given an arbitrary
+prop $\mathbb{X}$, a \define{presentation} of $\mathbb{X}$ is an SMT
+$(\Sigma,E)$ s.t.\ $\mathbb{X} \cong \mathbf{S}_{(\Sigma,E)}$.
+
 In this section we give a presentation of $\ltids$ as an SMT. This means 
 that (\emph{i}) we obtain a syntax---conveniently expressed using string
 diagrams---for specifying every LTI behaviour, and (\emph{ii}) a sound and
@@ -701,9 +574,8 @@ the set of generators:
 \} \\
 \cup \{ \scalargen \mid a\in\k \,\} \cup \{ \scalaropgen \mid a\in\k \,\}
 \end{multline}
-For each generator, we give its \define{denotational semantics}, an LTI
-behaviour, thereby defining a prop morphism $\llbracket - \rrbracket:
-\syntax \to\ltids$.
+For each generator, we give its denotational semantics, an LTI behaviour,
+thereby defining a prop morphism $\llbracket - \rrbracket: \syntax \to\ltids$.
 \[
 \addgen \!\!\mapsto \{\,( \left( 
   {\begin{smallmatrix}\tau \\ \upsilon\end{smallmatrix}} \right),\, \tau+\upsilon) \mid \tau,\upsilon \in \k^\z \,\}\maps 2\to 1
@@ -797,12 +669,12 @@ task for this section is to identify an equational theory that
 \emph{characterises} $\ltids$: i.e. one that is sound and fully complete. The
 first step is to use the existence of $\cospanfun$: with the results
 of~\cite{BSZ2,Za} we can obtain a presentation for $\cospan\mat\pk$. This is
-explained in the next two subsections: in \S\ref{subsec:eqhopf} we present
-$\mat\pk$ and in \S\ref{subsec:eqcospan}, the equations for cospans of matrices.
+explained in the next subsection, where we present $\mat\pk$ and
+$\cospan\mat\pk$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Presentation of $\mat\pk$}\label{subsec:eqhopf}
+\subsection{Presentations of $\mat\pk$ and $\cospan\mat\pk$}\label{subsec:eqhopf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -893,41 +765,9 @@ $\ha_\pk$; for further details see \cite{Za}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Presentation of $\cospan\mat\pk$\label{subsec:eqcospan}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To obtain the equational theory of $\cospan\mat \pk$ we need the full set of
-generators~\eqref{eq:generators},
-%\begin{gather*}
-%\{
-%\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/add.pdf}$},
-%\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/zero.pdf}$},
-%\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/copy.pdf}$},
-%\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/discard.pdf}$}
-% \}
-% \cup
-% \{
-% \lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/scalar.pdf}$}
-%\mid a \in \k\,
-%\} \;\cup \\
-%\{
-%\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/addop.pdf}$},
-%\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/zeroop.pdf}$},
-%\lower8pt\hbox{$\includegraphics[height=0.7cm]{pics/copyop.pdf}$},
-%\lower5pt\hbox{$\includegraphics[height=0.5cm]{pics/discardop.pdf}$}
-% \}
-% \cup
-% \{
-% \lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/scalarop.pdf}$}
-%\mid a \in \k\,
-%\}  \;\cup \\
-%\{
-%\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delay.pdf}$},
-%\lower6pt\hbox{$\includegraphics[height=0.6cm]{pics/delayop.pdf}$}
-%\}
-%\end{gather*}
-along with the equations of $\ha_\pk$, their mirror images, and the
+generators~\eqref{eq:generators}, along with the equations of $\ha_\pk$, their mirror images, and the
 following
 \[
 \includegraphics[height=4cm]{pics/cospan.pdf}
@@ -961,32 +801,19 @@ completeness is our task for the remainder of this section.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Corelations}
+\subsection{Corelations in $\mat\pk$}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%We have already discussed the fact that $\mat\pk$ has finite colimits. 
-%Moreover,
+In this subsection we identify a factorisation system in $\mat\pk$, and show
+that the induced prop $\corel\mat\pk$ of corelations is isomorphic to $\ltids$.
+We then give a presentation of $\corel\mat\pk$ and arrive at a sound and fully
+complete equational theory for $\ltids$.
 
-In the category of sets, relations can be identified with jointly-monic spans of
-functions; that is, those spans $X\xleftarrow{p}R\xrightarrow{q}Y$ where the
-induced map $R\xrightarrow{\langle p,q\rangle}X\times Y$ is injective.
-Corelations are a dual concept: we consider cospans
-$X\xrightarrow{i}S\xleftarrow{j}Y$ where the induced map
-$X+Y\xrightarrow{[i,j]}S$ is surjective. To make sense of this more generally,
-one needs a category with a factorisation system. 
-%(See Appendix~\ref{app.factorisation} for a definition.)  
-In this subsection we
-identify a factorisation system in $\mat\pk$, and show that the induced prop
-$\corel\mat\pk$ of corelations is isomorphic to $\ltids$.  We then give a
-presentation of $\corel\mat\pk$ and arrive at a sound and fully complete
-equational theory for $\ltids$.
+A \define{split mono} is a morphism $m\colon X\to Y$ such that there exists
+$m'\colon Y\to X$ with $m'm=\idn_X$. Every morphism in $\mat\pk$ admits a
+factorisation into an epi followed by a split mono. 
 
-%Every morphism in $\mat\pk$ admits a factorisation into an epi followed
-%by a split mono. 
-%%In this section we show that this factorisation occurs in a functorial way. 
-%This will allow us to define a PROP of \emph{corelations}
-%$\corel \mat \pk$.
 
 \begin{proposition}\label{prop.matfactorisation}
   Every morphism $R \in \mat\pk$ can be factored as $R = BA$, where $A$ is an
@@ -1080,15 +907,6 @@ A more careful examination of Proposition~\ref{prop.matfactorisation} yields:
 %  This proves functoriality.
 %\end{proof}
 
-Given finite colimits and an $(\mathcal E,\mathcal M)$-factorisation system with
-$\mathcal M$ stable under pushouts, we may define a category of corelations. The
-morphisms are isomorphism classes of cospans $X \xrightarrow{i} S \xleftarrow{j}
-Y$ where the copairing $[i,j]\maps X+Y \to S$ is in $\mathcal E$.  Composition
-is given by pushout, as in the category of cospans, followed by factorising the
-copairing of the resulting cospan. This is a dualisation of the well-known
-construction of relations from spans~\cite{JW}; further details can be found
-in~\cite{Fo}.
-
 
 \begin{definition}
   The prop $\corel \mat \pk$ has as morphisms equivalence classes of
@@ -1137,13 +955,12 @@ Schumacher \cite[pp.7--9]{Sc}.
 \end{theorem}
 \begin{proof}
   For functoriality, start from $\vectfun\maps\mat\pk \to
-  \vect_\k$. Now (i) $\vect_k$ has an epi-mono factorisation system, (ii)
+  \vect$. Now (i) $\vect$ has an epi-mono factorisation system, (ii)
   $\vectfun$ maps epis to epis and (iii) split monos to monos, so $\vectfun$
   preserves factorisations. Since it is a corollary of Proposition \ref{prop.funct}
   that $\theta$ preserves colimits, it follows that $\vectfun$ extends to
-   $\Psi\maps\corel\mat\pk \to \corel\vect_\k$. But $\corel\vect_\k$ is
-  isomorphic to $\linrel_\k$ (see %Appendix \ref{app.corellinrel} and~
-  \cite{Fo}).
+   $\Psi\maps\corel\mat\pk \to \corel\vect$. But $\corel\vect$ is
+  isomorphic to $\linrel$ (see Subsection ..). 
   By Theorem \ref{thm.kernelreps}, the image of $\Psi$ is $\ltids$, and taking
   the corestriction to gives us precisely $\Phi$, which is therefore a full
   morphism of props.
@@ -1173,7 +990,7 @@ is that of obtaining one for $\corel\mat\pk$.
 %\]
 %
 To do this, we start with the presentation
-$\mathbb{IH}^{\textsf{Csp}}$ for $\cospan\mat\pk$ of \S\ref{subsec:eqcospan}; the task of
+$\mathbb{IH}^{\textsf{Csp}}$ for $\cospan\mat\pk$ of \S\ref{subsec:eqhopf}; the task of
 this section is to identify the additional equations that equate
 exactly those cospans that map via $F$ to the same corelation.
 %; i.e. those cospans $c,c'$ for which $Fc=Fc'$.  
@@ -1242,7 +1059,12 @@ in $\mathbb{IH}^{\mathsf{Cor}}$:
 We therefore have a sound and fully complete equational theory for LTI systems,
 and also a normal form for each LTI system: every such system can be written, in
 an essentially unique way, as a jointly-epic cospan of terms in $\ha_\pk$ in
-normal form.
+normal form. We summarise the axioms in Figure \ref{fig.ihcoraxioms}.
+
+\begin{figure} \label{fig.ihcoraxioms}
+  \includegraphics[width=.9\textwidth]{pics/ihcor.pdf}
+  \caption{The axioms of $\ihcor$.}
+\end{figure}
 
 \begin{remark} \label{rmk.omittedaxs}
  $\ihcor$ %(summarised in Appendix~\ref{app.equations}) 
@@ -1306,6 +1128,36 @@ identity behaviour those sequences of the form $w = (w_1,w_1) \in \k^\z \oplus
 and $w_2(t) =0$.
 \end{remark}
 
+\begin{remark}
+Although previous work~\cite{BSZ2,BSZ3,Za} made the connection between signal
+flow graphs and string diagrams, their operational semantics is more restrictive
+than that considered here, considering only trajectories with finite past and
+demanding that, initially, all the registers contain the value $0$.  Indeed,
+with this restriction, it is not difficult to see that the trajectories
+of~\eqref{eq:examplesfg} are those where the output is \emph{the same} as the
+input. The input/output behaviour is thus that of a stateless wire.  The
+equational presentation in this case is the theory $\ih_{\k[s]}$ of
+interacting Hopf algebras, and indeed, in $\ih_{\k[s]}$:
+\begin{equation}\label{eq:exampleproof}
+\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
+\end{equation}
+
+Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
+with our more liberal, operational semantics. Indeed, recall that when the
+registers of~\eqref{eq:examplesfg} initially hold values $1$ and $2$, the input
+$-1,1,-1,1,\dots$ results in the output $-2,2,-2,2,\dots$. This trajectory is
+not permitted by a stateless wire, so $\ih_{k[s]}$ is not sound for reasoning
+about LTI systems in general. We have provided a sound
+and complete theory to do just that.
+
+In terms of the algebraic semantics, the difference from previous
+work is that where there streams were handled with Laurent
+(formal power) series, here we use the aforementioned biinfinite streams.
+Indeed, this is the very extension that allows us to discuss non-controllable
+behaviours; in~\cite{BSZ1,BSZ3,Za,BE} all definable behaviours were
+controllable. 
+\end{remark}
+
 The similarity between our equational presentations of $\ihcor_{\k[s,s^{-1}]}$ and that of
  $\ih_{\k[s]}$  given in~\cite{BSZ1,BSZ3} is remarkable,
 considering the differences between the intended semantics of signal flow graphs
@@ -1315,6 +1167,155 @@ in~\cite{BSZ1,BSZ3} are Laurent series. We contend that this is evidence of the 
 of the algebraic approach: the equational account of how various components of signal
 flow graphs interact is, in a sense, a higher-level specification than the technical details of the underlying
 mathematical formalisations.
+
+\section{Operational semantics} \label{sec.opsem}
+
+In this section we relate the denotational account given in previous sections
+with an operational view. 
+
+Operational semantics is given to $\Sigma^*$-terms---that is, to arrows of the
+prop $\syntax^*=\mathbf{S}_{(\Sigma^*,\varnothing)}$---where $\Sigma^*$ is
+obtained from set of generators in~\eqref{eq:generators} by replacing the formal
+variables $s$ and $s^{-1}$ with a family of registers, indexed by the scalars of
+$\k$:
+\[
+\delaygen \leadsto \{ \delaygenk | \, k\in\k \}
+\]
+\[
+\delayopgen \leadsto \{ \delayopgenk |\, k\in\k \}
+\]
+The idea is that at any time during a computation the register holds the signal
+it has received on the previous `clock-tick'. There are no equations, apart from
+the laws of symmetric monoidal categories.
+
+Next we introduce the structural rules: the transition relations that occur at
+each clock-tick, turning one $\Sigma^*$-term into another. Each transition is given
+two labels, written above and below the arrow.  The upper refers to the
+signals observed at the `dangling wires' on the left-hand side of the term, and
+the lower to those observed on the right hand side.  Indeed, transitions
+out of a term of type $m \to n$ have upper labels in $\k^m$ and lower ones in
+$\k^n$.
+
+Because---for the purposes of the operational account---we consider these terms
+to be syntactic, we must also account for the twist $\twist$ and identity $\id$.
+A summary of the structural rules is given below; the rules for the mirror image
+generators are symmetric, in the sense that upper and lower labels are swapped.
+
+%\begin{figure*}[ht]
+\[
+\copygen \dtrans{\,k\,}{k \, k} \copygen \quad 
+\discardgen \dtrans{k}{} \discardgen   
+\]
+\[
+\addgen \dtrans{k \labelSep\, l }{k+l} \addgen \quad 
+\zerogen \dtrans{\phantom{b}}{0} \zerogen
+\]
+%\[
+%\copyopgen \! \dtrans{k \labelSep k}{k} \!\copyopgen \ 
+%\discardopgen \dtrans{\phantom{k}}{k} \discardopgen \ 
+%\addopgen\! \dtrans{ k+l}{k \labelSep l }\! \addopgen \ 
+%\zeroopgen \dtrans{0}{} \zeroopgen
+%\]
+\[
+\scalargen  \dtrans{\,\,l\,\,}{al} \scalargen \quad 
+\delaygenl \dtrans{k}{l} \delaygenk 
+%\scalaropgen  \dtrans{al}{\,l\,} \scalaropgen \ 
+%\circuitXopT ^{\labelSep l}\! \dtrans{l}{k} \circuitXopT ^{\labelSep k} \quad \quad
+\]
+%\BmultT\! \dtrans{k \labelSep k}{k} \!\BmultT \quad\quad
+%\BunitT \dtrans{\phantom{k}}{k} {\BunitT} \quad\quad
+%\scalaropT  \dtrans{kl}{\,l\,} \scalaropT \quad \quad
+%\circuitXopT ^{\labelSep l}\! \dtrans{l}{k} \circuitXopT ^{\labelSep k} \quad \quad
+%\WcomultT\! \dtrans{ k+l}{k \labelSep l }\! \WcomultT\quad\quad
+%\WcounitT \dtrans{0}{} \WcounitT
+%\]
+\[
+\id  \dtrans{k}{k} \id \quad 
+\twist \dtrans{k \labelSep l}{l \labelSep k} \twist 
+\]
+\[
+  \frac{s\dtrans{\mathbf{u}}{\mathbf{v}} s' \quad
+  t\dtrans{\mathbf{v}}{\mathbf{w}} t'}{s \mathrel{;} t \dtrans
+  {\mathbf{u}}{\mathbf{w}} s' \mathrel{;} t'}
+ \quad 
+ \frac{s\dtrans{\mathbf{u_1}}{\mathbf{v_1}} s'\quad
+ t\dtrans{\mathbf{u_2}}{\mathbf{v_2}} t'}
+ {s\oplus t \dtrans{\mathbf{u_1 \labelSep u_2}}{\mathbf{v_1 \labelSep v_2}} s'\oplus t'}
+\]
+%\caption{Summary of structural rules for the operational semantics; $k,l\in\k$.\label{fig.opsem}}
+%\end{figure*}
+Here $k, l,a \in \k$, $s,t$ are $\Sigma^*$-terms, and
+$\mathbf{u,v,w,u_1,u_2,v_1,v_2}$
+are vectors in $\k$ of the appropriate length. Note that the only generators
+that change as a result of computation are the registers; it follows this is the
+only source of state in any computation.
+
+The structural rules are identical to those given in~\cite[\S 2]{BSZ3}.
+Differently from~\cite{BSZ3}, however, we can be more liberal with our
+assumptions about the \emph{initial states} of computations.  In~\cite{BSZ3}
+each computation starts off with all registers initialised with the 0($\in\k$)
+value.  For us, systems can be initialised with arbitrary elements of $\k$. 
+%Let $\sigma$ range over such assignments of values to delays.
+
+Let $\tm\colon m\to n \in \syntax$ be a $\Sigma$-term. Fixing an ordering of
+the delays $\delaygen$ in $\tm$ allows us to identify the set of delays with a
+finite ordinal $[d]$.  A \define{register assignment} is then simply a function
+$\sigma: [d]\to \k$.  We may instantiate the $\Sigma$-term $\tm$ with the
+register assignment $\sigma$ to obtain the $\Sigma^\ast$-term $\tm_\sigma
+\in\syntax^\ast$ of the same type: for all $i \in [d]$ simply replace the $i$th
+delay with a register in state $\sigma(i)$.
+
+A computation on $\tm$ initialised at $\sigma$ is an infinite sequence of register
+assignments and transitions: 
+\[
+  \tm_\sigma \dtrans{\mathbf{u_1}}{\mathbf{v_1}} \tm_{\sigma_1}
+  \dtrans{\mathbf{u_2}}{\mathbf{v_2}} \tm_{\sigma_2}  
+  \dtrans{\mathbf{u_3}}{\mathbf{v_3}} \dots
+\]
+The \define{trace} induced by this computation is the sequence 
+\[(\mathbf{u_1},\mathbf{v_1}), (\mathbf{u_2},\mathbf{v_2}), \dots\] 
+of elements of $\k^m \oplus \k^n$.
+
+\smallskip
+To relate the operational and denotational semantics, we introduce the
+notion of biinfinite trace: a trace with an infinite past
+as well as future. To define these, we use the notion of a \emph{reverse} computation: 
+a computation using the operational rules above, but with the rules for delay having their
+  left and right hand sides swapped:
+\[
+\delaygenk \dtrans{k}{l} \delaygenl.
+\]
+
+\begin{definition}
+  Given $\tm\colon m \to n \in \syntax$, a \define{biinfinite trace on} $\tm$ is a sequence
+$w \in (\k^m)^\z \oplus (\k^n)^\k$ such that there exists
+\begin{enumerate}[(i)]
+\item a register assignment $\sigma$; 
+\item an infinite \emph{forward trace} $\phi_\sigma$ of a computation on $\tm$
+  initialised at $\sigma$; and,
+\item an infinite \emph{backward trace} $\psi_\sigma$ of a reverse computation
+  on $\tm$ initialised at $\sigma$,
+\end{enumerate}
+obeying
+\[
+w(t) = \begin{cases}
+\phi(t) & t\geq 0; \\
+\psi(-(t+1)) & t < 0.
+\end{cases}
+\]
+We write $\bit(\tm)$ for the set of all biinfinite traces on $\tm$.
+\end{definition}
+
+The following result gives a tight correspondence between the operational and
+denotational semantics, and follows via a straightforward structural induction
+on $\tm$.
+\begin{lemma}
+For any $\tm\maps m\to n \in \syntax$, we have 
+\[
+  \llbracket \tm \rrbracket = \bit(\tm) 
+\]
+as subsets of $(\k^m)^\z\times (\k^n)^\z$.
+\end{lemma}
 
 \section{Controllability} \label{sec.control}
 
