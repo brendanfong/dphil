@@ -3,23 +3,84 @@
 \chapter*{Introduction}
 
 This is a thesis in the mathematical sciences, with emphasis on the mathematics.
-But before we get to the category theory, I want to say a few, brief words about
-the scientific tradition this thesis draws from.
+But before we get to the category theory, I want to say a few words about the
+scientific tradition in which this thesis is situated.
 
-Mathematics is the language of science. New science, new scientific paradigms,
-requires new language.
+Mathematics is the language of science. Twinned so intimately with physics, over
+the past centuries mathematics has become superb---indeed, unreasonably
+effective---language for understanding planets moving in space, particles in a
+vacuum, the structure of spacetime, and so on.  Yet, while Wigner speaks of the
+unreasonble effectiveness of mathematics in the natural sciences, equally
+eminent mathematicians, not least Gelfand, speak of the unreasonable
+\emph{ineffectiveness} of mathematics in biology and related fields. Why such a
+difference?
 
-This dissertation represents the beginnings of an attempt at a category
-theoretic framework for general systems theory. A loosely organised body of
-research dating back to biologist Ludwig von Bertalanffy in the mid-20th
-century \cite{Ber}, general systems theory represents the study of systems built
-from rich interconnections of simple component systems. Our central example in
-this dissertation will be passive linear circuits: systems built from linear
-resistors, inductors, and capacitors.  While each component here is simple,
-networks built from such components are complex enough to form the foundation of
-modern electronics.
+A contrast between physics and biology is that while physical systems can often
+be studied in isolation---the particle in a vacuum---, biological systems are
+necessarily situated in their environment. A heart belongs in a body, an ant in
+a colony. One of the first to draw attention to this contrast was Ludwig on
+Bertalanffy, biologist and founder of general systems theory, who articulated
+the difference as one between closed and open systems: 
+\begin{quote}
+  Conventional physics deals only with closed systems, i.e. systems which are
+  considered to be isolated from their environment. \dots\ However, we find
+  systems which by their very nature and definition are not closed systems.
+  Every living organism is essentially an open system. It maintains itself in a
+  continuous inflow and outflow, a building up and breaking down of components,
+  never being, so long as it is alive, in a state of chemical and thermodynamic
+  equilibrium but maintained in a so-called steady state which is distinct from
+  the latter \cite{Ber68}.
+\end{quote}
+While von Bertalanffy's general systems theory is still approaching its
+generalist ambition, his philosophy has had great impact in his home field of
+biology, leading to the modern field of systems biology. Half a century later,
+Dennis Noble, another great pioneer of systems biology and the originator of the
+first mathematical model of a working heart, describes the shift as one from
+reduction to integration.
+\begin{quotation}
+  Systems biology\dots\ is about putting together rather than taking apart,
+  integration rather than reduction. It requires that we develop ways of
+  thinking about integration that are as rigorous as our reductionist
+  programmes, but different. \dots\ It means changing our philosophy, in the full
+  sense of the term \cite{Nob06}.
+\end{quotation}
+In this thesis we refer to this new philosophy as one of interconnection.
 
-General system theory seeks to talk about composition
+Interconnection and openness are tightly related. Indeed, openness implies that
+a system may be interconnected with its environment. But what is an environment
+but comprised of other systems? Thus the study of open systems becomes the study
+of how a system changes under interconnection with other systems.
+
+The hope for formalising this is predicated on some principle of
+compositionality. The principle of compositionality goes back to Frege, although
+its precise meaning and applicability is still the subject of active research
+today \cite{Sza13}. Loosely stated, it requires
+that the meaning of the composite must be the composite of the meanings.
+
+Christopher Strachley and Dana Scott. In the semantics of programming languages
+community, this the interpretation of a language is given by a homomorphism
+between an algebra of syntactic representations and an algebra of semantic
+objects.
+
+
+
+We then have language to tackle concrete questions such as
+\begin{itemize}
+  \item Suppose we have systems have some property, like being controllable. In
+    what ways can we interconnect controllable systems so that the combined
+    system is also controllable?
+
+  \item Is it faster to compute using factorised systems? Bayesian networks.
+
+  \item Can we identify and classify synonyms: how do we know when two diagrams
+    represent the same system?
+
+  \item How does this system behave when connected with another system? Can we
+    describe control like that? 
+
+\end{itemize}
+
+
 \begin{quotation}
   While in the past, science tried to explain observable phenomena by reducing
   them to an interplay of elementary units investigable independently of each
@@ -33,46 +94,15 @@ General system theory seeks to talk about composition
 
 %http://vhpark.hyperbody.nl/images/a/aa/Bertalanffy-The_Theory_of_Open_Systems_in_Physics_and_Biology.pdf
 
-From closed systems to open
-\begin{quotation}
-  Conventional physics deals only with closed systems, i.e. systems which are
-  considered to be isolated from their environment.
-
-  However, we find systems which by their very nature and definition are not
-  closed systems. Every living organism is essentially an open system. It
-  maintains itself in a continuous inflow and outflow, a building up and
-  breaking down of components, never being, so long as it is alive, in a state
-  of chemical and thermodynamic equilibrium but maintained in a so-called steady
-  state which is distinct from the latter.  
-\end{quotation}
-
-It has always had a unification bent to it \cite{Ber50}
-
-\begin{quotation}
-  Not only are general aspects and viewpoints alike in different sciences;
-  frequently we find formally identical or isomorphic laws in different fields.
-  In many cases, isomorphic laws hold for certain classes or subclasses of
-  'systems', irrespective of the nature of the entities involved. There appear
-  to exist general system laws which apply to any system of a certain type,
-  irrespective if the particular properties of the system and of the elements
-  involved.
-\end{quotation}
-We will return to these ideas about isomorphic laws in Chapter 5.
-
-This vision extended into the social sciences and humanities, influencing
-economics, urban planning, sociology, psychology, management, philosophy. Eg
-Forrester. These aspects of system theory are beyond the scope of the present
-work.
-
-Part of this vision, most notably in von Bertalanffy's home field of
-systems biology, has been realised through 
-
-
-    ``Systems biology...is about putting together rather than taking apart,
-    integration rather than reduction. It requires that we develop ways of
-    thinking about integration that are as rigorous as our reductionist
-    programmes, but different....It means changing our philosophy, in the full
-    sense of the term'' (Denis Noble).
+This dissertation represents the beginnings of an attempt at a category
+theoretic framework for general systems theory. A loosely organised body of
+research dating back to biologist Ludwig von Bertalanffy in the mid-20th
+century \cite{Ber}, general systems theory represents the study of systems built
+from rich interconnections of simple component systems. Our central example in
+this dissertation will be passive linear circuits: systems built from linear
+resistors, inductors, and capacitors.  While each component here is simple,
+networks built from such components are complex enough to form the foundation of
+modern electronics.
 
 Feedback; Wiener's cybernetics was often viewed as identical in agenda, 
 
@@ -84,75 +114,16 @@ creating structural and compositional techniques for modelling
 interconnection, open systems, and formal analogies, or isomorphisms, between
 different fields.
 
-In late 1940s, just as Feynman was developing his diagrams for processes in
-particle physics, Eilenberg and Mac Lane initiated their work on category
-theory.  Over the subsequent decades, and especially in the work of Joyal and
-Street in the 1980s \cite{JS91,JS93}, it became clear that these developments were profoundly linked: monoidal categories have a precise graphical representation in terms of string diagrams, and conversely monoidal categories provide an algebraic foundation for the intuitions behind Feynman diagrams.  The key insight is the use of categories where morphisms describe physical processes, rather than structure-preserving maps between mathematical objects \cite{BaezStay,CP}.
-
-In work on fundamental physics, the cutting edge has moved from categories
-to higher categories \cite{BL}.  But the same techniques have filtered into more
-immediate applications, particularly in computation and quantum computation
-\cite{AC04,Ba1,Sel07}.  This chapter is part of a still nascent program of
-applying string diagrams to engineering, with the aim of giving diverse diagram
-languages a unified foundation based on category theory \cite{BE,BSZ,KSW,RSW05,Sp}. 
 
 
+\subsection*{What do we want a theory of open systems to look like?}
 
-\smallskip
-Summing up, our original technical contributions are:
-\begin{itemize}
-\item a characterisation of the class of LTI systems as a category of corelations of matrices
-\item a presentation of this category of corelations of matrices as a symmetric
-  monoidal theory
-\item an operational semantics that agrees with the standard systems theoretic
-semantics of signal flow graphs
-\item a characterisation of controllability
-\end{itemize}
-
-\smallskip
-
-Our work lies in the intersection of computer science, mathematics, and systems
-theory.  From computer science, we use concepts  of formal semantics of
-programming languages, with an emphasis on compositionality and a firm
-denotational foundation for operational definitions.  From a mathematical
-perspective, we obtain presentations of several relevant domains, and identify
-the rich underlying algebraic structures.  For systems theory, our insight is
-that mere matrices are not optimised for discussing behaviour; instead it is
-profitable to use signal flow graphs, which treat linear subspaces rather than
-linear transformations as the primitive concept and are thus closer to the idea
-of system as a set of trajectories. At the core is the maxim---perhaps best
-understood by computer scientists---that the right language allows deeper
-insights into the underlying structure.
-
-Work on categorical approaches to control systems goes back at least to Goguen
-\cite{Go} and Arbib and Manes \cite{AM}. In recent years, there has been a
-resurgence of interest in the topic, including work by Baez and Erbele
-\cite{BE}, Vagner, Spivak, and Lerman \cite{VSL}, as well as Bonchi, Zanasi, and
-the second author \cite{BSZ1,BSZ2,BSZ3,Za}. 
-\paragraph{A diagrammatic approach.}
-
-In this program Odum, diagrams. universal language SBGN, UML
-
-what is the algebra of network languages?
-
-hypergraph categories.
-
-graph example
-
-black-boxing, information compression.
-
-examples examples.
-
-Example: trijunction
-
-signal flow
-
-circuits
-
-automata, markov processes, flow networks.
-
-The Yoneda lemma and representability.
-
+Now that we have explored the algebra and interconnection, what do we mean by
+system? We might be tempted to simply develop structures for interconnection,
+and say these model whatever they end up modelling. I hope I have made a case
+that the application might be broad. But it falls on me to also show that, in
+practice, that the applications do exist. For this we take the following,
+definition of system, inspired especially by Willems.
 
 Syntactically, by system we mean a `box' with finitely many `ports' through which it
 interfaces with the external world. These ports may be of different types. These
@@ -162,16 +133,36 @@ network-style diagrammatic languages, such as the aforementioned electrical
 circuit diagrams, but also including chemical reaction networks, Petri nets,
 automata, and Markov processes.
 
+Broad appeal. It has always had a unification bent to it \cite{Ber50}
+
+\begin{quotation}
+  Not only are general aspects and viewpoints alike in different sciences;
+  frequently we find formally identical or isomorphic laws in different fields.
+  In many cases, isomorphic laws hold for certain classes or subclasses of
+  `systems', irrespective of the nature of the entities involved. There appear
+  to exist general system laws which apply to any system of a certain type,
+  irrespective if the particular properties of the system and of the elements
+  involved.
+\end{quotation}
+We will return to these ideas about isomorphic laws in Chapter 5.
+
+This vision extended into the social sciences and humanities, influencing
+economics, urban planning, sociology, psychology, management, philosophy. Eg
+Forrester. These aspects of system theory are beyond the scope of the present
+work.
+
+
 We capture this syntactic conception of a system is formally through the notion
 of a hypergraph category---a symmetric monoidal category in which every object
 is equipped with a special commutative Frobenius monoid in a way compatible with
 the monoidal product. This framework provides precise language for describing
 how we manipulate and interact with systems.
 
+Behaviours.
 
 But what \emph{is} a system, and what do these manipulations and
 interconnections mean? Taking inspiration from Willems \cite{Wi} and Deutsch
-\cite{D} among others, we consider a system to be merely the set of all possible
+\cite{Deu} among others, we consider a system to be merely the set of all possible
 different observations one might make by measuring all relevant variables at all
 ports of the `box' we use to represent it.  We call this set the
 \emph{behaviour} of the system. This arises from a view of physical laws as a
@@ -209,6 +200,84 @@ applied science and engineering, and with appropriate additional mathematical
 tools allows one to formalise certain diagrammatic languages and their
 relationships.
 
+Relation
+
+Example: trijunction
+
+Interconnection language
+
+Diagrammatic
+
+In this program Odum, energese. diagrams. universal language SBGN, UML
+
+examples examples.
+
+
+signal flow
+
+circuits
+
+automata, markov processes, flow networks.
+
+Accessible
+
+Kindergarten quantum mechanics
+
+Inspired by Coecke Abramsky CQM
+
+
+\subsection*{More specifically?}
+
+Categorical
+
+In late 1940s, just as Feynman was developing his diagrams for processes in
+particle physics, Eilenberg and Mac Lane initiated their work on category
+theory.  Over the subsequent decades, and especially in the work of Joyal and
+Street in the 1980s \cite{JS91,JS93}, it became clear that these developments were profoundly linked: monoidal categories have a precise graphical representation in terms of string diagrams, and conversely monoidal categories provide an algebraic foundation for the intuitions behind Feynman diagrams.  The key insight is the use of categories where morphisms describe physical processes, rather than structure-preserving maps between mathematical objects \cite{BaezStay,CP}.
+
+In work on fundamental physics, the cutting edge has moved from categories
+to higher categories \cite{BL}.  But the same techniques have filtered into more
+immediate applications, particularly in computation and quantum computation
+\cite{AC04,Ba1,Sel07}.  This chapter is part of a still nascent program of
+applying string diagrams to engineering, with the aim of giving diverse diagram
+languages a unified foundation based on category theory \cite{BE,BSZ,KSW,RSW05,Sp}. 
+
+Category-theoretic frameworks for general systems theory have been developed
+before. Notably Goguen and Rosen led efforts. Goguen from a more computer
+science perspective, Rosen more in biology.
+
+
+Computer science-y
+
+Our work lies in the intersection of computer science, mathematics, and systems
+theory.  From computer science, we use concepts  of formal semantics of
+programming languages, with an emphasis on compositionality and a firm
+denotational foundation for operational definitions.  From a mathematical
+perspective, we obtain presentations of several relevant domains, and identify
+the rich underlying algebraic structures.  For systems theory, our insight is
+that mere matrices are not optimised for discussing behaviour; instead it is
+profitable to use signal flow graphs, which treat linear subspaces rather than
+linear transformations as the primitive concept and are thus closer to the idea
+of system as a set of trajectories. At the core is the maxim---perhaps best
+understood by computer scientists---that the right language allows deeper
+insights into the underlying structure.
+
+Influence of computer science. syntax semantics. rewrite rules/local rather than
+global analysis.
+
+\subsection*{What are we adding here?}
+
+
+what is the algebra of network languages?
+
+hypergraph categories.
+
+graph example
+
+black-boxing, information compression.
+
+The Yoneda lemma and representability.
+
 The central message of decorated corelations is that hypergraph structure
 requires some sort of uniformity in the composition rule, and it is easier to
 work by acknowledging this structure, defining them as algebras over some
@@ -220,7 +289,7 @@ diagrams. While this has long been a technique associated with topological
 quantum field theory, dating back to \cite{At}, it has most recently had
 significant influence in the nascent field of categorical network theory, with
 application to automata and computation \cite{KSW2, Sp}, electrical circuits
-\cite{BF}, signal flow diagrams \cite{BSZ, BE}, Markov processes \cite{BP,
+\cite{BF}, signal flow diagrams \cite{BSZ, BE}, Markov processes \cite{BFP,
 ASW}, and dynamical systems \cite{VSL}, among others. 
 
 Cospans are already familiar as a formalism for making entities with an
@@ -231,23 +300,46 @@ cospans called `cobordisms' to describe pieces of spacetime \cite{BL,BaezStay}.
 An advantage of the decorated cospan framework is that the resulting categories
 are hypergraph categories, and the resulting functors respect this structure.
 As dagger compact categories, hypergraph categories themselves have a rich
-diagrammatic nature \cite{Se}, and in cases when our decorated cospan categories
+diagrammatic nature \cite{Sel11}, and in cases when our decorated cospan categories
 are inspired by diagrammatic applications, the hypergraph structure provides
 language to describe natural operations on our diagrams, such as juxtaposing,
 rotating, and reflecting them.
 
-Influence of computer science. syntax semantics. rewrite rules/local rather than
-global analysis.
 
-Inspired by Coecke Abramsky CQM
 
 Hypergraph categories are really just $\Set$-valued lax symmetric monoidal
 functors: and these, being simply data structures, are often simpler to work
 with.
 
+
+
+\subsection*{How does this relate to what's come before?}
+
+
+Work on categorical approaches to control systems goes back at least to Goguen
+\cite{Go} and Arbib and Manes \cite{AM}. In recent years, there has been a
+resurgence of interest in the topic, including work by Baez and Erbele
+\cite{BE}, Vagner, Spivak, and Lerman \cite{VSL}, as well as Bonchi, Zanasi, and
+the second author \cite{BSZ,BSZ2,BSZ3,Za}. 
+
+Spivak operad approach
+
+Zanasi, Soboc\'inski, Bonchi
+
+Most similar is the work of Walters, together with Sabadini and Rosebrugh. In
+particular, automata.
+
+
+
+
+
+
+
+
+
 \section{Outline}
 Chapter 1 introduces hypergraph categories. Then decorated cospans and decorated
-corelations. Colimits?
+corelations.
 
 Then applications. First to control theory from this behavioural perspective,
 demonstrating the ideas of black boxing and corelations, open systems and
@@ -255,35 +347,30 @@ control by interconnection. We give a new characterisation of controllability.
 Second to passive linear networks, which speaks to the idea that we can find
 isomorphisms across disciplines, and explore the insights in new ways.
 
-\section{Related work}
-
-Category-theoretic frameworks for general systems theory have been developed
-before. Notably Goguen and Rosen led efforts. Goguen from a more computer
-science perspective, Rosen more in biology.
-
-
-
-Spivak 
-
-Zanasi, Soboc\'inski, Bonchi
-
-Most similar is the work of Walters, together with Sabadini and Rosebrugh. In
-particular, automata.
 
 \section{Contributions of collaborators}
-%Where some part of the thesis is not solely the work of the candidate or has been carried out in collaboration with one or more persons, the candidate shall submit a clear statement of the extent of his or her own contribution.
 
-The first three chapters are my own work. The applications chapters were
-developed with collaborators. Chapter 4 arises from a weekly seminar with Paolo
-Rapisarda and Pawe\l\ Soboc\'inski. I developed the corelation formalism and provided a
-first draft of the paper. Pawe\l\ provided much expertise in signal flow graphs,
-significantly revising the text and contributing the section on operational
-semantics. Paolo contributed comparisons to classical methods in control theory. 
-Much of the text is taken from the paper \cite{FonRapSob16}.
+\begin{quotation}
+  \emph{
+Where some part of the thesis is not solely the work of the candidate or has
+been carried out in collaboration with one or more persons, the candidate shall
+submit a clear statement of the extent of his or her own contribution.
+}
+\end{quotation}
 
-Chapter 5 is joint work with John Baez. John proposed the topic of research, and
-supplied some notes on Ohm's law and the principle of minimum power. I
-was responsible for producing the first draft of the chapter from this start.
-John guided and assisted revisions of this text for publication \cite{BaeFon16}.
+The first four chapters are my own work. The applications chapters were
+developed with collaborators. Chapter \ref{ch.sigflow} arises from a weekly
+seminar with Paolo Rapisarda and Pawe\l\ Soboc\'inski. I developed the
+corelation formalism and provided a first draft of the paper. Pawe\l\ provided
+much expertise in signal flow graphs, significantly revising the text and
+contributing the section on operational semantics. Paolo contributed comparisons
+to classical methods in control theory.  Much of the text is taken from the
+paper \cite{FRS16}.
+
+Chapter \ref{ch.circuits} is joint work with John Baez. John proposed the topic
+of research, and supplied writing on Ohm's law and the principle of minimum
+power that became the second section of . I was responsible for producing the
+first draft of the chapter from this start.  John guided and assisted revisions
+of this text for publication \cite{BF}.
 
 I thank my collaborators.
