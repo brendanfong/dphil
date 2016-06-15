@@ -5,6 +5,8 @@ In this chapter we introduce hypergraph categories, giving a definition,
 coherence theorem, and graphical language. We then explore a fundamental example
 of hypergraph categories: categories of cospans.
 
+We motivate hypergraph categories as a structure that
+captures interconnection in network-style diagrammatic languages. Following this
 We assume basic familiarity with category theory and symmetric monoidal
 categories; although we give a sparse overview of the latter for reference. A
 proper introduction to both can be found in Mac Lane \cite{Mac98}.
@@ -31,7 +33,7 @@ pieces like so:
 These represent open systems, concrete or abstract; for example a resistor, a
 chemical reaction, or a linear transformation. The essential feature, for
 openness and for networking, is that the system may have terminals, perhaps of
-different `types', each one depicted by a line radiating from the central body.
+different types, each one depicted by a line radiating from the central body.
 In the case of a resistor each terminal might represent a wire, for chemical
 reactions a chemical species, for linear transformations a variable in the
 domain or codomain.  Network diagrams are formed by connecting terminals of
@@ -154,17 +156,18 @@ terminals variables in these equations, the Frobenius maps allow variables to be
 shared between many systems of equations.
 
 Examining these correspondences, it is worthwhile to ask whether hypergraph
-categories permit too much structure to be specified, given that the
-interconnection rule is now divided into three different aspects, and features
-such as domains and codomains of network diagrams, rather than just a collection
-of terminals, exist. The answer is given by examining the additional coherence
-laws that these data must obey. For example, in the case of the domain and
-codomain, we shall see that hypergraph categories are all compact closed
-categories, and so there is ultimately only a formal distinction between domain
-and codomain objects. One way to think of these data is as scaffolding. We could
-compare it to the use of matrices and bases to provide language for talking
-about linear transformations and vector spaces.  They are not part of the target
-structure, but nonetheless useful paraphenalia for constructing it.
+categories permit too much structure to be specified, given that interconnection
+is now divided into three different aspects---composition, monoidal product, and
+Frobenius maps---, and features such as domains and codomains of network
+diagrams, rather than just a collection of terminals, exist. The answer is given
+by examining the additional coherence laws that these data must obey. For
+example, in the case of the domain and codomain, we shall see that hypergraph
+categories are all compact closed categories, and so there is ultimately only a
+formal distinction between domain and codomain objects. One way to think of
+these data is as scaffolding. We could compare it to the use of matrices and
+bases to provide language for talking about linear transformations and vector
+spaces.  They are not part of the target structure, but nonetheless useful
+paraphenalia for constructing it.
 
 \begin{figure}
   \begin{center}
@@ -271,20 +274,21 @@ tile match the outputs on the left. Suppose also that some arrangements of tiles
 are equal to other arrangements of tiles. How do we formalise this structure
 algebraically? The theory of monoidal categories provides an answer. 
 
-Hypergraph categories are first monoidal categories, indeed symmetric monoidal
-categories.  Monoidal categories are categories with two notions of composition:
-ordinary categorical composition and monoidal composition, with the monoidal
-composition only associative and unital up to natural isomorphism. They are the
-algebra of processes that may occur simultaneously as well as sequentially.
-First defined by B\'enabou and Mac Lane in the 1960s \cite{Ben63, Mac63}, their
-theory and their links with graphical representation are well explored
-\cite{JS91, Sel11}. We bootstrap on this, using monoidal categories to define
-hypergraph categories, and so immediately arriving at an understanding of how
-hypergraph categories formalise our network languages. 
+This is of relevance to us as hypergraph categories are first monoidal
+categories, indeed symmetric monoidal categories.  Monoidal categories are
+categories with two notions of composition: ordinary categorical composition and
+monoidal composition, with the monoidal composition only associative and unital
+up to natural isomorphism. They are the algebra of processes that may occur
+simultaneously as well as sequentially.  First defined by B\'enabou and Mac Lane
+in the 1960s \cite{Ben63, Mac63}, their theory and their links with graphical
+representation are well explored \cite{JS91, Sel11}. We bootstrap on this, using
+monoidal categories to define hypergraph categories, and so immediately arriving
+at an understanding of how hypergraph categories formalise our network
+languages. 
 
 Moreover, symmetric monoidal functors play a key role in our framework for
 defining and working with hypergraph categories: decorated cospans and
-corelations constructions. For this reason we provide, for quick reference, a
+corelations. We thus use the next section to provide, for quick reference, a
 definition of symmetric monoidal categories.
 
 
@@ -326,8 +330,8 @@ VII.2.1]{Mac98} for a precise statement and proof.
 
 A \define{lax monoidal functor} $(F, \varphi): (\c,\otimes) \to (\c',\boxtimes)$
 between monoidal categories consists of a functor $F: \c \to \c'$, and natural
-transformations $\varphi_{A,B}: FA \boxtimes FB \to F(A \ot B)$ and $\varphi_1:
-1_{\c'} \to F1_{\c}$, such that for all $A,B,C \in \c$ the three diagrams
+transformations $\varphi_{A,B}: FA \boxtimes FB \to F(A \ot B)$ and $\varphi_I:
+I' \to FI$, such that for all $A,B,C \in \c$ the three diagrams
 \[
   \xymatrixcolsep{4pc}
   \xymatrix{
@@ -341,12 +345,12 @@ transformations $\varphi_{A,B}: FA \boxtimes FB \to F(A \ot B)$ and $\varphi_1:
   \xymatrixcolsep{3pc}
   \xymatrixrowsep{3pc}
   \xymatrix{
-    F(A) \ot I' \ar[d]_{\idn \ot \varphi_1} \ar[r]^{\rho} & F(A) \\
+    F(A) \ot I' \ar[d]_{\idn \ot \varphi_I} \ar[r]^{\rho} & F(A) \\
     F(A) \ot F(I) \ar[r]_{\varphi_{A,I}} & F(A \ot I) \ar[u]_{F\rho} 
   }
   \qquad
   \xymatrix{
-    I' \ot F(A) \ar[d]_{\varphi_1 \ot \idn} \ar[r]^{\lambda} & F(A) \\
+    I' \ot F(A) \ar[d]_{\varphi_I \ot \idn} \ar[r]^{\lambda} & F(A) \\
     F(I) \ot F(A) \ar[r]_{\varphi_{I,A}} & F(I \ot A) \ar[u]_{F\lambda} 
   }
 \]
@@ -360,8 +364,8 @@ transformation $\theta: F \Rightarrow G$ such that
 \[
   \begin{aligned}
     \xymatrix{
-      F1_{\c} \ar[rr]^{\theta_I}&& G1_{\c} \\
-      & 1_{\c'} \ar[ul]^{\varphi_1} \ar[ur]_{\gamma_1}
+      FI_{\c} \ar[rr]^{\theta_I}&& GI_{\c} \\
+      & I_{\c'} \ar[ul]^{\varphi_I} \ar[ur]_{\gamma_I}
     } 
   \end{aligned} 
   \qquad 
@@ -396,12 +400,13 @@ equivalent to strict monoidal category.
 Yet another equivalent statement of the coherence theorem is the existence of a
 graphical calculus for monoidal categories. As discussed above, monoidal
 categories figure strongly in our current investigations precisely because of
-this. We leave the details to discussions elsewhere. The main point is that we
-shall be free to assume our monoidal categories are strict, writing $X_1 \otimes
-X_2 \otimes \dots \otimes X_n$ for objects in $(\mathcal C,\otimes)$ without a
-care for parentheses. We then depict a morphism $f\maps X_1 \otimes X_2 \otimes
-\dots \otimes X_n \to Y_1 \otimes Y_2 \otimes \dots \otimes Y_n$ with the
-diagram:
+this. We leave the details to discussions elsewhere, such as Selinger's survey
+\cite{Sel11} or the original work of Joyal and Street \cite[Theorem 1.2]{JS91}.
+The main point is that we shall be free to assume our monoidal categories are
+strict, writing $X_1 \otimes X_2 \otimes \dots \otimes X_n$ for objects in
+$(\mathcal C,\otimes)$ without a care for parentheses. We then depict a morphism
+$f\maps X_1 \otimes X_2 \otimes \dots \otimes X_n \to Y_1 \otimes Y_2 \otimes
+\dots \otimes Y_n$ with the diagram:
 \[
   f \quad = \quad
   \begin{aligned}
@@ -449,7 +454,7 @@ diagram:
 \end{tikzpicture}.
 \end{aligned}
 \]
-Identity morphisms are depicted by `wires':
+Identity morphisms are depicted by so-called strings or wires:
 \[
   \idn_X \quad = \quad
   \begin{aligned}
@@ -478,7 +483,7 @@ and the monoidal unit is not depicted at all:
 \end{tikzpicture}
 \end{aligned}
 \]
-Composition of morphisms is depicted by connecting the relevant `wires':
+Composition of morphisms is depicted by connecting the relevant wires:
 \[
     \tikzset{every path/.style={line width=1.1pt}}
   \begin{aligned}
@@ -873,13 +878,12 @@ read as all of the equivalent algebraic expressions
 and so on. The coherence theorem says that this does not matter: if two
 algebraic expressions have the same diagrammatic representation, then the
 algebraic expressions are equal. In more formal language, the graphical calculus
-is sound and complete for the axioms of monoidal categories. See Joyal--Street
-for details \cite{JS91}.
-
+is sound and complete for the axioms of monoidal categories. Again, see
+Joyal--Street for details \cite{JS91}.
 
 The coherence theorem thus implies that the graphical calculi goes beyond
 visualisations of morphisms: it can provide provide bona-fide proofs of
-equalities of morphisms. As a general principle, string diagrams are more
+equalities of morphisms. As a general principle, string diagrams are often more
 intuitive than the conventional algebraic language for understanding monoidal
 categories.
 
@@ -1051,8 +1055,8 @@ talk, somewhat incidentally, of braided monoidal categories in the next
 chapter; a \define{braided monoidal category} is a monoidal category with a
 braiding that only obeys the latter axiom.
 
-A \define{(lax/strong) symmetric monoidal functor} is a (lax/strong) monoidal
-functor that further obeys
+A \define{(lax/strong/strict) symmetric monoidal functor} is a
+(lax/strong/strict) monoidal functor that further obeys
 \[
 \xymatrixcolsep{3pc}
 \xymatrixrowsep{3pc}
@@ -1067,14 +1071,15 @@ monoidally equivalent} if they are monoidally equivalent by strong
 \emph{symmetric} monoidal functors. If our categories are merely braided, we
 refer to these functors as \define{braided monoidal functors}.
 
-The coherence theorem for symmetric monoidal categories, with respect to string
-diagrams, states that two morphisms in a symmetric monoidal category are equal
-according to the axioms of symmetric monoidal categories if and only if their
-diagrams are equal up to homotopy equivalence and applications of the defining
-graphical identities above. See Joyal--Street \cite[Theorem 2.3]{JoyStr} for
-more precision and details.
+Roughly speaking, the coherence theorem for symmetric monoidal categories, with
+respect to string diagrams, states that two morphisms in a symmetric monoidal
+category are equal according to the axioms of symmetric monoidal categories if
+and only if their diagrams are equal up to isotopy and applications of the
+defining graphical identities above. See Joyal--Street \cite[Theorem
+2.3]{JS91} for more precision and details.
 
 \section{Hypergraph categories}
+
 Just as symmetric monoidal categories equip monoidal categories with precisely
 enough extra structure to model crossing of strings in the graphical calculus,
 hypergraph categories equip symmetric monoidal categories with precisely enough
@@ -1082,8 +1087,8 @@ extra structure to model multi-input multi-output interconnections of strings of
 the same type. For this, we require each object to be equipped with a so-called
 special commutative Frobenius monoid, which provides chosen maps to model this
 interaction. These have a coherence result, known as the `spider theorem', that
-says exactly how we use the maps to describe the connection of strings does not
-matter: all that matters is that the strings are connected. 
+says exactly how we use these chosen maps to describe the connection of strings
+does not matter: all that matters is that the strings are connected. 
 
 \subsection{Frobenius monoids}
 A Frobenius monoid comprises a monoid and comonoid on the same object that
@@ -1137,10 +1142,11 @@ and the Frobenius and special axioms
   the \define{comultiplication}, and $\epsilon$ the \define{counit}.
 \end{definition}
 
-Special commutative Frobenius monoids were first formulated by Carboni and
-Walters, under the name commutative separable algebras. The Frobenius law and
-the special law were termed the S=X law and the diamond=1 law respectively
-\cite{CarWal,RosSabWal}.
+Arising from work in representation theory \cite{BN37}, special commutative
+Frobenius monoids were first formulated in this categorical form by Carboni and
+Walters, under the name commutative separable algebras \cite{CW87}. The
+Frobenius law and the special law were termed the S=X law and the diamond=1 law
+respectively \cite{CW87,RSW05}.
 
 Alternate axiomatisations are possible. In addition to the `upper' unitality law
 above, the mirror image `lower' unitality law also holds, due to commutativity
@@ -1154,8 +1160,8 @@ ambiguity if we only say commutative.
 
 The common feature to these equations is that each side describes a different
 way of using the generators to connect some chosen set of inputs to some chosen
-set of outputs. This observation provides a `coherence' type result for special
-commutative Frobenius monoids, known as the `spider theorem'.
+set of outputs. This observation provides a coherence type result for special
+commutative Frobenius monoids, known as the spider theorem.
 \begin{theorem}
   Let $(X,\mu,\eta,\delta,\epsilon)$ be a special commutative Frobenius monoid,
   and let $f,g\maps X^{\ot n} \to X^{\ot m}$ be map constructed, using
@@ -1166,7 +1172,9 @@ commutative Frobenius monoids, known as the `spider theorem'.
   that corresponding connected components connect the exact same sets of inputs
   and outputs.
 \end{theorem}%
-See \cite{Kis16,FonCoy16} \cite{CK,CPP} for further details.
+This theorem was first formulated in the context of categorical quantum
+mechanics. See the textbook of Coecke and Kissinger \cite{CK} or paper by
+Coecke, Paquette, and Pavlovic \cite{CPP} for further details.
 
 \subsection{Hypergraph categories}
 
@@ -1380,8 +1388,8 @@ each object $X$ the following diagrams commute:
   }
   \qquad
   \xymatrix{
-    1_{\mc D} \ar[rr]^{\eta_{FX}} \ar[dr]_{\varphi_1} && FX \\
-    & F1_{\mc C} \ar[ur]_{F\eta_X}
+    I_{\mc D} \ar[rr]^{\eta_{FX}} \ar[dr]_{\varphi_I} && FX \\
+    & FI_{\mc C} \ar[ur]_{F\eta_X}
   }
 \]
 \[
@@ -1391,8 +1399,8 @@ each object $X$ the following diagrams commute:
   }
   \qquad
   \xymatrix{
-    FX \ar[rr]^{\epsilon_{FX}} \ar[dr]_{F\epsilon_X} && 1_{\mc D} \\
-    & F1_{\mc C} \ar[ur]_{\varphi^{-1}}
+    FX \ar[rr]^{\epsilon_{FX}} \ar[dr]_{F\epsilon_X} && I_{\mc D} \\
+    & FI_{\mc C} \ar[ur]_{\varphi^{-1}}
   }
 \]
 \end{definition}
@@ -1410,14 +1418,14 @@ hypergraph functors. Two hypergraph categories are \define{hypergraph
 equivalent} if there exist hypergraph functors with monoidal natural
 transformations to the identity functors. 
   
-The term hypergraph category was introduced recently \cite{Fon15,Kis16}, in
+The term hypergraph category was introduced recently \cite{Fon15,Kis}, in
 reference to the fact that these special commutative Frobenius monoids provide
 precisely the structure required to draw graphs with `hyperedges': edges
 connecting any number of inputs to any number of outputs. Again first defined by
 Walters and Carboni \cite{Car91}, under the name well-supported compact closed
 categories, in recent years hypergraph categories have been rediscovered a
-number of times, also appearing under the names dungeon categories \cite{Mor12}
-and dgs-monoidal categories \cite{Gad}. 
+number of times, also appearing under the names dungeon categories \cite{Mor14}
+and dgs-monoidal categories \cite{GH98}. 
 
 %Nonetheless, this flexibility is a strength of hypergraph categories. In the
 %category of vector spaces, for example, a special commutative Frobenius monoid
@@ -1467,8 +1475,8 @@ the maps
 	\end{tikzpicture}
       } 
   \end{aligned} \\
-      \epsilon \circ \mu\maps X \ot X \to 1 & &
-      \delta \circ \eta\maps 1 \to X \ot X
+      \epsilon \circ \mu\maps X \ot X \to I & &
+      \delta \circ \eta\maps I \to X \ot X
     }
 \]
 obey both
@@ -1659,53 +1667,53 @@ $
 $
 to its dual morphism
 \[
-    \tikzset{every path/.style={line width=1.1pt}}
-\begin{tikzpicture}[scale=.65]
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=none] (0) at (0, 0.5) {};
-		\node [style=none] (1) at (0.75, -0) {};
-		\node [style=none] (2) at (0, -0.5) {};
-		\node [style=none] (3) at (-2.5, 0.5) {};
-		\node [style=none] (4) at (-0.25, -0.5) {};
-		\node [style=none] (5) at (-2, -1) {};
-		\node [style=none] (6) at (-1.25, -1.5) {};
-		\node [style=none] (7) at (-1, -0.5) {};
-		\node [style=none] (8) at (1.25, -1.5) {};
-		\node [style=none] (9) at (-1.25, -0.5) {};
-		\node [style=none] (10) at (-1, -0.125) {};
-		\node [style=none] (11) at (-1, -0.875) {};
-		\node [style=none] (12) at (-0.25, -0.875) {};
-		\node [style=none] (13) at (-0.25, -0.125) {};
-		\node [style=none] (14) at (-0.625, -0.5) {$f$};
-		\node [style=none] (15) at (1.5, -1.5) {$X$};
-		\node [style=none] (16) at (-2.75, 0.5) {$Y$};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw [in=90, out=0, looseness=0.90] (0.center) to (1.center);
-		\draw [in=-90, out=0, looseness=0.90] (2.center) to (1.center);
-		\draw (3.center) to (0.center);
-		\draw (4.center) to (2.center);
-		\draw [in=90, out=180, looseness=0.90] (9.center) to (5.center);
-		\draw [in=-90, out=180, looseness=0.90] (6.center) to (5.center);
-		\draw (7.center) to (9.center);
-		\draw (8.center) to (6.center);
-		\draw (10.center) to (11.center);
-		\draw (11.center) to (12.center);
-		\draw (12.center) to (13.center);
-		\draw (13.center) to (10.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
+  \tikzset{every path/.style={line width=1.1pt}}
+  \begin{tikzpicture}[scale=.65]
+    \begin{pgfonlayer}{nodelayer}
+      \node [style=none] (0) at (0, 0.5) {};
+      \node [style=none] (1) at (0.75, -0) {};
+      \node [style=none] (2) at (0, -0.5) {};
+      \node [style=none] (3) at (-2.5, 0.5) {};
+      \node [style=none] (4) at (-0.25, -0.5) {};
+      \node [style=none] (5) at (-2, -1) {};
+      \node [style=none] (6) at (-1.25, -1.5) {};
+      \node [style=none] (7) at (-1, -0.5) {};
+      \node [style=none] (8) at (1.25, -1.5) {};
+      \node [style=none] (9) at (-1.25, -0.5) {};
+      \node [style=none] (10) at (-1, -0.125) {};
+      \node [style=none] (11) at (-1, -0.875) {};
+      \node [style=none] (12) at (-0.25, -0.875) {};
+      \node [style=none] (13) at (-0.25, -0.125) {};
+      \node [style=none] (14) at (-0.625, -0.5) {$f$};
+      \node [style=none] (15) at (1.5, -1.5) {$X$};
+      \node [style=none] (16) at (-2.75, 0.5) {$Y$};
+    \end{pgfonlayer}
+    \begin{pgfonlayer}{edgelayer}
+      \draw [in=90, out=0, looseness=0.90] (0.center) to (1.center);
+      \draw [in=-90, out=0, looseness=0.90] (2.center) to (1.center);
+      \draw (3.center) to (0.center);
+      \draw (4.center) to (2.center);
+      \draw [in=90, out=180, looseness=0.90] (9.center) to (5.center);
+      \draw [in=-90, out=180, looseness=0.90] (6.center) to (5.center);
+      \draw (7.center) to (9.center);
+      \draw (8.center) to (6.center);
+      \draw (10.center) to (11.center);
+      \draw (11.center) to (12.center);
+      \draw (12.center) to (13.center);
+      \draw (13.center) to (10.center);
+    \end{pgfonlayer}
+  \end{tikzpicture}
 \]
 further equips each hypergraph category with a so-called dagger functor---an
 involutive contravariant endofunctor that is the identity on objects---such that
 the category is a dagger compact category. Dagger compact categories were first
-introduced in the context of categorical quantum mechanics \cite{AC}, under the
+introduced in the context of categorical quantum mechanics \cite{AC04}, under the
 name strongly compact closed category, and have been demonstrated to be a key
 structure in diagrammatic reasoning and the logic of quantum mechanics.
 
-Compactness allows us to blur the distinction between composition and the
-monoidal product of morphisms. Firstly, there is a one-to-one correspondence
-between morphisms $X \to Y$ and morphisms $1 \to X\ot Y$ given by taking 
+Compactness introduces a tight relationship between composition and the monoidal
+product of morphisms. Firstly, there is a one-to-one correspondence between
+morphisms $X \to Y$ and morphisms $I \to X\ot Y$ given by taking 
 $
     \tikzset{every path/.style={line width=1.1pt}}
     \begin{aligned}
@@ -1911,12 +1919,12 @@ of this fact.
 \subsection{Coherence}
 
 The lack of naturality of the Frobenius maps in hypergraph categories affects
-some common properties of structured categories. For example, it is not always
-possible to construct a skeletal hypergraph category hypergraph equivalent to a
-given hypergraph category: isomorphic objects may be equipped with `different'
-Frobenius monoids.  Similarly, a fully faithful, essentially surjective
-hypergraph functor does not necessarily define a hypergraph equivalence of
-categories. 
+some common, often desirable, properties of structured categories. For example,
+it is not always possible to construct a skeletal hypergraph category hypergraph
+equivalent to a given hypergraph category: isomorphic objects may be equipped
+with distinct Frobenius structures.  Similarly, a fully faithful, essentially
+surjective hypergraph functor does not necessarily define a hypergraph
+equivalence of categories. 
 
 Nonetheless, in this section we prove that every hypergraph category is
 hypergraph equivalent to a strict hypergraph category. This coherence result
@@ -1931,45 +1939,57 @@ using decorated corelations.
 \begin{proof}
   Let $(\mc H,\ot)$ be a hypergraph category. As $\mc H$ is a fortiori a
   symmetric monoidal category, a standard construction (see Mac Lane
-  \cite[Theorem]{Mac98}) gives an equivalent strict symmetric monoidal category
-  $(\mc H_{\mathrm{str}}, \cdot)$ with objects finite lists $[x_1,\dots,x_n]$ of
-  objects of $\mc H$ and morphisms $[x_1,\dots,x_n] \to [y_1,\dots,y_m]$ those
-  morphisms from $((x_1 \ot x_2) \ot \dots) \ot x_n \to ((y_1 \ot y_2) \ot
-  \dots) \ot y_m$ in $\mc H$.  Composition is given by composition in $\mc H$.
-  
-  The monoidal structure is given as follows. Given a list $X$ of objects in
-  $\mc H$, write $PX$ for the corresponding monoidal product in $\mc H$ with all
-  open parenthesis at the front.  The monoidal product of objects in $\mc
-  H_{\mathrm{str}}$ is given by concatenation $\cdot$ of lists; the monoidal
-  unit is the empty list. The monoidal product of two morphisms is given by
-  their monoidal product in $\mc H$ pre- and post-composed with the necessary
-  canonical maps: given $f\maps X \to Y$ and $g\maps Z \to W$, their product
-  $f\cdot g\maps X\cdot Y \to Z \cdot
-  W$ is \[ P(X \cdot Y) \longrightarrow PX \ot PY \stackrel{f \ot
-  g}{\longrightarrow} PZ \ot PW \longrightarrow P(Z \cdot W).  \] By design, the
-  associators and unitors are simply identity maps. The braiding $X \cdot Y \to
-  Y \cdot X$ is given by the braiding $PX \ot PY \to PY \ot PX$ in $\mc H$,
-  similarly pre- and post-composed with the necessary canonical maps. This
-  defines a strict symmetric monoidal category \cite{Mac98}.
+  \cite[Theorem XI.3.1]{Mac98}) gives an equivalent strict symmetric monoidal
+  category $(\mc H_{\mathrm{str}}, \cdot)$ with objects finite lists
+  $[x_1,\dots,x_n]$ of objects of $\mc H$ and morphisms $[x_1,\dots,x_n] \to
+  [y_1,\dots,y_m]$ those morphisms from $((x_1 \ot x_2) \ot \dots) \ot x_n \to
+  ((y_1 \ot y_2) \ot \dots) \ot y_m$ in $\mc H$.  Composition is given by
+  composition in $\mc H$.
+
+  The monoidal structure on $\mc H_{\mathrm{str}}$ is given as follows. The
+  monoidal product of objects in $\mc H_{\mathrm{str}}$ is given by
+  concatenation $\cdot$ of lists; the monoidal unit is the empty list. Given a
+  list $X = [x_1,\dots, x_n]$ of objects in $\mc H$, write $PX = ((x_1 \ot x_2)
+  \ot \dots) \ot x_n$ for the `pre-parenthesised product of $X$' in $\mc H$ with
+  all open parenthesis at the front.  The monoidal product of two morphisms is
+  given by their monoidal product in $\mc H$ pre- and post-composed with the
+  necessary canonical maps: given $f\maps X \to Y$ and $g\maps Z \to W$, their
+  product $f\cdot g\maps X\cdot Y \to Z \cdot W$ is 
+  \[ 
+    P(X \cdot Y) \stackrel{\sim}\longrightarrow PX \ot PY \stackrel{f \ot g}{\longrightarrow}
+    PZ \ot PW \stackrel{\sim}\longrightarrow P(Z \cdot W).  
+  \] 
+  By design, the associators and unitors are simply identity maps. The braiding
+  $X \cdot Y \to Y \cdot X$ is given by the braiding $PX \ot PY \to PY \ot PX$
+  in $\mc H$, similarly pre- and post-composed with the necessary canonical
+  maps. This defines a strict symmetric monoidal category \cite{Mac98}.
 
   To make $\mc H_{\mathrm{str}}$ into a hypergraph category, we make each
   object $[x_1,\dots,x_n]$ into a special commutative Frobenius monoid in a
-  similar way. For example, the multiplication on $[x_1,\dots,x_n]$ is given by 
+  similar way, pre- and post-composing lists of Frobenius maps with the
+  necessary canonical maps. For example, the multiplication on $[x_1,\dots,x_n]$
+  is given by 
   \[
     \xymatrixcolsep{-4pt}
     \xymatrix{
       P([x_1,\dots,x_n]\cdot[x_1,&\dots,x_n])=
       ((((((x_1 \ot x_2) \ot \dots) \ot x_n) \ot x_1) \ot x_2) \ot \dots) \ot
-      x_n \ar[d] \\
+      x_n \ar[d]^{\sim} \\
       &(((x_1 \ot x_1) \ot (x_2 \ot x_2)) \ot \dots) \ot (x_n \ot x_n)
       \ar[d]^{((\mu_{x_1} \ot \mu_{x_2}) \ot \dots ) \ot \mu_{x_n}} \\
       &P([x_1,\dots,x_n])=((x_1 \ot x_2) \ot \dots ) \ot x_n 
       \phantom{P([x_1,\dots,x_n])=}
     }
   \]
-  where the first map is the canonical map such that each pair of $x_i$'s remains
-  in the same order. It is straightforward to check that this defines a
-  hypergraph category.
+  where the first map is the canonical map such that each pair of $x_i$'s
+  remains in the same order. As the coherence maps are natural, each
+  special commutative Frobenius monoid axiom for this data on $[x_1,\dots,x_n]$
+  reduces to a list of the corresponding axioms for the objects $x_i$ in $\mc H$.
+  Similarly, the coherence axioms and naturality of the coherence maps imply the
+  Frobenius structure on the monoidal product of objects is given by the
+  Frobenius structures on the factors in the required way. This defines a hypergraph category.
+  \smallskip
+
   \begin{center}
     \begin{tabular}{| c | p{.65\textwidth} |}
       \hline
@@ -1989,11 +2009,12 @@ using decorated corelations.
       \hline
     \end{tabular}
   \end{center}
+  \smallskip
 
-  Our standard construction further gives strong symmetric monoidal functors
-  $P\maps \mc H_{\mathrm{str}} \to \mc H$ extending the map $P$ above, and
-  $S\maps \mc H \to \mc H_{\mathrm{str}}$ sending $x \in \mc H$ to the string
-  $[x]$ of length 1 in $\mc H_{\mathrm{str}}$. These extend to hypergraph
+  Mac Lane's standard construction further gives a strong symmetric monoidal
+  functors $P\maps \mc H_{\mathrm{str}} \to \mc H$ extending the map $P$ above,
+  and $S\maps \mc H \to \mc H_{\mathrm{str}}$ sending $x \in \mc H$ to the
+  string $[x]$ of length 1 in $\mc H_{\mathrm{str}}$. These extend to hypergraph
   functors.
 
   In detail, the functor $P$ is given on morphisms by taking a map in
@@ -2002,10 +2023,10 @@ using decorated corelations.
   canonical maps $PX \ot PY \to P(X\cdot Y)$. The functor $S$ is even easier to
   define: a morphism $x \to y$ in $\mc H$ is by definition a morphism $[x] \to
   [y]$ in $\mc H_{\mathrm{str}}$, so $S$ is a monoidal embedding of $\mc H$ into
-  $\mc H_{\mathrm{str}}$. 
+  $\mc H_{\mathrm{str}}$. By Mac Lane's proof of the coherence theorem for monoidal categories these are
+  both strong monoidal functors. 
   
-  By Mac Lane's proof of the coherence theorem for monoidal categories these are
-  both strong monoidal functors; by inspection they also preserve hypergraph
+  By inspection these functors also preserve hypergraph
   structure, and so are hypergraph functors.  As they already witness an
   equivalence of symmetric monoidal categories, thus $\mc H$ and $\mc
   H_{\mathrm{str}}$ are equivalent as hypergraph categories.
@@ -2013,11 +2034,12 @@ using decorated corelations.
 
 \section{Example: cospan categories}
 
-A central example of a hypergraph category is the category
-$\mathrm{Cospan(\mathcal C)}$ of cospans in any category $\mathcal C$ with
-finite colimits. We will later see that decorated cospan categories are a
-generalisation of such categories, and each inherits a hypergraph structure
-from such. 
+A central example of a hypergraph category is the category $\cospan(\mathcal C)$
+of cospans in a category $\mathcal C$ with finite colimits. We call such
+categories cospan categories. In the coming chapters we will successively
+generalise this structure, first to decorated cospans, then corelations, then
+decorated corelations. Each time, the new categories we construct will inherit
+hypergraph structure from their relationship with cospan categories.
 
 We first recall the basic definitions. Let $\mc C$ be a category with finite
 colimits, writing the coproduct $+$. A \define{cospan}
@@ -2045,20 +2067,21 @@ commutes.
 Cospans may be composed using the pushout from the common
 foot: given cospans $X \stackrel{i_X}{\longrightarrow} N
 \stackrel{o_Y}{\longleftarrow} Y$ and $Y \stackrel{i_Y}{\longrightarrow} M
-\stackrel{o_Z}{\longleftarrow} Z$, their composite cospan is $X \stackrel{j_N
-\circ i_X}{\longrightarrow} N+_YM \stackrel{j_M\circ i_Z}{\longleftarrow} Z$,
-where the top part of
+\stackrel{o_Z}{\longleftarrow} Z$, their composite cospan is $X \xrightarrow{j_N
+\circ i_X} N+_YM \xleftarrow{j_M\circ i_Z} Z$,
+where the maps $j$ are given by the pushout square in the diagram
 \[
   \xymatrix{
     && N+_YM \\
     & N \ar[ur]^{j_N} && M \ar[ul]_{j_M} \\
-    \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z \quad \ar[ul]_{o_Z}
+    \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z
+    \quad \ar[ul]_{o_Z}.
   }
 \]
-is a pushout square. This composition rule is associative up to isomorphism, and
-so we may define a category, in fact a symmetric monoidal bicategory,
+This composition rule is associative up to isomorphism, and
+so we may define a category, in fact a symmetric monoidal category,
 $\mathrm{Cospan}(\mathcal C)$ with objects the objects of $\mathcal C$ and
-morphisms isomorphism classes of cospans \cite{Ben}.
+morphisms isomorphism classes of cospans. 
 
 The symmetric monoidal structure is `inherited' from $\mc C$. Indeed, we shall
 consider any category $\mc C$ with finite colimits a symmetric monoidal category
@@ -2091,30 +2114,43 @@ C$ to the cospan
 \]
 where the extended `equals' sign denotes an identity morphism. Now since the
 monoidal product $+\colon \mathcal C \times \mathcal C \to \mathcal C$ is left
-adjoint to the diagram functor, it preserves colimits, and so extends to a
+adjoint to the diagonal functor, it preserves colimits, and so extends to a
 functor $+\colon \mathrm{Cospan(\mathcal C)} \times \mathrm{Cospan(\mathcal C)}
 \to \mathrm{Cospan(\mathcal C)}$. The coherence maps are just the images of the
 coherence maps in $\mathcal C$ under this wide embedding; checking naturality is
 routine, and clearly they still obey the required axioms.
 
-Write $\FinSet$ for the category of finite sets and functions. Replacing
-$\FinSet$ with its equivalent strict skeleton, the following proposition is
-well-known. 
+This theory is all well known, following from theory originally developed for
+the dual concept: spans. First discussed by Yoneda \cite{Yon54}, spans are pairs
+of morphisms $X \leftarrow N \rightarrow Y$ with a common domain. B\'enabou
+introduced the bicategory of objects, spans, and maps of spans in a category
+with finite limits as an example of a symmetric monoidal bicategory
+\cite{Ben67}. The symmetric monoidal category $\cospan(\mc C)$ is a
+decategorified version of symmetric monoidal bicategory of cospans.
+
+More recently, Lack proved that cospans and Frobenius monoids are intimately
+related. Write $\FinSet$ for the category of finite sets and functions. This
+category is a monoidal category with the coproduct $+$ as monoidal product.
+Moreover, as a symmetric monoidal category $(\FinSet,+)$ has a strict skeleton.
+In the following proposition $\FinSet$ denotes this strict skeleton.
+
 \begin{proposition} \label{prop.cospanscfm}
   Special commutative Frobenius monoids in a strict symmetric monoidal category
-$\mc C$ are in one-to-one correspondence with strict symmetric monoidal functors
-$\cospan(\FinSet) \to \mc C$.
+  $\mc C$ are in one-to-one correspondence with strict symmetric monoidal functors
+  $\cospan(\FinSet) \to \mc C$.
 \end{proposition}
 \begin{proof}
   The special commutative Frobenius monoid is given by the image of the one
   element set. See Lack \cite{Lac04}.
 \end{proof}
-Over the next few chapters we will further explore this deep link between
-cospans and special commutative Frobenius monoids and hypergraph categories. To
-begin, we detail a natural hypergraph structure on $\cospan(\mc C)$. 
 
-This hypergraph structure also comes from copairings of identity morphisms.
-Call cospans 
+Over the next few chapters we will further explore this deep link between
+cospans and special commutative Frobenius monoids and hypergraph categories.
+To begin, we detail a hypergraph structure on each cospan category $\cospan(\mc
+C)$. 
+
+Like the braiding, this hypergraph structure also comes from copairings of
+identity morphisms.  Call cospans 
 \[
   \xymatrix{
     & N \\
@@ -2132,12 +2168,16 @@ maps on $X$, together with the unique map $!\colon  \varnothing \to X$ from the
 initial object to $X$, define a monoid structure on $X$. Considering these
 maps as morphisms in $\mathrm{Cospan(\mathcal C)}$, we may take them together
 with their opposites to give a special commutative Frobenius structure on $X$.
-It is easily verified that this gives a hypergraph category.
+Using the universal property of the coproduct, and noting that the Frobenius
+maps and the braiding are both given by copairings of identity morphisms, it is
+easily verified that this gives a hypergraph category.
 
 Given $f \maps X \to Y$ in $\mc C$, abuse notation by writing $f \in
 \mathrm{Cospan}(\mc C)$ for the cospan $X \stackrel{f}\to Y
 \stackrel{1_Y}\leftarrow Y$, and $f^\opp$ for the cospan $Y \stackrel{1_Y}\to Y
 \stackrel{f}\leftarrow X$. To summarise:
+\smallskip 
+
   \begin{center}
   \begin{tabular}{ |c| p{.65\textwidth}|}
       \hline
@@ -2154,37 +2194,26 @@ Given $f \maps X \to Y$ in $\mc C$, abuse notation by writing $f \in
       \hline
   \end{tabular}
 \end{center}
-   
+\smallskip 
+
 We will often abuse our terminology and refer to cospans themselves as
 morphisms in some cospan category $\mathrm{Cospan}(\mathcal C)$; we of course
 refer instead to the isomorphism class of the said cospan.
- 
+
 It is not difficult to show that we in fact have a functor from the category
 having categories with finite colimits as objects and colimit preserving
 functors as morphisms to the category of hypergraph categories and hypergraph
-functors. In the next chapter we show that this extends to a functor from the
-category of symmetric lax monoidal presheaves over categories with finite
-colimits. This is known as the decorated cospans construction.
+functors. In the next chapter we show that this extends to a functor from a
+category of so-called symmetric lax monoidal presheaves over categories with
+finite colimits. This is known as the decorated cospans construction, and will
+be instrumental in constructing hypergraph categories with network diagrams as
+morphisms.
 
 %Walters: cospan graph is the generic special commutative Frobenius monoid.  The
 %free hypergraph category on a single object in the category of cospans in the
 %category of finite sets.
 
-The decorated cospans theorem then leads to the decorated corelations
-construction, which gives a way to build every hypergraph category using
-cospans. Write $\mathrm{Mon}_C$ for the category with objects functions $[n]=\{1,2,
-\dots,n \} \to C$, where $C$ is some set, and morphisms functions $[n] \to [m]$
-that commute over $C$. We will prove the following.
-\begin{theorem}
-  The category of hypergraph categories is equivalent to the category of
-  lax symmetric monoidal functors
-  \[
-    (\mathrm{Cospan}(\FinSet_{\mc O}),+) \to (\Set,\times).
-  \]
-  varying over sets $\mc O$.
-\end{theorem}
-This theorem, couched in the language of algebras for operads, is also the
-subject of a forthcoming paper by Vagner, Spivak, and Schultz \cite{VagSpiSch}.
+
 
 
 %\begin{proposition}
