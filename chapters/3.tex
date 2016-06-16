@@ -1,8 +1,26 @@
 \chapter{Corelations: a tool for black boxing} \label{ch.corelations}
 
-In this chapter we develop the theory of corelations.
+As we have seen, cospans are a useful tool for describing finite colimits, and
+so for describing the interconnection of systems. In the previous chapter
+we defined decorated cospans to take advantage of this fact and provide
+a tool for composing structures that had no inherent composition law, like
+graphs and subspaces. In many situations, however, the colimit contains more
+information than we care about. Rather than concerning ourselves with all the
+internal structure of a system, we only find a certain aspect of it
+relevant---roughly, the part that affects what happens at the boundary. This is
+better modelled by corelations. In this chapter we develop the theory of
+corelations.
 
-\section{The idea of black boxing}
+As usual, we begin by giving an intuitive overview of the aims of this chapter
+in \textsection\ref{sec.blackboxing}. We then give the formal details of
+corelation categories (\textsection\ref{sec.corels}) and their functors
+(\textsection\ref{sec.corelfunctors}), before concluding in
+\textsection\ref{sec.corelexs} with two important
+examples: equivalence relations as epi-mono corelations in $(\Set,+)$, and
+linear relations as epi-mono corelations in $(\Vect,\oplus)$. This sets us up
+for a decorated version of this theory in Chapter \ref{ch.deccorels}.
+
+\section{The idea of black boxing} \label{sec.blackboxing}
 
 Thus far we have argued that network languages should be modelled using
 hypergraph categories, and shown that cospans provide a good language for
@@ -12,120 +30,73 @@ cospans, and then compose these diagrams using pushouts. This turns a notion of
 closed system into a notion of open one.
 
 A serious limitation of using cospans alone, however, is that cospans
-indiscrimately accumulate information. If we compose twenty graphs in the
-category $\mathrm{GraphCospan}$, we create an open graph containing all twenty
-of those graphs as subgraphs, disjoint but for a finite collection of vertices.
-This is often unnecessary and inefficient.
-
-For example, consider the following two circuits, comprised only of perfectly
-conductive wires:
+indiscrimately accumulate information. For example, suppose we consider the
+morphisms of $\mathrm{GraphCospan}$ as open electrical circuits as in
+\textsection\ref{ssec.exelectricalcircuits}, depicting a decorated cospan from
+$(X \xrightarrow{i} N \xleftarrow{o} Y, \enspace (N,E,s,t,r))$ by 
 \[
-    \tikzset{every path/.style={line width=1.1pt}}
-\begin{tikzpicture}
+  .
+\]
+where the bullets $\bullet$ on the left represent the elements of the set $X$,
+those on the right represent the elements of $Y$, and we draw a line from $x \in
+X$ or $y \in Y$ to a node $n$ in the graph $i(x) = n$ or $o(y)=n$.
+We omit the labels (resistances) on the edges as these are not essential to the
+main point here.  
+
+Next, consider the following example of composition of these
+open circuits using decorated cospans:
+
+Note in particular that the composite of these open circuits contains
+a unique resistor for every resistor in the factors. This is often unnecessary
+for understanding the composite circuit, and thus often wildly inefficient.
+
+For example, consider also the circuit:
+
+\begin{center}
+  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
+    \node[contact]         (A) at (0,0) {};
+    \node[contact]         (B) at (3,0) {};
+    \node[contact]         (C) at (1.5,-2.6) {};
+    \coordinate         (ua) at (.5,.25) {};
+    \coordinate         (ub) at (2.5,.25) {};
+    \coordinate         (la) at (.5,-.25) {};
+    \coordinate         (lb) at (2.5,-.25) {};
+    \path (A) edge (ua);
+    \path (A) edge (la);
+    \path (B) edge (ub);
+    \path (B) edge (lb);
+    \path (ua) edge  [resistor] (ub);
+    \path (la) edge  [resistor] (lb);
+    \path (A) edge  [resistor]  (C);
+    \path (C) edge  [resistor]  (B);
+  \end{tikzpicture}
+\end{center}
+
+\[
+  \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=dot] (0) at (-2.5, 1.5) {};
-		\node [style=dot] (1) at (-2.5, -0) {};
-		\node [style=dot] (2) at (-2.5, -1.5) {};
-		\node [style=none] (3) at (-2, -2) {};
-		\node [style=none] (4) at (1.5, 2) {};
-		\node [style=none] (5) at (-2, -0) {};
-		\node [style=none] (6) at (-2, -1.5) {};
-		\node [style=none] (7) at (-2, 1.5) {};
-		\node [style=dot] (8) at (-2.5, -0.75) {};
-		\node [style=none] (9) at (-2, -0.75) {};
-		\node [style=dot] (10) at (-2.5, 0.75) {};
-		\node [style=none] (11) at (-2, 0.75) {};
-		\node [style=dot] (12) at (2, -1.5) {};
-		\node [style=none] (13) at (1.5, -1.5) {};
-		\node [style=dot] (14) at (2, -0.75) {};
-		\node [style=none] (15) at (1.5, 1.5) {};
-		\node [style=dot] (16) at (2, 1.5) {};
-		\node [style=none] (17) at (1.5, 0.75) {};
-		\node [style=dot] (18) at (2, -0) {};
-		\node [style=dot] (19) at (2, 0.75) {};
-		\node [style=none] (20) at (1.5, -0) {};
-		\node [style=none] (21) at (1.5, -0.75) {};
-		\node [style=none] (22) at (-0.75, 1.25) {};
-		\node [style=none] (23) at (0, 0.25) {};
-		\node [style=none] (24) at (-1, -0.25) {};
-		\node [style=none] (25) at (-0.5, -0.75) {};
-		\node [style=none] (26) at (-1.25, -1.25) {};
-		\node [style=none] (27) at (0, 0.75) {};
-		\node [style=none] (28) at (0.5, 1.25) {};
-		\node [style=none] (29) at (-1.25, 0.5) {};
-		\node [style=none] (30) at (-1.25, 1.5) {};
-		\node [style=none] (31) at (0.5, -1.5) {};
-		\node [style=none] (32) at (-1.25, 1) {};
-		\node [style=none] (33) at (-1.25, -0.75) {};
-		\node [style=none] (34) at (-1.75, -0.25) {};
-		\node [style=none] (35) at (0, -1.25) {};
-		\node [style=none] (36) at (0, -0.25) {};
-		\node [style=none] (37) at (1, -1.5) {};
-		\node [style=none] (38) at (-1.75, 1.25) {};
-		\node [style=none] (39) at (0.5, 0.25) {};
-		\node [style=none] (40) at (1, 0.5) {};
-		\node [style=none] (41) at (-0.5, 1.75) {};
-		\node [style=none] (42) at (0.75, 1.75) {};
-		\node [style=none] (43) at (0.25, -1.25) {};
-		\node [style=none] (44) at (1.25, -1) {};
-		\node [style=none] (45) at (-1.75, -1.75) {};
-		\node [style=none] (46) at (-1, -1.75) {};
-		\node [style=none] (47) at (1.25, -1.7) {};
-		\node [style=none] (48) at (-0.5, -1.5) {};
+		\node [style=dot] (0) at (-2.5, 0.75) {};
+		\node [style=none] (1) at (-2, -2) {};
+		\node [style=none] (2) at (1.5, 2) {};
+		\node [style=none] (3) at (-2, 0.75) {};
+		\node [style=dot] (4) at (2, 1.25) {};
+		\node [style=none] (5) at (1.5, 0.75) {};
+		\node [style=dot] (6) at (2, 0.25) {};
+		\node [style=none] (7) at (0.75, 1) {};
+		\node [style=none] (8) at (-1.25, 0.5) {};
+		\node [style=none] (9) at (-0.25, -1) {};
+		\node [style=none] (10) at (0.75, 0.5) {};
+		\node [style=none] (11) at (-1.25, 1) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (7.center);
-		\draw (1.center) to (5.center);
-		\draw (2.center) to (6.center);
-		\draw (8) to (9.center);
-		\draw (10) to (11.center);
-		\draw (16) to (15.center);
-		\draw (18) to (20.center);
-		\draw (12) to (13.center);
-		\draw (14) to (21.center);
-		\draw (19) to (17.center);
-		\draw (6.center) to (26.center);
-		\draw [in=180, out=-11, looseness=2.00] (26.center) to (31.center);
-		\draw [in=-165, out=15, looseness=1.25] (26.center) to (25.center);
-		\draw [in=1, out=180, looseness=1.00] (24.center) to (5.center);
-		\draw [in=-105, out=0, looseness=1.00] (24.center) to (23.center);
-		\draw [in=108, out=-135, looseness=2.25] (29.center) to (24.center);
-		\draw [in=-169, out=-30, looseness=1.25] (29.center) to (27.center);
-		\draw [in=165, out=60, looseness=1.25] (23.center) to (17.center);
-		\draw (27.center) to (23.center);
-		\draw [bend right, looseness=1.00] (23.center) to (20.center);
-		\draw (28.center) to (27.center);
-		\draw [in=150, out=0, looseness=1.25] (22.center) to (28.center);
-		\draw (28.center) to (15.center);
-		\draw (22.center) to (30.center);
-		\draw (30.center) to (7.center);
-		\draw (11.center) to (32.center);
-		\draw (38.center) to (11.center);
-		\draw (38.center) to (32.center);
-		\draw [in=-78, out=-48, looseness=1.00] (39.center) to (40.center);
-		\draw (31.center) to (37.center);
-		\draw (37.center) to (13.center);
-		\draw (9.center) to (34.center);
-		\draw (34.center) to (33.center);
-		\draw [in=-158, out=22, looseness=1.00] (33.center) to (36.center);
-		\draw (36.center) to (21.center);
-		\draw [in=86, out=15, looseness=2.00] (25.center) to (35.center);
-		\draw (24.center) to (27.center);
-		\draw [in=56, out=-60, looseness=1.00] (22.center) to (29.center);
-		\draw (17.center) to (20.center);
-		\draw [bend left=75, looseness=1.00] (39.center) to (40.center);
-		\draw (41.center) to (42.center);
-		\draw (45.center) to (46.center);
-		\draw (46.center) to (48.center);
-		\draw (46.center) to (47.center);
-		\draw (43.center) to (44.center);
-		\draw (28.center) to (17.center);
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{background}
-	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
+		\draw (0.center) to (3.center);
+		\draw (6) to (5.center);
+		\draw (4) to (5.center);
 	\end{pgfonlayer}
 \end{tikzpicture}
-\qquad\qquad
+\]
+\[
+    \tikzset{every path/.style={line width=1.1pt}}
 \begin{tikzpicture}
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=dot] (0) at (-2.5, 1.5) {};
@@ -176,10 +147,11 @@ conductive wires:
 	\end{pgfonlayer}
 \end{tikzpicture}
 \]
-We interact with these circuits by connecting electric circuits and other
-devices to the terminals. This allows us to probe, for example, whether one
-terminal is connected to another. These circuits are equivalent in the following
-sense: if these circuits were encased, but for their terminals, in a black box
+Imagine the following semantics for open circuits. We interact with open
+circuits only by connecting electric circuits and other devices to the terminals.
+This allows us to probe, for example, whether one terminal is connected to
+another. These circuits are equivalent in the following sense: if these circuits
+were encased, but for their terminals, in a black box
 \[
     \tikzset{every path/.style={line width=1.1pt}}
     \begin{tikzpicture}
@@ -223,32 +195,49 @@ sense: if these circuits were encased, but for their terminals, in a black box
 \end{tikzpicture}
   ,
 \]
-we would be unable to distinguish them through our electrical investigations.
+we would be unable to distinguish them through our electrical investigations. We
+wish for a composition rule that only retains the information relevant to the
+black boxed circuit.
 
-If we were to compose `simple' circuits like those on the right as we do in
-$\mathrm{GraphCospan}$, considering these to be $[0,\infty)$-graphs with all
-edges labelled by $0$, composing enough `simple' circuits would yield the
-circuit on the left. Our intent is 
+Visually, it is evident that our issue lies with the fact that we retain in our
+decorated cospan model parts of the circuit that are not connected to the
+terminals, and thus have no bearing on the electrical behaviour of the open
+circuit. Dealing with this problem requires further discussion of the semantics
+of circuit diagrams, and we only deal with this in depth in Chapter
+\ref{ch.circuits}. In this chapter, however, we are able to contribute an
+important piece of the puzzle: corelations.
+
+Corelations allow us to pursue a notion of composition that discards extraneous
+information as we compose our systems. 
+Factorisation system.
 
 
-In this chapter and the next we pursue a notion of composition that reflects
-this, discarding extraneous information as we compose our systems. Next chapter
-we will extend these ideas to allow decorations and so a richer notion of
-system; for now we return to an undecorated situation, so that we may focus on
-the compositional aspects.
+\section{Corelations} \label{sec.corels}
 
-\section{Corelations}
+Given sets $X$, $Y$, a relation $X \to Y$ is a subset of the product $X
+\times Y$. Note that by the universal property of the product, spans $X
+\leftarrow N \to Y$ are in one-to-one correspondence with functions $N \to X
+\times Y$. When this map is monic, we say that the span is \emph{jointly monic}.
+More abstractly then, we might say a relation is an isomorphism class of jointly
+monic spans in the category of sets. Here we generalise the dual concept: these
+are our so-called corelations.
 
-Given sets $X$, $Y$, a relation $X \leadsto Y$ is a subset of the product $X
-\times Y$. More abstractly, we might say a relation is a jointly monic span in
-the category of sets (or an isomorphism class thereof). We generalise the dual
-concept.
+Relations, or equivalently, multi-valued functions, have long been a structure
+of mathematical interest, with work going back to De Morgan \cite{DeM60} and
+subsequently Pierce \cite{Pie70}. In \cite{Kle70}, Klein provided a category
+theoretic generalisation of the concept, albeit one slightly more restrictive
+than that which we use here, and by now the categorical theory of relations is
+well studied \cite{Mil00, JW00}. The key insight is the concept of a
+factorisation system. We begin this section by introducing this concept, before
+developing the theory of not just categories of relations, but \emph{monoidal}
+categories of (co)relations.
 
-\subsection{Factorisation systems.}
+\subsection{Factorisation systems}
 The relevant properties of jointly monic spans come from the fact that
 monomorphisms form one half of a factorisation system. A factorisation system
 allows any morphism in a category to be factored into the composite of two
-morphisms in a coherent way.
+morphisms in a coherent way. This subsection introduces factorisation systems
+and monoidal factorisation systems.
 
 \begin{definition}
   A \define{factorisation system} $(\mathcal E,\mathcal M)$ in a category
@@ -282,13 +271,15 @@ morphisms in a coherent way.
   \end{enumerate}
 \end{definition}
 
-\begin{examples}
-  We introduce some factorisation systems of central importance in what follows.
+\begin{examples} \label{ex.factsysts}\ 
+
   \begin{itemize}
     \item Write $\mathcal I_{\mathcal C}$ for the wide subcategory of
       $\mathcal C$ containing exactly the isomorphisms of $\mathcal C$. Then
       $(\mathcal I_{\mathcal C}, \mathcal C)$ and $(\mathcal C, \mathcal
-      I_{\mathcal C})$ are both factorisation systems in $\mathcal C$. 
+      I_{\mathcal C})$ are both factorisation systems in $\mathcal C$. While
+      these may seem too trivial to mention, we will see they are of central
+      importance in what follows.
     
     \item The prototypical example of a factorisation system is the epi-mono
       factorisation system $(\mathrm{Sur},\mathrm{Inj})$ in $\Set$. This follows
@@ -317,10 +308,19 @@ morphisms in a coherent way.
 	t e_1 = m_2' v m_1 e_1 = m_2' m_2 e_2 u = e_2 u.
       \] 
       Uniqueness is immediate, since, $e_1$ is epi and $m_2$ is mono. 
+    
+    \item Recall that a regular epimorphism in an epimorphism that is the
+      coequaliser for some pair of parallel morphisms. In any so-called regular
+      category the regular epimorphisms and monomorphisms form a factorisation
+      system.  Examples of regular categories include $\Set$, toposes, and
+      abelian categories. Regular categories were introduced by Barr and
+      Grillet; for more details see \cite{Bar71,Gri71}.
 \end{itemize}
+More details and further examples can be found in \cite[\textsection 14]{AHS}.
 \end{examples}
 
-See \cite[\textsection 14]{AHS} for more details.
+As we are concerned with building monoidal categories of corelations, it will be
+important that our factorisation systems are monoidal factorisation systems.
 
 \begin{definition}
 Call a factorisation system $(\mc E,\mc M)$ in a monoidal category $(\mc C,\ot)$
@@ -331,8 +331,7 @@ category.
 One might wonder why $\mc M$ does not appear in the above definition. To give a
 touch more intuition for this definition, we quote a theorem of Ambler. Recall a
 symmetric monoidal closed category is one in which each functor $- \ot X$ has a
-specified right adjoint $[X,-]$. See Ambler for proof and further details
-\cite[Lemma 5.2.2]{Am}.
+specified right adjoint $[X,-]$. 
 \begin{proposition}
   Let $(\mc E,\mc M)$ be a factorisation system in a symmetric monoidal
   closed category $(\mc C,\ot)$. Then the following are equivalent:
@@ -342,9 +341,17 @@ specified right adjoint $[X,-]$. See Ambler for proof and further details
     \item $\mc M$ is closed under $[X,-]$ for all $X \in \mc C$.
 \end{enumerate}
 \end{proposition}
+\begin{proof}
+  See Ambler for proof and further details \cite[Lemma 5.2.2]{Am}.
+\end{proof}
 
-In a category with finite coproducts every factorisation system is a monoidal
-factorisation system for the coproduct.
+
+We need not worry too much, however, about the distinction between factorisation
+systems and monoidal factorisation systems. The reason is that for our
+purposes---where the underlying category $\mc C$ has finite colimits and the
+monoidal product is the coproduct---\emph{all} factorisation systems are
+monoidal factorisation systems. This is implied by the following lemma.
+
 \begin{lemma} \label{lem.monfact}
   Let $\mc C$ be a category with finite coproducts, and let $(\mc E, \mc M)$ be a
   factorisation system on $\mc C$. Then $(\mc E,+)$ is a symmetric monoidal
@@ -407,27 +414,31 @@ factorisation system for the coproduct.
 \end{proof}
 
 \subsection{Corelations}
-Relations, then, may be generalised as spans such that the span maps `jointly'
-belong to some class $\mc M$ of an $(\mc E,\mc M)$-factorisation system. We
-define corelations in the dual manner.
+Now that we have introduced factorisation systems, observe that relations are
+just cospans $X \leftarrow N \to Y$ in $\Set$ such that $N \to X \times Y$ is an
+element of $\mathrm{Inj}$, the right factor in the factorisation system
+$(\mathrm{Sur},\mathrm{Inj})$. Relations may thus be generalised as spans such
+that the span maps jointly belong to some class $\mc M$ of an $(\mc E,\mc
+M)$-factorisation system. We define corelations in the dual manner.
 
 \begin{definition}
   Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
-  \mathcal M)$ be a factorisation system on $\mathcal C$. An \define{$(\mathcal
-  E,\mathcal M)$-corelation} $X \leadsto Y$ is a cospan $X
-  \stackrel{i}\longrightarrow N \stackrel{o}\longleftarrow Y$ such that the
-  copairing $[i,o]\maps X+Y \to N$ lies in $\mathcal E$.
+  \mathcal M)$ be a factorisation system on $\mathcal C$. An $(\mathcal
+  E,\mathcal M)$\define{-corelation} $X \to Y$ is a cospan $X
+  \stackrel{i}\longrightarrow N \stackrel{o}\longleftarrow Y$ in $\mc C$ such
+  that the copairing $[i,o]\maps X+Y \to N$ lies in $\mathcal E$.
 \end{definition}
 
 When the factorisation system is clear from context, we simply call $(\mathcal
-E,\mathcal M)$-corelations: `corelations'.
+E,\mathcal M)$-corelations `corelations'.
 
 We also say that a cospan $X \stackrel{i}\longrightarrow N
-\stackrel{o}\longleftarrow Y$ with the property that the copairing $[i,o]\maps X+Y \to N$ lies in $\mathcal E$ is \define{jointly $\mathcal E$-like}. Note that
-if a cospan is jointly $\mc E$-like then so are all isomorphic cospans. Thus the
-property of being a corelation is closed under isomorphism of cospans, and we
-again are often lazy with out language, referring to both jointly $\mc E$-like
-cospans and their isomorphism classes as corelations. 
+\stackrel{o}\longleftarrow Y$ with the property that the copairing $[i,o]\maps
+X+Y \to N$ lies in $\mathcal E$ is \define{jointly} $\mathcal E$\define{-like}.
+Note that if a cospan is jointly $\mc E$-like then so are all isomorphic
+cospans. Thus the property of being a corelation is closed under isomorphism of
+cospans, and we again are often lazy with out language, referring to both
+jointly $\mc E$-like cospans and their isomorphism classes as corelations. 
 
 If $f\maps A \to N$ is a morphism with factorisation $f = m \circ e$, write
 $\overline N$ for the object such that $e\maps A \to \overline N$ and $m\maps
@@ -444,7 +455,7 @@ From the universal property of the coproduct, we also have maps $\iota_X\maps X
   X \stackrel{e\circ \iota_X}{\longrightarrow} \overline{N} \stackrel{e \circ
   \iota_Y}{\longleftarrow} Y
 \]
-the \define{$\mathcal E$-part} of the above cospan. On occasion we will also
+the $\mathcal E$\define{-part} of the above cospan. On occasion we will also
 write $e\maps X+Y \to \overline N$ for the same corelation.
 
 \begin{examples} \label{ex.corels}
@@ -452,45 +463,67 @@ write $e\maps X+Y \to \overline N$ for the same corelation.
   \begin{itemize}
     \item For the morphism-isomorphism factorisation system $(\mc C,\mc I_{\mc
       C})$, corelations are just cospans.
+
     \item For the isomorphism-morphism factorisation $(\mc I_{\mc C}, \mc C)$,
       jointly $\mc I_{\mc C}$-like cospans $X \to Y$ are simply isomorphisms
       $X+Y \stackrel\sim\to N$. Thus there is a unique isomorphism class of
-      corelation between any two objects.
-    \item Note that the category $\Set$ has finite colimits and an epi-mono
-      factorisation system. Epi-mono corelations from $X \to Y$ in $\mathrm{Set}$
-      surjective functions $X+Y \to N$; thus their isomorphism classes are
-      partitions, or equivalence relations on $X+Y$. 
+      corelations between any two objects.
 
-      These corelations---equivalence relations with composition by
-      pushout---have seen previous study. Ellerman gives a detailed treatment of
-      corelations from a logic viewpoint in \cite{E}, while basic category
-      theoretic aspects can be found in Lawvere and Rosebrugh \cite{LR}.  
+    \item Note that the category $\Set$ has finite colimits and an epi-mono
+      factorisation system $(\mathrm{Sur},\mathrm{Inj})$. Epi-mono corelations
+      from $X \to Y$ in $\mathrm{Set}$ surjective functions $X+Y \to N$; thus
+      their isomorphism classes are partitions, or equivalence relations on
+      $X+Y$. 
+
+      While this compositional structure on equivalence relations has not the
+      prominence of that on relations, these corelations have been recognised as
+      an important structure. Ellerman gives a detailed treatment from a logic
+      viewpoint in \cite{Ell14}, while basic category theoretic aspects can be
+      found in Lawvere and Rosebrugh \cite{LR}.  Note that in these and in other
+      sources, including \cite{CF,BF}, the term corelation is used to solely
+      refer to these $(\mathrm{Sur},\mathrm{Inj})$-corelations in $\Set$, while
+      here we use the term corelation primarily in the generalised sense.
   \end{itemize}
 \end{examples}
 
+Our next task is to define a composition rule on corelations.
+
 \subsection{Categories of corelations}
+We begin this subsection by defining a composition rule on isomorphism classes
+of corelations. The end goal, however, is to define a hypergraph category in
+which the morphism are corelations. Here we will explain how to define such a
+category, introducing and exploring the important condition that $\mc M$ is
+stable under pushout. We leave the proof that we have truly defined a hypergraph
+category for the next subsection.
 
 We compose corelations by taking the $\mathcal E$-part of their composite
 cospan. That is, given corelations $X \stackrel{i_X}{\longrightarrow} N
 \stackrel{o_Y}{\longleftarrow} Y$ and $Y \stackrel{i_Y}{\longrightarrow} M
 \stackrel{o_Z}{\longleftarrow} Z$, their composite is given by the cospan $X
-\to \overline{N+_YM} \leftarrow Z$ in
+\xrightarrow{e\circ\iota_N\circ i_X} \overline{N+_YM} \xleftarrow{e \circ
+\iota_M \circ o_Z} Z$ in the commutative diagram
 \[
+  \xymatrixrowsep{7ex}
+  \xymatrixcolsep{7ex}
   \xymatrix{
     && N+_YM \\
     && \overline{N+_YM} \ar[u]_{m} \\
-    & N \ar[ur]^{e \circ \iota_N} && M \ar[ul]_{e \circ \iota_M} \\
+    & N \ar[uur]^{j_N} \ar[r]^{\iota_N}& N+M
+    \ar[u]_{e}& 
+    M \ar[uul]_{j_M}  \ar[l]_{\iota_M} \\
     \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z, \quad \ar[ul]_{o_Z}
   }
 \]
 where $m \circ e$ is the $(\mc E,\mc M)$-factorisation of $[j_N,j_M]\maps N+M
 \to N+_YM$. 
 
-It is well-known that this composite is unique up to isomorphism, and that when
-$\mc M$ is well-behaved it defines a category with morphisms isomorphism classes
-of corelations. For example, bicategorical version of the dual theorem, for
-spans and relations, can be found in \cite{JW}. Nonetheless, for the sake of
-completeness we sketch our own argument here.
+It is well known that this composite is unique up to isomorphism, and that when
+$\mc M$ is well behaved it defines a category with isomorphism classes of
+corelations as morphisms. For instance, a bicategorical version of the dual
+theorem, for spans and relations, can be found in \cite{JW00}. Nonetheless, for
+the sake of completeness we will explain all the details and sketch our own
+argument here. The first fact to show is that, as we have just stated, the
+composite of corelations is unique up to isomorphism.
 
 \begin{proposition} \label{prop.corelcomp}
   Let $\mc C$ be a category with finite colimits and with a factorisation system
@@ -537,19 +570,46 @@ completeness we sketch our own argument here.
   commutes. This $s$ is an isomorphism of the composite corelations.
 \end{proof}
 
-Composition of corelations is \emph{not} associative in general. It is, however,
-associative when $\mathcal M$ is \define{stable under pushout}: that is,
-whenever
-\[
-  \xymatrixcolsep{3pc}
-  \xymatrixrowsep{3pc}
-  \xymatrix{
-    \ar[r]^j & \\
-    \ar[u] \ar[r]^m &  \ar[u]
-  }
-\]
-is a pushout square such that $m \in \mathcal M$, we also have that $j \in
-\mathcal M$. 
+As we have said, this composition rule only gives a category when $\mc M$ is
+well behaved. The reason is that composition of corelations is \emph{not}
+associative in general. It is, however, associative when $\mathcal M$ is stable
+under pushout. We now define this, provide some examples, and prove a crucial
+lemma.
+
+\begin{definition}
+  Given a category $\mc C$, we say that a subcategory $\mc M$ is \define{stable
+  under pushout} if for every pushout square
+  \[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{3pc}
+    \xymatrix{
+      \ar[r]^j & \\
+      \ar[u] \ar[r]^m &  \ar[u]
+    }
+  \]
+  such that $m \in \mathcal M$, we also have that $j \in \mathcal M$. 
+\end{definition}
+
+\begin{examples}
+  There are many examples of $(\mc E,\mc M)$-factorisation systems with $\mc M$
+  stable under pushout, including the factorisation systems $(\mc I_{\mc C},\mc
+  C)$ and $(\mc C,\mc I_{\mc C})$ in $\mc C$, and $(\mathrm{Sur},\mathrm{Inj})$
+  in $\Set$.
+
+  This last example generalises to any topos. Indeed, Lack and Soboci\'nski
+  showed that monomorphisms are stable under pushout in any adhesive category
+  \cite{LS04}.  Since any topos is both a regular category and an adhesive
+  category \cite{LS06,Lac11}, the regular epimorphism-monomorphism factorisation
+  system in any topos is an $(\mc E,\mc M)$-factorisation system with $\mc M$
+  stable under pushout.
+  
+  Another example is the dual of any regular category. Such a category is known
+  as a coregular category, and is by definition a category that has finite
+  colimits and an epimorphism-regular monomorphism factorisation system with
+  regular monomorphisms stable under pushout. Examples of these include the
+  category of topological spaces and continuous maps, as well as $\Set^\opp$,
+  any cotopos, and so on.
+\end{examples}
 
 Stability under pushout is a powerful property. A key corollary, both for
 associativity and in general, is that it implies $\mc M$ is also closed under
@@ -584,8 +644,8 @@ $+$.
 An analogous argument shows that pushouts of maps $m+_Ym'$ also lie in $\mc M$.
 Using this lemma it is not difficult to show associativity---the key point is
 that factorisation `commutes' with pushouts, and that we have a category
-$\corel_{(\mc E,\mc M)}(\mc C)$. Again, this is all well-known, and can be found
-in \cite{JayWar00}. We will incidentally reprove these facts in the following,
+$\corel_{(\mc E,\mc M)}(\mc C)$. Again, this is all well known, and can be found
+in \cite{JW00}. We will incidentally reprove these facts in the following,
 while pursuing richer structure.
 
 %\begin{proposition}
@@ -627,12 +687,11 @@ while pursuing richer structure.
 %
 
 Indeed, for modelling networks, we require not just a category, but a hypergraph
-category. Corelation categories come equipped with this extra structure.
-Recall that we gave decorated cospan categories a hypergraph structure by
-defining a wide embedding $\mathrm{Cospan}(\mc C) \hookrightarrow
-F\mathrm{Cospan}$, via which $F\mathrm{Cospan}$ inherited the coherence and
-Frobenius maps (Theorem \ref{thm:fcospans}). We will argue similarly here, after
-showing that the `quotient' map
+category. Corelation categories come equipped with this extra structure.  Recall
+that we gave decorated cospan categories a hypergraph structure by defining a
+wide embedding $\mathrm{Cospan}(\mc C) \hookrightarrow F\mathrm{Cospan}$, via
+which $F\mathrm{Cospan}$ inherited the coherence and Frobenius maps (Theorem
+\ref{thm:fcospans}). We will argue similarly here, after showing that the map
 \[
   \cospan(\mc C) \longrightarrow \corel(\mc C)
 \]
@@ -646,6 +705,8 @@ the monoidal product of two corelations is their monoidal product as cospans.
   \mathcal M)$ be factorisation system on $\mathcal C$ such that $\mathcal M$ is
   stable under pushout. Then there exists a hypergraph category
   $\mathrm{Corel}_{(\mc E,\mc M)}(\mathcal C)$ with 
+  \smallskip
+
   \begin{center}
     \begin{tabular}{| c | p{.65\textwidth} |}
       \hline
@@ -660,35 +721,56 @@ the monoidal product of two corelations is their monoidal product as cospans.
       \hline
     \end{tabular}
   \end{center}  
+  \smallskip
 \end{theorem}
 
 Again, we will drop explicit reference to the factorisation system when context allows, simply writing $\mathrm{Corel}(\mc C)$.
 
+\begin{examples} \label{ex.corelcats}
+In each factorisation system of Examples \ref{ex.corels} the right factor
+$\mathcal M$ is stable under pushout. The hypergraph category 
+$\corel_{(\mc C,\mc I_{\mc C})}(\mc C)$ is the just the hypergraph category of
+cospans in $\mc C$. In the hypergraph category $\corel_{(\mc I_{\mc C},\mc
+C)}(\mc C)$, the only morphism between any two objects $X$ and $Y$ is the
+isomorphism class of the corelation $X \xrightarrow{\iota_X} X+Y
+\xleftarrow{\iota_Y} Y$ corresponding to the identity map $X+Y \to X+Y$ in $\mc
+I_{\mc C}$. Thus $\corel_{(\mc I_{\mc C},\mc C)}(\mc C)$ is the indiscrete
+category on the objects of $\mc C$. 
+
+  equivalence relations between finite sets. The last of these examples is
+  perhaps the most instructive for black-boxing open systems, and we will return
+  to it in \textsection\ref{ssec.equivrels}.
+\end{examples}
+
 Proposition \ref{prop.corelcomp} shows that our composition rule is a
-well-defined function, Lemma \ref{lem.monfact} shows likewise for the monoidal
+well-defined function; Lemma \ref{lem.monfact} shows likewise for the monoidal
 product $+\maps \corel(\mc C)\times \corel(\mc C) \to \corel(\mc C)$. Thus we
-have the required data for a hypergraph category. It just remains to check a
+have the required data for a hypergraph category. It remains to check a
 number of axioms: associativity and unitality of the categorical composition,
 functoriality of the monoidal product, naturality of the coherence maps, the
 coherence axioms for symmetric monoidal categories, the Frobenius laws.
 
-Our strategy for this will simply be to show that the (surjective) function
-taking a cospan to its jointly $\mc E$-part preserves composition and has
-natural strict monoidal coherence maps. This implies that to evaluate an
+Our strategy for this will be to show that the surjective function from cospans
+to corelations defined by taking a cospan to its jointly $\mc E$-part preserves
+both composition and the monoidal product. This then implies that to evaluate an
 expression in the monoidal category of corelations, we may simply evaluate it in
 the monoidal category of cospans, and then take the $\mc E$-part. Thus if an
 equation is true for cospans, it is true for corelations.
 
 Instead of proving just this, however, we will prove a generalisation regarding
-the analogous `reduction' map between any two corelation `categories'. This will
-reduce to the desired special case by taking the domain to be the `trivial'
-$(\mc C,\mc I_{\mc C})$-corelations, which we know is equal to the hypergraph
-category of cospans. But the generality is not spurious: it has the advantage of
-proving the existence of a class of hypergraph functors between corelation
-categories in the same fell swoop.
+an analogous map between any two corelation categories. Such a map exists
+whenever we have two corelation categories $\corel_{(\mc E,\mc M)}(\mc C)$ and
+$\corel_{(\mc E',\mc M')}(\mc C')$ and a colimit
+preserving functor $A\maps \mc C \to \mc C'$ such that the image of $\mc M$ lies
+in $\mc M'$. As $(\mc C,\mc I_{\mc C})$-corelations are just cospans, this
+reduces to the desired special case by taking the domain to be the category of
+$(\mc C,\mc I_{\mc C})$-corelations, $\mc C'$ to be equal to $\mc C$, and $A$ to
+be the identity functor. But the generality is not spurious: it has the
+advantage of proving the existence of a class of hypergraph functors between
+corelation categories in the same fell swoop.
 
 Although a touch convoluted, this strategy is worth the pause for thought. We
-will use it once again for \emph{decorated corelations}, to great economy.
+will use it once again for \emph{decorated} corelations, to great economy.
 
 %\begin{lemma}
 %  The map $(-)+(-)\maps \corel(\mc C)\times\corel(\mc C) \to \corel(\mc C)$
@@ -753,12 +835,18 @@ will use it once again for \emph{decorated corelations}, to great economy.
 
 
 
-\section{Functors between corelation categories}
+\section{Functors between corelation categories} \label{sec.corelfunctors}
 We have seen that to construct a functor between cospan categories one may start
 with a colimit-preserving functor between the underlying categories. Corelation
-categories are similar, but we remove the part of each cospan that lies in $\mc
-M$. Hence for functors between corelation categories, we also require that the
-target category removes at least as much information as the source category.
+categories are similar to cospan categories, but we remove the part of each
+cospan that lies in $\mc M$. Hence for functors between corelation categories,
+we require not just a colimit preserving functor between the underlying
+categories with finite colimits, but also that the part that is removed from the
+image is greater than the part removed in the source category.
+
+We devote the next few pages to proving the following proposition. Along the way
+we prove, as promised, that corelation categories are well-defined hypergraph
+categories.
 
 \begin{proposition} \label{prop.corelfunctors}
   Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
@@ -783,7 +871,7 @@ target category removes at least as much information as the source category.
   A(X+Y)$ given as $A$ preserves colimits.
 \end{proposition}
 
-As discussed, we are still yet to prove that $\corel(\mc C)$ is a hypergraph
+As discussed, we still have to prove that $\corel(\mc C)$ is a hypergraph
 category. We address this first with two lemmas regarding these proposed
 functors.
 
@@ -798,15 +886,15 @@ functors.
   by the first arrows in the top and bottom row respectively of the diagram:
   \[ \label{diag.eparts}
     \begin{aligned}
-      \xymatrixcolsep{4pc}
+      \xymatrixcolsep{5.5pc}
       \xymatrixrowsep{2pc}
       \xymatrix{
-	AX+AZ \ar[r]^{\mc E'} \ar@{=}[d] & \overline{\overline{AN}+_{AY}\overline{AM}}
-	\ar[r]^{\mc M'} \ar@{<.>}[d]^{n} & \overline{AN}+_{AY}\overline{AM}
-	\ar[r]^{m'_{AN}+_{AY}m'_{AM}} &
+	\scriptstyle AX+AZ \ar[r]^{\mc E'} \ar@{=}[d] & \scriptstyle \overline{\overline{AN}+_{AY}\overline{AM}}
+	\ar[r]^{\mc M'} \ar@{<.>}[d]^{n} & \scriptstyle \overline{AN}+_{AY}\overline{AM}
+	\ar[r]^{m'_{AN}+_{AY}m'_{AM}} & \scriptstyle
 	AN+_{AY}AM \\
-	AX+AZ \ar[r]^{\mc E'} & \overline{A(\overline{N+_YM})} \ar[r]^{\mc M'} &
-	A(\overline{N+_YM}) \ar[r]^{Am_{N+_YM}} & A(N+_YM) \ar@{<->}[u]_{\sim}
+	\scriptstyle AX+AZ \ar[r]^{\mc E'} & \scriptstyle \overline{A(\overline{N+_YM})} \ar[r]^{\mc M'} & \scriptstyle
+	A(\overline{N+_YM}) \ar[r]^{Am_{N+_YM}} & \scriptstyle A(N+_YM) \ar@{<->}[u]_{\sim}
       }
     \end{aligned}
     \tag{$\ast$}
@@ -827,7 +915,7 @@ functors.
 This first lemma allows us to verify the associativity and unit laws for
 $\corel(\mc C)$.
 \begin{corollary}
-  $\corel(\mc C)$ is well-defined as a category.
+  $\corel(\mc C)$ is well defined as a category.
 \end{corollary}
 \begin{proof}
   Consider the case of Proposition \ref{prop.corelfunctors} with $\mc C = \mc
@@ -844,8 +932,8 @@ $\corel(\mc C)$.
 
 Note that the identity in $\corel(\mc C)$ may not be the identity cospan itself.
 For example, with the factorisation system $(\mc I_{\mc C}, \mc C)$ the $\mc
-I_{\mc C}$-part of the identity cospan is simply $X \stackrel{\iota_{X_1}}\to
-X+X \stackrel{\iota_{X_2}}\leftarrow X$, where $\iota_{X_i}$ is the inclusion of
+I_{\mc C}$-part of the identity cospan is simply $X \xrightarrow{\iota_{X_1}}
+X+X \xleftarrow{\iota_{X_2}} X$, where $\iota_{X_i}$ is the inclusion of
 $X$ into the $X_i$ factor of the coproduct $X+X$.
 
 This first lemma is also useful in proving the second important lemma: the
@@ -858,8 +946,8 @@ naturality of $\overline{\kappa}$.
   Let $f = (X \longrightarrow N \longleftarrow Y)$, $g= (Z \longrightarrow M
   \longleftarrow W)$ be corelations in $\mc C$. We wish to show that
   \[
-      \xymatrixcolsep{4pc}
-      \xymatrixrowsep{2pc}
+    \xymatrixcolsep{4pc}
+    \xymatrixrowsep{3pc}
     \xymatrix{
       AX+AY \ar[r]^{\square(f)+\square(g)}
       \ar[d]_{\overline{\kappa_{X,Y}}} & 
@@ -868,27 +956,28 @@ naturality of $\overline{\kappa}$.
     }
   \]
   commutes in $\corel(\mc C')$. 
-  
+
   Consider the following commutative diagram in $\mc C'$, with the outside
   square equivalent to the naturality square for the coherence maps of the
-  monoidal functor $\cospan(\mc C) \to \cospan(\mc C')$:
+  monoidal functor \linebreak $\cospan(\mc C) \to \cospan(\mc C')$:
   \[ \label{diag.natural}
     \begin{aligned}
       \xymatrixcolsep{4pc}
-      \xymatrixrowsep{2pc}
-    \xymatrix{
-      (AX+AY)+(AZ+AW) \ar[r]^{\mc E'+\mc E'} \ar[d]_{\kappa_{X,Y}+\kappa_{Z,W}} & 
-      \overline{AN}+\overline{AM} \ar[r]^{\mc M'+\mc M'} \ar@{.>}[d]^{p} & 
-      AN+AM \ar[d]^{\kappa_{N,M}}\\
-      A(X+Y)+A(Z+W) \ar[r]^{\mc E'} & \overline{A(N+M)} \ar[r]^{\mc M'} & A(N+M)
-    }
-  \end{aligned}
+      \xymatrixrowsep{2.5pc}
+      \xymatrix{
+	(AX+AY)+(AZ+AW) \ar[r]^(.65){\mc E'+\mc E'}
+	\ar[d]_{\kappa_{X,Y}+\kappa_{Z,W}} & 
+	\overline{AN}+\overline{AM} \ar[r]^{\mc M'+\mc M'} \ar@{.>}[d]^{p} & 
+	AN+AM \ar[d]^{\kappa_{N,M}}\\
+	A(X+Y)+A(Z+W) \ar[r]^{\mc E'} & \overline{A(N+M)} \ar[r]^{\mc M'} & A(N+M)
+      }
+    \end{aligned}
     \tag{$\#$}
   \]
   We have factored the top edge as the coproduct of the respective
   factorisations of $f$ and $g$, and the bottom edge simply as the factorisation
   of the coproduct $f+g$. 
-  
+
   Note that by Lemma \ref{lem.monfact} the coproduct of two maps in $\mc E'$ is
   again in $\mc E'$, while Lemma \ref{lem.mcoproductsmc} implies the same for
   $\mc M'$. Thus the top edge is an $(\mc E',\mc M')$-factorisation, and the
@@ -896,13 +985,13 @@ naturality of $\overline{\kappa}$.
   Given that the map reducing cospans to corelations is functorial, the
   commutative square
   \[
-      \xymatrixcolsep{2.5pc}
-      \xymatrixrowsep{2pc}
+    \xymatrixcolsep{2.5pc}
+    \xymatrixrowsep{2.5pc}
     \xymatrix{
       (AX+AY)+A(Z+W) \ar[r]^{1+\kappa_{Z,W}^{-1}} \ar@{=}[d] & (AX+AY)+(AZ+AW)
-      \ar[r]^{\mc E'+\mc E'} & 
+      \ar[r]^(.65){\mc E'+\mc E'} & 
       \overline{AN}+\overline{AM} \ar[d]^{n} \\
-      (AX+AY)+A(Z+W) \ar[r]^{\kappa_{X,Y}+1} & A(X+Y)+A(Z+W) \ar[r]^{\mc E'} & 
+      (AX+AY)+A(Z+W) \ar[r]^{\kappa_{X,Y}+1} & A(X+Y)+A(Z+W) \ar[r]^(.6){\mc E'} & 
       \overline{A(N+M)}
     }
   \]
@@ -992,22 +1081,19 @@ are epi-split mono factorisations, then we always have that $F(\mathcal M)
 category, it exists in the codomain category. Thus colimit-preserving functors
 between categories with finite colimits and epi-split mono factorisation systems
 also induce a functor between the epi-split mono corelation categories. We will
-use this in Chapter ref.
+use this in Chapter \ref{ch.sigflow}.
 \end{example}
 
-\section{Examples}
+\section{Examples} \label{sec.corelexs}
+We conclude this chapter with two examples of corelation categories. These both
+play a central role in the applications of Part \ref{part.apps}: the first as
+an algebra of ideal wires, and the second as semantics for signal flow graphs.
+
 \subsection{Equivalence relations as corelations in $\Set$}
 \label{ssec.equivrels}
-  
-In each factorisation system of Examples \ref{ex.corels} the right factor
-  $\mathcal M$ is stable under pushout.  This gives the hypergraph categories of
-  cospans in $\mc C$, the indiscrete category on the objects of $\mc C$, and
-  equivalence relations between finite sets. The last of these examples is
-  perhaps the most instructive for black-boxing open systems. 
-  
-  Epi-mono corelations in $\Set$ are isomorphism classes of
-  jointly epic cospans. Thus a corelation $X \to Y$ is an equivalence relation
-  on $X+Y$. We might depict these as follows
+   
+As we saw in Examples \ref{ex.corelcats}, an epi-mono corelation $X \to Y$ in
+$\Set$ is an equivalence relation on $X+Y$. We might depict these as follows
 \[
   \begin{tikzpicture}[circuit ee IEC]
 	\begin{pgfonlayer}{nodelayer}
@@ -1258,8 +1344,10 @@ $\alpha$ and $\beta$.
   
   Epi-mono corelations in $\Set$ can also be visualised as terminals connected by junctions of ideal wires. We draw these by marking each equivalence
 class with a point (the `junction'), and then connecting each element of the
-domain and codomain to their equivalence class with a `wire'. Composition then
-involves collapsing connected junctions down to a point.
+domain and codomain to their equivalence class with a `wire'. The junction
+serves as the apex of the corelation, the terminals as the feet, and the wires
+depict a function from the feet to the apex. Composition then involves collapsing
+connected junctions down to a point.
 \vspace{-1ex}
 \[
   \begin{aligned}
@@ -1441,11 +1529,11 @@ involves collapsing connected junctions down to a point.
 The composition law captures the idea that connectivity is all that
 matters: as long as the wires are `ideal', the exact path does not matter. 
 
-In Coya--Fong we formalise this idea by saying that corelations are the prop for
-extraspecial commutative Frobenius monoids \cite{CoyFon16}. An
-\define{extraspecial commutative Frobenius monoid}
-$(X,\mu,\eta,\delta,\epsilon)$ in a monoidal category $(\mathcal C, \otimes)$ is
-a special commutative Frobenius monoid that further obeys the extra law
+In Coya--Fong \cite{CF} we formalise this idea by saying that corelations are
+the prop for extraspecial commutative Frobenius monoids. An \define{extraspecial
+commutative Frobenius monoid} $(X,\mu,\eta,\delta,\epsilon)$ in a monoidal
+category $(\mathcal C, \otimes)$ is a special commutative Frobenius monoid that
+further obeys the extra law
   \[
     \extral{.1\textwidth} = \extrar{.1\textwidth}
   \]
@@ -1456,11 +1544,11 @@ relations on the disjoint union of the domain and codomain. This is an extension
 of the spider theorem for special commutative Frobenius monoids. 
 
 
-\subsection{Linear relations as corelations in $\Vect$}
+\subsection{Linear relations as corelations in $\Vect$} \label{ssec.linrel}
 
 Recall that a linear relation $L\maps U \leadsto V$ is a subspace $L \subseteq
 U \oplus V$. We compose linear relations as we do relations, and vector spaces
-and linear relations form a category $\LinRel$. It is well-known that this
+and linear relations form a category $\LinRel$. It is well known that this
 category can be constructed as the category of relations in the category $\Vect$
 of vector spaces and linear maps with respect to epi-mono factorisations. We
 show that they may also be constructed as corelations in $\Vect$ with respect to
@@ -1472,7 +1560,7 @@ transpose yields an equivalence of $\FinVect$ with its opposite category, so
 the category of $(\mathcal E,\mathcal M)$-corelations (jointly epic cospans)
 is isomorphic to the category of $(\mathcal E,\mathcal M)$-relations
 (jointly monic spans) in $\FinVect$. This fact has been fundamental in work on
-finite dimensional linear systems and signal flow diagrams \cite{BE,BSZ,FRS}.
+finite dimensional linear systems and signal flow diagrams \cite{BE,BSZ,FRS16}.
 
 We prove the general case in detail. To begin, note $\mathrm{Vect}$ has an
 epi-mono factorisation system with monos stable under pushouts. This
@@ -1480,16 +1568,15 @@ factorisation system is inherited from $\Set$: the epimorphisms in $\Vect$ are
 precisely the surjective linear maps, the monomorphisms are the injective
 linear maps, and the image of a linear map is always a subspace of the
 codomain, and so itself a vector space. Monos are stable under pushout as the
-pushout of a diagram $V \stackrel{f}{\leftarrow} U \stackrel{m}{\rightarrow}
-W$ is $V \oplus W/\im[f\; -g]$. The map $m'\maps V \to V \oplus W/\im[f\; -g]$
-into the pushout has kernel $f(\ker m)$. Thus when $m$ is a monomorphism, $m'$
-is too.
+pushout of a diagram $V \xleftarrow{f} U \xrightarrow{m} W$ is $V \oplus
+W/\im[f\; -g]$. The map $m'\maps V \to V \oplus W/\im[f\; -g]$ into the pushout
+has kernel $f(\ker m)$. Thus when $m$ is a monomorphism, $m'$ is too.
 
 Thus we have a category of corelations $\corel(\Vect)$. We show that the map
 $\corel(\Vect) \to \LinRel$ sending each vector space to itself and each
 corelation
 \[
-  U \xrightarrow{f} A \xleftarrow{g} V
+  U \stackrel{f}\longrightarrow A \stackrel{g}\longleftarrow V
 \]
 to the linear subspace $\ker[f\;-g]$ is a full, faithful, and
 bijective-on-objects functor.
@@ -1530,8 +1617,116 @@ This in turn is true iff $(\mathbf{u}, \mathbf{w}) \in \ker[\iota_Af\;
 -\iota_Bk]$, as required. 
 
 This corelations perspective is important as it fits the relational picture into
-our philosophy of black boxing. In Chapter ref we will see it is the corelation
-construction of $\LinRel$ that correctly generalises to the case of
-non-controllable systems.
+our philosophy of black boxing. In Chapter \ref{ch.sigflow} we will see it is
+the corelation construction of $\LinRel$ that correctly generalises to the case
+of non-controllable systems.
+\smallskip
+
+In the next chapter we discuss decorations on corelations.
 
 
+%    \tikzset{every path/.style={line width=1.1pt}}
+%\begin{tikzpicture}
+%	\begin{pgfonlayer}{nodelayer}
+%		\node [style=dot] (0) at (-2.5, 1.5) {};
+%		\node [style=dot] (1) at (-2.5, -0) {};
+%		\node [style=dot] (2) at (-2.5, -1.5) {};
+%		\node [style=none] (3) at (-2, -2) {};
+%		\node [style=none] (4) at (1.5, 2) {};
+%		\node [style=none] (5) at (-2, -0) {};
+%		\node [style=none] (6) at (-2, -1.5) {};
+%		\node [style=none] (7) at (-2, 1.5) {};
+%		\node [style=dot] (8) at (-2.5, -0.75) {};
+%		\node [style=none] (9) at (-2, -0.75) {};
+%		\node [style=dot] (10) at (-2.5, 0.75) {};
+%		\node [style=none] (11) at (-2, 0.75) {};
+%		\node [style=dot] (12) at (2, -1.5) {};
+%		\node [style=none] (13) at (1.5, -1.5) {};
+%		\node [style=dot] (14) at (2, -0.75) {};
+%		\node [style=none] (15) at (1.5, 1.5) {};
+%		\node [style=dot] (16) at (2, 1.5) {};
+%		\node [style=none] (17) at (1.5, 0.75) {};
+%		\node [style=dot] (18) at (2, -0) {};
+%		\node [style=dot] (19) at (2, 0.75) {};
+%		\node [style=none] (20) at (1.5, -0) {};
+%		\node [style=none] (21) at (1.5, -0.75) {};
+%		\node [style=none] (22) at (-0.75, 1.25) {};
+%		\node [style=none] (23) at (0, 0.25) {};
+%		\node [style=none] (24) at (-1, -0.25) {};
+%		\node [style=none] (25) at (-0.5, -0.75) {};
+%		\node [style=none] (26) at (-1.25, -1.25) {};
+%		\node [style=none] (27) at (0, 0.75) {};
+%		\node [style=none] (28) at (0.5, 1.25) {};
+%		\node [style=none] (29) at (-1.25, 0.5) {};
+%		\node [style=none] (30) at (-1.25, 1.5) {};
+%		\node [style=none] (31) at (0.5, -1.5) {};
+%		\node [style=none] (32) at (-1.25, 1) {};
+%		\node [style=none] (33) at (-1.25, -0.75) {};
+%		\node [style=none] (34) at (-1.75, -0.25) {};
+%		\node [style=none] (35) at (0, -1.25) {};
+%		\node [style=none] (36) at (0, -0.25) {};
+%		\node [style=none] (37) at (1, -1.5) {};
+%		\node [style=none] (38) at (-1.75, 1.25) {};
+%		\node [style=none] (39) at (0.5, 0.25) {};
+%		\node [style=none] (40) at (1, 0.5) {};
+%		\node [style=none] (41) at (-0.5, 1.75) {};
+%		\node [style=none] (42) at (0.75, 1.75) {};
+%		\node [style=none] (43) at (0.25, -1.25) {};
+%		\node [style=none] (44) at (1.25, -1) {};
+%		\node [style=none] (45) at (-1.75, -1.75) {};
+%		\node [style=none] (46) at (-1, -1.75) {};
+%		\node [style=none] (47) at (1.25, -1.7) {};
+%		\node [style=none] (48) at (-0.5, -1.5) {};
+%	\end{pgfonlayer}
+%	\begin{pgfonlayer}{edgelayer}
+%		\draw (0.center) to (7.center);
+%		\draw (1.center) to (5.center);
+%		\draw (2.center) to (6.center);
+%		\draw (8) to (9.center);
+%		\draw (10) to (11.center);
+%		\draw (16) to (15.center);
+%		\draw (18) to (20.center);
+%		\draw (12) to (13.center);
+%		\draw (14) to (21.center);
+%		\draw (19) to (17.center);
+%		\draw (6.center) to (26.center);
+%		\draw [in=180, out=-11, looseness=2.00] (26.center) to (31.center);
+%		\draw [in=-165, out=15, looseness=1.25] (26.center) to (25.center);
+%		\draw [in=1, out=180, looseness=1.00] (24.center) to (5.center);
+%		\draw [in=-105, out=0, looseness=1.00] (24.center) to (23.center);
+%		\draw [in=108, out=-135, looseness=2.25] (29.center) to (24.center);
+%		\draw [in=-169, out=-30, looseness=1.25] (29.center) to (27.center);
+%		\draw [in=165, out=60, looseness=1.25] (23.center) to (17.center);
+%		\draw (27.center) to (23.center);
+%		\draw [bend right, looseness=1.00] (23.center) to (20.center);
+%		\draw (28.center) to (27.center);
+%		\draw [in=150, out=0, looseness=1.25] (22.center) to (28.center);
+%		\draw (28.center) to (15.center);
+%		\draw (22.center) to (30.center);
+%		\draw (30.center) to (7.center);
+%		\draw (11.center) to (32.center);
+%		\draw (38.center) to (11.center);
+%		\draw (38.center) to (32.center);
+%		\draw [in=-78, out=-48, looseness=1.00] (39.center) to (40.center);
+%		\draw (31.center) to (37.center);
+%		\draw (37.center) to (13.center);
+%		\draw (9.center) to (34.center);
+%		\draw (34.center) to (33.center);
+%		\draw [in=-158, out=22, looseness=1.00] (33.center) to (36.center);
+%		\draw (36.center) to (21.center);
+%		\draw [in=86, out=15, looseness=2.00] (25.center) to (35.center);
+%		\draw (24.center) to (27.center);
+%		\draw [in=56, out=-60, looseness=1.00] (22.center) to (29.center);
+%		\draw (17.center) to (20.center);
+%		\draw [bend left=75, looseness=1.00] (39.center) to (40.center);
+%		\draw (41.center) to (42.center);
+%		\draw (45.center) to (46.center);
+%		\draw (46.center) to (48.center);
+%		\draw (46.center) to (47.center);
+%		\draw (43.center) to (44.center);
+%		\draw (28.center) to (17.center);
+%	\end{pgfonlayer}
+%	\begin{pgfonlayer}{background}
+%	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
+%	\end{pgfonlayer}
+%\end{tikzpicture}

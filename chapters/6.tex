@@ -7,7 +7,7 @@ decorated corelations framework will show this semantics is functorial.
 
 \section{Introduction}\label{sec:intro}
 %%fakesubsection
-Indeed, even before physicists began using Feynman diagrams, various branches of engineering were using diagrams that in retrospect are closely related.   Foremost among these are the ubiquitous electrical circuit diagrams. Although less well-known, similar diagrams are used to describe networks consisting of mechanical, hydraulic, thermodynamic and chemical systems.   Further work, pioneered in particular by 
+Indeed, even before physicists began using Feynman diagrams, various branches of engineering were using diagrams that in retrospect are closely related.   Foremost among these are the ubiquitous electrical circuit diagrams. Although less well known, similar diagrams are used to describe networks consisting of mechanical, hydraulic, thermodynamic and chemical systems.   Further work, pioneered in particular by 
 Forrester \cite{Fo} and Odum \cite{Od}, applies similar diagrammatic methods to biology, ecology, and economics.
 
 As discussed in detail by Olsen \cite{Ol}, Paynter \cite{Pa} and others, there are mathematically precise analogies between these different systems.  In each case, the system's state is described by variables that come in pairs, with one variable in each pair playing the role of  `displacement' and the other playing the role of `momentum'.  In engineering, the time derivatives of these variables are sometimes called `flow' and `effort'.    In classical mechanics, this pairing of variables is well understood using
@@ -127,7 +127,7 @@ circuit, and the subspace $\mathrm{Graph}(dQ)$ as the subspace of attainable
 states, with $\psi \in \F^{\partial N}$ describing the potentials at the
 terminals, and $dQ_\psi \in (\F^{\partial N})^\ast$ the currents. 
 
-This construction is well-known in classical mechanics \cite{Weinstein}, where the principle of least action plays a role analogous to that of the principle of minimum power here.   The set of Lagrangian subspaces is actually an algebraic variety,
+This construction is well known in classical mechanics \cite{Weinstein}, where the principle of least action plays a role analogous to that of the principle of minimum power here.   The set of Lagrangian subspaces is actually an algebraic variety,
 the `Lagrangian Grassmannian', which serves as a compactification of the
 space of quadratic forms.  The Lagrangian Grassmannian has already played a
 role in Sabot's work on circuits made of resistors \cite{Sabot1997,Sabot2004}.
@@ -264,7 +264,7 @@ circuit is the Lagrangian relation
 \]
 This is precisely the set of potential-current pairs that are allowed at the
 input and output of a resistor of resistance $r$.  In particular, the relation
-$i = \tfrac1r(\psi_2-\psi_1)$ is well-known in electrical engineering: it is
+$i = \tfrac1r(\psi_2-\psi_1)$ is well known in electrical engineering: it is
 `Ohm's law'.
 
 A crucial fact is that the process of mapping a circuit to its corresponding
@@ -327,7 +327,7 @@ The goal of this chapter is to prove and explain this result, demonstrating how
 the mathematical machinery of Part I provides clarity. With these tools in hand,
 the black box functor turns out to rely on a tight relationship between
 Kirchhoff's laws, the minimization of Dirichlet forms, and the
-`symplectification' of corelations. It is well-known that away from the
+`symplectification' of corelations. It is well known that away from the
 terminals, a circuit must obey two rules known as Kirchhoff's laws.  We have
 already noted that the principle of minimum power states that a circuit will
 `choose' potentials on its interior that minimize the power functional.  We
@@ -405,7 +405,7 @@ consumption on potentials at its terminals.
 \subsection{Circuits as labelled graphs}
 
 The concept of an abstract open electrical circuit made of linear resistors is
-well-known in electrical engineering, but we shall need to formalize it with
+well known in electrical engineering, but we shall need to formalize it with
 more precision than usual.  The basic idea is that a circuit of linear resistors
 is a graph whose edges are labelled by positive real numbers called
 `resistances', and whose sets of vertices is equipped with two subsets: the
@@ -763,7 +763,7 @@ The \define{power functional} $Q \maps \R^{\partial N} \to \R$ of a circuit with
 \]
 \end{definition}
 
-Proposition \ref{dirichlet_problem} shows the minimum above exists, so the power functional is well-defined.  Thanks to the principle of minimum power, $Q(\psi)$ equals $\frac{1}{2}$ times the power dissipated by the circuit when the boundary voltage is $\psi$.  We will later see that in fact $Q(\psi)$ is a nonnegative quadratic form on $\R^{\partial N}$. 
+Proposition \ref{dirichlet_problem} shows the minimum above exists, so the power functional is well defined.  Thanks to the principle of minimum power, $Q(\psi)$ equals $\frac{1}{2}$ times the power dissipated by the circuit when the boundary voltage is $\psi$.  We will later see that in fact $Q(\psi)$ is a nonnegative quadratic form on $\R^{\partial N}$. 
 
 Since $Q$ is a smooth real-valued function on $\R^{\partial N}$, its differential $d Q$ at any given point $\psi \in \R^{\partial N}$ defines an element of the dual space $(\R^{\partial N})^\ast$, which we denote by $d Q_\psi$.  In fact, this element is equal to the boundary current $\iota$ corresponding to the boundary voltage $\psi$:
 
@@ -916,7 +916,7 @@ subspaces of the domain that are generated by subsets of the given finite set.
 \end{proposition}
 \begin{proof}
   We first note that $\min_{\nu \in \R^S} Q(-,\nu)$ is a quadratic form. Again,
-  $\min_{\nu \in \R^T} Q(-,\nu)$ is well-defined as a nonnegative quadratic form
+  $\min_{\nu \in \R^T} Q(-,\nu)$ is well defined as a nonnegative quadratic form
   also attains its minimum on an affine subspace of its domain. Furthermore
   $\min_{\nu \in \R^T} Q(-,\nu)$ is itself a quadratic form, as the partial
   derivatives of $Q$ are linear, and hence the points at with these minima are
@@ -1009,7 +1009,7 @@ of real rational functions of one variable.
 %need to lie in some vector space over this field!!!
 While it is possible that
 physical voltages and currents might vary with time in a more general way, we
-restrict to these cases as the rational functions are, crucially, well-behaved
+restrict to these cases as the rational functions are, crucially, well behaved
 enough to form a field, and yet still general enough to provide arbitrarily
 close approximations to currents and voltages found in standard applications.
 
@@ -1308,7 +1308,7 @@ that among all the extensions of $\psi$, $\tilde\psi$ minimizes the function $P$
 \end{theorem}
 
 
-To prove this theorem, we must first show that $\min_{S \setminus R} P$ is well-defined as a function.
+To prove this theorem, we must first show that $\min_{S \setminus R} P$ is well defined as a function.
 
 \begin{lemma} \label{lem:welldefineddirichletmin}
   Let $P$ be a Dirichlet form over $\F$ on $S$, let $R \subseteq S$ be an
@@ -1827,7 +1827,7 @@ interpretation in terms of electrical circuits: the power used by the entire
 circuit is just the sum of the power used by its parts. 
 
 It is immediate from Theorem \ref{thm:dirichletminimization} that this
-composition rule is well-defined: the composite of two Dirichlet forms is again
+composition rule is well defined: the composite of two Dirichlet forms is again
 a Dirichlet form. Moreover, this composition is associative. However, it fails
 to provide the structure of a category, as there is typically no Dirichlet form
 $1_X \in D(X,X)$ playing the role of the identity for this composition. For an
@@ -2342,7 +2342,7 @@ put a natural symplectic structure on the quotient space.
   $\omega'(v+S,u+S) = \omega(v,u)$.
 \end{proposition}
 \begin{proof} 
-  The function $\omega'$ is a well-defined due to the isotropy of
+  The function $\omega'$ is well defined due to the isotropy of
   $S$---by definition adding any pair $(s,s')$ of elements of $S$ to a pair
   $(v,u)$ of elements of $S^\circ$ does not change the value of
   $\omega(v+s,u+s')$. As $\omega$ is a symplectic form, one can check that
@@ -2453,7 +2453,7 @@ map $f\maps V_1 \to V_2$ forms an isotropic subspace when viewed as a relation i
 $\overline{V_1} \oplus V_2$. 
 
 Importantly for us, the composite of two Lagrangian relations is again a
-Lagrangian relation.  This is well-known \cite{Weinstein}, but sufficiently 
+Lagrangian relation.  This is well known \cite{Weinstein}, but sufficiently 
 easy and important to us that we provide a proof.
 
 \begin{proposition} \label{prop:lagrangian_composition}

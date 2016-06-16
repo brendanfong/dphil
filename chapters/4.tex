@@ -304,6 +304,8 @@ image of $m^\opp$ describes how to move morphisms backwards along $m$.
   Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
   subcategory of $\mathcal C$ stable under pushouts. Then we define the category
   $\mathcal C; \mathcal M^\opp$ as follows  
+  \smallskip 
+
   \begin{center}
     \begin{tabular}{| c | p{.65\textwidth} |}
       \hline
@@ -319,10 +321,12 @@ image of $m^\opp$ describes how to move morphisms backwards along $m$.
       \hline
     \end{tabular}
   \end{center}
+  \smallskip 
 \end{proposition}
+
 \begin{proof}
   This is a symmetric monoidal subcategory of $\cospan(\mc C)$. Our data is
-  well-defined: composition because $\mc M$ is stable under pushouts, and
+  well defined: composition because $\mc M$ is stable under pushouts, and
   monoidal composition by Lemma \ref{lem.mcoproductsmc}. 
 \end{proof}
 
@@ -447,8 +451,8 @@ paired with the decoration
 \[
   1 \longrightarrow F(N+M) \longrightarrow F(N+_YM) \stackrel{F(m^\opp)}\longrightarrow F(\overline{N+_YM})
 \]
-As composition of corelations and decorated cospans are both well-defined up to
-isomorphism, this too is well-defined up to isomorphism. Again, we will be lazy
+As composition of corelations and decorated cospans are both well defined up to
+isomorphism, this too is well defined up to isomorphism. Again, we will be lazy
 about the distinction between a decorated corelation and its isomorphism class.
 
 
@@ -494,6 +498,8 @@ decorated cospans.
     F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
   \]
   be a lax symmetric monoidal functor.  Then we may define 
+  \smallskip 
+
   \begin{center}
     \begin{tabular}{| c | p{.65\textwidth} |}
       \hline
@@ -512,7 +518,9 @@ decorated cospans.
       \hline
     \end{tabular}
   \end{center}
+  \smallskip 
 \end{theorem}
+
 Similar to the corelations theorem (Theorem \ref{thm.cospantocorel}), we have
 specified well-defined data and now need to check a collection of coherence
 axioms. As before, we prove this alongside the theorem about decorated
@@ -666,39 +674,47 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
   following diagram:
   \[
     \xymatrixrowsep{1.1pc}
-    \xymatrixcolsep{0pc}
+    \xymatrixcolsep{.6pc}
     \xymatrix{
-      G\overline{A(\overline{N+_YM})} \ar[rrrrrr]^{Gn} &&&&&&
-      G\overline{(\overline{AN}+_{AY}\overline{AM})}\\
+      \scriptstyle G\overline{A(\overline{N+_YM})} \ar[rrrrrr]^{Gn} &&&&&&
+      \scriptstyle G\overline{(\overline{AN}+_{AY}\overline{AM})}\\
       \\
-      GA(\overline{N+_YM}) \ar[uu]^{Gm^\opp_{A(\overline{N+_YM})}} &&&
+      \scriptstyle GA(\overline{N+_YM}) \ar[uu]^{Gm^\opp_{A(\overline{N+_YM})}} &&&
       \textsc{\tiny($\ast\ast$)} &&& 
-      G(\overline{AN}+_{AY}\overline{AM}) \ar[uu]_{Gm^\opp_{\overline{AN}+_{AY}\overline{AM}}} \\
+      \scriptstyle G(\overline{AN}+_{AY}\overline{AM})
+      \ar[uu]_{Gm^\opp_{\overline{AN}+_{AY}\overline{AM}}} \\
       \\
-      F(\overline{N+_YM}) \ar[uu]^{\theta_{\overline{N+_YM}}} & %\textsc{\tiny()} & 
+      \scriptstyle F(\overline{N+_YM}) \ar[uu]^{\theta_{\overline{N+_YM}}} &
+      %\textsc{\tiny()} & 
       &
-      GA(N+_YM) \ar[uull]_{GAm^\opp_{N+_YM}} && 
-      G(AN+_{AY}AM) \ar[ll]_{G\sim} \ar[uurr]^{G(m_{AN}^\opp +_{AY}m_{AM}^\opp)}
+      \scriptstyle GA(N+_YM) \ar[uull]_{GAm^\opp_{N+_YM}} && 
+      \scriptstyle G(AN+_{AY}AM) \ar[ll]_{G\sim} \ar[uurr]^{G(m_{AN}^\opp
+      +_{AY}m_{AM}^\opp)\phantom{spac}}
       & \textsc{\tiny(c)} & 
-      G(\overline{AN}+\overline{AM}) \ar[uu]_{G[j_{\overline{AN}},j_{\overline{AM}}]} 
+      \scriptstyle G(\overline{AN}+\overline{AM})
+      \ar[uu]_{G[j_{\overline{AN}},j_{\overline{AM}}]} 
       \\
       &\textsc{\tiny(tn)}&& \textsc{\tiny(a)} 
       \\
-      F(N+_YM) \ar[uu]^{Fm_{N+_YM}^\opp} %\ar[uurr]_{\theta_{N+_YM}} & \textsc{\tiny()} & 
+      \scriptstyle F(N+_YM) \ar[uu]^{Fm_{N+_YM}^\opp}
+      %\ar[uurr]_{\theta_{N+_YM}} & \textsc{\tiny()} & 
       &&
-      GA(N+M)\ar[uu]_{GA[j_N,j_M]} && 
-      G(AN+AM) \ar[uu]^{G[j_{AN},j_{AM}]} \ar[ll]^{G\alpha_{N,M}}
-      \ar[uurr]^{G(m_{AN}^\opp +m_{AM}^\opp)} & \textsc{\tiny(gm)} & 
-      G\overline{AN} \times G\overline{AM}
+      \scriptstyle GA(N+M)\ar[uu]_{GA[j_N,j_M]} && 
+      \scriptstyle G(AN+AM) \ar[uu]^{G[j_{AN},j_{AM}]} \ar[ll]^{G\alpha_{N,M}}
+      \ar[uurr]^(.6){G(m_{AN}^\opp +m_{AM}^\opp)\phantom{s}} & \textsc{\tiny(gm)} & 
+      \scriptstyle G\overline{AN} \times G\overline{AM}
       \ar[uu]_{\gamma_{\overline{AN},\overline{AM}}} \\
       \\
-      F(N+M) \ar[uu]^{F[j_N,j_M]} \ar[uurr]_{\theta_{N+M}} &&& \textsc{\tiny(tm)} &&& 
-      GAN \times GAM \ar[uu]_{Gm_{AN}^\opp \times Gm_{AM}^\opp}
+      \scriptstyle F(N+M) \ar[uu]^{F[j_N,j_M]} \ar[uurr]_{\theta_{N+M}} &&&
+      \textsc{\tiny(tm)} &&& 
+      \scriptstyle GAN \times GAM \ar[uu]_{Gm_{AN}^\opp \times Gm_{AM}^\opp}
       \ar[uull]^{\gamma_{AN,AM}} \\
       \\
-      &&&FN \times FM \ar[uulll]^{\varphi_{N,M}} \ar[uurrr]_{\theta_N \times
-      \theta_M} \\\\
-      &&&1 \ar[uu]_{\rho_1\circ (s \times t)}
+      &&&
+      \scriptstyle FN \times FM \ar[uulll]^{\varphi_{N,M}}
+      \ar[uurrr]_{\theta_N \times \theta_M} \\\\
+      &&&
+      \scriptstyle 1 \ar[uu]_{\rho_1\circ (s \times t)}
     }
   \]
   This diagram does indeed commute. To check this, first observe that \textsc{(tm)}
@@ -709,13 +725,13 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
   colimits and $G$ is functorial, \textsc{(c)} commutes as it is the $G$-image
   of a pushout square in $\mc C'$, so 
   \[
-    \stackrel{m_{AN}^\opp+m_{AM}^\opp}{\longleftarrow} 
-    \stackrel{[j_{\overline{AN}},j_{\overline{AM}}]}{\longrightarrow}
+    \xleftarrow{m_{AN}+m_{AM}}
+    \xrightarrow{[j_{\overline{AN}},j_{\overline{AM}}]}
     \quad 
     \textrm{and}
     \quad
-    \stackrel{[j_{AN},j_{AM}]}{\longrightarrow}
-    \stackrel{m_{AN}^\opp+_{AY}m_{AM}^\opp}{\longleftarrow} 
+    \xrightarrow{[j_{AN},j_{AM}]}
+    \xleftarrow{m_{AN}+_{AY}m_{AM}} 
   \]
   are equal as morphisms of $\mc C';\mc M'^\opp$, and \textsc{($\ast\ast$)}
   commutes as it is the $G$-image of the right-hand subdiagram of
@@ -867,7 +883,7 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
     \end{aligned}
     \right)
   \]  
-  to its jointly-$\mathcal E$-part
+  to its jointly $\mathcal E$-part
   \[
     \xymatrix{
       & \overline{N} \\  
@@ -884,13 +900,29 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
 
 
 \section{All hypergraph categories are decorated corelation categories}
+
 Not all hypergraph categories are decorated \emph{cospan} categories. To see
-this, we can count morphisms. In a decorated cospan category the possible apices
-and decorations are the same for all morphisms. So unless the category $\mc C$
-and thus $\cospan(\mc C)$ is trivial, there must be a number of morphisms $0 \to
-0$. On the other hand, the hypergraph category of finite sets and equivalence
-relations, discussed in Subsection \ref{ssec.equivrels}, has a unique morphism
-$0 \to 0$.
+this, we can count morphisms. In a decorated cospan category, the set of
+morphisms from $X$ to $Y$ always comprises all decorated cospans $(X \to N
+\leftarrow Y,\enspace 1 \to FN)$. Now for any object $N$ in the underlying
+category $\mc C$, there is a unique morphism $\varnothing \to N$. This means
+that the morphisms $\varnothing \to \varnothing$ are indexed by elements of
+$FN$, ranging over $N$.
+
+Suppose we have a decorated cospan category with a unique morphism $\varnothing
+\to \varnothing$. By the previous paragraph, this implies there is only one
+object $N$ such that $FN$ is nonempty. But $FN$ must always contain at least one
+element, the empty decoration $1 \xrightarrow{\varphi_I} F\varnothing
+\xrightarrow{F!} FN$. This implies there is only one object $N$ in $\mc C$: the
+object $\varnothing$. Thus $\mc C$ must be the one object discrete category, and
+$F\maps \mc C \to \Set$ is the functor that sends the object of $\mc C$ to the
+one element set $1$.
+
+Hence any decorated cospan category with a unique morphism $\varnothing \to
+\varnothing$ is also the one object discrete category. But the hypergraph
+category of finite sets and equivalence relations, discussed in Subsection
+\ref{ssec.equivrels}, has a unique morphism $\varnothing \to \varnothing$.  Thus
+not every hypergraph category can be constructed as a decorated cospan category.
 
 Decorated corelation categories, however, are more powerful. In this section we
 show that all hypergraph categories are decorated corelation categories, and
@@ -903,7 +935,7 @@ of the compact closed structure: recall that morphisms $X \to Y$ in a hypergraph
 category are in one-to-one correspondence with morphisms $I \to X\ot Y$. Using
 an isomorphism--morphism factorisation system on the category comprising just
 the objects and the coherence and hypergraph maps, we can use the monoidal
-global sections functor to decorated each corelation $X \to X \ot Y \leftarrow
+global sections functor to decorate each corelation $X \to X \ot Y \leftarrow
 Y$ with the monoidal elements of $X\ot Y$. This recovers the original hypergraph
 category.
 
@@ -923,12 +955,13 @@ category.
   has finite colimits: the colimit is just the colimit set in $\FinSet$ with
   elements labelled by the label of any element that maps to it in the colimit
   diagram. This labelling exists and is unique by the universal property of the
-  colimit. Write $+$ for the coproduct; we consider $\FinSet_{\mc O}$ a
-  symmetric monoidal category.  Replacing $\FinSet$ with an equivalent skeleton,
-  we think of the objects of $\FinSet_{\mc O}$ as finite lists of objects of
-  $\mc H$, and hence as the same as the objects of $\mc H_{\mathrm{str}}$.
+  colimit. We consider $\FinSet_{\mc O}$ a symmetric monoidal category with
+  the coproduct, which we write as $+$, as its monoidal product.  Replacing
+  $\FinSet$ with an equivalent skeleton, we think of the objects of
+  $\FinSet_{\mc O}$ as finite lists of objects of $\mc H$, and hence as the same
+  as the objects of $\mc H_{\mathrm{str}}$.
 
-  We define a wide hypergraph embedding
+  We define a hypergraph functor that is a wide embedding of categories
   \[
     H\maps (\cospan(\FinSet_{\mc O}),+) \longrightarrow (\mc
     H_{\mathrm{str}},\ot)
@@ -1394,10 +1427,10 @@ monoidal functors and monoidal natural transformations
   \mathrm{LaxSymMon}(\cospan(\FinSet_{\mc O}),\Set).
 \]
 This is equivalent to some subcategory of the category $\mathrm{HypCat}$ of
-hypergraph categories. To get a category equivalent to all hypergraph
-categories, we must patch together these functor categories by varying the
-object set and specifying morphisms from objects in one category to objects in
-another. For this we use the Grothendieck construction. 
+hypergraph categories. To get a category equivalent to $\mathrm{HypCat}$, we
+must patch together these functor categories by varying the object set and
+specifying morphisms from objects in one category to objects in another. For
+this we use the Grothendieck construction. 
 
 Given a (contravariant) functor $S\maps \mc B \to \mathrm{Cat}$ from some
 category $\mc B$ to $\mathrm{Cat}$, we define the \define{(contravariant)
@@ -1457,13 +1490,13 @@ perspective \cite{SpiSchRup}.
 \begin{remark}
   It is prudent, to wonder, in the definition of hypergraph category, why it is
   useful to define a structure---the Frobenius maps---on a category that does
-  not interact with the morphisms of the category. Colloquially termed `evil',
-  this affects, for example, invariance under equivalence of symmetric monoidal
-  categories: given two equivalent symmetric monoidal categories, the
-  hypergraph structures on these categories need not be in one-to-one
-  correspondence. The Frobenius maps, however, are seen by the monoidal product
-  and by hypergraph functors. Theorem \ref{thm.equivhypdccor} provides a more
-  invariant definition of the category of hypergraph categories.
+  not interact with the morphisms of the category. This affects, for example,
+  invariance under equivalence of symmetric monoidal categories: given two
+  equivalent symmetric monoidal categories, the hypergraph structures on these
+  categories need not be in one-to-one correspondence. The Frobenius maps,
+  however, are seen by the monoidal product and by hypergraph functors. Theorem
+  \ref{thm.equivhypdccor} provides a more invariant definition of the category
+  of hypergraph categories.
 \end{remark}
 
 \subsection{Factorisations as decorations}
@@ -1555,11 +1588,11 @@ category: $\cospan(\FinSet)$, the free hypergraph category on a single object.
   this is an isomorphism.
 \end{example}
 
-The previous example extends to any finitely cocomplete category $\mc C$: the
+The previous example extends to any category $\mc C$ with finite colimits: the
 hypergraph category $\cospan(\mc C)$ can always be constructed as (i)
 trivially decorated $(\mc C, \mc I_{\mc C})$-corelations, or (ii) $(\mc I_{\mc
 C}, \mc C)$-corelations decorated by equivalence classes of morphisms with
-domain the apex of the corelation, and moreover the isomorphism of these
+domain the apex of the corelation. Moreover, the isomorphism of these
 hypergraph categories is given by the analogous monoidal natural transformation
 between the decorating functors.
 
@@ -1810,9 +1843,9 @@ enriched version of the theory.
 
 \subsection{Two constructions for linear relations}
 
-We saw earlier that linear relations are epi-mono corelations in $\Vect$. As
-linear relations thus form a hypergraph category $\LinRel$, we can also give a
-decorated corelations construction. 
+We saw in \textsection\ref{ssec.linrel} that linear relations are epi-mono
+corelations in $\Vect$. As linear relations thus form a hypergraph category
+$\LinRel$, we can also give a decorated corelations construction. 
 
 Indeed, the global sections functor of the hypergraph category $\LinRel$, which
 we shall write
@@ -1841,7 +1874,7 @@ that in Section \ref{sec:ex} we discussed a functor
 interpreting labelled graphs as linear subspaces. Composing this with the
 quotient functor $\mathrm{LinSubCospan} \to \mathrm{LinSubCorel}\cong \LinRel$,
 this gives a compositional linear relations semantics for circuit diagrams. This
-hints at the material we explore in greater depth in Chapter REF.
+hints at the material we explore in greater depth in Chapter \ref{ch.circuits}.
 
 
 %DISCUSS HYPERGRAPH STRUCTURE?

@@ -1420,12 +1420,63 @@ transformations to the identity functors.
   
 The term hypergraph category was introduced recently \cite{Fon15,Kis}, in
 reference to the fact that these special commutative Frobenius monoids provide
-precisely the structure required to draw graphs with `hyperedges': edges
-connecting any number of inputs to any number of outputs. Again first defined by
-Walters and Carboni \cite{Car91}, under the name well-supported compact closed
-categories, in recent years hypergraph categories have been rediscovered a
-number of times, also appearing under the names dungeon categories \cite{Mor14}
-and dgs-monoidal categories \cite{GH98}. 
+precisely the structure required for their string diagrams to be graphs with
+`hyperedges': edges connecting any number of inputs to any number of outputs.
+More precisely, write $\mc P(N)$ for the power set of $N$. Then a hypergraph
+$(N,H,s,t)$ comprises a set $N$ of vertices, a set $H$ of hyperedges, and source
+and target functions $s,t\maps H \to \mc P(N)$. We then think of morphisms in a
+hypergraph category as hyperedges; for example, the morphism
+\[
+  \begin{aligned}
+  \begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (0) at (-0.25, 0.375) {};
+		\node [style=none] (1) at (0.5, 0.375) {};
+		\node [style=none] (2) at (-0.25, -.875) {};
+		\node [style=none] (3) at (0.5, -.875) {};
+		\node [style=none] (4) at (0.5, 0.125) {};
+		\node [style=none] (5) at (1.25, 0.125) {};
+		\node [style=none] (6) at (0.125, -0.25) {$f$};
+		\node [style=none] (7) at (1.5, 0.125) {$Y_1$};
+		\node [style=none] (8) at (1.25, -0.625) {};
+		\node [style=none] (9) at (1.5, -0.625) {$Y_2$};
+		\node [style=none] (10) at (0.5, -0.625) {};
+		\node [style=none] (11) at (-0.25, -0.75) {};
+		\node [style=none] (12) at (-1.25, -0.75) {$X_3$};
+		\node [style=none] (13) at (-0.25, -0.25) {};
+		\node [style=none] (14) at (-1.25, 0.25) {$X_1$};
+		\node [style=none] (15) at (-1, 0.25) {};
+		\node [style=none] (16) at (-0.25, 0.25) {};
+		\node [style=none] (17) at (-1, -0.25) {};
+		\node [style=none] (18) at (-1.25, -0.25) {$X_2$};
+		\node [style=none] (19) at (-1, -0.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (1.center);
+		\draw (1.center) to (3.center);
+		\draw (3.center) to (2.center);
+		\draw (2.center) to (0.center);
+		\draw (4.center) to (5.center);
+		\draw (10.center) to (8.center);
+		\draw (16.center) to (15.center);
+		\draw (13.center) to (17.center);
+		\draw (11.center) to (19.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{aligned}
+\]
+is a hyperedge from the set $\{X_1,X_2,X_3\}$ to the set $\{Y_1,Y_2\}$. Roughly
+speaking, two morphisms of a hypergraph category are equal by the axioms of a
+hypergraph category if their string diagrams reduce, using the graphical
+manipulations given by the symmetric monoidal category and Frobenius axioms, to
+the same hypergraph. Details can be found in the work of Bonchi, Gadduci,
+Kissinger, Soboci\'nski, and Zanasi \cite{BGKSZ}.
+
+Like special commutative Frobenius monoids, hypergraph categories were first
+defined by Walters and Carboni \cite{Car91}, under the name \emph{well-supported
+compact closed category}. In recent years they have been rediscovered a number
+of times, also appearing under the names \emph{dungeon category} \cite{Mor14}
+and \emph{dgs-monoidal category} \cite{GH98}. 
 
 %Nonetheless, this flexibility is a strength of hypergraph categories. In the
 %category of vector spaces, for example, a special commutative Frobenius monoid
@@ -2120,13 +2171,29 @@ functor $+\colon \mathrm{Cospan(\mathcal C)} \times \mathrm{Cospan(\mathcal C)}
 coherence maps in $\mathcal C$ under this wide embedding; checking naturality is
 routine, and clearly they still obey the required axioms.
 
-This theory is all well known, following from theory originally developed for
-the dual concept: spans. First discussed by Yoneda \cite{Yon54}, spans are pairs
-of morphisms $X \leftarrow N \rightarrow Y$ with a common domain. B\'enabou
-introduced the bicategory of objects, spans, and maps of spans in a category
-with finite limits as an example of a symmetric monoidal bicategory
-\cite{Ben67}. The symmetric monoidal category $\cospan(\mc C)$ is a
-decategorified version of symmetric monoidal bicategory of cospans.
+\begin{remark}
+  Recall that all finite colimits in a category $\mc C$ can be assembled from an
+  initial object and the use of pushouts \cite{Mac98}. The monoidal category
+  $(\cospan(\mc C),+)$ thus provides an excellent setting for describing finite
+  colimits in $\mc C$: the initial object is the monoidal unit, and pushouts are
+  given by composition of cospans. Rosebrugh, Sabadini, and Walters begin an
+  exploration of the consequences of this idea in \cite{RSW08}.
+  
+  Recall also that coproduct in the category $\Set$ of sets and functions is the
+  disjoint union of sets. Colimits often have this sort of intuitive
+  interpretation of combining systems, and so are frequently useful for
+  discussing interconnection of systems. This intuition is a cornerstone of the
+  present work.
+\end{remark}
+
+The theory of symmetric monoidal categories of cospans is all well known,
+following from theory originally developed for the dual concept: spans. First
+discussed by Yoneda \cite{Yon54}, spans are pairs of morphisms $X \leftarrow N
+\rightarrow Y$ with a common domain. B\'enabou introduced the bicategory of
+objects, spans, and maps of spans in a category with finite limits as an example
+of a symmetric monoidal bicategory \cite{Ben67}. The symmetric monoidal category
+$\cospan(\mc C)$ is a decategorified version of symmetric monoidal bicategory of
+cospans.
 
 More recently, Lack proved that cospans and Frobenius monoids are intimately
 related. Write $\FinSet$ for the category of finite sets and functions. This
@@ -2176,6 +2243,10 @@ Given $f \maps X \to Y$ in $\mc C$, abuse notation by writing $f \in
 \mathrm{Cospan}(\mc C)$ for the cospan $X \stackrel{f}\to Y
 \stackrel{1_Y}\leftarrow Y$, and $f^\opp$ for the cospan $Y \stackrel{1_Y}\to Y
 \stackrel{f}\leftarrow X$. To summarise:
+
+\begin{proposition}
+  Given a category $\mc C$ with finite colimits, we may define a hypergraph
+  category $\cospan(\mc C)$ as follows:
 \smallskip 
 
   \begin{center}
@@ -2194,7 +2265,8 @@ Given $f \maps X \to Y$ in $\mc C$, abuse notation by writing $f \in
       \hline
   \end{tabular}
 \end{center}
-\smallskip 
+\smallskip
+\end{proposition}
 
 We will often abuse our terminology and refer to cospans themselves as
 morphisms in some cospan category $\mathrm{Cospan}(\mathcal C)$; we of course
@@ -2203,7 +2275,12 @@ refer instead to the isomorphism class of the said cospan.
 It is not difficult to show that we in fact have a functor from the category
 having categories with finite colimits as objects and colimit preserving
 functors as morphisms to the category of hypergraph categories and hypergraph
-functors. In the next chapter we show that this extends to a functor from a
+functors.\footnote{Categories with finite colimits are known as \emph{finitely
+cocomplete}, or (rarely) \emph{rex} or \emph{right exact}, while functors that
+preserve finite colimits are known as \emph{finitely cocontinuous} or
+\emph{right exact}. This extra layer of terminology is not necessary here, and
+so we favour the more friendly, if occasionally a touch cumbersome, terms
+above.} In the next chapter we show that this extends to a functor from a
 category of so-called symmetric lax monoidal presheaves over categories with
 finite colimits. This is known as the decorated cospans construction, and will
 be instrumental in constructing hypergraph categories with network diagrams as

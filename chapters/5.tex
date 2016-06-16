@@ -220,7 +220,7 @@ morphism from the prop $\cospan\mat\pk$ of cospans of matrices over the ring
 $\pk$ to the prop $\ltids$ of complete LTI discrete dynamical systems.
 Using the presentation of $\cospan\mat\pk$ in~\cite{BSZ2,Za}, the result is a
 sound, but not complete, proof system. The second ingredient is restricting our
-attention from cospans to jointly-epic cospans, or \emph{corelations}. This
+attention from cospans to jointly epic cospans, or \emph{corelations}. This
 gives a faithful morphism, allowing us to present the prop of corelations as a
 symmetric monoidal theory, and hence giving a sound and complete proof system for
 reasoning about LTIs (Theorem \ref{thm.main}).
@@ -324,7 +324,7 @@ as its formal inverse $s^{-1}$---i.e.\ the elements of the ring
 $\pk$.
 
 The indeterminate $s$ acts on a given biinfinite stream $w \in \k^\z$ as a
-one-step delay, and $s^{-1}$ as its inverse, a one step acceleration: 
+one-step delay, and $s^{-1}$ as its inverse, a one step anticipation: 
 \[ 
   (s\cdot w) (t) \Defeq w(t-1),\quad (s^{-1}\cdot w)(t) \Defeq w(t+1).
 \]
@@ -445,7 +445,7 @@ maps to
   (\vectfun A)\mathbf{x} = (\vectfun B)\mathbf{y}\big\} 
   \subseteq (\k^m)^\z \oplus (\k^n)^\z.
 \end{equation}
-It is straightforward to prove that this is well-defined.
+It is straightforward to prove that this is well defined.
 %\begin{remark}\rm
 %From a system theory point of view, the definition~\eqref{eq.K}, can be interpreted as associating with $R_1(\sigma,\sigma^{-1}), R_2(\sigma,\sigma^{-1})$, where 
 %$R_i\in\R^{p\times n_i}[s,s^{-1}]$, the set of trajectories  
@@ -920,15 +920,15 @@ A more careful examination of Proposition~\ref{prop.matfactorisation} yields:
 
 \begin{definition}
   The prop $\corel \mat \pk$ has as morphisms equivalence classes of
-  jointly-epic cospans in $\mat\pk$.  
-  %Composition is given by the jointly-epic part of the pushout.
+  jointly epic cospans in $\mat\pk$.  
+  %Composition is given by the jointly epic part of the pushout.
 \end{definition}
 
 We have a full morphism
 \[
   F\maps \cospan \mat \pk \longrightarrow \corel \mat \pk
 \]
-mapping a cospan to its jointly-epic counterpart given by the
+mapping a cospan to its jointly epic counterpart given by the
  factorisation system. %We will show that 
 Then $\cospanfunrest$
 factors through $F$ as follows:
@@ -1007,7 +1007,7 @@ exactly those cospans that map via $F$ to the same corelation.
 
 %As such, our task 
 %now is to understand the conditions under which two cospans have the same 
-%jointly-epic parts.
+%jointly epic parts.
 
 In fact, only one new equation is required, the ``white bone law'':
 \begin{equation}\label{eq.whitebone}
@@ -1018,7 +1018,7 @@ Expressed in terms of cospans, \eqref{eq.whitebone} asserts that
 $0\rightarrow 1\leftarrow 0$ and $0\rightarrow 0\leftarrow 0$ are identified:
 indeed, the two clearly yield the same corelation. The intuition here is that
 cospans $X \xrightarrow{i} S \xleftarrow{j} Y$ map to the same corelation if their
-respective copairings $[i,j]\maps X+Y \to S$ have the same jointly-epic parts.
+respective copairings $[i,j]\maps X+Y \to S$ have the same jointly epic parts.
 More colloquially, this allows us to `discard' any part of the cospan that is
 not connected to the terminals. This is precisely what \eqref{eq.whitebone}
 represents. Further details on this viewpoint can be found in \cite{CF}. 
@@ -1062,13 +1062,13 @@ in $\mathbb{IH}^{\mathsf{Cor}}$:
 %\]
 %For the reader's convenience, we collect all the equations in Appendix~\ref{app.equations}%
 %
-%Thus a cospan may be reduced to its jointly-epic part by repeated application of
+%Thus a cospan may be reduced to its jointly epic part by repeated application of
 %the usual laws and the white bone law.  Moreover, two cospans then have the same
-%jointly-epic part if and only if the are the same up to such applications.
+%jointly epic part if and only if the are the same up to such applications.
 
 We therefore have a sound and fully complete equational theory for LTI systems,
 and also a normal form for each LTI system: every such system can be written, in
-an essentially unique way, as a jointly-epic cospan of terms in $\ha_\pk$ in
+an essentially unique way, as a jointly epic cospan of terms in $\ha_\pk$ in
 normal form. We summarise the axioms in Figure \ref{fig.ihcoraxioms}.
 
 \begin{figure} \label{fig.ihcoraxioms}
