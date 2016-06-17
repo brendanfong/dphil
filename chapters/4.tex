@@ -2,11 +2,23 @@
 
 When enough structure is available to us, we may decorate corelations too.
 Furthermore, and key to the idea of `black-boxing', we get a hypergraph functor
-from decorated cospans to decorated corelations. The decorated corelations
-framework adds compositional operations to network-diagram representations, and
-handles composition of semantics too. 
+from decorated cospans to decorated corelations. This assists with constructing
+hypergraph categories of semantics for network-style diagrammatic languages.
+Indeed, we will prove that every hypergraph category can be constructed using
+decorated corelations, and so can every hypergraph functor.
 
-\section{Black-boxed open systems}
+In the next section we motivate this chapter by discussing how one might try to
+construct the category of matrices using decorations, illustrating the
+shortcomings of decorated cospans and how they are overcome by decorated
+corelations. As usual, in the following two sections we then get into the
+technical details, defining decorated corelations (\textsection\ref{sec:dcorc})
+and their functors (\textsection\ref{sec.dcorf}). This sets us up to state and
+prove the climactic theorem of Part \ref{part.maths}: decorated corelations are
+powerful enough to construct all hypergraph categories and functors. We do this
+in \textsection\ref{sec.allhypergraphs}. Finally, in
+\textsection\ref{sec:excor}, we give some examples.
+
+\section{Black-boxed open systems} \label{sec.blackboxedsystems}
 
 Suppose we have devices built from paths that take the signal at some input,
 amplify it, and deliver it to some output. For simplicity let these signals be
@@ -179,9 +191,9 @@ from input to output.
 
 We thus want to restrict our apex to contain at most one point for each
 input--output pair $(x,y)$, pushing the decoration along the quotient map $e$ in
-the epi-mono factorisation of the function $N\times_YM \stackrel{e}\to
-\overline{N\times_YM} \stackrel{m}\to X \times Z$. Put another way, we want
-the category of decorated corelations, not decorated cospans. Represented as
+the epi-mono factorisation of the function $N\times_YM \xrightarrow{e}
+\overline{N\times_YM} \xrightarrow{m} X \times Z$. Put another way, we want the
+category of decorated corelations, not decorated cospans. Represented as
 decorated corelations, the above composite becomes
 \[
     \tikzset{every path/.style={line width=.8pt}}
@@ -255,24 +267,43 @@ decorated corelations, the above composite becomes
 \end{aligned}
 \]
 Note that composite is not simply the composite as decorated cospans, but the
-composite decorated cospan reduced to a decorated corelation. We will we show
-that this decorated corelations category is equivalent to the category of real
-vector spaces and linear maps, with monoidal product the tensor product.
+composite decorated cospan reduced to a decorated corelation. In
+\textsection\ref{ssec.matrices}, we will show that this decorated corelations
+category is equivalent to the category of real vector spaces and linear maps,
+with monoidal product the tensor product.
 
-We prove two main theorems in this section. The first is that these decorated
-cospans do form a hypergraph category. That is, given a category $\mc C$ with
-finite colimits, factorisation system $(\mc E,\mc M)$ such that $\mc M$ is
-stable under pushouts, and a lax symmetric monoidal functor 
+It is not a trivial fact that the above composition rule for decorated
+corelations defines a category. Indeed, the reason that it is possible to push
+the decoration along the quotient map $e$ is that the lax symmetric monoidal
+functor $\R^{(-)}\maps \FinSet^\opp \to \Set$ extends to a lax symmetric
+monoidal functor $(\FinSet^\opp;\mathrm{Sur}) \to \Set$. Here
+$\FinSet^\opp;\mathrm{Sur}$ is the subcategory of $\cospan(\FinSet^\opp)$
+comprising cospans of the form $\xrightarrow{f^\opp}\xleftarrow{e^\opp}$, where
+$f$ is any function but $e$ must be a surjection.
+
+More generally, given a category $\mc C$ with finite colimits and a subcategory
+$\mc M$ stable under pushouts, we may construct a symmetric monoidal category
+$\mc C;\mc M^\opp$ with cospans of the form $\xrightarrow{f}\xleftarrow{m}$,
+where $f \in \mc C$, $m \in \mc M$ as morphisms. The monoidal product is again
+derived from the coproduct in $\mc C$.
+
+We prove two key theorems in this section. The first, Theorem \ref{thm.fcorel},
+is that these decorated corelations form a hypergraph category. That is, given a
+category $\mc C$ with finite colimits, factorisation system $(\mc E,\mc M)$ such
+that $\mc M$ is stable under pushouts, and a lax symmetric monoidal functor 
 \[
   F\maps \mc C; \mc M^\opp \longrightarrow \Set,
 \]
-we may define a hypergraph category $F\mathrm{Corel}$ with objects those of $\mc
-C$ and morphisms decorated corelations. As usual, functors between these
-so-called decorated corelations categories can be defined from natural
-transformations between these functors.
+define a decorated corelation to be, as might be expected, an $(\mc E,\mc
+M)$-corelation $X \to N \leftarrow Y$ in $\mc C$ together with an element of
+$FN$. Then there is a hypergraph category $F\mathrm{Corel}$ with the objects of
+$\mc C$ as objects and decorated corelations as morphisms. As usual, functors
+between these so-called decorated corelations categories can be defined from
+natural transformations between the decorating functors.
 
-The second major theorem is that every hypergraph category and hypergraph
-functor can be constructed in this way. This shows our decorated corelations
+The second key theorem is that every hypergraph category and hypergraph
+functor can be constructed in this way, yielding an equivalence of categories
+(Theorem \ref{thm.equivhypdccor}). This shows our decorated corelations
 construction is as general as we need for the study of hypergraph categories,
 and hence network-style diagrammatic languages.
 
@@ -281,10 +312,7 @@ and hence network-style diagrammatic languages.
 
 The key difference is to decorate cospans we need to know how to push
 decorations up. To decorate corelations we all need to know how to pull
-decorations back down. This is related to the existence of an extraspecial
-commutative Frobenius monoid in our main applications.
-
-
+decorations back down. 
 
 \subsection{Adjoining right adjoints}
 
@@ -338,8 +366,7 @@ cospans. In this bicategory every morphism of $\mc M$ has a right adjoint.
   \begin{itemize}
     \item $\mathcal C; \mathcal C^\opp$ is by definition equal to
 $\cospan(\mathcal C)$.
-\item $\mathcal C;\mathcal I_{\mathcal C}^\opp$ is
-naturally isomorphic to $\mathcal C$.
+\item $\mathcal C;\mathcal I_{\mathcal C}^\opp$ is isomorphic to $\mathcal C$.
 \item $\Set;\mathrm{Inj}^\opp$ is the category of partial functions.
 \end{itemize}
 \end{examples}
@@ -545,7 +572,7 @@ corelation functors in the next section.
 %pushout over $C$ and then reduce to the $\mathcal E$ part of $B$. This lemma
 %implies that both processes result in the same decoration.  i
 
-\section{Functors between decorated corelation categories}
+\section{Functors between decorated corelation categories} \label{sec.dcorf}
 Functors between decorated corelation categories hold no surprises: their
 requirements combine the requirements of corelations and decorated cospans.
 Recall that Lemma \ref{lem.madjointsfunctor} says that we can extend a
@@ -900,6 +927,7 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
 
 
 \section{All hypergraph categories are decorated corelation categories}
+\label{sec.allhypergraphs}
 
 Not all hypergraph categories are decorated \emph{cospan} categories. To see
 this, we can count morphisms. In a decorated cospan category, the set of
@@ -1485,7 +1513,7 @@ In the case of small categories, it is not difficult to show Theorems
 
 The 2-categorical version of the above equivalence is the also the subject of a
 forthcoming paper by Vagner, Spivak, and Schultz, from their operadic
-perspective \cite{SpiSchRup}.
+perspective \cite{VSS}.
 
 \begin{remark}
   It is prudent, to wonder, in the definition of hypergraph category, why it is
@@ -1636,7 +1664,8 @@ diagrams, and reasoning.
 
 We will illustrate these principles in greater depth in the next path, which
 delves into applications of this philosophy and framework. We conclude this
-section and Part I with a collection of examples of a more abstract nature.
+section and Part \ref{part.maths} with a collection of examples of a more
+abstract nature.
 
 
 
@@ -1646,7 +1675,7 @@ example from the introduction, having now developed the necessary material. Our
 second example is to revisit the category of linear relations once more, showing
 that we can also construct it as a decorated corelation category. 
 
-\subsection{Matrices}
+\subsection{Matrices} \label{ssec.matrices}
 
 Let $R$ be a commutative ring. We will construct matrices over $R$ as decorated
 corelations over $\FinSet^\opp$. Here the coproduct is the Cartesian product

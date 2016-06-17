@@ -5,7 +5,7 @@ so for describing the interconnection of systems. In the previous chapter
 we defined decorated cospans to take advantage of this fact and provide
 a tool for composing structures that had no inherent composition law, like
 graphs and subspaces. In many situations, however, the colimit contains more
-information than we care about. Rather than concerning ourselves with all the
+information than we care about.  Rather than concerning ourselves with all the
 internal structure of a system, we only find a certain aspect of it
 relevant---roughly, the part that affects what happens at the boundary. This is
 better modelled by corelations. In this chapter we develop the theory of
@@ -32,35 +32,31 @@ closed system into a notion of open one.
 A serious limitation of using cospans alone, however, is that cospans
 indiscrimately accumulate information. For example, suppose we consider the
 morphisms of $\mathrm{GraphCospan}$ as open electrical circuits as in
-\textsection\ref{ssec.exelectricalcircuits}, depicting a decorated cospan from
-$(X \xrightarrow{i} N \xleftarrow{o} Y, \enspace (N,E,s,t,r))$ by 
+\textsection\ref{ssec.exelectricalcircuits}. Pursuing this, let us depict a
+graph decorated cospan from $(X \xrightarrow{i} N \xleftarrow{o} Y, \enspace
+(N,E,s,t,r))$ by 
 \[
-  .
-\]
-where the bullets $\bullet$ on the left represent the elements of the set $X$,
-those on the right represent the elements of $Y$, and we draw a line from $x \in
-X$ or $y \in Y$ to a node $n$ in the graph $i(x) = n$ or $o(y)=n$.
-We omit the labels (resistances) on the edges as these are not essential to the
-main point here.  
-
-Next, consider the following example of composition of these
-open circuits using decorated cospans:
-
-Note in particular that the composite of these open circuits contains
-a unique resistor for every resistor in the factors. This is often unnecessary
-for understanding the composite circuit, and thus often wildly inefficient.
-
-For example, consider also the circuit:
-
-\begin{center}
+\resizebox{.35\textwidth}{!}{
+    \tikzset{every path/.style={line width=1.1pt}}
   \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
-    \node[contact]         (A) at (0,0) {};
-    \node[contact]         (B) at (3,0) {};
-    \node[contact]         (C) at (1.5,-2.6) {};
-    \coordinate         (ua) at (.5,.25) {};
-    \coordinate         (ub) at (2.5,.25) {};
-    \coordinate         (la) at (.5,-.25) {};
-    \coordinate         (lb) at (2.5,-.25) {};
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=dot] (0) at (-2.5, 0.75) {};
+		\coordinate (1) at (-2, -2) {};
+		\coordinate (2) at (1.5, 2) {};
+		\coordinate (A) at (-2, 0.75) {};
+		\node [style=dot] (4) at (2, 1.25) {};
+		\coordinate (B) at (1.5, 0.75) {};
+		\node [style=dot] (6) at (2, 0.25) {};
+		\coordinate (ub) at (0.75, 1) {};
+		\coordinate (la) at (-1.25, 0.5) {};
+		\coordinate (C) at (-0.25, -1.375) {};
+		\coordinate (lb) at (0.75, 0.5) {};
+		\coordinate (ua) at (-1.25, 1) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (0.center) to (A);
+		\draw (6) to (B);
+		\draw (4) to (B);
     \path (A) edge (ua);
     \path (A) edge (la);
     \path (B) edge (ub);
@@ -69,148 +65,624 @@ For example, consider also the circuit:
     \path (la) edge  [resistor] (lb);
     \path (A) edge  [resistor]  (C);
     \path (C) edge  [resistor]  (B);
-  \end{tikzpicture}
-\end{center}
-
-\[
-  \begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=dot] (0) at (-2.5, 0.75) {};
-		\node [style=none] (1) at (-2, -2) {};
-		\node [style=none] (2) at (1.5, 2) {};
-		\node [style=none] (3) at (-2, 0.75) {};
-		\node [style=dot] (4) at (2, 1.25) {};
-		\node [style=none] (5) at (1.5, 0.75) {};
-		\node [style=dot] (6) at (2, 0.25) {};
-		\node [style=none] (7) at (0.75, 1) {};
-		\node [style=none] (8) at (-1.25, 0.5) {};
-		\node [style=none] (9) at (-0.25, -1) {};
-		\node [style=none] (10) at (0.75, 0.5) {};
-		\node [style=none] (11) at (-1.25, 1) {};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (3.center);
-		\draw (6) to (5.center);
-		\draw (4) to (5.center);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\]
-\[
-    \tikzset{every path/.style={line width=1.1pt}}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=dot] (0) at (-2.5, 1.5) {};
-		\node [style=dot] (1) at (-2.5, -0) {};
-		\node [style=dot] (2) at (-2.5, -1.5) {};
-		\node [style=none] (3) at (-2, -2) {};
-		\node [style=none] (4) at (1.5, 2) {};
-		\node [style=none] (5) at (-2, -0) {};
-		\node [style=none] (6) at (-2, -1.5) {};
-		\node [style=none] (7) at (-2, 1.5) {};
-		\node [style=dot] (8) at (-2.5, -0.75) {};
-		\node [style=none] (9) at (-2, -0.75) {};
-		\node [style=dot] (10) at (-2.5, 0.75) {};
-		\node [style=none] (11) at (-2, 0.75) {};
-		\node [style=dot] (12) at (2, -1.5) {};
-		\node [style=none] (13) at (1.5, -1.5) {};
-		\node [style=dot] (14) at (2, -0.75) {};
-		\node [style=none] (15) at (1.5, 1.5) {};
-		\node [style=dot] (16) at (2, 1.5) {};
-		\node [style=none] (17) at (1.5, 0.75) {};
-		\node [style=dot] (18) at (2, -0) {};
-		\node [style=dot] (19) at (2, 0.75) {};
-		\node [style=none] (20) at (1.5, -0) {};
-		\node [style=none] (21) at (1.5, -0.75) {};
-		\node [style=none] (22) at (-0.25, 0.75) {};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (0.center) to (7.center);
-		\draw (1.center) to (5.center);
-		\draw (2.center) to (6.center);
-		\draw (8) to (9.center);
-		\draw (10) to (11.center);
-		\draw (16) to (15.center);
-		\draw (18) to (20.center);
-		\draw (12) to (13.center);
-		\draw (14) to (21.center);
-		\draw (19) to (17.center);
-		\draw (9.center) to (21.center);
-		\draw (6.center) to (13.center);
-		\draw (7.center) to (22.center);
-		\draw (5.center) to (22.center);
-		\draw (22.center) to (15.center);
-		\draw (22.center) to (17.center);
-		\draw (22.center) to (20.center);
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{background}
-	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
+	  \filldraw [fill=black!5!white, draw=black!40!white] (1) rectangle (2);
 	\end{pgfonlayer}
 \end{tikzpicture}
+}
 \]
-Imagine the following semantics for open circuits. We interact with open
-circuits only by connecting electric circuits and other devices to the terminals.
-This allows us to probe, for example, whether one terminal is connected to
-another. These circuits are equivalent in the following sense: if these circuits
-were encased, but for their terminals, in a black box
+where the bullets $\bullet$ on the left represent the elements of the set $X$,
+those on the right represent the elements of $Y$, and we draw a line from $x \in
+X$ or $y \in Y$ to a node $n$ in the graph when $i(x) = n$ or $o(y)=n$.  We omit
+the labels (resistances) on the edges as these are not essential to the main
+point here.  
+
+We also depict an example of composition of these open circuits using decorated
+cospans:
 \[
+\begin{aligned}
+\resizebox{.45\textwidth}{!}{
     \tikzset{every path/.style={line width=1.1pt}}
-    \begin{tikzpicture}
+  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=dot] (0) at (-2.5, 1.5) {};
-		\node [style=dot] (1) at (-2.5, -0) {};
-		\node [style=dot] (2) at (-2.5, -1.5) {};
-		\node [style=none] (3) at (-2, -2) {};
-		\node [style=none] (4) at (1.5, 2) {};
-		\node [style=none] (5) at (-2, -0) {};
-		\node [style=none] (6) at (-2, -1.5) {};
-		\node [style=none] (7) at (-2, 1.5) {};
-		\node [style=dot] (8) at (-2.5, -0.75) {};
-		\node [style=none] (9) at (-2, -0.75) {};
-		\node [style=dot] (10) at (-2.5, 0.75) {};
-		\node [style=none] (11) at (-2, 0.75) {};
-		\node [style=dot] (12) at (2, -1.5) {};
-		\node [style=none] (13) at (1.5, -1.5) {};
-		\node [style=dot] (14) at (2, -0.75) {};
-		\node [style=none] (15) at (1.5, 1.5) {};
-		\node [style=dot] (16) at (2, 1.5) {};
-		\node [style=none] (17) at (1.5, 0.75) {};
-		\node [style=dot] (18) at (2, -0) {};
-		\node [style=dot] (19) at (2, 0.75) {};
-		\node [style=none] (20) at (1.5, -0) {};
-		\node [style=none] (21) at (1.5, -0.75) {};
+		\node [style=dotbig] (0) at (-2.25, 4) {};
+		\coordinate (1) at (-1.75, 1.25) {};
+		\coordinate (2) at (1.75, 5.25) {};
+		\coordinate (3) at (-1.75, 4) {};
+		\node [style=dotbig] (4) at (2.25, 4.5) {};
+		\coordinate (5) at (1.75, 4) {};
+		\node [style=dotbig] (6) at (2.25, 3.5) {};
+		\coordinate (7) at (1, 4.25) {};
+		\coordinate (8) at (-1, 3.75) {};
+		\coordinate (9) at (0, 1.75) {};
+		\coordinate (10) at (1, 3.75) {};
+		\coordinate (11) at (-1, 4.25) {};
+		\node [style=dotbig] (12) at (7.25, 4) {};
+		\coordinate (13) at (-3, -1.5) {};
+		\coordinate (14) at (6, 2) {};
+		\coordinate (15) at (3.5, 2) {};
+		\coordinate (16) at (4.75, -0) {};
+		\coordinate (17) at (3, 3.5) {};
+		\coordinate (18) at (3, 4.5) {};
+		\node [style=dotbig] (19) at (2.5, -1.5) {};
+		\coordinate (20) at (6.75, 4) {};
+		\node [style=dotbig] (21) at (7.25, -1.5) {};
+		\node [style=dotbig] (22) at (-6.5, -1) {};
+		\node [style=dotbig] (23) at (7.25, 1.5) {};
+		\node [style=dotbig] (24) at (-6.5, 4.5) {};
+		\node [style=dotbig] (25) at (-6.5, 3) {};
+		\coordinate (26) at (-6, -2) {};
+		\coordinate (27) at (-3, 5.25) {};
+		\coordinate (28) at (1.75, 1) {};
+		\coordinate (29) at (-1.75, -2) {};
+		\coordinate (30) at (3, -2) {};
+		\coordinate (31) at (-6, 4.5) {};
+		\coordinate (32) at (-6, 3) {};
+		\coordinate (33) at (-3, 4) {};
+		\coordinate (34) at (6.75, 2.5) {};
+		\coordinate (35) at (3, 2.75) {};
+		\coordinate (36) at (6.75, 5.25) {};
+		\node [style=dotbig] (37) at (7.25, 0.5) {};
+		\node [style=dotbig] (38) at (-2.25, -1.5) {};
+		\node [style=dotbig] (39) at (-2.5, 4) {};
+		\node [style=dotbig] (40) at (2.5, 4.5) {};
+		\node [style=dotbig] (41) at (2.5, 3.5) {};
+		\node [style=dotbig] (42) at (-2.25, 0.5) {};
+		\node [style=dotbig] (43) at (-2.5, -1.5) {};
+		\node [style=dotbig] (44) at (-2.5, 0.5) {};
+		\node [style=dotbig] (45) at (2.25, -1.5) {};
+		\node [style=dotbig] (46) at (2.25, -0) {};
+		\node [style=dotbig] (47) at (2.5, -0) {};
+		\node [style=dotbig] (48) at (-2.5, -0.5) {};
+		\node [style=dotbig] (49) at (-2.25, -0.5) {};
+		\coordinate (50) at (-6, -1) {};
+		\coordinate (51) at (-5, -0) {};
+		\coordinate (52) at (-3, 0.5) {};
+		\coordinate (53) at (-3, -0.5) {};
+		\coordinate (54) at (-1.75, 0.5) {};
+		\coordinate (55) at (-1.75, -0.5) {};
+		\coordinate (56) at (0, -0) {};
+		\coordinate (57) at (1.75, -0) {};
+		\coordinate (58) at (3, -0) {};
+		\coordinate (59) at (-5.75, 1.25) {};
+		\coordinate (60) at (4.75, 1) {};
+		\coordinate (61) at (6.75, 1.5) {};
+		\coordinate (62) at (6.75, 0.5) {};
+		\coordinate (63) at (-1.75, -1.5) {};
+		\coordinate (64) at (1.75, -1.5) {};
+		\coordinate (65) at (3, -1.5) {};
+		\coordinate (66) at (6.75, -1.5) {};
+		\coordinate (67) at (-5.5, 1.75) {};
+		\coordinate (68) at (-5.25, 1) {};
+		\coordinate (69) at (-3.75, 2.5) {};
+		\coordinate (70) at (-3.5, 1.75) {};
+		\coordinate (71) at (-3.25, 2.25) {};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-	  \filldraw [fill=black!80!white] (3) rectangle (4);
-		\draw (0.center) to (7.center);
-		\draw (1.center) to (5.center);
-		\draw (2.center) to (6.center);
-		\draw (8) to (9.center);
-		\draw (10) to (11.center);
-		\draw (16) to (15.center);
-		\draw (18) to (20.center);
-		\draw (12) to (13.center);
-		\draw (14) to (21.center);
-		\draw (19) to (17.center);
+		\path (50) edge [resistor] (13);
+		\draw (24) to (31);
+		\draw (61) to (23);
+		\draw (62) to (37);
+		\draw (25) to (32);
+		\draw (22) to (50);
+		\draw (33) to (39);
+		\draw (0) to (3);
+		\draw (52) to (44);
+		\draw (42) to (54);
+		\draw (53) to (48);
+		\draw (49) to (55);
+		\path (31) edge [resistor] (33);
+		\path (32) edge [resistor] (33);
+		\draw (3) to (11);
+		\draw (3) to (8);
+		\path (11) edge [resistor] (7);
+		\path (8) edge [resistor] (10);
+		\draw (7) to (5);
+		\draw (10) to (5);
+		\draw (5) to (4);
+		\draw (5) to (6);
+		\draw (41) to (17);
+		\draw (40) to (18);
+		\path (18) edge [resistor] (20);
+		\path (17) edge [resistor] (20);
+		\draw (20) to (12);
+		\path (15) edge [resistor] (14);
+		\path (54) edge [resistor] (56);
+		\path (55) edge [resistor] (56);
+		\path (56) edge [resistor] (57);
+		\path (51) edge [resistor] (52);
+		\path (51) edge [resistor] (53);
+		\draw (57) to (46);
+		\draw (47) to (58);
+		\path (58) edge [resistor] (16);
+		\path (3) edge [resistor] (9);
+		\path (9) edge [resistor] (5);
+		\draw (13) to (43);
+		\path (60) edge [resistor] (61);
+		\path (60) edge [resistor] (62);
+		\draw (38) to (63);
+		\path (63) edge [resistor] (64);
+		\draw (64) to (45);
+		\draw (19) to (65);
+		\path (65) edge [resistor] (66);
+		\draw (66) to (21);
+		\path (67) edge [resistor] (69);
+		\path (68) edge [resistor] (70);
+		\draw (59) to (67);
+		\draw (59) to (68);
+		\draw (69) to (71);
+		\draw (71) to (70);
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{background}
+	  \filldraw [fill=black!5!white, draw=black!40!white] (1) rectangle (2);
+	  \filldraw [fill=black!5!white, draw=black!40!white] (26) rectangle (27);
+	  \filldraw [fill=black!5!white, draw=black!40!white] (29) rectangle (28);
+	  \filldraw [fill=black!5!white, draw=black!40!white] (35) rectangle (36);
+	  \filldraw [fill=black!5!white, draw=black!40!white] (30) rectangle (34);
 	\end{pgfonlayer}
 \end{tikzpicture}
-  ,
+}
+\end{aligned}
+\quad
+\mapsto
+\enspace
+\begin{aligned}
+\resizebox{.4\textwidth}{!}{
+    \tikzset{every path/.style={line width=1.1pt}}
+  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
+	\begin{pgfonlayer}{nodelayer}
+		\coordinate (0) at (-1.75, 4) {};
+		\coordinate (1) at (1.75, 4) {};
+		\coordinate (2) at (1, 4.25) {};
+		\coordinate (3) at (-1, 3.75) {};
+		\coordinate (4) at (0, 1.75) {};
+		\coordinate (5) at (1, 3.75) {};
+		\coordinate (6) at (-1, 4.25) {};
+		\node [style=dotbig] (7) at (6.25, 4) {};
+		\coordinate (8) at (5, 2) {};
+		\coordinate (9) at (2.5, 2) {};
+		\coordinate (10) at (3.75, -0) {};
+		\coordinate (11) at (2.5, 3.75) {};
+		\coordinate (12) at (2.5, 4.25) {};
+		\coordinate (13) at (5.75, 4) {};
+		\node [style=dotbig] (14) at (6.25, -1.5) {};
+		\node [style=dotbig] (15) at (-5.5, -1) {};
+		\node [style=dotbig] (16) at (6.25, 1.5) {};
+		\node [style=dotbig] (17) at (-5.5, 4.5) {};
+		\node [style=dotbig] (18) at (-5.5, 3) {};
+		\coordinate (19) at (-5, -2) {};
+		\coordinate (20) at (-5, 4.5) {};
+		\coordinate (21) at (-5, 3) {};
+		\coordinate (22) at (5.75, 5.25) {};
+		\node [style=dotbig] (23) at (6.25, 0.5) {};
+		\coordinate (24) at (-5, -1) {};
+		\coordinate (25) at (-4, -0) {};
+		\coordinate (26) at (-1.75, 0.5) {};
+		\coordinate (27) at (-1.75, -0.5) {};
+		\coordinate (28) at (0, -0) {};
+		\coordinate (29) at (1.75, -0) {};
+		\coordinate (30) at (-4.75, 1.25) {};
+		\coordinate (31) at (3.75, 1) {};
+		\coordinate (32) at (5.75, 1.5) {};
+		\coordinate (33) at (5.75, 0.5) {};
+		\coordinate (34) at (-1.75, -1.5) {};
+		\coordinate (35) at (1.75, -1.5) {};
+		\coordinate (36) at (5.75, -1.5) {};
+		\coordinate (37) at (-4.25, 1.75) {};
+		\coordinate (38) at (-4.25, 1) {};
+		\coordinate (39) at (-2.75, 2.5) {};
+		\coordinate (40) at (-2.5, 1.75) {};
+		\coordinate (41) at (-2.25, 2.25) {};
+		\coordinate (42) at (5, 4.25) {};
+		\coordinate (43) at (5, 3.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (17) to (20);
+		\draw (18) to (21);
+		\draw (15) to (24);
+		\draw (13) to (7);
+		\draw (36) to (14);
+		\draw (32) to (16);
+		\draw (33) to (23);
+		\draw (1) to (12);
+		\draw (1) to (11);
+		\draw (2) to (1);
+		\draw (5) to (1);
+		\draw (0) to (6);
+		\draw (0) to (3);
+		\draw (30) to (37);
+		\draw (30) to (38);
+		\draw (39) to (41);
+		\draw (41) to (40);
+		\draw (42) to (13);
+		\draw (43) to (13);
+		\path (6) edge [resistor] (2);
+		\path (3) edge [resistor] (5);
+		\path (9) edge [resistor] (8);
+		\path (26) edge [resistor] (28);
+		\path (27) edge [resistor] (28);
+		\path (28) edge [resistor] (29);
+		\path (0) edge [resistor] (4);
+		\path (4) edge [resistor] (1);
+		\path (31) edge [resistor] (32);
+		\path (31) edge [resistor] (33);
+		\path (34) edge [resistor] (35);
+		\path (37) edge [resistor] (39);
+		\path (38) edge [resistor] (40);
+		\path (20) edge [resistor] (0);
+		\path (21) edge [resistor] (0);
+		\path (25) edge [resistor] (26);
+		\path (25) edge [resistor] (27);
+		\path (24) edge [resistor] (34);
+		\path (29) edge [resistor] (10);
+		\path (35) edge [resistor] (36);
+		\path (12) edge [resistor] (42);
+		\path (11) edge [resistor] (43);
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{background}
+	  \filldraw [fill=black!5!white, draw=black!40!white] (19) rectangle (22);
+	\end{pgfonlayer}
+\end{tikzpicture}
+}
+\end{aligned}
 \]
-we would be unable to distinguish them through our electrical investigations. We
-wish for a composition rule that only retains the information relevant to the
-black boxed circuit.
+Note in particular that the composite of these open circuits contains a unique
+resistor for every resistor in the factors. If we are interested in describing
+the syntax of a diagrammatic language, then this is useful: composition builds
+given expressions into a larger one. If we are only interested in the semantics,
+however, this is often unnecessary and thus often wildly inefficient.
 
-Visually, it is evident that our issue lies with the fact that we retain in our
-decorated cospan model parts of the circuit that are not connected to the
-terminals, and thus have no bearing on the electrical behaviour of the open
-circuit. Dealing with this problem requires further discussion of the semantics
-of circuit diagrams, and we only deal with this in depth in Chapter
+Indeed, suppose our semantics for open circuits is given by the information that
+can be gleaned by connecting other open circuits, such as measurement devices,
+to the terminals. In these semantics we consider two open circuits equivalent
+if, should they be encased, but for their terminals, in a black box
+\[
+\resizebox{.4\textwidth}{!}{
+    \tikzset{every path/.style={line width=1.1pt}}
+  \begin{tikzpicture}
+    \begin{pgfonlayer}{nodelayer}
+		\node [style=dotbig] (14) at (-5.5, 4.5) {};
+		\node [style=dotbig] (15) at (-5.5, 3) {};
+		\node [style=dotbig] (12) at (-5.5, -1) {};
+		\node [style=dotbig] (7) at (6.25, 4) {};
+		\node [style=dotbig] (13) at (6.25, 1.5) {};
+		\node [style=dotbig] (20) at (6.25, 0.5) {};
+		\node [style=dotbig] (11) at (6.25, -1.5) {};
+		\coordinate (17) at (-5, 4.5) {};
+		\coordinate (18) at (-5, 3) {};
+		\coordinate (21) at (-5, -1) {};
+		\coordinate (10) at (5.75, 4) {};
+		\coordinate (23) at (5.75, 1.5) {};
+		\coordinate (24) at (5.75, 0.5) {};
+		\coordinate (27) at (5.75, -1.5) {};
+		\coordinate (16) at (-5, -2) {};
+		\coordinate (19) at (5.75, 5.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (14) to (17);
+		\draw (15) to (18);
+		\draw (12) to (21);
+		\draw (10) to (7);
+		\draw (27) to (11);
+		\draw (23) to (13);
+		\draw (24) to (20);
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{background}
+	  \filldraw [fill=black!80!white, draw=black!40!white] (16) rectangle (19);
+	\end{pgfonlayer}
+\end{tikzpicture}
+}
+\]
+we would be unable to distinguish them through our electrical investigations. In
+this case, at the very least, the previous circuit is equivalent to the circuit
+\[
+\resizebox{.4\textwidth}{!}{
+    \tikzset{every path/.style={line width=1.1pt}}
+  \begin{tikzpicture}[circuit ee IEC, set resistor graphic=var resistor IEC graphic]
+	\begin{pgfonlayer}{nodelayer}
+		\coordinate (0) at (-1.75, 4) {};
+		\coordinate (1) at (1.75, 4) {};
+		\coordinate (2) at (1, 4.25) {};
+		\coordinate (3) at (-1, 3.75) {};
+		\coordinate (4) at (0, 1.75) {};
+		\coordinate (5) at (1, 3.75) {};
+		\coordinate (6) at (-1, 4.25) {};
+		\node [style=dotbig] (7) at (6.25, 4) {};
+		\coordinate (8) at (2.5, 3.75) {};
+		\coordinate (9) at (2.5, 4.25) {};
+		\coordinate (10) at (5.75, 4) {};
+		\node [style=dotbig] (11) at (6.25, -1.5) {};
+		\node [style=dotbig] (12) at (-5.5, -1) {};
+		\node [style=dotbig] (13) at (6.25, 1.5) {};
+		\node [style=dotbig] (14) at (-5.5, 4.5) {};
+		\node [style=dotbig] (15) at (-5.5, 3) {};
+		\coordinate (16) at (-5, -2) {};
+		\coordinate (17) at (-5, 4.5) {};
+		\coordinate (18) at (-5, 3) {};
+		\coordinate (19) at (5.75, 5.25) {};
+		\node [style=dotbig] (20) at (6.25, 0.5) {};
+		\coordinate (21) at (-5, -1) {};
+		\coordinate (22) at (3.75, 1) {};
+		\coordinate (23) at (5.75, 1.5) {};
+		\coordinate (24) at (5.75, 0.5) {};
+		\coordinate (25) at (-1.75, -1.5) {};
+		\coordinate (26) at (1.75, -1.5) {};
+		\coordinate (27) at (5.75, -1.5) {};
+		\coordinate (28) at (5, 4.25) {};
+		\coordinate (29) at (5, 3.75) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw (14) to (17);
+		\draw (15) to (18);
+		\draw (12) to (21);
+		\draw (10) to (7);
+		\draw (27) to (11);
+		\draw (23) to (13);
+		\draw (24) to (20);
+		\draw (1) to (9);
+		\draw (1) to (8);
+		\draw (2) to (1);
+		\draw (5) to (1);
+		\draw (0) to (6);
+		\draw (0) to (3);
+		\draw (28) to (10);
+		\draw (29) to (10);
+		\path (6) edge [resistor] (2);
+		\path (3) edge [resistor] (5);
+		\path (0) edge [resistor] (4);
+		\path (4) edge [resistor] (1);
+		\path (22) edge [resistor] (23);
+		\path (22) edge [resistor] (24);
+		\path (25) edge [resistor] (26);
+		\path (17) edge [resistor] (0);
+		\path (18) edge [resistor] (0);
+		\path (21) edge [resistor] (25);
+		\path (26) edge [resistor] (27);
+		\path (9) edge [resistor] (28);
+		\path (8) edge [resistor] (29);
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{background}
+	  \filldraw [fill=black!5!white, draw=black!40!white] (16) rectangle (19);
+	\end{pgfonlayer}
+\end{tikzpicture}
+}
+\]
+where we have removed circuitry not connected to the terminals.  Moreover, this
+second circuit is a much more efficient representation, as it does not model
+inaccessible, internal structure. If we wish to construct a hypergraph category
+modelling the semantics of open circuits, we require circuit representations and
+a composition rule that only retain the information relevant to the black boxed
+circuit.
+
+Dealing with this problem fully requires further discussion of the semantics of
+circuit diagrams, and the introduction of structures more flexible than graphs,
+such as linear relations.  We deal with this in depth in Chapter
 \ref{ch.circuits}. In this chapter, however, we are able to contribute an
 important piece of the puzzle: corelations.
 
 Corelations allow us to pursue a notion of composition that discards extraneous
-information as we compose our systems. 
-Factorisation system.
+information as we compose our systems. Consider, for example, the category
+$\cospan(\FinSet)$ of cospans in the category of finite sets and functions. A
+morphism is then a finite set $N$ together with functions $X \to N$ and $Y \to
+N$. We depict these like so:
+\begin{center}
+  \begin{tikzpicture}[auto,scale=2]
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x1) at (-1.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x2) at (-1.5,-.2) {};
+    \node at (-1.5,-.7) {$X$};
+    \node[circle,draw,inner sep=1pt,fill]         (A) at (0,.4) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B) at (0,.133) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C) at (0,-.133) {};
+    \node[circle,draw,inner sep=1pt,fill]         (D) at (0,-.4) {};
+    \node at (0,-.7) {$N$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y1) at (1.5,.3) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y2) at (1.5,.1) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y3) at (1.5,-.1) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y4) at (1.5,-.3) {};
+    \node at (1.5,-.7) {$Y$};
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x1) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y1) edge (B);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y3) edge (D);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y4) edge (D);
+  \end{tikzpicture}
+\end{center}
+Here $X$ is a two element set, while $N$ and $Y$ are four element sets.
 
+Suppose we have a pair of cospans $X \to N \leftarrow Y$, $Y \to M \leftarrow
+Z$. By definition, their composite has apex the pushout $N+_YM$ which, roughly
+speaking, is the union of $N$ and $M$ with two points identified if they are
+both images of the same element of $Y$. For example, the following pair of
+cospans:
+\begin{center}
+  \begin{tikzpicture}[auto,scale=2]
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x1) at (-1.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x2) at (-1.5,-.2) {};
+    \node at (-1.5,-.8) {$X$};
+    \node[circle,draw,inner sep=1pt,fill]         (A) at (0,.4) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B) at (0,.133) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C) at (0,-.133) {};
+    \node[circle,draw,inner sep=1pt,fill]         (D) at (0,-.4) {};
+    \node at (0,-.8) {$N$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y1) at (1.5,.3) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y2) at (1.5,.1) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y3) at (1.5,-.1) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y4) at (1.5,-.3) {};
+    \node at (1.5,-.8) {$Y$};
+    \node[circle,draw,inner sep=1pt,fill]         (A') at (3,.5) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B') at (3,.25) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C') at (3,0) {};
+    \node[circle,draw,inner sep=1pt,fill]         (D') at (3,-.25) {};
+    \node[circle,draw,inner sep=1pt,fill]         (E') at (3,-.5) {};
+    \node at (3,-.8) {$M$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z1) at (4.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z2) at (4.5,-.2) {};
+    \node at (4.5,-.8) {$Z$};
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x1) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y1) edge (B);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y3) edge (D);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y4) edge (D);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y1) edge (A');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y2) edge (B');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y3) edge (C');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y4) edge (D');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z1) edge (B');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z2) edge (E');
+  \end{tikzpicture}
+\end{center}
+becomes
+\begin{center}
+  \begin{tikzpicture}[auto,scale=2]
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x1) at (1.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x2) at (1.5,-.2) {};
+    \node at (1.5,-.8) {$X$};
+    \node[circle,draw,inner sep=1pt,fill]         (A) at (3,.5) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B) at (3,.25) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C) at (3,0) {};
+    \node[circle,draw,inner sep=1pt,fill]         (D) at (3,-.25) {};
+    \node[circle,draw,inner sep=1pt,fill]         (E) at (3,-.5) {};
+    \node at (3,-.8) {$N+_YM$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z1) at (4.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z2) at (4.5,-.2) {};
+    \node at (4.5,-.8) {$Z$};
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x1) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z1) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z2) edge (E);
+  \end{tikzpicture}
+\end{center}
+Here we see essentially the same phenomenon as we described for circuits above:
+the apex of the cospan is much larger than the image of the maps from the feet.
+
+Corelations address this with what is known as a $(\mc E,\mc M)$-factorisation
+system. A factorisation system comprises subcategories $\mc E$ and $\mc M$ of
+$\mc C$ such that every morphism in $\mc C$ factors, in a coherent way, as the
+composite of a morphism in $\mc E$ followed by a morphism in $\mc M$. An
+example, known as the epi-mono factorisation system on $\Set$, is yielded by the
+observation that every function can be written as a surjection followed by an
+injection.
+
+Corelations, or more precisely $(\mc E,\mc M)$-corelations, are cospans $X
+\to N \leftarrow Y$ such that the copairing $X+Y \to N$ of the two maps is an
+element of the first factor $\mc E$ of the factorisation system. Composition of
+corelations proceeds first as composition of cospans, but then takes only the
+so-called $\mc E$-part of the composite cospan, to ensure the composite is again
+a corelation. If we take the $\mc E$-part of a cospan $X \to N \leftarrow Y$, we
+write the new apex $\overline{N}$, and so the resulting corelation $X \to
+\overline{N} \leftarrow Y$. 
+
+Mapping the above two cospans to epi-mono corelations in $\FinSet$ they become 
+\begin{center}
+  \begin{tikzpicture}[auto,scale=2]
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x1) at (-1.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x2) at (-1.5,-.2) {};
+    \node at (-1.5,-.8) {$X$};
+    \node[circle,draw,inner sep=1pt,fill]         (B) at (0,.3) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C) at (0,0) {};
+    \node[circle,draw,inner sep=1pt,fill]         (D) at (0,-.3) {};
+    \node at (0,-.8) {$\overline{N}$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y1) at (1.5,.3) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y2) at (1.5,.1) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y3) at (1.5,-.1) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (y4) at (1.5,-.3) {};
+    \node at (1.5,-.8) {$Y$};
+    \node[circle,draw,inner sep=1pt,fill]         (A') at (3,.5) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B') at (3,.25) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C') at (3,0) {};
+    \node[circle,draw,inner sep=1pt,fill]         (D') at (3,-.25) {};
+    \node[circle,draw,inner sep=1pt,fill]         (E') at (3,-.5) {};
+    \node at (3,-.8) {$M=\overline{M}$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z1) at (4.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z2) at (4.5,-.2) {};
+    \node at (4.5,-.8) {$Z$,};
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x1) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y1) edge (B);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y2) edge (C);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y3) edge (D);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y4) edge (D);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y1) edge (A');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y2) edge (B');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y3) edge (C');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (y4) edge (D');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z1) edge (B');
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z2) edge (E');
+  \end{tikzpicture}
+\end{center}
+with composite
+\begin{center}
+  \begin{tikzpicture}[auto,scale=2]
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x1) at (1.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (x2) at (1.5,-.2) {};
+    \node at (1.5,-.45) {$X$};
+    \node[circle,draw,inner sep=1pt,fill]         (A) at (3,.2) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B) at (3,-.2) {};
+    \node at (3,-.45) {$\overline{N+_YM}$};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z1) at (4.5,.2) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray] (z2) at (4.5,-.2) {};
+    \node at (4.5,-.45) {$Z$.};
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x1) edge (A);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (x2) edge (A);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z1) edge (A);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth]
+    (z2) edge (B);
+  \end{tikzpicture}
+\end{center}
+Note that the apex of the composite corelation is the subset of the apex of the
+composite cospan comprising those elements that are in the image of the maps
+from the feet. The intuition, again, is that composition of corelations discards
+irrelevant information---of course, exactly what it discards depends on our
+choice of factorisation system.
+
+In this chapter we show that given a category $\mc C$ with finite colimits and a
+factorisation system $(\mc E,\mc M)$, if $\mc M$ obeys a condition known as
+`stability under pushout', then corelations in $\mc C$ form a hypergraph
+category. We also show that given a colimit-preserving functor $A$ between such
+categories $\mathcal C$, $\mathcal C'$ with factorisation systems $(\mathcal E,
+\mathcal M)$, $(\mathcal E', \mathcal M')$, $A$ induces a hypergraph functor
+between their corelation categories if the image of $\mathcal M$ lies in
+$\mathcal M'$.
 
 \section{Corelations} \label{sec.corels}
 
@@ -222,15 +694,15 @@ More abstractly then, we might say a relation is an isomorphism class of jointly
 monic spans in the category of sets. Here we generalise the dual concept: these
 are our so-called corelations.
 
-Relations, or equivalently, multi-valued functions, have long been a structure
-of mathematical interest, with work going back to De Morgan \cite{DeM60} and
-subsequently Pierce \cite{Pie70}. In \cite{Kle70}, Klein provided a category
-theoretic generalisation of the concept, albeit one slightly more restrictive
-than that which we use here, and by now the categorical theory of relations is
-well studied \cite{Mil00, JW00}. The key insight is the concept of a
-factorisation system. We begin this section by introducing this concept, before
-developing the theory of not just categories of relations, but \emph{monoidal}
-categories of (co)relations.
+Relations and, equivalently, multi-valued functions have long been a structure
+of mathematical interest, with their formalisation going back to De Morgan
+\cite{DeM60} and Pierce \cite{Pie70} in the 1800s. One hundred years later,
+Klein \cite{Kle70} provided a category theoretic generalisation of the
+concept---albeit one slightly more restrictive than that which we use here---and
+by now the categorical theory of relations is well studied \cite{Mil00, JW00}.
+The key insight is the definition of a factorisation system. We begin this section
+by introducing this idea, before developing the theory of not just categories
+of relations, but monoidal categories of (co)relations.
 
 \subsection{Factorisation systems}
 The relevant properties of jointly monic spans come from the fact that
@@ -310,11 +782,12 @@ and monoidal factorisation systems.
       Uniqueness is immediate, since, $e_1$ is epi and $m_2$ is mono. 
     
     \item Recall that a regular epimorphism in an epimorphism that is the
-      coequaliser for some pair of parallel morphisms. In any so-called regular
-      category the regular epimorphisms and monomorphisms form a factorisation
-      system.  Examples of regular categories include $\Set$, toposes, and
-      abelian categories. Regular categories were introduced by Barr and
-      Grillet; for more details see \cite{Bar71,Gri71}.
+      coequaliser for some pair of parallel morphisms. (Dually, a regular
+      monomorphism is an equaliser for some pair of parallel morphisms.) In any
+      so-called regular category the regular epimorphisms and monomorphisms form
+      a factorisation system.  Examples of regular categories include $\Set$,
+      toposes, and abelian categories. Regular categories were introduced by
+      Barr and Grillet; for more details see \cite{Bar71,Gri71}.
 \end{itemize}
 More details and further examples can be found in \cite[\textsection 14]{AHS}.
 \end{examples}
@@ -500,21 +973,23 @@ We compose corelations by taking the $\mathcal E$-part of their composite
 cospan. That is, given corelations $X \stackrel{i_X}{\longrightarrow} N
 \stackrel{o_Y}{\longleftarrow} Y$ and $Y \stackrel{i_Y}{\longrightarrow} M
 \stackrel{o_Z}{\longleftarrow} Z$, their composite is given by the cospan $X
-\xrightarrow{e\circ\iota_N\circ i_X} \overline{N+_YM} \xleftarrow{e \circ
-\iota_M \circ o_Z} Z$ in the commutative diagram
+\xrightarrow{e\circ\iota_X} \overline{N+_YM} \xleftarrow{e \circ \iota_Z} Z$ in the commutative diagram
 \[
-  \xymatrixrowsep{7ex}
-  \xymatrixcolsep{7ex}
-  \xymatrix{
+  \begin{tikzcd}[row sep=7ex,column sep=7ex]
     && N+_YM \\
-    && \overline{N+_YM} \ar[u]_{m} \\
-    & N \ar[uur]^{j_N} \ar[r]^{\iota_N}& N+M
-    \ar[u]_{e}& 
-    M \ar[uul]_{j_M}  \ar[l]_{\iota_M} \\
-    \quad X \quad \ar[ur]^{i_X} && Y \ar[ul]_{o_Y} \ar[ur]^{i_Y} && \quad Z, \quad \ar[ul]_{o_Z}
-  }
+    && \overline{N+_YM} \arrow[u,pos=.4,"m"] \\
+    & N \arrow[uur,"j_N"] & X+Z \arrow[from=dll,pos=.35,swap,"\iota_X"]
+    \arrow[from=drr,pos=.35,"\iota_Z"]
+    \arrow[u,"e"] & 
+    M \arrow[uul,swap,"j_M"] \\
+    X \arrow[ur,"i_X"] && Y
+    \arrow[ul,crossing over,pos=.35,"o_Y"] \arrow[ur,crossing
+    over,pos=.35,swap,"i_Y"] && Z,
+    \arrow[ul,swap,"o_Z"]
+  \end{tikzcd}
 \]
-where $m \circ e$ is the $(\mc E,\mc M)$-factorisation of $[j_N,j_M]\maps N+M
+where $m \circ e$ is the $(\mc E,\mc M)$-factorisation of $[j_N\circ i_X,j_M
+\circ o_Z]\maps X+Z
 \to N+_YM$. 
 
 It is well known that this composite is unique up to isomorphism, and that when
@@ -840,7 +1315,7 @@ We have seen that to construct a functor between cospan categories one may start
 with a colimit-preserving functor between the underlying categories. Corelation
 categories are similar to cospan categories, but we remove the part of each
 cospan that lies in $\mc M$. Hence for functors between corelation categories,
-we require not just a colimit preserving functor between the underlying
+we require not just a colimit-preserving functor between the underlying
 categories with finite colimits, but also that the part that is removed from the
 image is greater than the part removed in the source category.
 
@@ -1342,12 +1817,14 @@ Informally, this captures the idea that two elements of $X+Z$ are `connected' if
 we may travel from one to the other staying within connected components of
 $\alpha$ and $\beta$.
   
-  Epi-mono corelations in $\Set$ can also be visualised as terminals connected by junctions of ideal wires. We draw these by marking each equivalence
-class with a point (the `junction'), and then connecting each element of the
-domain and codomain to their equivalence class with a `wire'. The junction
-serves as the apex of the corelation, the terminals as the feet, and the wires
-depict a function from the feet to the apex. Composition then involves collapsing
-connected junctions down to a point.
+For a greater resemblance of the diagrams in the motivating comments of
+\textsection\ref{sec.blackboxing}, epi-mono corelations in $\Set$ can also be
+visualised as terminals connected by junctions of ideal wires. We draw these by
+marking each equivalence class with a point (the `junction'), and then
+connecting each element of the domain and codomain to their equivalence class
+with a `wire'. The junction serves as the apex of the corelation, the terminals
+as the feet, and the wires depict a function from the feet to the apex.
+Composition then involves collapsing connected junctions down to a point.
 \vspace{-1ex}
 \[
   \begin{aligned}
@@ -1730,3 +2207,104 @@ In the next chapter we discuss decorations on corelations.
 %	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
 %	\end{pgfonlayer}
 %\end{tikzpicture}
+
+
+
+%
+%\[
+%    \tikzset{every path/.style={line width=1.1pt}}
+%\begin{tikzpicture}
+%	\begin{pgfonlayer}{nodelayer}
+%		\node [style=dot] (0) at (-2.5, 1.5) {};
+%		\node [style=dot] (1) at (-2.5, -0) {};
+%		\node [style=dot] (2) at (-2.5, -1.5) {};
+%		\node [style=none] (3) at (-2, -2) {};
+%		\node [style=none] (4) at (1.5, 2) {};
+%		\node [style=none] (5) at (-2, -0) {};
+%		\node [style=none] (6) at (-2, -1.5) {};
+%		\node [style=none] (7) at (-2, 1.5) {};
+%		\node [style=dot] (8) at (-2.5, -0.75) {};
+%		\node [style=none] (9) at (-2, -0.75) {};
+%		\node [style=dot] (10) at (-2.5, 0.75) {};
+%		\node [style=none] (11) at (-2, 0.75) {};
+%		\node [style=dot] (12) at (2, -1.5) {};
+%		\node [style=none] (13) at (1.5, -1.5) {};
+%		\node [style=dot] (14) at (2, -0.75) {};
+%		\node [style=none] (15) at (1.5, 1.5) {};
+%		\node [style=dot] (16) at (2, 1.5) {};
+%		\node [style=none] (17) at (1.5, 0.75) {};
+%		\node [style=dot] (18) at (2, -0) {};
+%		\node [style=dot] (19) at (2, 0.75) {};
+%		\node [style=none] (20) at (1.5, -0) {};
+%		\node [style=none] (21) at (1.5, -0.75) {};
+%		\node [style=none] (22) at (-0.25, 0.75) {};
+%	\end{pgfonlayer}
+%	\begin{pgfonlayer}{edgelayer}
+%		\draw (0) to (7);
+%		\draw (1) to (5);
+%		\draw (2) to (6);
+%		\draw (8) to (9);
+%		\draw (10) to (11);
+%		\draw (16) to (15);
+%		\draw (18) to (20);
+%		\draw (12) to (13);
+%		\draw (14) to (21);
+%		\draw (19) to (17);
+%		\draw (9) to (21);
+%		\draw (6) to (13);
+%		\draw (7) to (22);
+%		\draw (5) to (22);
+%		\draw (22) to (15);
+%		\draw (22) to (17);
+%		\draw (22) to (20);
+%	\end{pgfonlayer}
+%	\begin{pgfonlayer}{background}
+%	  \filldraw [fill=black!5!white, draw=black!40!white] (3) rectangle (4);
+%	\end{pgfonlayer}
+%\end{tikzpicture}
+%\]
+
+
+%\[
+%    \tikzset{every path/.style={line width=1.1pt}}
+%    \begin{tikzpicture}
+%	\begin{pgfonlayer}{nodelayer}
+%		\node [style=dot] (0) at (-2.5, 1.5) {};
+%		\node [style=dot] (1) at (-2.5, -0) {};
+%		\node [style=dot] (2) at (-2.5, -1.5) {};
+%		\node [style=none] (3) at (-2, -2) {};
+%		\node [style=none] (4) at (1.5, 2) {};
+%		\node [style=none] (5) at (-2, -0) {};
+%		\node [style=none] (6) at (-2, -1.5) {};
+%		\node [style=none] (7) at (-2, 1.5) {};
+%		\node [style=dot] (8) at (-2.5, -0.75) {};
+%		\node [style=none] (9) at (-2, -0.75) {};
+%		\node [style=dot] (10) at (-2.5, 0.75) {};
+%		\node [style=none] (11) at (-2, 0.75) {};
+%		\node [style=dot] (12) at (2, -1.5) {};
+%		\node [style=none] (13) at (1.5, -1.5) {};
+%		\node [style=dot] (14) at (2, -0.75) {};
+%		\node [style=none] (15) at (1.5, 1.5) {};
+%		\node [style=dot] (16) at (2, 1.5) {};
+%		\node [style=none] (17) at (1.5, 0.75) {};
+%		\node [style=dot] (18) at (2, -0) {};
+%		\node [style=dot] (19) at (2, 0.75) {};
+%		\node [style=none] (20) at (1.5, -0) {};
+%		\node [style=none] (21) at (1.5, -0.75) {};
+%	\end{pgfonlayer}
+%	\begin{pgfonlayer}{edgelayer}
+%	  \filldraw [fill=black!80!white] (3) rectangle (4);
+%		\draw (0.center) to (7.center);
+%		\draw (1.center) to (5.center);
+%		\draw (2.center) to (6.center);
+%		\draw (8) to (9.center);
+%		\draw (10) to (11.center);
+%		\draw (16) to (15.center);
+%		\draw (18) to (20.center);
+%		\draw (12) to (13.center);
+%		\draw (14) to (21.center);
+%		\draw (19) to (17.center);
+%	\end{pgfonlayer}
+%\end{tikzpicture}
+%  ,
+%\]
