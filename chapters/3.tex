@@ -1022,8 +1022,8 @@ composite of corelations is unique up to isomorphism.
 %    \qquad \mbox{and} \qquad 
 %    Y \stackrel{i_Y'}{\longrightarrow} M' \stackrel{o_Z'}{\longleftarrow} Z
 %  \]
-  be pairs of isomorphic jointly $\mathcal E$-like cospans. Their composites
-  \emph{as cospans} 
+  be pairs of isomorphic jointly $\mathcal E$-like cospans. By Proposition
+  \ref{prop.composingdeccospans} their composites \emph{as cospans} 
   % $(X \longrightarrow N+_YM \longleftarrow Z)$ and $(X
   %\longrightarrow N'+_YM' \longleftarrow Z)$
 %  \[
@@ -1031,18 +1031,18 @@ composite of corelations is unique up to isomorphism.
 %    \qquad \mbox{and} \qquad 
 %    X \longrightarrow N'+_YM' \longleftarrow Z
 %  \]
-  are isomorphic, so the factorisation system gives an isomorphism $s$ such that
-  the diagram
+  are isomorphic via an isomorphism $p\maps N+_YM \to N'+_YM'$. The
+  factorisation system then gives an isomorphism $s$ such that the diagram
   \[
     \xymatrixcolsep{3pc}
     \xymatrixrowsep{2pc}
     \xymatrix{
       X+Z \ar[r]^e \ar@{=}[d] & \overline{N+_YM} \ar[r]^m \ar@{.>}[d]^{s}_\sim & N+_YM
-      \ar[d]^\sim \\
+      \ar[d]_\sim^{p} \\
       X+Z \ar[r]_{e'}&\overline{N'+_YM'} \ar[r]_{m'} & N'+_YM'
     }
   \]
-  commutes. This $s$ is an isomorphism of the composite corelations.
+  commutes. Thus $s$ is an isomorphism of the composite corelations.
 \end{proof}
 
 As we have said, this composition rule only gives a category when $\mc M$ is
@@ -1212,9 +1212,11 @@ isomorphism class of the corelation $X \xrightarrow{\iota_X} X+Y
 I_{\mc C}$. Thus $\corel_{(\mc I_{\mc C},\mc C)}(\mc C)$ is the indiscrete
 category on the objects of $\mc C$. 
 
-  equivalence relations between finite sets. The last of these examples is
-  perhaps the most instructive for black-boxing open systems, and we will return
-  to it in \textsection\ref{ssec.equivrels}.
+We discussed epi-mono corelations in $\FinSet$ informally in our motivation
+section \textsection\ref{sec.blackboxing}. These are equivalence relations
+between finite sets. This example is perhaps the most instructive for
+black-boxing open systems, and we will return to it in
+\textsection\ref{ssec.equivrels}.
 \end{examples}
 
 Proposition \ref{prop.corelcomp} shows that our composition rule is a

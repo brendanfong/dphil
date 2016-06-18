@@ -7,16 +7,16 @@ hypergraph categories of semantics for network-style diagrammatic languages.
 Indeed, we will prove that every hypergraph category can be constructed using
 decorated corelations, and so can every hypergraph functor.
 
-In the next section we motivate this chapter by discussing how one might try to
-construct the category of matrices using decorations, illustrating the
-shortcomings of decorated cospans and how they are overcome by decorated
-corelations. As usual, in the following two sections we then get into the
-technical details, defining decorated corelations (\textsection\ref{sec:dcorc})
-and their functors (\textsection\ref{sec.dcorf}). This sets us up to state and
-prove the climactic theorem of Part \ref{part.maths}: decorated corelations are
-powerful enough to construct all hypergraph categories and functors. We do this
-in \textsection\ref{sec.allhypergraphs}. Finally, in
-\textsection\ref{sec:excor}, we give some examples.
+In the next section we motivate this chapter by discussing how to construct the
+category of matrices using decorations, illustrating the shortcomings of
+decorated cospans and how they are overcome by decorated corelations. As usual,
+we then use the subsequent two sections to get into the technical details,
+defining decorated corelations (\textsection\ref{sec:dcorc}) and their functors
+(\textsection\ref{sec.dcorf}). This sets us up to state and prove the climactic
+theorem of Part \ref{part.maths}: roughly, decorated corelations are powerful
+enough to construct all hypergraph categories and functors. We do this in
+\textsection\ref{sec.allhypergraphs}. Finally, in \textsection\ref{sec:excor},
+we give some examples.
 
 \section{Black-boxed open systems} \label{sec.blackboxedsystems}
 
@@ -73,7 +73,7 @@ decorations, are given by $\varphi_{N,M}\maps \R^N \times \R^M \to \R^{N\times
 M}$, taking $(s,t) \in \R^N \times \R^M$ to the function $s \cdot t\maps N
 \times M \to \R$ defined by pointwise multiplication in $\R$. 
 
-Composition in this decorated cospans category is thus given by the
+Composition in this decorated cospan category is thus given by the
 multiplication in $\R$. In detail, given decorated cospans $(X
 \xrightarrow{i_X^\opp} N \xleftarrow{o_Y^\opp} Y, N \xrightarrow{s} \R)$ and $(Y
 \xrightarrow{i_Y^\opp} M \xleftarrow{o_Z^\opp} Z, M \xrightarrow{t} \R)$, the
@@ -190,81 +190,82 @@ tell what paths the signal took through the system, only the total amplification
 from input to output.
 
 We thus want to restrict our apex to contain at most one point for each
-input--output pair $(x,y)$, pushing the decoration along the quotient map $e$ in
-the epi-mono factorisation of the function $N\times_YM \xrightarrow{e}
-\overline{N\times_YM} \xrightarrow{m} X \times Z$. Put another way, we want the
-category of decorated corelations, not decorated cospans. Represented as
-decorated corelations, the above composite becomes
+input--output pair $(x,y)$. We do this by pushing the decoration along the
+surjection $e$ in the epi-mono factorisation of the function $N\times_YM
+\xrightarrow{e} \overline{N\times_YM} \xrightarrow{m} X \times Z$. Put another
+way, we want the category of decorated corelations, not decorated cospans.
+
+Represented as decorated corelations, the above composite becomes
 \[
-    \tikzset{every path/.style={line width=.8pt}}
-    \begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=sdot] (0) at (-2.5, 1.5) {};
-		\node [style=sdot] (1) at (-2.5, -0) {};
-		\node [style=sdot] (2) at (-2.5, -1.5) {};
-		\node [style=amp] (3) at (-0.75, 1.5) {$6$};
-		\node [style=amp] (4) at (-0.75, -1) {$-2$};
-		\node [style=amp] (5) at (-0.75, 0.25) {$2.1$};
-		\node [style=amp] (6) at (-0.75, -0.25) {$-0.4$};
-		\node [style=sdot] (7) at (1, -0.5) {};
-		\node [style=sdot] (8) at (4.5, 0.5) {};
-		\node [style=sdot] (9) at (1, -1.5) {};
-		\node [style=sdot] (10) at (4.5, -1.5) {};
-		\node [style=amp] (11) at (2.75, -0.5) {$-1$};
-		\node [style=amp] (12) at (2.75, -1.5) {$-2.3$};
-		\node [style=amp] (13) at (2.75, 1.5) {$4$};
-		\node [style=sdot] (14) at (4.5, 1.5) {};
-		\node [style=amp] (15) at (2.75, -0) {$3$};
-		\node [style=sdot] (16) at (4.5, -0.5) {};
-		\node [style=sdot] (17) at (1, 0.5) {};
-		\node [style=sdot] (18) at (1, 1.5) {};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (3.west) to (0.center);
-		\draw (5.west) to (1.center);
-		\draw (6.west) to (1.center);
-		\draw (4.west) to (2.center);
-		\draw (14) to (13);
-		\draw (16) to (11);
-		\draw (12) to (10);
-		\draw (9) to (12);
-		\draw (13) to (18);
-		\draw (3) to (18);
-		\draw (5) to (17);
-		\draw (6) to (7);
-		\draw (4) to (7);
-		\draw (11) to (7);
-		\draw (17) to (15);
-		\draw (15) to (16);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
-\qquad = \qquad
-\begin{aligned}
-\begin{tikzpicture}
-	\begin{pgfonlayer}{nodelayer}
-		\node [style=sdot] (0) at (-2.5, 1.5) {};
-		\node [style=sdot] (1) at (-2.5, -0) {};
-		\node [style=sdot] (2) at (-2.5, -1.5) {};
-		\node [style=amp] (3) at (-0.75, 1.5) {$24$};
-		\node [style=amp] (4) at (-0.75, -1) {$2$};
-		\node [style=amp] (5) at (-0.75, -0.25) {$6.7$};
-		\node [style=sdot] (6) at (1, -0.5) {};
-		\node [style=sdot] (7) at (1, -1.5) {};
-		\node [style=sdot] (8) at (1, 0.5) {};
-		\node [style=sdot] (9) at (1, 1.5) {};
-	\end{pgfonlayer}
-	\begin{pgfonlayer}{edgelayer}
-		\draw (3.west) to (0.center);
-		\draw (5.west) to (1.center);
-		\draw (4.west) to (2.center);
-		\draw (3) to (9);
-		\draw (5) to (6);
-		\draw (4) to (6);
-	\end{pgfonlayer}
-\end{tikzpicture}
-\end{aligned}
+  \tikzset{every path/.style={line width=.8pt}}
+  \begin{aligned}
+    \begin{tikzpicture}
+      \begin{pgfonlayer}{nodelayer}
+	\node [style=sdot] (0) at (-2.5, 1.5) {};
+	\node [style=sdot] (1) at (-2.5, -0) {};
+	\node [style=sdot] (2) at (-2.5, -1.5) {};
+	\node [style=amp] (3) at (-0.75, 1.5) {$6$};
+	\node [style=amp] (4) at (-0.75, -1) {$-2$};
+	\node [style=amp] (5) at (-0.75, 0.25) {$2.1$};
+	\node [style=amp] (6) at (-0.75, -0.25) {$-0.4$};
+	\node [style=sdot] (7) at (1, -0.5) {};
+	\node [style=sdot] (8) at (4.5, 0.5) {};
+	\node [style=sdot] (9) at (1, -1.5) {};
+	\node [style=sdot] (10) at (4.5, -1.5) {};
+	\node [style=amp] (11) at (2.75, -0.5) {$-1$};
+	\node [style=amp] (12) at (2.75, -1.5) {$-2.3$};
+	\node [style=amp] (13) at (2.75, 1.5) {$4$};
+	\node [style=sdot] (14) at (4.5, 1.5) {};
+	\node [style=amp] (15) at (2.75, -0) {$3$};
+	\node [style=sdot] (16) at (4.5, -0.5) {};
+	\node [style=sdot] (17) at (1, 0.5) {};
+	\node [style=sdot] (18) at (1, 1.5) {};
+      \end{pgfonlayer}
+      \begin{pgfonlayer}{edgelayer}
+	\draw (3.west) to (0.center);
+	\draw (5.west) to (1.center);
+	\draw (6.west) to (1.center);
+	\draw (4.west) to (2.center);
+	\draw (14) to (13);
+	\draw (16) to (11);
+	\draw (12) to (10);
+	\draw (9) to (12);
+	\draw (13) to (18);
+	\draw (3) to (18);
+	\draw (5) to (17);
+	\draw (6) to (7);
+	\draw (4) to (7);
+	\draw (11) to (7);
+	\draw (17) to (15);
+	\draw (15) to (16);
+      \end{pgfonlayer}
+    \end{tikzpicture}
+  \end{aligned}
+  \qquad = \qquad
+  \begin{aligned}
+    \begin{tikzpicture}
+      \begin{pgfonlayer}{nodelayer}
+	\node [style=sdot] (0) at (-2.5, 1.5) {};
+	\node [style=sdot] (1) at (-2.5, -0) {};
+	\node [style=sdot] (2) at (-2.5, -1.5) {};
+	\node [style=amp] (3) at (-0.75, 1.5) {$24$};
+	\node [style=amp] (4) at (-0.75, -1) {$2$};
+	\node [style=amp] (5) at (-0.75, -0.25) {$6.7$};
+	\node [style=sdot] (6) at (1, -0.5) {};
+	\node [style=sdot] (7) at (1, -1.5) {};
+	\node [style=sdot] (8) at (1, 0.5) {};
+	\node [style=sdot] (9) at (1, 1.5) {};
+      \end{pgfonlayer}
+      \begin{pgfonlayer}{edgelayer}
+	\draw (3.west) to (0.center);
+	\draw (5.west) to (1.center);
+	\draw (4.west) to (2.center);
+	\draw (3) to (9);
+	\draw (5) to (6);
+	\draw (4) to (6);
+      \end{pgfonlayer}
+    \end{tikzpicture}
+  \end{aligned}
 \]
 Note that composite is not simply the composite as decorated cospans, but the
 composite decorated cospan reduced to a decorated corelation. In
@@ -274,10 +275,10 @@ with monoidal product the tensor product.
 
 It is not a trivial fact that the above composition rule for decorated
 corelations defines a category. Indeed, the reason that it is possible to push
-the decoration along the quotient map $e$ is that the lax symmetric monoidal
+the decoration along the surjection $e$ is that the lax symmetric monoidal
 functor $\R^{(-)}\maps \FinSet^\opp \to \Set$ extends to a lax symmetric
-monoidal functor $(\FinSet^\opp;\mathrm{Sur}) \to \Set$. Here
-$\FinSet^\opp;\mathrm{Sur}$ is the subcategory of $\cospan(\FinSet^\opp)$
+monoidal functor $(\FinSet^\opp;\mathrm{Sur}^\opp) \to \Set$. Here
+$\FinSet^\opp;\mathrm{Sur}^\opp$ is the subcategory of $\cospan(\FinSet^\opp)$
 comprising cospans of the form $\xrightarrow{f^\opp}\xleftarrow{e^\opp}$, where
 $f$ is any function but $e$ must be a surjection.
 
@@ -310,11 +311,32 @@ and hence network-style diagrammatic languages.
 
 \section{Decorated corelations} \label{sec:dcorc}
 
-The key difference is to decorate cospans we need to know how to push
-decorations up. To decorate corelations we all need to know how to pull
-decorations back down. 
+Decorating cospans requires more than just choosing a set of decorations for
+each apex: for composition, we need to describe how these decorations transfer
+along the copairing of pushout maps $[j_N,j_M]\maps N+M \to N+_YM$. Thus to
+construct a decorated cospan category we need, as we have seen, not merely a
+function from the objects of $\mc C$ to $\Set$, but a lax symmetric monoidal
+functor $(\mc C,+) \to (\Set,\times)$. 
 
-\subsection{Adjoining right adjoints}
+Similarly, decorating $(\mc E,\mc M)$-corelations requires still more
+information: we need to know how to transfer decorations backwards along the
+morphisms $N+_YM \xleftarrow{m} \overline{N+_YM}$. We thus introduce the
+symmetric monoidal category $\mc C;\mc M^\opp$ with morphisms cospans of the
+form $\xrightarrow{f}\xleftarrow{m}$, where $f \in \mc C$ and $m \in \mc M$.
+For constructing categories of decorated $(\mc E,\mc M)$-corelations,
+we then require a lax symmetric monoidal functor $F$ from this category to
+$\Set$. 
+
+This section is structured in the same way as \textsection\ref{sec.corels}.
+First, in \textsection\ref{ssec.rightads}, we introduce the categories $\mc
+C;\mc M^\opp$, a prerequisite for the definition of decorated corelations. Next,
+in \textsection\ref{ssec.deccorel}, we define decorated corelations, and then,
+in \textsection\ref{ssec.deccorelcats} the hypergraph category of decorated
+corelations. As in the previous chapter, we defer the proof that our hypergraph
+category is a well-defined category until our discussion of functors in the
+following section, \textsection\ref{sec.dcorf}.
+
+\subsection{Adjoining right adjoints} \label{ssec.rightads}
 
 Suppose we have a cospan $X+Y \to N$ with a decoration on $N$. Reducing this to
 a corelation requires us to factor this to $X+Y \stackrel{e}\to \overline{N}
@@ -322,11 +344,13 @@ a corelation requires us to factor this to $X+Y \stackrel{e}\to \overline{N}
 specify how to take decoration on $N$ and `pull it back' along $m$ to a decoration on
 $\overline{N}$.
 
-For decorated cospans, it is enough to have a functor $F$ from a category $\mc C$
-with finite colimits; the image $Ff$ of morphisms $f$ in $\mc C$ describes how
-to move decorations forward along $f$. In this subsection we explain how to
-expand $\mc C$ to include morphisms $m^\opp$ for each $m \mc C$, so that the
-image of $m^\opp$ describes how to move morphisms backwards along $m$.
+For decorated cospans, it is enough to have a functor $F$ from a category $\mc
+C$ with finite colimits; the image $Ff$ of morphisms $f$ in $\mc C$ describes
+how to move decorations forward along $f$. In this subsection we explain how to
+expand $\mc C$ to include morphisms $m^\opp$ for each $m \in \mc C$, so that the
+image $Fm^\opp$ of $m^\opp$ describes how to move morphisms backwards along $m$.
+The construction of this expanded category $\mc C;\mc M^\opp$ is a simple
+consequence of the stability of $\mc M$ under pushouts.
 
 \begin{proposition}
   Let $\mathcal C$ be a category with finite colimits, and let $\mathcal M$ be a
@@ -353,23 +377,32 @@ image of $m^\opp$ describes how to move morphisms backwards along $m$.
 \end{proposition}
 
 \begin{proof}
-  This is a symmetric monoidal subcategory of $\cospan(\mc C)$. Our data is
-  well defined: composition because $\mc M$ is stable under pushouts, and
-  monoidal composition by Lemma \ref{lem.mcoproductsmc}. 
+  Our data is well defined: composition because $\mc M$ is stable under
+  pushouts, and monoidal composition by Lemma \ref{lem.mcoproductsmc}. The
+  coherence laws follow as this is a symmetric monoidal subcategory of
+  $\cospan(\mc C)$. 
 \end{proof}
 
-This category can be viewed as a bicategory, with 2-morphisms given by maps of
-cospans. In this bicategory every morphism of $\mc M$ has a right adjoint.
+As we state in the proof, the category $\mc C;\mc M^\opp$ is a subcategory of
+$\cospan(\mc C)$. We can in fact view it as a sub-bicategory of the bicategory
+of cospans in $\mc C$, where the 2-morphisms given by maps of cospans. In this
+bicategory every morphism of $\mc M$ has a right adjoint.
 
 \begin{examples} 
-  Our familiar examples:
+  The factorisation systems introduced in Examples \ref{ex.factsysts} and
+  considered again in Examples \ref{ex.corelcats} all have $\mc M$ stable under
+  pushout. This yields the following examples.
   \begin{itemize}
     \item $\mathcal C; \mathcal C^\opp$ is by definition equal to
-$\cospan(\mathcal C)$.
-\item $\mathcal C;\mathcal I_{\mathcal C}^\opp$ is isomorphic to $\mathcal C$.
-\item $\Set;\mathrm{Inj}^\opp$ is the category of partial functions.
-\end{itemize}
+      $\cospan(\mathcal C)$.
+    \item $\mathcal C;\mathcal I_{\mathcal C}^\opp$ is isomorphic to $\mathcal C$.
+    \item $\Set;\mathrm{Inj}^\opp$ is the category with sets as objects and partial
+      functions as morphisms.
+  \end{itemize}
 \end{examples}
+
+The following lemma details how to construct functors between this type of
+category.
 
 \begin{lemma} \label{lem.madjointsfunctor}
   Let $\mathcal C$, $\mathcal C'$ be categories with finite colimits, and let
@@ -390,22 +423,24 @@ $\cospan(\mathcal C)$.
   \cospan(\mc C')$ to the above domain and codomain.
 \end{proof}
 
-That this `subcospan category' construction could be defined more
-generally using any two isomorphism-containing wide subcategories stable under
-pushout, but the above suffices for decorated corelations. 
+Note that this `subcospan category' construction could be defined more generally
+using any two isomorphism-containing wide subcategories stable under pushout.
+The above, however, suffices for decorated corelations.
 
-\subsection{Decorated corelations}
-Decorated corelations are constructed from a lax monoidal functor from $\mc
-C;\mc M^\opp$ to $\Set$.
+\subsection{Decorated corelations} \label{ssec.deccorel}
+
+As we have said, decorated corelations are constructed from a lax symmetric
+monoidal functor from $\mc C;\mc M^\opp$ to $\Set$.
 
 \begin{definition}
-  Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
-  \mathcal M)$ be a factorisation system on $\mathcal C$. Suppose we also
-  have a lax monoidal functor
+  Let $\mathcal C$ be a category with finite colimits, $(\mathcal E, \mathcal
+  M)$ be a factorisation system on $\mathcal C$ with $\mc M$ stable under
+  pushout, and 
   \[
-    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times).
+    F: (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times)
   \]
-  We define an $F$-\define{decorated corelation} to a pair
+  be a lax symmetric monoidal functor.  We define an $F$-\define{decorated
+  corelation} to a pair
   \[
     \left(
     \begin{aligned}
@@ -426,8 +461,10 @@ C;\mc M^\opp$ to $\Set$.
   \]
   where the cospan is jointly $\mathcal E$-like. A morphism of decorated
   corelations is a morphism of decorated cospans between two decorated
-  corelations.
+  corelations.  As usual, we will be lazy about the distinction between a
+  decorated corelation and its isomorphism class.
 \end{definition}
+
 
 Suppose we have decorated corelations
 \[
@@ -435,7 +472,7 @@ Suppose we have decorated corelations
   \begin{aligned}
     \xymatrix{
       & N \\  
-      X \ar[ur]^{i} && Y \ar[ul]_{o}
+      X \ar[ur]^{i_X} && Y \ar[ul]_{o_Y}
     }
   \end{aligned}
   ,
@@ -454,7 +491,7 @@ Suppose we have decorated corelations
   \begin{aligned}
     \xymatrix{
       & M \\  
-      Y \ar[ur]^{i} && Z \ar[ul]_{o}
+      Y \ar[ur]^{i_Y} && Z \ar[ul]_{o_Z}
     }
   \end{aligned}
   ,
@@ -462,7 +499,7 @@ Suppose we have decorated corelations
   \begin{aligned}
     \xymatrix{
       FM \\
-      1 \ar[u]_{s}
+      1 \ar[u]_{t}
     }
   \end{aligned}
   \right).
@@ -471,23 +508,91 @@ Then their composite is given by the composite corelation
 \[
   \xymatrix{
     & \overline{N+_YM} \\  
-    X \ar[ur]^{i} && Z \ar[ul]_{o}
+    X \ar[ur]^{e\circ \iota_X} && Z \ar[ul]_{e \circ \iota_Z}
   }
 \]
 paired with the decoration
 \[
-  1 \longrightarrow F(N+M) \longrightarrow F(N+_YM) \stackrel{F(m^\opp)}\longrightarrow F(\overline{N+_YM})
+  1 \xrightarrow{\varphi_{N,M}\circ\langle s,t\rangle} F(N+M)
+  \xrightarrow{F[j_N,j_M]} F(N+_YM) \xrightarrow{F(m^\opp)} F(\overline{N+_YM}).
 \]
 As composition of corelations and decorated cospans are both well defined up to
-isomorphism, this too is well defined up to isomorphism. Again, we will be lazy
-about the distinction between a decorated corelation and its isomorphism class.
+isomorphism, this too is well defined up to isomorphism. 
 
+\begin{proposition} \label{prop.deccorelcomp}
+  Let $\mc C$ be a category with finite colimits and a factorisation system
+  $(\mc E,\mc M)$ with $\mc M$ stable under pushout. Then the above is a
+  well-defined composition rule on isomorphism classes of decorated corelations.
+\end{proposition}
+\begin{proof}
+Let 
+\[
+  \big(X \stackrel{i_X}\longrightarrow N \stackrel{o_Y}\longleftarrow Y,\enspace I
+\stackrel{s}\longrightarrow FN\big) \stackrel\sim\longrightarrow \big(X \stackrel{i'_X}\longrightarrow N'
+\stackrel{o'_Y}\longleftarrow Y,\enspace I \stackrel{s'}\longrightarrow FN'\big)
+\]
+and
+\[
+  \big(Y \stackrel{i_Y}\longrightarrow M \stackrel{o_Z}\longleftarrow Z,\enspace I
+\stackrel{t}\longrightarrow FM\big) \stackrel\sim\longrightarrow \big(Y \stackrel{i'_Y}\longrightarrow M'
+\stackrel{o'_Z}\longleftarrow Z,\enspace I \stackrel{t'}\longrightarrow FM'\big)
+\]
+be isomorphisms of decorated corelations. We wish to show that the composite of the
+decorated corelations on the left is isomorphic to the composite of the decorated
+corelations on the right. 
 
-\subsection{Categories of decorated corelations}
-In this subsection we give a definition of the hypergraph category
-$F\mathrm{Corel}$ of decorated corelations.  In analogy with how we defined the
-hypergraph category of corelations, we leverage the fact that decorated cospans
-form a hypergraph category, this time using a structure preserving map 
+As discussed in Proposition \ref{prop.deccorelcomp}, the composites of the
+underlying corelations are isomorphic, via an isomorphism $s$ which exists by the
+factorisation system. We need to show this $s$ is an isomorphism of decorations.
+This is a matter of showing the diagram 
+\[
+    \xymatrixcolsep{3pc}
+    \xymatrixrowsep{1pc}
+ \xymatrix{
+   && F(N+_YM) \ar[r]^{Fm^\opp} \ar[dd]_\sim^{Fp} & F(\overline{N+_YM})
+   \ar[dd]_\sim^{Fs} \\
+   1 \ar[urr]^(.4){F[j_N,j_M]\circ\varphi_{N,M}\circ \langle s,t \rangle\qquad}
+   \ar[drr]_(.4){F[j_{N'},j_{M'}]\circ\varphi_{N',M'}\circ \langle s',t'
+ \rangle\qquad\quad} \\
+   && F(N'+_YM') \ar[r]_{Fm'^\opp} & F(\overline{N'+_YM'})\\
+ }
+\]
+The triangle commutes as composition of decorated cospans is well defined
+(Proposition \ref{prop.composingdeccospans}), while the square commutes as
+composition of corelations is well defined (Proposition
+\ref{prop.deccorelcomp}).
+\end{proof}
+
+\begin{remark}
+  Note that we have chosen to define decorated corelations only for lax symmetric
+  monoidal functors 
+  \[
+    (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\Set, \times),
+  \]
+  and not more generally for lax braided monoidal functors 
+  \[
+    (\mathcal C;\mathcal M^\opp,+) \longrightarrow (\mc D, \otimes)
+  \]
+  for braided monoidal categories $\mc D$. While we could use the latter type of
+  functor for our constructions, a similar arguments to those in Section
+  \ref{sec.setdecs} show we gain no extra generality. On the other hand, keeping
+  track of this possibly varying category $\mc D$ in the following distracts
+  from the main insights. We thus merely remark that it is possible to make the
+  more general definition, and leave it at that.
+\end{remark}
+
+\subsection{Categories of decorated corelations} \label{ssec.deccorelcats}
+
+In this subsection we define the hypergraph category $F\mathrm{Corel}$ of
+decorated corelations. Having defined decorated corelations and their
+composition in the previous subsection, the key question to address is the
+provenance of the monoidal and hypergraph structure. 
+
+Recall, from \ref{ssec.deccorelcats}, that to define the monoidal and hypergraph
+structure on categories of corelations, we used functors $\mathrm{Cospan}(\mc C)
+\to \mathrm{Corel}(\mc C)$, leveraging the monoidal and hypergraph structure on
+cospan categories. In analogy, here we leverage the same fact for decorated
+cospans, this time using a structure preserving map 
 \[
   \square\maps F\mathrm{Cospan} \longrightarrow F\mathrm{Corel}.
 \]
@@ -495,8 +600,12 @@ Here $F\mathrm{Cospan}$ denotes the decorated cospan category constructed from
 the restriction of the functor $F\maps \mc C;\mc M^\opp \to \Set$ to the domain
 $\mc C$. 
 
+The monoidal product of two decorated corelations is their monoidal product as
+decorated cospans. To define the coherence maps for this monoidal product, as
+well as the coherence maps, we introduce the notion of a restricted decoration.
+
 Given a cospan $X \to N \leftarrow Y$, write $m\maps \overline{N} \to N$ for the
-$\mc M$ factor of the copairing $X+Y \to N$. The functor $\square$ takes a
+$\mc M$ factor of the copairing $X+Y \to N$. The map $\square$ takes a
 decorated cospan 
 \[
   (X \stackrel{i}\longrightarrow N \stackrel{o}\longleftarrow Y, \enspace 1
@@ -512,11 +621,10 @@ where the corelation is given by the jointly $\mc E$-part of the cospan, and the
 decoration is given by composing $s$ with the $F$-image $Fm^\opp\maps FN \to
 F\overline{N}$ of the map $N \stackrel{1_N}\to N \stackrel{m}\leftarrow
 \overline{N}$ in $\mc C;\mc M^\opp$. We call $Fm^\opp \circ s$ the
-\define{restricted decoration} of the decorated cospan $(X \to N \leftarrow Y,
-\enspace 1 \stackrel{s}\to FN)$.
+\define{restricted decoration} of the decoration on the cospan $(X \to N
+\leftarrow Y, \enspace 1 \stackrel{s}\to FN)$.
 
-The monoidal product of two decorated corelations is their monoidal product as
-decorated cospans.
+We then make the following definition.
 
 \begin{theorem} \label{thm.fcorel}
   Let $\mathcal C$ be a category with finite colimits and factorisation system
@@ -548,22 +656,28 @@ decorated cospans.
   \smallskip 
 \end{theorem}
 
-Similar to the corelations theorem (Theorem \ref{thm.cospantocorel}), we have
-specified well-defined data and now need to check a collection of coherence
-axioms. As before, we prove this alongside the theorem about decorated
-corelation functors in the next section.
+Similar to the theorem defining hypergraph categories of corelations (Theorem
+\ref{thm.cospantocorel}), we have now specified well-defined data and just need
+to check a collection of coherence axioms. As before, we prove this in the next
+section, alongside a theorem regarding functors between decorated corelation
+categories.
 
-\begin{example}
-  Note that decorated cospans are a special case of decorated corelations:
-  simply use an morphism--isomorphism factorisation system.
-\end{example}
+\begin{examples} \label{ex.cospansascorels}
+  Recall that corelations with respect to the trivial \linebreak
+  morphism--isomorphism factorisation system $(\mc C, \mc I_{\mc C})$ are simply
+  cospans. Using this factorisation system, we see that decorated cospans are a
+  special case of decorated corelations.
+\end{examples}
 
 \begin{example} \label{ex.undeccorel}
-  Note that `undecorated' corelations are a special case of decorated
-  corelations: they are corelations decorated by the functor $1\maps \mc C;\mc
-  M^\opp \to \Set$ that maps each object to the one element set $1$, and each
-  morphism to the identity function on $1$. This is a symmetric monoidal functor
-  with the coherence maps all also the identity function on $1$.
+  `Undecorated' corelations are also a special case of decorated
+  corelations: they are corelations decorated by the functor 
+  \[
+    1\maps \mc C;\mc M^\opp \to \Set
+  \] 
+  that maps each object to the one element set $1$, and each morphism to the
+  identity function on $1$. This is a symmetric monoidal functor with the
+  coherence maps all also the identity function on $1$.
 \end{example}
 
 
@@ -573,11 +687,16 @@ corelation functors in the next section.
 %implies that both processes result in the same decoration.  i
 
 \section{Functors between decorated corelation categories} \label{sec.dcorf}
-Functors between decorated corelation categories hold no surprises: their
-requirements combine the requirements of corelations and decorated cospans.
-Recall that Lemma \ref{lem.madjointsfunctor} says that we can extend a
-colimit-preserving functor $\mc C \to \mc C'$ to a symmetric monoidal functor
-$\mc C;\mc M^\opp \to \mc C';\mc M'^\opp$.
+In this section we show how to construct hypergraph functors between decorated
+corelation categories. The construction of these functors holds no surprises:
+their requirements combine the requirements of corelations and decorated
+cospans. In the process of proving that our construction gives well-defined
+hypergraph functors, we complete the necessary prerequsite proof that decorated
+corelation categories are well-defined hypergraph categories.
+
+Recall that Lemma \ref{lem.madjointsfunctor} says that, when the image of $\mc
+M$ lies in $\mc M'$, we can extend a colimit-preserving functor $\mc C \to \mc
+C'$ to a symmetric monoidal functor $\mc C;\mc M^\opp \to \mc C';\mc M'^\opp$ .
 
 \begin{proposition}\label{prop.deccorelfunctors}
   Let $\mathcal C$, $\mathcal C'$ have finite colimits and respective
@@ -620,7 +739,7 @@ to
   \quad 1 \stackrel{s}{\to} FN \stackrel{\theta_N}{\to} GAN
   \xrightarrow{Gm_{AN}^\opp} G\overline{AN}).
 \]
-The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of $A$ with the restricted empty decoration.
+The coherence maps $\overline{\kappa_{X,Y}}$ are given by the coherence maps of $A$ with the restricted empty decoration.
 \end{proposition}
 \begin{proof}[Proof of Theorem \ref{thm.fcorel} and Proposition
   \ref{prop.deccorelfunctors}]
@@ -840,10 +959,14 @@ The coherence maps $\overline{\kappa_{X,Y}})$ are given by the coherence maps of
       G\overline{A(N+M)}
     }
   \]
-  It is straightforward to check this commutes: (T) by the monoidality of
-  $\theta$, (G) by the monoidality of $G$, and (\#\#) as it is the $G$-image of
-  the rightmost square in (\ref{diag.natural}).
+  This is straightforward to check: (T) commutes by the monoidality of $\theta$,
+  (G) by the monoidality of $G$, and (\#\#) as it is the $G$-image of the
+  rightmost square in (\ref{diag.natural}).
 \end{proof}
+
+In particular, we get a hypergraph functor from the category of $F$-decorated
+cospans to the category of $F$-decorated corelations. In our applications, this
+is often the key aspect of constructing `black box' or semantic functors.
 
 %  \[
 %    \xymatrixrowsep{1pc}
@@ -1867,7 +1990,7 @@ finite dimensional vector spaces and linear maps.
 
 We note that you could take decorations here in the category $R\mathrm{Mod}$ of
 $R$-modules. While Proposition \ref{prop.setdecorations} shows that the
-resulting decorated cospans category would be isomorphic, this may hint at an
+resulting decorated cospan category would be isomorphic, this may hint at an
 enriched version of the theory.
 
 \subsection{Two constructions for linear relations}

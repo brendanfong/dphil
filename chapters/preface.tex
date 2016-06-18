@@ -202,3 +202,177 @@ homomorphisms between their syntactic and semantic algebras? In the second part
 of this thesis we explore some applications in depth, providing answers to
 questions of the above sort.
 
+\subsection*{Related work}
+%\addcontentsline{toc}{section}{Related work}
+
+The work here is underpinned not just by philosophical precedent, but by a rich
+tradition in mathematics, physics, and computer science. First and foremost, it
+draws from category theory and the pioneering work of Joyal and
+Street on string diagrams for monoidal categories \cite{JS91,JS93}.
+
+and conversely monoidal categories
+provide an algebraic foundation for the intuitions behind Feynman diagrams.  The
+key insight is the use of categories where morphisms describe physical
+processes, rather than structure-preserving maps between mathematical objects
+\cite{BaezStay,CP}
+ 
+  compositional accounts of semantics associated to topological
+diagrams has long been a technique associated with topological
+quantum field theory, dating back to \cite{At}.
+
+These techniques have filtered into more immediate applications, particularly in
+computation and quantum computation \cite{AC04,Ba1,Sel07}. 
+Kindergarten quantum mechanics. 
+
+Category-theoretic frameworks for general systems theory have been developed
+before. Notably Goguen and Rosen led efforts. Goguen from a more computer
+science perspective, Rosen more in biology.
+
+
+Work on categorical approaches to control systems goes back at least to Goguen
+\cite{Go} and Arbib and Manes \cite{AM}. 
+
+Cospans are already familiar as a formalism for making entities with an
+arbitrarily designated `input end' and `output end' into the morphisms of a
+category.  For example, in topological quantum field theory we use special
+cospans called `cobordisms' to describe pieces of spacetime \cite{BL,BaezStay}.
+
+An advantage of the decorated cospan framework is that the resulting categories
+are hypergraph categories, and the resulting functors respect this structure.
+As dagger compact categories, hypergraph categories themselves have a rich
+diagrammatic nature \cite{Sel11}, and in cases when our decorated cospan categories
+are inspired by diagrammatic applications, the hypergraph structure provides
+language to describe natural operations on our diagrams, such as juxtaposing,
+rotating, and reflecting them.
+
+At the present time, 
+
+it has most recently had
+significant influence in the nascent field of categorical network theory, with
+application to automata and computation \cite{KSW2, Sp}, electrical circuits
+\cite{BF}, signal flow diagrams \cite{BSZ, BE}, Markov processes \cite{BFP,
+ASW}, and dynamical systems \cite{VSL}, among others. 
+
+applying string diagrams to engineering, with the aim of
+giving diverse diagram languages a unified foundation based on category theory
+\cite{KSW,RSW05}. 
+
+Baez and Erbele
+\cite{BE}, Vagner, Spivak, and Lerman \cite{VSL}, as well as Bonchi,
+Soboc\'inski, and Zanasi \cite{BSZ,BSZ2,BSZ3,Za}. 
+
+
+Spivak operad approach
+
+Most similar is the work of Walters, together with Sabadini and Rosebrugh. In
+particular, automata.
+
+cospans and colimits
+
+
+
+\subsection*{Organisation of this thesis}
+%\addcontentsline{toc}{section}{Organisation of this thesis}
+
+This thesis is divided into two parts. Part I, comprising Chapters
+\ref{ch.hypcats} to \ref{ch.deccorels}, focusses on mathematical foundations. In
+it we develop the theory of hypergraph categories and a powerful tool for
+defining and manipulating them: decorated corelations. Part II, comprising
+Chapters \ref{ch.sigflow} to \ref{ch.further}, then discusses applications of
+this theory to examples of open systems.
+
+Chapter \ref{ch.hypcats} introduces hypergraph categories. These are symmetric
+monoidal categories in which every object is equipped with the structure of a
+special commutative Frobenius monoid in a way compatible with the monoidal
+product. As we will rely heavily on properties of monoidal categories, their
+functors, and their graphical calculus, we begin with a whirlwind review of
+these ideas. We then provide a definition of hypergraph categories, a
+strictification theorem, and an important example: the category of cospans in a
+category with finite colimits.
+
+Cospans and their composition, using pushouts, 
+
+Chapter \ref{ch.deccospans}
+
+Chapter \ref{ch.corelations}
+
+Chapter \ref{ch.deccorels}
+
+The central message of decorated corelations is that hypergraph structure
+requires some sort of uniformity in the composition rule, and it is easier to
+work by acknowledging this structure, defining them as algebras over some
+theory. 
+
+Hypergraph categories are really just $\Set$-valued lax symmetric monoidal
+functors: and these, being simply data structures, are often simpler to work
+with.
+
+
+Then applications. Chapter \ref{ch.sigflow} First to control theory from this behavioural perspective,
+demonstrating the ideas of black boxing and corelations, open systems and
+control by interconnection. We give a new characterisation of controllability.
+Second to passive linear networks, which speaks to the idea that we can find
+isomorphisms across disciplines, and explore the insights in new ways.
+
+Chapter \ref{ch.circuits}
+
+Chapter \ref{ch.further}
+
+
+\subsection*{Statement of work}
+%\addcontentsline{toc}{section}{Statement of work}
+
+The Examination Schools make the following request:
+\begin{quote}
+\emph{Where some part of the thesis is not solely the work of the candidate or
+has been carried out in collaboration with one or more persons, the candidate
+shall submit a clear statement of the extent of his or her own contribution.}
+\end{quote}
+I address this now. 
+
+The first four chapters are my own work. The applications chapters were
+developed with collaborators. 
+
+Chapter \ref{ch.sigflow} arises from a weekly seminar with Paolo Rapisarda and
+Pawe\l\ Soboc\'inski at Southampton in the Spring of 2015. The text is a minor
+adaptation of that in the paper \cite{FRS16}. For that paper I developed the
+corelation formalism, providing a first draft. Pawe\l\ provided much expertise
+in signal flow graphs, significantly revising the text and contributing the
+section on operational semantics. Paolo contributed comparisons to classical
+methods in control theory.  A number of anonymous referees contributed helpful
+and detailed comments.
+
+Chapter \ref{ch.circuits} is joint work with John Baez; the majority of the text
+is taken from our paper \cite{BF}. For that paper John supplied writing on
+Dirichlet forms and the principle of minimum power that became the second
+section of Chapter \ref{ch.circuits}, as well as parts of the next two sections.
+I produced a first draft of the rest of the paper. We collaboratively revised
+the text for publication.
+
+\subsection*{Acknowledgements}
+%\addcontentsline{toc}{section}{Acknowledgements}
+I thank my supervisors John Baez, Bob Coecke. Rob Ghrist, Jamie Vicary 
+
+My coauthors
+John, again
+Brandon Coya
+Hugo Nava-Kopp
+Blake Pollard
+Pawe\l\ Soboc\'inski
+Paolo Rapisarda
+
+Writing adviser Rashmi Kumar
+
+comments on drafts:
+all of the above plus Omar Camarena, Dan Marsden, Bernhard Reinke, Jason Erbele,
+Stefano Gogioso,
+
+My partner, Stephanie Lin
+
+And my family Mum, Dad, Justin, Calvin, Tania.
+
+All the organisations: not only the Department of Computer Science and the
+University of Oxford, who gave me space to work and, but the Clarendon Fund,
+Hertford College, the Queen Elizabeth Scholarships, the Centre for Quantum
+Technologies, Singapore, the Department of Mathematics at the University of Pennsylvania
+
