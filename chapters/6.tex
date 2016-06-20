@@ -1,21 +1,74 @@
 \chapter{Passive linear networks} \label{ch.circuits}
-This chapter is about using decorated corelations to build semantic functors. We
-first provide an introduction to passive linear networks and what they model. We
-then use decorated cospans to define open networks, and use decorated
-corelations to construct an appropriate hypergraph category of semantics. The
-decorated corelations framework will show this semantics is functorial.
+This chapter is about using decorated corelations to build semantic functors.
+
+A thorough introduction to this chapter can be found in the next section. Here
+we give a quick overview of the structure of this chapter. The first focus is
+the traditional, closed semantics of circuit diagrams. We begin in
+\textsection\ref{sec:resistors} with a discussion of circuits of linear
+resistors, developing the intuition for the governing laws of passive linear
+circuits---Ohm's law, Kirchhoff's voltage law, and Kirchhoff's current law---in
+a time-independent setting, and showing that Dirichlet forms represent circuit
+behaviours.  In \textsection\ref{sec:plcs}, the Laplace transform then allows us
+to recapitulate these ideas after introducing inductors and capacitors, speaking
+of impedance where we formerly spoke of resistance, and generalizing Dirichlet
+forms from the field $\R$ to the field $\R(s)$ of real rational functions. 
+
+The goal of this applications chapter is to show how decorated corelations can
+make these semantics compositional. As a network-style diagrammatic language, it
+should thus be no surprise that we begin by using to decorated cospans to
+construct a hypergraph category of circuits (\textsection\ref{sec:circdef}). At
+the end of this section, however, we show that Dirichlet forms do not provide
+the flexibility to construct a semantic category for circuits.  This
+motivates the development of more powerful machinery.
+
+In \textsection\ref{sec:circlagr} we review the basic theory of linear
+Lagrangian relations, giving details to the correspondence we have defined
+between Dirichlet forms, and hence passive linear circuits, and Lagrangian
+relations. Subsection \ref{sec:corel} then takes immediate advantage of the
+added flexibility of Lagrangian relations, discussing the `trivial' circuits
+comprising only perfectly conductive wires, which mediate the notion of
+composition of circuits.
+
+With these application-specific tools, we can use decorated corelations to prove
+the functoriality of black-boxing circuits in \textsection\ref{sec:blackbox}.
 
 \section{Introduction}\label{sec:intro}
 %%fakesubsection
-Indeed, even before physicists began using Feynman diagrams, various branches of engineering were using diagrams that in retrospect are closely related.   Foremost among these are the ubiquitous electrical circuit diagrams. Although less well known, similar diagrams are used to describe networks consisting of mechanical, hydraulic, thermodynamic and chemical systems.   Further work, pioneered in particular by 
-Forrester \cite{Fo} and Odum \cite{Od}, applies similar diagrammatic methods to biology, ecology, and economics.
+In late 1940s, just as Feynman was developing his diagrams for processes in
+particle physics, Eilenberg and Mac Lane initiated their work on category
+theory.  Over the subsequent decades, and especially in the aforementioned work
+of Joyal and Street \cite{JS91,JS93}, it became clear that these developments were
+profoundly linked: as we have seen, monoidal categories have a precise graphical
+representation in terms of string diagrams, and conversely monoidal categories
+provide an algebraic foundation for the intuitions behind Feynman diagrams.  The
+key insight is the use of categories where morphisms describe physical
+processes, rather than structure-preserving maps between mathematical objects
+\cite{BaezStay,CP}.
 
-As discussed in detail by Olsen \cite{Ol}, Paynter \cite{Pa} and others, there are mathematically precise analogies between these different systems.  In each case, the system's state is described by variables that come in pairs, with one variable in each pair playing the role of  `displacement' and the other playing the role of `momentum'.  In engineering, the time derivatives of these variables are sometimes called `flow' and `effort'.    In classical mechanics, this pairing of variables is well understood using
-symplectic geometry.  Thus, any mathematical formulation of the diagrams used to
-describe networks in engineering needs to take symplectic geometry as well as category
-theory into account. 
+But even before physicists began using Feynman diagrams, various branches of
+engineering were using diagrams that in retrospect are closely related. In the
+last chapter we investigated signal flow diagrams. But even before these, and
+even more well known, are the ubiquitous electrical circuit diagrams. These are
+broad in their application, and similar diagrams are used to describe networks
+consisting of mechanical, hydraulic, thermodynamic and chemical systems.
+Further work, pioneered in particular by Forrester \cite{Fo} and Odum \cite{Od},
+even applies similar diagrammatic methods to biology, ecology, and economics.
 
-\vskip 1em
+As discussed in detail by Olsen \cite{Ol}, Paynter \cite{Pa} and others, there
+are mathematically precise analogies between these different systems. We give a
+few examples in Table \ref{tab.analogy}. In each case, the system's state is
+described by variables that come in pairs, with one variable in each pair
+playing the role of  `displacement' and the other playing the role of
+`momentum'.  In engineering, the time derivatives of these variables are
+sometimes called `flow' and `effort'.    In classical mechanics, this pairing of
+variables is well understood using symplectic geometry.  Thus, any mathematical
+formulation of the diagrams used to describe networks in engineering needs to
+take symplectic geometry as well as category theory into account. 
+
+
+\begin{table}[H]
+  \caption {Analogies between variables in various physical settings}
+  \label{tab.analogy} 
 \begin{scriptsize}
 \begin{center}
   \begin{tabular}{|c|c c c c|}
@@ -33,8 +86,7 @@ Chemistry & moles & molar flow & chemical momentum & chemical potential \\
 \end{tabular}
 \end{center}
 \end{scriptsize}
-
-While diagrams of networks have been independently introduced in many disciplines, we do not expect formalizing these diagrams to immediately help the practitioners of these disciplines.  At first the flow of information will mainly go in the other direction: by translating ideas from these disciplines into the language of modern mathematics, we can provide mathematicians with food for thought and interesting new problems to solve.  We hope that in the long run mathematicians can return the favor by bringing new insights to the table.
+\end{table}
 
 Although we shall keep the broad applicability of network diagrams in the back
 of our minds, we couch our discussion in terms of electrical circuits, for the
@@ -42,7 +94,7 @@ sake of familiarity. In this section our goal is somewhat limited.  We only stud
 
 While we hope to expand our scope in future work, the class of circuits made from these components has appealing mathematical properties, and is worthy of deep study.  Indeed, this class has been studied intensively for many decades by electrical engineers \cite{AV,Budak,Slepian}.  Even circuits made exclusively of resistors have inspired work by mathematicians of the caliber of Weyl \cite{Weyl} and Smale \cite{Smale}.  
 
-Our work relies on this research.  All we are adding is an emphasis on symplectic geometry and an explicitly `compositional' framework, which clarifies the way a larger circuit can be built from smaller pieces.  This is where monoidal categories become important: the main operations for building circuits from pieces are composition and tensoring.
+The present work relies on this research.  All we are add here is an emphasis on symplectic geometry and an explicitly `compositional' framework, which clarifies the way a larger circuit can be built from smaller pieces.  This is where monoidal categories become important: the main operations for building circuits from pieces are composition and tensoring.
  
 Our strategy is most easily illustrated for circuits made of linear resistors.  Such a resistor dissipates power, turning useful energy into heat at a rate determined by the voltage across the resistor.  However, a remarkable fact is that a circuit made of these resistors always acts to \emph{minimize} the power dissipated this way.  This `principle of minimum power' can be seen as the reason symplectic geometry becomes important in understanding circuits made of resistors, just as the principle of least action leads to the role of symplectic geometry in classical mechanics.  
 
@@ -348,36 +400,6 @@ Together, our results show that these three concepts---Kirchhoff's laws from
 circuit theory, the analytic idea of minimizing power dissipation, and the
 algebraic idea of symplectification of corelations---are merely different faces
 of one law: the law of composition of circuits.
-
-\paragraph{Outline.}
-First we discuss the semantics of circuit diagrams. We begin with a discussion
-of circuits of linear resistors, developing the intuition for the governing laws
-of passive linear circuits---Ohm's law, Kirchhoff's voltage law, and Kirchhoff's
-current law---in a time-independent setting (Section \ref{sec:resistors}), and
-showing that Dirichlet forms represent circuit behaviours.  In Section
-\ref{sec:plcs}, the Laplace transform then allows us to recapitulate these ideas
-after introducing inductors and capacitors, speaking of impedance where we
-formerly spoke of resistance, and generalizing Dirichlet forms from the field
-$\R$ to the field $\R(s)$ of real rational functions. 
-
-The goal of this applications chapter is to show how decorated corelations can
-make these semantics compositional. As a network-style diagrammatic language, it
-should thus be no surprise that we begin by constructing a hypergraph category
-of circuits (Section \ref{sec:circdef}). At the end of this section, however, we
-show that Dirichlet forms do not provide the flexibility to construct a category
-of behaviours of circuits.  This motivates the development of more powerful
-machinery.
-
-In Section \ref{sec:circlagr} we review the basic theory of linear
-Lagrangian relations, giving details to the correspondence we have defined
-between Dirichlet forms, and hence passive linear circuits, and Lagrangian
-relations. Section \ref{sec:corel} then takes immediate advantage of the added
-flexibility of Lagrangian relations, discussing the `trivial' circuits
-comprising only perfectly conductive wires, which mediate the notion of composition
-of circuits.
-
-With these tools, we prove the functoriality of black-boxing circuits in Section
-\ref{sec:blackbox}.
 
 \section{Circuits of linear resistors} \label{sec:resistors}
 %%fakesubsection
@@ -1889,7 +1911,7 @@ at the boundary induces `infinite' currents. One way of dealing with this is to
 use decorated cospans.
 
 
-\subsection{The category of Dirichlet cospans}
+\subsection{The category of Dirichlet cospans} \label{ssec.dirichcospans}
 
 Although we cannot have Dirichlet forms be the morphisms of a category
 themselves, we have a standard trick for turning data into the morphisms of a
@@ -3260,6 +3282,7 @@ action of $S$ on functions will be helpful.
 
 
 \subsection{Lagrangian relations as decorated corelations}
+\label{ssec.lagrrelascorel}
 Recall that every finite dimensional symplectic vector space is isomorphic to
 one of the form $\vectf{X}$. For our finite circuits, Lagrangian relations are
 between these standard symplectic vector spaces are enough to represent the
@@ -3567,28 +3590,32 @@ To prove that the black box functor is a hypergraph functor, we merely assemble
 it from other functors, almost all of which we have already discussed. Indeed,
 our factorisation will run
 \[
-    \blacksquare\maps \Circ \to \mathrm{DirichCospan} \to \mathrm{LagrCospan}
-    \to \mathrm{LagrCorel} \to \LagrRel.
+  \blacksquare\maps \Circ \to \mathrm{DirichCospan} \to \mathrm{LagrCospan}
+  \to \mathrm{LagrCorel} \to \LagrRel.
 \]
 The first three of these functors are decorated corelations functors, assembled
 from the monoidal natural transformations
-  \[
-    \xymatrixcolsep{4pc}
-    \xymatrixrowsep{3pc}
-    \xymatrix{
-      (\FinSet,+) \ar^{\mathrm{Circuit}}[r] \ar@{=}[d] \drtwocell
-      \omit{_\:\theta} & (\Set,\times) \ar@{=}[d]  \\
-      (\FinSet,+) \ar^{\mathrm{Dirich}}[r] \ar@{=}[d] \drtwocell
-      \omit{_\:\beta} & (\Set,\times) \ar@{=}[d]  \\
-      (\FinSet,+) \ar^{\mathrm{Lagr}}[r] \ar@{^{(}->}[d] \drtwocell
-      \omit{_\:\pi} & (\Set,\times) \ar@{=}[d]  \\
-      (\cospan(\FinSet),+) \ar_{\mathrm{Lagr}}[r] & (\Set,\times).
-    }
-  \]
-The last functor is the hypergraph equivalence discussed at the end of
-Subsection .
+\[
+  \xymatrixcolsep{4pc}
+  \xymatrixrowsep{3pc}
+  \xymatrix{
+    (\FinSet,+) \ar^{\mathrm{Circuit}}[r] \ar@{=}[d] \drtwocell
+    \omit{_\:\theta} & (\Set,\times) \ar@{=}[d]  \\
+    (\FinSet,+) \ar^{\mathrm{Dirich}}[r] \ar@{=}[d] \drtwocell
+    \omit{_\:\beta} & (\Set,\times) \ar@{=}[d]  \\
+    (\FinSet,+) \ar^{\mathrm{Lagr}}[r] \ar@{^{(}->}[d] \drtwocell
+    \omit{_\:\pi} & (\Set,\times) \ar@{=}[d]  \\
+    (\cospan(\FinSet),+) \ar_{\mathrm{Lagr}}[r] & (\Set,\times).
+  }
+\]
+The last factor, the functor from $\mathrm{LagrCorel}$ to $\mathrm{LagrRel}$, is
+the hypergraph equivalence discussed at the end of Subsection
+\ref{ssec.lagrrelascorel}.
 
-We have also already discussed the functors given by $\theta$ and $\pi$.
+We have also already discussed the strict hypergraph functors $\Circ \to
+\mathrm{DirichCospan}$ given by $\theta$ (in
+\textsection\ref{ssec.dirichcospans}) and $\mathrm{LagrCospan} \to
+\mathrm{LagrCorel}$ given by $\pi$ (in \textsection\ref{ssec.lagrrelascorel}).
 It remains to address $\beta$.
 
 \begin{proposition}

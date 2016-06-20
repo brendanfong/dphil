@@ -1,43 +1,212 @@
 \chapter{Further directions} \label{ch.further}
+In summary, we have set up a framework for formalising network-style
+diagrammatic languages, and illustrated it in detail with applications to two
+types of such languages.
 
-Open systems. 
+We close with a few words regarding ongoing research extending these ideas. For
+balance, the first is theoretical, regarding the use of epi-mono factorisation
+systems for black boxing systems, and the second applied, regarding consequences
+of our work on passive linear networks in Chapter \ref{ch.circuits}. In
+particular, in the second section we demonstrate that the existence of the black
+box functor is not just a pretty theoretical result, but creates a language in
+which genuinely applied, novel results can be formulated and proved.
 
-\section{Theoretical}
-\subsection{Bounded colimits}
-Why are epis so important? Extended theory
+\section{Bound colimits}
 
-Grothendieck construction (Kissinger comment)
+A theme of this thesis is that while cospans in some category $\mc C$ with
+finite colimits are adequate for describing the interconnection of open systems,
+their composition often retains more information than we can `see' from the
+boundary. In the cases of ideal wires (\textsection\ref{ssec.equivrels}), linear
+relations (\textsection\ref{ssec.linrel}), and signal flow diagrams (Chapter
+\ref{ch.sigflow}), corelations with respect to an epi-mono factorisation system
+instead provide the right notion of black boxed open system. Why? What do
+different factorisation systems model, and how to choose the right one?
 
-\subsection{Classifying hypergraph categories}
+In \cite{RSW08}, Rosebrugh, Sabadini, and Walters describe how composition of
+cospans can be used to calculate colimits. Here we argue that the idea of an
+open system or, equivalently, a system with boundary, motivates a variant of
+the colimit, which we term the bound colimit.
+
+Given a category, an open system is a morphism $s\maps B \to T$. Call $B$ the
+boundary, and $T$ the (total) system. For example, in $\FinSet$ a system is just
+a set of `connected components', and the boundary describes how we may connect
+other systems to these components.
+
+In the above, have worked with with the boundary as two objects, so an open
+system is a cospan $B_1 \to T \leftarrow B_2$. To return to the above picture,
+we just observe our boundary consists of the discrete two object category
+$\{B_1,B_2\}$, and take a colimit, yielding the open system $B_1+B_2 \to T$.
+
+In general we can think of specifying an open system in this way: not just as a
+single morphism $B \to T$, but as a diagram in our category, where some objects
+$B_i$ are denoted `boundary' objects, and the remainder $T_j$ `system' objects. It
+helps intuition to add the condition that our diagram cannot contain maps from a
+`system' object to a `boundary' object.
+
+We can compute a more efficient representation of our diagrammed open system by
+first taking the colimit of the full subcategory with objects the boundary
+objects $B_i$, to arrive at a single boundary object $B$. We can also take a
+colimit over the entire diagram to arrive at a single total system object $T$.
+Since a cocone over the entire diagram is a fortiori a cocone over the boundary
+subdiagram, we get a map $B \to T$. This is our open system.
+
+Suppose now we are interested in the most efficient representation of this
+system. In the examples mentioned above this has meant $s\maps B \to T$ is an
+epimorphism. Why? Consider the following intuition. Varying over all `viewing
+objects' $V$, a system $T$ is completely described by $\hom(T,V)$ (in the sense
+of the Yoneda lemma).  But from at the boundary $B$, not all of these maps can
+be witnessed. Instead the best we can do is study the image of $\hom(T,V)$ in
+$\hom(B,V)$, where the image is given by precomposition with $s\maps B \to T$.
+Call two systems with boundary $B$ equivalent if for all objects $V$ they give
+the same image in $\hom(B,V)$.
+
+Now, many different systems will be equivalent. For example, if we take any open
+system $s\maps B \to T$ and split mono $m\maps T \to T'$ (with retraction
+$m'\maps T' \to T$), then any map $f\maps B \xrightarrow{s} T \xrightarrow{r} V$
+can be written $f\maps B \xrightarrow{s;m} T' \xrightarrow{m';r} V$.  And any
+map $g\maps B \xrightarrow{s;m} T' \xrightarrow{r'}V$ can be written $g\maps B
+\xrightarrow{s} T \xrightarrow{m;r'} V$. So $s\maps B \to T$ and $s;m\maps B \to
+T'$ give the same image in $\hom(B,V)$.  (These images being the images of the
+maps $\hom(T,V) \to \hom(B,V)$ and $\hom(T',V) \to \hom(B,V)$ they respectively
+induce.)
+
+Consequently, if we are interested in efficient representations, then we should
+`subtract' the largest split monic we can from T. This `retracts' the redundant
+information. Also note that if we have an epimorphism $e\maps B \to T$ then the
+map $\hom(T,V) \to \hom(B,V)$ is one-to-one.
+
+Thus, if our category has an epi-split mono factorisation system, then
+equivalence classes of open systems can be indexed by epis $e\maps B \to T$. The
+epi $e$ is the `minimal representation', or the `black boxed' system.
+
+Suppose now that we want to compute the interconnection---or colimit---and minimal
+representation---the epi part---simultaneously. This allows us to consider a
+setting where there are only minimal representations: where everything is always
+`black boxed'. This is where bound colimits come in.
+
+To compute the minimal representation we were interested in the image of system
+homset $\hom(T,V)$ in the boundary homset $\hom(B,V)$. What is the universal
+property of the epi part $e\maps B \to M$ of an open system $s\maps B \to T$?
+
+First, assuming we have an epi-split mono factorisation $s = e;m$, with some
+retraction $m'$, then $e\maps B \to M$ is a cocone over $B$ that extends
+(nonuniquely) to a cocone
+\[
+  \xymatrix{
+    & M \\
+    B \ar[ur]^e \ar[rr]^s &&  T \ar[ul]_{m'}
+  }
+\]
+over $s\maps B \to T$. Second, if there is another cocone $c\maps B \to N$ over $B$ that extends to
+some cocone
+\[
+  \xymatrix{
+    & N \\
+    B \ar[ur]^c \ar[rr]^s &&  T \ar[ul]_{x}
+  }
+\]
+over $s\maps B \to T$, then there exists a unique map $m;x\maps M \to N$ such that
+\[
+  \xymatrix{
+    M \ar[rr]^{m;x} && N\\
+    & B \ar[ul]^e \ar[ur]_c
+  }
+\]
+commutes. Uniqueness is by the epi property of $e$.
+
+Thus the `minimal representation' $M$ is initial in the cocones over $B$ that
+extend to cocones over $s: B \to T$.  The intuition is that $M$ finds the
+balance between removing useful information---if we remove too much it won't
+extend to a cocone over $B \to T$---and removing redundant information---if we
+don't remove enough then it won't be initial.
+
+To generalise this diagrams of open systems, rather than just an arrow $B \to
+T$, we instead want the apex of the cocone that is initial out of all cocones
+over the boundary diagram that extend to a cocone over the system diagram. Call
+this the bound colimit. Then, instead of describing composition of corelations
+as `taking the jointly epic part of the pushout', we might simply say we
+`compute the bound pushout'. Further work will explore the relationship between
+epi-mono corelations and bound colimits in analogy with the relationship between
+cospans and colimits.
 
 
-\subsection{Other categorical structures}
-Not all diagrammatic structures have the same hypergraph network style. For
-example, some have substantive notions of input and output. Spivak's work on
-operads of wiring diagrams 
+\section{Open circuits and other systems}
+
+We conclude with brief mentions of two applications of the category of passive
+linear networks, illustrating the further utility of formalising network-style
+diagrammatic languages as hypergraph categories.
+
+The first concerns making explicit use of the compositional structure to study
+networks of linear resistors. In \cite{Jek}, Jekel uses the compositional
+structure to study the inverse problem for these networks. The inverse problem
+seeks to determine the resistances on the edges of a circuit knowing only the
+underlying graph and the behaviour. Jekel defines a notion of elementary
+factorisation of circuits in terms of the compositional structure in $\Circ$,
+and shows that these factorisations can be used to state a sufficient condition
+for the size of connections through the graph to be detectable from the
+linear-algebraic properties of the behaviour.
+
+The second demonstrates how formalisation of network-style diagrammatic
+languages allows formal exploration of the relationships between them. Work with
+Baez and Pollard \cite{BFP,Pol16} defines a decorated cospan category
+$\mathrm{DetBalMark}$ in which the morphisms are open detailed balanced
+continuous-time Markov chains, or open detailed balanced Markov processes for
+short.  An open Markov process is one where probability can flow in or out of
+certain states called `inputs' and `outputs'. A detailed balanced Markov process
+is one equipped with a chosen equilibrium distribution such that the flow of
+probability from any state $i$ to any state $j$ is equal to the flow of
+probability from $j$ to $i$. 
+
+The behaviour of a detailed balanced open Markov process is determined by a
+principle of minimum dissipation, closely related to Prigogine's principle of
+minimum entropy production. Moreover, the semantics of these Markov processes are
+given by a functor $\square\maps \mathrm{DetBalMark} \to \mathrm{LagrRel}$. This has a strong analogy with the principle of
+minimum power and the black box functor, and we show there is a functor $K\maps
+\mathrm{DetBalMark} \to \Circ$ and a natural transformation $\alpha$
+\[
+  \xymatrixrowsep{2ex}
+  \xymatrix{
+    \mathrm{DetBalMark} \ar[dd]_{K} \ar[drr]^{\square}  \\
+    &\twocell \omit{_\:\alpha}& \mathrm{LagrRel} \\
+    \Circ. \ar[urr]_{\blacksquare} 
+  }
+\]
+This natural transformation makes precise these analogies, and shows that we can
+model detailed balanced Markov processes with circuits of linear resistors in a
+compositional way.
+
+%Finally, note that one straightforward formula for extending the work of this
+%thesis is to take a network-style diagrammatic language and formulate it and its
+%semantics as a hypergraph category. Further ongoing work investigates
+%applications of these ideas to bond graphs, chemical reaction networks,
+%stochastic Petri nets, and flow networks. 
 
 
-\section{Applied}
-While there is not time to explore the applications of the compositional
-perspective on circuits developed in Chapter refSIX, we mention two
-applications, and some generalisations.
-\subsection{Passive linear networks}
-  Inverse problems
-  a type of elementary factorization in $\mathrm{Circ}$ serves as a geometric
-   model for "discrete harmonic continuation."  It describes a sufficient
-   condition for the size of connections through the graph to be detectable from
-   the linear-algebraic properties of the boundary data. \cite{Jek}
-
-\subsection{Open Markov processes}
-Bring in notions of entropy, summary statistics. \cite{BFP16, Pol16}
-
-\subsection{Flow networks}
-cf linear algebra. diagrams+rewrite rules, algebraic semantics, summary arrays.
-
-
-
-\subsection{Chemical reaction networks}
-
-
-\subsection{Automata}
-Walters and the Kleene theorem as black-boxing.
+%Open systems. 
+%
+%\section{Theoretical}
+%\subsection{Bounded colimits}
+%Why are epis so important? Extended theory
+%
+%Grothendieck construction (Kissinger comment)
+%
+%\subsection{Classifying hypergraph categories}
+%
+%
+%\subsection{Other categorical structures}
+%Not all diagrammatic structures have the same hypergraph network style. For
+%example, some have substantive notions of input and output. Spivak's work on
+%operads of wiring diagrams 
+%
+%
+%\section{Applied}
+%
+%\subsection{Flow networks}
+%cf linear algebra. diagrams+rewrite rules, algebraic semantics, summary arrays.
+%
+%
+%
+%\subsection{Chemical reaction networks}
+%
+%
+%\subsection{Automata}

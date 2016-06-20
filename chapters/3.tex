@@ -754,12 +754,19 @@ and monoidal factorisation systems.
       importance in what follows.
     
     \item The prototypical example of a factorisation system is the epi-mono
-      factorisation system $(\mathrm{Sur},\mathrm{Inj})$ in $\Set$. This follows
-      from a more general fact, true in any category, that if every arrow can be
-      factorised as an epi followed by a split mono, then this results in a
-      factorisation system.  The only non-trivial part to check is the
-      uniqueness condition: given epis $e_1,e_2$, split monos $m_1,m_2$, and
-      commutative diagram
+      factorisation system $(\mathrm{Sur},\mathrm{Inj})$ in $\Set$. Here we
+      write $\mathrm{Sur}$ for the subcategory of surjections in $\Set$, and
+      $\mathrm{Inj}$ for the subcategory of injections. 
+      
+      Recall that split monomorphism is a map $m\colon X\to Y$ such that there
+      exists a one-sided inverse, i.e. a map $m'\colon Y\to X$ such that
+      $m'm=\idn_X$. Observe that all monos in $\Set$ split.  One way of proving
+      the above is a factorisation system on $\Set$ is via the more general
+      fact, true in any category: if every arrow can be factorised as an epi
+      followed by a split mono, then epimorphisms and split monomorphisms form
+      the factors of a factorisation system.  The only non-trivial part to check
+      is the uniqueness condition: given epis $e_1,e_2$, split monos $m_1,m_2$,
+      and commutative diagram
       \[
 	\xymatrixcolsep{3pc}
 	\xymatrixrowsep{3pc}
@@ -1560,6 +1567,31 @@ between categories with finite colimits and epi-split mono factorisation systems
 also induce a functor between the epi-split mono corelation categories. We will
 use this in Chapter \ref{ch.sigflow}.
 \end{example}
+
+\begin{remark} \label{rem.corelposet}
+On any category $\mc C$ with finite colimits, reverse inclusions of the right factor
+$\mc M$ defines a partial order on the set of factorisation systems $(\mc E,\mc
+M)$ with $\mc M$ stable under pushout. That is, we write $(\mc E,\mc M) \ge (\mc
+E,\mc M')$ whenever $\mc M \subseteq \mc M'$.  The trivial factorisation
+systems $(\mc C,\mc I_{\mc C})$ and $(\mc I_{\mc C},\mc C)$ are the top and
+bottom elements of this poset respectively.
+
+Corelation categories realise this poset as a subcategory of the category of
+hypergraph categories. One way to understand this is that corelations are
+cospans with the $\mc M$-part `factored out'. Using an morphism-isomorphism
+factorisation system nothing is factored out, so cospans result. Using the
+isomorphism-morphism factorisation system everything is factored out, so there
+is a unique corelation between any two objects.
+
+We can construct a decorated corelation functor between two corelation
+categories if the codomain factors out more than the domain: i.e. if the
+codomain is less than the domain in the poset. In particular, this implies
+there is always a functor from the cospan category $\corel_{(\mc C,\mc I_{\mc
+C})}(\mc C)= \cospan(\mc C)$ to any other corelation category $\corel_{(\mc
+E,\mc M)}(\mc C)$, and from $\corel_{(\mc E,\mc M)}(\mc C)$ any corelation
+category to the indiscrete category $\corel_{(\mc I_{\mc C},\mc C)}(\mc C)$ on
+the objects of $\mc C$.
+\end{remark}
 
 \section{Examples} \label{sec.corelexs}
 We conclude this chapter with two examples of corelation categories. These both

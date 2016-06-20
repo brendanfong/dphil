@@ -1,4 +1,4 @@
-\documentclass[12pt%,draft%,twoside
+\documentclass[12pt,%twoside
 ]{ociamthesis}
 
 %\includeonly{auxiliary/definitions,auxiliary/tikz,
@@ -13,8 +13,7 @@
 %chapters/5,
 %chapters/6,
 %chapters/7,
-%auxiliary/references
-%}
+%auxiliary/references}
 
 \include{auxiliary/definitions}
 \include{auxiliary/tikz}
@@ -60,7 +59,7 @@
 \include{chapters/6}
 \include{chapters/7}
 
-\include{auxiliary/notation}
+%\include{auxiliary/notation}
 
 \phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
@@ -70,31 +69,3 @@
 %\bibliographystyle{alpha}  %use the plain bibliography style
 
 \end{document}
-
-
-% easy access templates
-
-  \[
-    \tikzset{every path/.style={line width=1.1pt}}
-    \begin{aligned}
-    \end{aligned}
-    =
-    \begin{aligned}
-    \end{aligned}
-  \]
-
-  \begin{center}
-    \begin{tabular}{| c | p{.65\textwidth} |}
-      \hline
-      \multicolumn{2}{|c|}{The hypergraph category $(,)$} \\
-      \hline
-      \textbf{objects} & \\ 
-      \textbf{morphisms} & \\ 
-      \textbf{composition} & \\
-      \textbf{monoidal product} & \\
-      \textbf{coherence maps} & \\
-      \textbf{hypergraph maps} & \\
-      \hline
-    \end{tabular}
-  \end{center}
-

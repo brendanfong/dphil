@@ -37,7 +37,8 @@ this: given two graphs, we may construct a third by gluing chosen vertices of
 the first with chosen vertices of the second. Our goal in this chapter is to
 view this process as composition of morphisms in a category, in a way that also
 facilitates the construction of a composition rule for any semantics associated
-to the diagrams, and a functor between these two resulting categories.
+to the diagrams, and the construction of a functor between these two resulting
+categories.
 
 To see how this works, let us start with the following graph:
 \begin{center}
@@ -421,8 +422,8 @@ composition rule is hence associative.
 \paragraph{Identity morphisms.} 
 We shall show that the claimed identity morphism on $Y$, the decorated cospan
 \[
-  (Y \stackrel{1_Y}\longrightarrow Y \stackrel{1_Y}\longleftarrow Y,\enspace 1
-\stackrel{F!\circ \varphi_1}\longrightarrow FY),
+  (Y \stackrel{1_Y}\longrightarrow Y \stackrel{1_Y}\longleftarrow Y,\enspace I
+\xrightarrow{F!\circ \varphi_I} FY),
 \]
 is an identity for composition
 on the right; the case for composition on the left is similar. The cospan in
@@ -432,7 +433,7 @@ We thus need to check that, given a morphism
   (X \stackrel{i}\longrightarrow N
 \stackrel{o}\longleftarrow Y,\enspace I \stackrel{s}\longrightarrow FN),
 \] 
-the composite of the product $s \otimes (F! \circ \varphi_1)$ with the $F$-image
+the composite of the product $s \otimes (F! \circ \varphi_I)$ with the $F$-image
 of the copairing \linebreak $[1_N,o]\colon  N+Y \to N$ of the pushout maps is
 again the same element $s$; this composite being, by definition, the decoration
 of the composite of the given morphism and the claimed identity map. This is
@@ -757,8 +758,9 @@ In summary, the hypergraph category $F\mathrm{Cospan}$ comprises:
     $\mathcal C$\\ 
     \textbf{composition} & given by pushout \\
     \textbf{monoidal product} & the coproduct in $\mathcal C$ \\
-    \textbf{coherence maps} & empty decorated maps from $\cospan(\mc C)$ \\
-    \textbf{hypergraph maps} & empty decorated maps from $\cospan(\mc C)$ \\
+    \textbf{coherence maps} &  maps from $\cospan(\mc C)$ with empty decoration \\
+    \textbf{hypergraph maps} & maps from $\cospan(\mc C)$ with empty decoration
+    \\
     \hline
   \end{tabular}
 \end{center}
@@ -1161,7 +1163,7 @@ $\mc D(I,X)$, and each morphism $f\maps X \to Y$ to the function
 \end{align*}
 Write $1=\{\bullet\}$ for the monoidal unit of $(\Set,\times)$.
 
-\begin{proposition}
+\begin{proposition} \label{prop.monglobalsecs}
   Let $(\mathcal D, \otimes)$ be a braided monoidal category. Define maps  
   \begin{align*}
     d_1\maps 1 &\longrightarrow \mc D(I,I); \\

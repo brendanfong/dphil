@@ -1,11 +1,30 @@
 \chapter{Signal flow diagrams} \label{ch.sigflow}
-This chapter is about corelations and black-boxing. The main point is that
-decorated corelations and hypergraph categories guide the creation of algebraic
-structure, motivated by the hints found in network-style diagrammatic languages.
-This new algebraic structure then provides a novel and powerful, compositional
-perspective on well-known structures.
+In this chapter we use corelations to guide the development of a graphical
+language for reasoning about linear time-invariant systems. 
 
-\section{Behavioural control: modelling by tearing, zooming, and linking}
+%The work builds on recent of work Bonchi, Soboci\'nski, and Zanasi, in which
+%they develop a sound and complete graphical language for reasoning about linear
+%relations \cite{BSZ1}. In their work they provide a presentation of the category
+%of linear relations over the field of Laurent polynomials $k(s)$ in some formal
+%variable $s$ over some field $k$, and operational semantics In the previous part, we observed that this
+%category of linear relations can be constructed as epi-mono corelations over the
+%category $\Mat k(s)$ of matrices with entries in $k(s)$.  
+%
+%In the work of Willems, however, it is matrices over the ring of polynomials $k[s,s^{-1}]$ in $s$ and its formal inverse
+%$s^{-1}$ that plays the central role in representing 
+%
+
+We begin in the next section with motivation and an overview of this
+chapter. In \S\ref{sec.systems} we then develop a categorical account of
+complete LTI discrete dynamical systems. This serves as a denotational semantics
+for the graphical language, introduced in \S\ref{sec.diagrams}, where we also
+derive the equational characterisation.  In \textsection\ref{sec.opsem} we
+relate this to an operational semantics, in terms of biinfinite streams of
+elements of $k$. We conclude in \S\ref{sec.control} with a structural account of
+controllability.
+
+
+\section{Behavioural control theory}
 
 Control theory begins with the following picture:		
 \[
@@ -26,13 +45,6 @@ The first, the question of system analysis, provides the basic understanding req
 
 Control has a long history. Indeed, many systems found in the biology and chemistry of living organisms have interesting interpretations from a control theoretic viewpoint, such as those that are responsible for body temperature regulation or bipedal balance \cite{So2}. Human understanding of control developed alongside engineering, and so dates back at least as far as antiquity, with for example the ancient Romans devising elaborate systems to maintain desired water levels in aqueducts \cite{So}. The origin of formal mathematical control theory, however, is more recent, and in general taken to be James Clerk Maxwell's seminal analysis of centrifugal governors, presented to the Royal Society of London in 1868 \cite{CM}. 
 
-A good example of a basic, but characteristic, system studied by control theory,
-centrifugal governors were developed to address the problem of speed regulation
-for steam engines. A centrifugal governor consists of masses attached via lever
-arms to a vertical spindle, as depicted in Figure . This spindle is then connected to the output wheel of an engine, and the height of the masses is inversely related to the aperture of the steam valve into the engine. Higher speeds therefore cause the spindle to rotate faster, which in turn causes the masses to move upward and decrease the flow of steam into the engine. This moderates or prevents acceleration, and hence overspeeding of the engine. Maxwell's paper classifies the possible trajectories over time of the speed of a governed steam engine. 
-
-With respect to the framework laid out above, there are three systems under investigation here. The first is the steam engine, with input steam flow and output engine speed. The second is the centrifugal governor, with input engine speed and output steam flow. The third is the combined governor-steam engine, which forms the main system under investigation, with again input steam flow and output engine speed.
-
 The techniques used and developed from Maxwell's paper, in particular by Rayleigh and Heaviside, are in general known as \emph{transfer function} techniques. A transfer function is a linear map from the set of inputs to the set of outputs of a linear time-invariant system with zero initial conditions. Transfer functions are commonly used in the analysis of single-input single-output linear systems, but become unwieldy or inapplicable for more general systems.
 
 In the 1960s, led by Wiener and Kalman, so-called \emph{state space} techniques were developed to address multiple-input multiple-output, time-varying, nonlinear systems \cite{Fr}. These methods are characterised by defining a system as a collection of input, output, and internal state variables, with the state changing as a function of the input and state variables over time, and the output a function of the input and state. These functions are often implicitly specified by differential equations.
@@ -43,11 +55,11 @@ Moreover, in the drive to understand larger and more complex systems, increasing
 emphasis has been put on understanding the way systems can be broken down into
 composite subsystems, and conversely how systems link together to form larger
 systems \cite{Wi2, KT}. Indeed, interconnection or composition of systems has
-always played a central role in systems engineering, as in the combination of
-the centrifugal governor and steam engine of Maxwell's research, and the
+always played a central role in systems engineering, and the
 difficulty of discussing how systems compose within an input-output framework
 lends support to Willems' call for a more nuanced definition of control system.
-CITE THIS EXAMPLE? To illustrate these difficulties, consider the simple example of two water tanks each with two access pipes:
+To illustrate these difficulties, consider the simple example, due to Willems,
+of two water tanks each with two access pipes:
 \[
 \begin{tikzpicture}
     % draw the tanks
@@ -113,18 +125,18 @@ p_{A2} &= p_{B1} \\ f_{A2} &= - f_{B1}
 \end{align*}
 on the variables. Indeed in many contexts, hydraulics and electronics among them, connections between systems are characterised not by the `output' of one system forming the `input' of the next, but by \emph{variable sharing} between the systems. Such relations are often difficult to describe using the language of transfer functions and state space methods.
 
+The themes of this thesis fit tightly into this programme of modelling control
+theoretic systems with an emphasis on interconnection---Willems' so-called
+behavioural approach. Willems first demonstrated this approach in the setting of
+linear time-invariant discrete-time (LTI) dynamical systems \cite{Wi3}. A limitation
+of the approach has been lack of formal language for representing and reasoning
+about the interconnection of systems. In this chapter we address this by
+developing a graphical language for LTI systems.
 
-Willems first demonstrated the power of his behavioural approach in the setting
-of linear time-invariant discrete-time dynamical systems. One limitation was the
-lack of tools for representing and reasoning about the interconnection of
-systems. In this chapter we address this by developing a graphical language
-based on signal flow graphs.
-
-We shall use corelations to develop a sound and fully complete equational theory
-of linear time-invariant (LTI) dynamical systems.  This theory is
-\emph{graphical}, with its terms---modelling the LTI systems themselves---best
-represented as diagrams closely resembling the signal flow graphs of
-Shannon~\cite{Sh}.  
+The expressions of this graphical language, closely resembling the signal flow
+graphs of Shannon~\cite{Sh}, will form the morphisms of a category of
+corelations, and its derivation as such will be crucial in developing a sound
+and fully complete equational theory of LTI systems.  
 
 To acquaint ourselves with signal flow graphs, we begin with the example below,
 rendered in traditional, directed notation.
@@ -148,10 +160,9 @@ store $-1$ and $-2$ respectively, and we repeat the process with the next input.
 Thus from this time $0$ an input stream of $-1,1,-1,1\dots$ results in an output
 stream of $-2,2,-2,2,\dots$.
 
-We can express \eqref{eq:examplesfg} as a string diagram, a notation for the
-arrows of monoidal categories made popular by Joyal and Street \cite{JS}, by
-forgetting the directionality of wires and composing the following basic
-building blocks using the operations of monoidal categories.
+We can express \eqref{eq:examplesfg} as a string diagram by forgetting the
+directionality of wires and composing the following basic building blocks using
+the operations of monoidal categories:
 \[
 \copygen \mathrel{;} 
 \!\!\!\!\!\!\!
@@ -187,24 +198,21 @@ The building blocks come from the signature of an algebraic theory---a
 \emph{symmetric monoidal theory} to be exact. The terms of this theory comprise
 the morphisms of a \emph{prop}, a symmetric monoidal category in which the
 objects are the natural numbers. With an operational semantics suggested by the
-above example, the terms can also be considered as a process
-algebra for signal flow graphs. The idea of understanding complex 
-systems by ``tearing'' them into more basic components, ``zooming'' to
-understand their individual behaviour and ``linking'' to obtain a composite
-system is at the core of the behavioural approach in control, originated by
-Willems~\cite{Wi3}. The algebra of symmetric monoidal categories thus seems a
-good fit for a formal account of these compositional principles.
+above example, the terms can also be considered as a process algebra for signal
+flow graphs. The idea of understanding complex systems by ``tearing'' them into
+more basic components, ``zooming'' to understand their individual behaviour and
+``linking'' to obtain a composite system is at the core of the behavioural
+approach in control. The algebra of symmetric monoidal categories
+thus seems a good fit for a formal account of these compositional principles.
 
 This work is the first to make this link between monoidal categories and the
 behavioural approach to control explicit. Moreover, it is the first to endow
 signal flow graphs with their standard systems theoretic semantics in which the
 registers---the `$s$' gates---are permitted to hold \emph{arbitrary} values at
-the beginning of a computation (in previous work~\cite{BSZ1,BSZ3} they were
-initialised with $0$).  This extended notion of behaviour is not merely a
-theoretical curiosity: it gives the class of \emph{complete LTI discrete
-dynamical systems}~\cite{Wi3}, which is practically the lingua franca of control
-theory. The interest of systems theorists is due to practical considerations:
-physical systems seldom evolve from zero initial conditions.
+the beginning of a computation.  This extended notion of behaviour is not merely
+a theoretical curiosity: it gives the class of \emph{complete LTI discrete
+dynamical systems}. The interest of systems theorists is due to practical
+considerations: physical systems seldom evolve from zero initial conditions.
 
 Technically, the semantics of diagrams are sets of \emph{biinfinite}
 streams: those sequences of elements of $\k$ that are infinite in the past
@@ -254,18 +262,6 @@ interconnected systems~\cite{OFM}.
 %semantics of signal flow graphs
 %\item a characterisation of controllability
 %\end{itemize}
-
-\paragraph{Outline.}
-%We first review the prerequisite mathematical aspects. 
-In \S\ref{sec.systems} we develop a categorical account of complete LTI discrete
-dynamical systems. This serves as a denotational semantics for the graphical
-language, introduced in \S\ref{sec.diagrams}, where we also derive the
-equational characterisation. 
-% This allows us to develop a signal flow calculus for
-%these systems, and show that it is sound and complete.  
-In we relate this to the operational semantics. We conclude  
-in \S\ref{sec.control} with a structural account of controllability.
-
 
 
 
@@ -421,7 +417,7 @@ behaviours and polynomial matrix algebra.
 
 %\smallskip
 The prop $\mat \pk$ is equivalent to the category $\fmod\pk$ of
-finite-dimensional free $\pk$-modules. Since $\fmod R$ over a principal ideal
+finite dimensional free $\pk$-modules. Since $\fmod R$ over a principal ideal
 domain (PID) $R$ has finite colimits \cite{BSZ2}, and $\pk$ is a PID, $\mat \pk$
 has finite colimits, and thus it has pushouts.
 
@@ -820,10 +816,9 @@ that the induced prop $\corel\mat\pk$ of corelations is isomorphic to $\ltids$.
 We then give a presentation of $\corel\mat\pk$ and arrive at a sound and fully
 complete equational theory for $\ltids$.
 
-A \define{split mono} is a morphism $m\colon X\to Y$ such that there exists
+Recall that split mono is a morphism $m\colon X\to Y$ such that there exists
 $m'\colon Y\to X$ with $m'm=\idn_X$. Every morphism in $\mat\pk$ admits a
 factorisation into an epi followed by a split mono. 
-
 
 \begin{proposition}\label{prop.matfactorisation}
   Every morphism $R \in \mat\pk$ can be factored as $R = BA$, where $A$ is an
@@ -848,7 +843,8 @@ Given any matrix $R$, the Smith normal form~\cite[Section~6.3]{Ka}  gives
   can be checked that $R = V'(D'U')$ is an epi-split mono factorisation. 
 %In Appendix~\ref{app.prop.matfactorisation}.
 \end{proof}
-A more careful examination of Proposition~\ref{prop.matfactorisation} yields:
+Recalling the argument in Example \ref{ex.factsysts},
+Proposition~\ref{prop.matfactorisation} yields:
 
 \begin{corollary} \label{cor.episplitmono}
   Let $\mathcal E$ be the subcategory of epis and
@@ -1014,14 +1010,15 @@ In fact, only one new equation is required, the ``white bone law'':
   \lower8pt\hbox{$\includegraphics[height=.7cm]{pics/wbone.pdf}$}\qquad\qquad
 \end{equation}
 where we have carefully drawn the empty diagram to the right of the equality symbol.
-Expressed in terms of cospans, \eqref{eq.whitebone} asserts that  
+Expressed in terms of cospans, equation \eqref{eq.whitebone} asserts that  
 $0\rightarrow 1\leftarrow 0$ and $0\rightarrow 0\leftarrow 0$ are identified:
 indeed, the two clearly yield the same corelation. The intuition here is that
-cospans $X \xrightarrow{i} S \xleftarrow{j} Y$ map to the same corelation if their
-respective copairings $[i,j]\maps X+Y \to S$ have the same jointly epic parts.
-More colloquially, this allows us to `discard' any part of the cospan that is
-not connected to the terminals. This is precisely what \eqref{eq.whitebone}
-represents. Further details on this viewpoint can be found in \cite{CF}. 
+cospans $X \xrightarrow{i} S \xleftarrow{j} Y$ map to the same corelation if
+their respective copairings $[i,j]\maps X+Y \to S$ have the same jointly epic
+parts.  More colloquially, this allows us to `discard' any part of the cospan
+that is not connected to the terminals. This is precisely what equation
+\eqref{eq.whitebone} represents. Further details on this viewpoint can be found
+in \cite{CF}. 
 %
 
 Let $\mathbb{IH}^{\mathsf{Cor}}$ be the SMT obtained
@@ -1071,16 +1068,16 @@ and also a normal form for each LTI system: every such system can be written, in
 an essentially unique way, as a jointly epic cospan of terms in $\ha_\pk$ in
 normal form. We summarise the axioms in Figure \ref{fig.ihcoraxioms}.
 
-\begin{figure} \label{fig.ihcoraxioms}
+\begin{figure} 
   \includegraphics[width=.9\textwidth]{pics/ihcor.pdf}
-  \caption{The axioms of $\ihcor$.}
+  \caption{The axioms of $\ihcor$.}\label{fig.ihcoraxioms}
 \end{figure}
 
 \begin{remark} \label{rmk.omittedaxs}
  $\ihcor$ %(summarised in Appendix~\ref{app.equations}) 
  can also be described as having the equations of $\ih_\pk$~\cite{BSZ2,Za}, but
 \emph{without} $\!\!\lower4pt\hbox{$\includegraphics[height=.5cm]{pics/badequation.pdf}$}$,
-and related $\!\lower7pt\hbox{$\includegraphics[height=.8cm]{pics/badequation2.pdf}$}$
+$\!\lower7pt\hbox{$\includegraphics[height=.8cm]{pics/badequation2.pdf}$}$,
 and $\!\lower7pt\hbox{$\includegraphics[height=.8cm]{pics/badequation3.pdf}$}$.
 Our results generalise; given any PID $R$ we have (informally speaking):
 \begin{align*}
@@ -1138,45 +1135,16 @@ identity behaviour those sequences of the form $w = (w_1,w_1) \in \k^\z \oplus
 and $w_2(t) =0$.
 \end{remark}
 
-\begin{remark}
-Although previous work~\cite{BSZ2,BSZ3,Za} made the connection between signal
-flow graphs and string diagrams, their operational semantics is more restrictive
-than that considered here, considering only trajectories with finite past and
-demanding that, initially, all the registers contain the value $0$.  Indeed,
-with this restriction, it is not difficult to see that the trajectories
-of~\eqref{eq:examplesfg} are those where the output is \emph{the same} as the
-input. The input/output behaviour is thus that of a stateless wire.  The
-equational presentation in this case is the theory $\ih_{\k[s]}$ of
-interacting Hopf algebras, and indeed, in $\ih_{\k[s]}$:
-\begin{equation}\label{eq:exampleproof}
-\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
-\end{equation}
-
-Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
-with our more liberal, operational semantics. Indeed, recall that when the
-registers of~\eqref{eq:examplesfg} initially hold values $1$ and $2$, the input
-$-1,1,-1,1,\dots$ results in the output $-2,2,-2,2,\dots$. This trajectory is
-not permitted by a stateless wire, so $\ih_{k[s]}$ is not sound for reasoning
-about LTI systems in general. We have provided a sound
-and complete theory to do just that.
-
-In terms of the algebraic semantics, the difference from previous
-work is that where there streams were handled with Laurent
-(formal power) series, here we use the aforementioned biinfinite streams.
-Indeed, this is the very extension that allows us to discuss non-controllable
-behaviours; in~\cite{BSZ1,BSZ3,Za,BE} all definable behaviours were
-controllable. 
-\end{remark}
-
-The similarity between our equational presentations of $\ihcor_{\k[s,s^{-1}]}$ and that of
- $\ih_{\k[s]}$  given in~\cite{BSZ1,BSZ3} is remarkable,
-considering the differences between the intended semantics of signal flow graphs
-that string diagrams in those theories represent, as well as the underlying mathematics
-of streams, which for us are elements of the $\k$ vector space $\k^{\mathbb{Z}}$ and
-in~\cite{BSZ1,BSZ3} are Laurent series. We contend that this is evidence of the \emph{robustness}
-of the algebraic approach: the equational account of how various components of signal
-flow graphs interact is, in a sense, a higher-level specification than the technical details of the underlying
-mathematical formalisations.
+The similarity between our equational presentations of $\ihcor_{\k[s,s^{-1}]}$
+and that of $\ih_{\k[s]}$  given in~\cite{BSZ,BSZ3} is remarkable, considering
+the differences between the intended semantics of signal flow graphs that string
+diagrams in those theories represent, as well as the underlying mathematics of
+streams, which for us are elements of the $\k$ vector space $\k^{\mathbb{Z}}$
+and in~\cite{BSZ,BSZ3} are Laurent series. We contend that this is evidence of
+the \emph{robustness} of the algebraic approach: the equational account of how
+various components of signal flow graphs interact is, in a sense, a higher-level
+specification than the technical details of the underlying mathematical
+formalisations.
 
 \section{Operational semantics} \label{sec.opsem}
 
@@ -1260,13 +1228,6 @@ are vectors in $\k$ of the appropriate length. Note that the only generators
 that change as a result of computation are the registers; it follows this is the
 only source of state in any computation.
 
-The structural rules are identical to those given in~\cite[\S 2]{BSZ3}.
-Differently from~\cite{BSZ3}, however, we can be more liberal with our
-assumptions about the \emph{initial states} of computations.  In~\cite{BSZ3}
-each computation starts off with all registers initialised with the 0($\in\k$)
-value.  For us, systems can be initialised with arbitrary elements of $\k$. 
-%Let $\sigma$ range over such assignments of values to delays.
-
 Let $\tm\colon m\to n \in \syntax$ be a $\Sigma$-term. Fixing an ordering of
 the delays $\delaygen$ in $\tm$ allows us to identify the set of delays with a
 finite ordinal $[d]$.  A \define{register assignment} is then simply a function
@@ -1326,6 +1287,37 @@ For any $\tm\maps m\to n \in \syntax$, we have
 \]
 as subsets of $(\k^m)^\z\times (\k^n)^\z$.
 \end{lemma}
+
+\begin{remark}
+Although previous work~\cite{BSZ2,BSZ3,Za} made the connection between signal
+flow graphs and string diagrams, their operational semantics is more restrictive
+than that considered here, considering only trajectories with finite past and
+demanding that, initially, all the registers contain the value $0$.  Indeed,
+with this restriction, it is not difficult to see that the trajectories
+of~\eqref{eq:examplesfg} are those where the output is \emph{the same} as the
+input. The input/output behaviour is thus that of a stateless wire.  The
+equational presentation in this case is the theory $\ih_{\k[s]}$ of
+interacting Hopf algebras, and indeed, in $\ih_{\k[s]}$:
+\begin{equation}\label{eq:exampleproof}
+\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
+\end{equation}
+
+Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
+with our more liberal, operational semantics. Indeed, recall that when the
+registers of~\eqref{eq:examplesfg} initially hold values $1$ and $2$, the input
+$-1,1,-1,1,\dots$ results in the output $-2,2,-2,2,\dots$. This trajectory is
+not permitted by a stateless wire, so $\ih_{k[s]}$ is not sound for reasoning
+about LTI systems in general. We have provided a sound
+and complete theory to do just that.
+
+In terms of the algebraic semantics, the difference from previous
+work is that where there streams were handled with Laurent
+(formal power) series, here we use the aforementioned biinfinite streams.
+Indeed, this is the very extension that allows us to discuss non-controllable
+behaviours; in~\cite{BSZ,BSZ3,Za,BE} all definable behaviours were
+controllable. 
+\end{remark}
+
 
 \section{Controllability} \label{sec.control}
 
@@ -1472,7 +1464,7 @@ controllable.
 Graphically, the pullback may be computed by using the axioms of the theory of
 interacting Hopf algebras $\ih_\pk$~\cite{BSZ2,Za}. For example, the pullback
 span of the system of Ex. \ref{ex.noncontrol} is simply the identity span, as
-derived in equation \eqref{eq:exampleproof} of the introduction. In the
+derived in equation \eqref{eq:exampleproof} of the previous section. In the
 traditional matrix calculus for control theory, one derives this by noting the
 system has kernel representation $\ker\theta\begin{bmatrix} s+1 & -(s+1)
 \end{bmatrix}$, and eliminating the common factor $s+1$ between the entries.
@@ -1588,9 +1580,10 @@ in the analysis of controllability of \emph{systems over networks} (see
 \cite{OFM}). To make the reader fully appreciate such potential, we sketch how
 complicated such analysis is using standard algebraic methods and
 dynamical system theory even for the highly restrictive case of two systems that
-compose to make a single-input, single-output system.  See also pp. 513--516 of
-\cite{FH}, where a generalization of the result of Proposition \ref{prop:veryexciting}
-is given in a polynomial- and operator-theoretic setting. 
+compose to make a single-input, single-output system.  See also pages 513 to 516
+of Fuhrmann and Helmke's recent book \cite{FH}, where a generalization of the
+result of Proposition \ref{prop:veryexciting} is given in a polynomial- and
+operator-theoretic setting. 
 
 In the following we abuse notation by writing a matrix for its image under the
 functor $\theta$.  The following is a useful result for analysing the

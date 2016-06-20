@@ -10,8 +10,8 @@ Mathematics is the language of science. Twinned so intimately with physics, over
 the past centuries mathematics has become superb---indeed, unreasonably
 effective---language for understanding planets moving in space, particles in a
 vacuum, the structure of spacetime, and so on.  Yet, while Wigner speaks of the
-unreasonble effectiveness of mathematics in the natural sciences, equally
-eminent mathematicians, not least Gelfand, speak of the unreasonable
+unreasonble effectiveness of mathematics in the natural sciences \cite{Wig60},
+equally eminent mathematicians, not least Gelfand, speak of the unreasonable
 \emph{ineffectiveness} of mathematics in biology and related fields. Why such a
 difference?
 
@@ -195,129 +195,197 @@ semantics? Suppose we have systems have some property, like being controllable.
 In what ways can we interconnect controllable systems so that the combined
 system is also controllable? Can we compute the semantics of a large system
 quicker by computing the semantics of subsystems and then composing them?  If I
-want a given system to acheive a specified trajectory, can I interconnect
+want a given system to acheive a specified trajectory, can we interconnect
 another system to make it do so? How do two different notions of system, such as
-circuit diagrams and signal flow graphs, relate to each other? Can I find
+circuit diagrams and signal flow graphs, relate to each other? Can we find
 homomorphisms between their syntactic and semantic algebras? In the second part
 of this thesis we explore some applications in depth, providing answers to
 questions of the above sort.
-
-\subsection*{Related work}
-%\addcontentsline{toc}{section}{Related work}
-
-The work here is underpinned not just by philosophical precedent, but by a rich
-tradition in mathematics, physics, and computer science. First and foremost, it
-draws from category theory and the pioneering work of Joyal and
-Street on string diagrams for monoidal categories \cite{JS91,JS93}.
-
-and conversely monoidal categories
-provide an algebraic foundation for the intuitions behind Feynman diagrams.  The
-key insight is the use of categories where morphisms describe physical
-processes, rather than structure-preserving maps between mathematical objects
-\cite{BaezStay,CP}
- 
-  compositional accounts of semantics associated to topological
-diagrams has long been a technique associated with topological
-quantum field theory, dating back to \cite{At}.
-
-These techniques have filtered into more immediate applications, particularly in
-computation and quantum computation \cite{AC04,Ba1,Sel07}. 
-Kindergarten quantum mechanics. 
-
-Category-theoretic frameworks for general systems theory have been developed
-before. Notably Goguen and Rosen led efforts. Goguen from a more computer
-science perspective, Rosen more in biology.
-
-
-Work on categorical approaches to control systems goes back at least to Goguen
-\cite{Go} and Arbib and Manes \cite{AM}. 
-
-Cospans are already familiar as a formalism for making entities with an
-arbitrarily designated `input end' and `output end' into the morphisms of a
-category.  For example, in topological quantum field theory we use special
-cospans called `cobordisms' to describe pieces of spacetime \cite{BL,BaezStay}.
-
-An advantage of the decorated cospan framework is that the resulting categories
-are hypergraph categories, and the resulting functors respect this structure.
-As dagger compact categories, hypergraph categories themselves have a rich
-diagrammatic nature \cite{Sel11}, and in cases when our decorated cospan categories
-are inspired by diagrammatic applications, the hypergraph structure provides
-language to describe natural operations on our diagrams, such as juxtaposing,
-rotating, and reflecting them.
-
-At the present time, 
-
-it has most recently had
-significant influence in the nascent field of categorical network theory, with
-application to automata and computation \cite{KSW2, Sp}, electrical circuits
-\cite{BF}, signal flow diagrams \cite{BSZ, BE}, Markov processes \cite{BFP,
-ASW}, and dynamical systems \cite{VSL}, among others. 
-
-applying string diagrams to engineering, with the aim of
-giving diverse diagram languages a unified foundation based on category theory
-\cite{KSW,RSW05}. 
-
-Baez and Erbele
-\cite{BE}, Vagner, Spivak, and Lerman \cite{VSL}, as well as Bonchi,
-Soboc\'inski, and Zanasi \cite{BSZ,BSZ2,BSZ3,Za}. 
-
-
-Spivak operad approach
-
-Most similar is the work of Walters, together with Sabadini and Rosebrugh. In
-particular, automata.
-
-cospans and colimits
-
 
 
 \subsection*{Organisation of this thesis}
 %\addcontentsline{toc}{section}{Organisation of this thesis}
 
-This thesis is divided into two parts. Part I, comprising Chapters
-\ref{ch.hypcats} to \ref{ch.deccorels}, focusses on mathematical foundations. In
-it we develop the theory of hypergraph categories and a powerful tool for
-defining and manipulating them: decorated corelations. Part II, comprising
-Chapters \ref{ch.sigflow} to \ref{ch.further}, then discusses applications of
-this theory to examples of open systems.
+This thesis is divided into two parts. Part \ref{part.maths}, comprising
+Chapters \ref{ch.hypcats} to \ref{ch.deccorels}, focusses on mathematical
+foundations. In it we develop the theory of hypergraph categories and a powerful
+tool for constructing and manipulating them: decorated corelations. Part
+\ref{part.apps}, comprising Chapters \ref{ch.sigflow} to \ref{ch.further}, then
+discusses applications of this theory to examples of open systems.
 
-Chapter \ref{ch.hypcats} introduces hypergraph categories. These are symmetric
-monoidal categories in which every object is equipped with the structure of a
-special commutative Frobenius monoid in a way compatible with the monoidal
-product. As we will rely heavily on properties of monoidal categories, their
-functors, and their graphical calculus, we begin with a whirlwind review of
-these ideas. We then provide a definition of hypergraph categories, a
-strictification theorem, and an important example: the category of cospans in a
-category with finite colimits.
+The central refrain of this thesis is that the syntax and semantics of
+network-style diagrammatic languages can be modelled by hypergraph categories.
+These are introduced in Chapter \ref{ch.hypcats}. Hypergraph categories are
+symmetric monoidal categories in which every object is equipped with the
+structure of a special commutative Frobenius monoid in a way compatible with the
+monoidal product. As we will rely heavily on properties of monoidal categories,
+their functors, and their graphical calculus, we begin with a whirlwind review
+of these ideas. We then provide a definition of hypergraph categories and their
+functors, a strictification theorem, and an important example: the category of
+cospans in a category with finite colimits.
 
-Cospans and their composition, using pushouts, 
+Cospans are pairs of morphisms $X \to N \leftarrow Y$ with a common codomain.
+In Chapter \ref{ch.deccospans} we introduce the idea of a decorated cospan, which
+equips the apex $N$ with extra structure. Our motivating example is cospans of
+finite sets decorated by graphs, as in the picture
+\begin{center}
+  \begin{tikzpicture}[auto,scale=2.15]
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (x) at (-1.4,-.43) {};
+    \node at (-1.4,-.9) {$X$};
+    \node[circle,draw,inner sep=1pt,fill]         (A) at (0,0) {};
+    \node[circle,draw,inner sep=1pt,fill]         (B) at (1,0) {};
+    \node[circle,draw,inner sep=1pt,fill]         (C) at (0.5,-.86) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y1) at (2.4,-.25) {};
+    \node[circle,draw,inner sep=1pt,fill=gray,color=gray]         (y2) at (2.4,-.61) {};
+    \node at (2.4,-.9) {$Y$};
+    \path (B) edge  [bend right,->-] node[above] {0.2} (A);
+    \path (A) edge  [bend right,->-] node[below] {1.3} (B);
+    \path (A) edge  [->-] node[left] {0.8} (C);
+    \path (C) edge  [->-] node[right] {2.0} (B);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (x) edge (A);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y1) edge (B);
+    \path[color=gray, very thick, shorten >=10pt, shorten <=5pt, ->, >=stealth] (y2) edge (B);
+  \end{tikzpicture}
+\end{center}
+Here graphs are a proxy for expressions in a network-style diagrammatic
+language. To give a bit more formal detail, let $\mathcal C$ be a category with
+finite colimits, writing its coproduct $+$, and let $(\mathcal D, \otimes)$ be a
+braided monoidal category. Decorated cospans provide a method of producing a
+hypergraph category from a lax braided monoidal functor $F\colon (\mathcal C,+)
+\to (\mathcal D, \otimes)$. The objects of these categories are simply the
+objects of $\mathcal C$, while the morphisms are pairs comprising a cospan $X
+\rightarrow N \leftarrow Y$ in $\mathcal C$ together with an element $I \to FN$
+in $\mathcal D$---the so-called decoration. We will also describe how to
+construct hypergraph functors between decorated cospan categories. In
+particular, this provides a useful tool for constructing a hypergraph category
+that captures the syntax of a network-style diagrammatic language.
 
-Chapter \ref{ch.deccospans}
+Having developed a method to construct a category where the morphisms are
+expressions in a diagrammatic language, we turn our attention to categories of
+semantics. This leads us to the notion of a corelation, to which we devote
+Chapter \ref{ch.corelations}. Given a factorisation system $(\mc E,\mc M)$ on a
+category $\mc C$, we define a corelation to be a cospan $X \to N \leftarrow Y$
+such that the copairing of the two maps, a map $X+Y \to N$, is a morphism in
+$\mc E$. Factorising maps $X+Y \to N$ using the factorisation system leads to a
+notion of equivalence on cospans, and this helps us describe when two diagrams
+are equivalent. Like cospans, corelations form hypergraph categories.
 
-Chapter \ref{ch.corelations}
+In Chapter \ref{ch.deccorels} we decorate corelations. Like decorated cospans,
+decorated corelations are corelations together with some additional structure on
+the apex. We again use a lax braided monoidal functor to specify the sorts of
+extra structure allowed. Moreover, decorated corelations too form the morphisms
+of a hypergraph category. The culmination of our theoretical work is to show
+that every hypergraph category and every hypergraph functor can be constructed
+using decorated corelations. This implies that we can use decorated corelations
+to construct a semantic hypergraph category for any network-style diagrammatic
+language, as well as a hypergraph functor from its syntactic category that
+interprets each diagram. We also discuss how the intuitions behind decorated
+corelations guide construction of these categories and functors.
 
-Chapter \ref{ch.deccorels}
-
-The central message of decorated corelations is that hypergraph structure
-requires some sort of uniformity in the composition rule, and it is easier to
-work by acknowledging this structure, defining them as algebras over some
-theory. 
-
-Hypergraph categories are really just $\Set$-valued lax symmetric monoidal
-functors: and these, being simply data structures, are often simpler to work
-with.
+%The key of decorated corelations is that hypergraph structure
+%requires some sort of uniformity in the composition rule, and it is easier to
+%work by acknowledging this structure, defining them as algebras over some
+%theory. 
+%
+%Hypergraph categories are really just $\Set$-valued lax symmetric monoidal
+%functors: and these, being simply data structures, are often simpler to work
+%with.
 
 
-Then applications. Chapter \ref{ch.sigflow} First to control theory from this behavioural perspective,
-demonstrating the ideas of black boxing and corelations, open systems and
-control by interconnection. We give a new characterisation of controllability.
-Second to passive linear networks, which speaks to the idea that we can find
-isomorphisms across disciplines, and explore the insights in new ways.
+Having developed these theoretical tools, in the second part we turn to
+demonstrating that the have useful application. Chapter \ref{ch.sigflow}
+uses corelations to formalise signal flow diagrams representing linear
+time-invariant discrete dynamical systems as morphisms in a category.
+Our main result gives an intuitive sound and fully complete equational theory
+for reasoning about these linear time-invariant systems. Using this framework,
+we derive a novel structural characterisation of controllability, and
+consequently provide a methodology for analysing controllability of networked
+and interconnected systems.
 
-Chapter \ref{ch.circuits}
+Chapter \ref{ch.circuits} studies passive linear networks. Passive linear
+networks are used in a wide variety of engineering applications, but the best
+studied are electrical circuits made of resistors, inductors and capacitors. The
+goal is to construct what we call the black box functor, a hypergraph functor
+from a category of open circuit diagrams to a category of behaviours of
+circuits. We construct the former as a decorated cospan category, with each morphism
+a cospan of finite sets decorated by a circuit diagram on the apex. In this
+category, composition describes the process of attaching the outputs of one
+circuit to the inputs of another. The behaviour of a circuit is the relation it
+imposes between currents and potentials at their terminals. The space of these
+currents and potentials naturally has the structure of a symplectic vector
+space, and the relation imposed by a circuit is a Lagrangian linear relation.
+Thus, the black box functor goes from our category of circuits to the category
+of symplectic vector spaces and Lagrangian linear relations. Decorated
+corelations provide a critical tool for constructing these hypergraph categories
+and the black box functor.
 
-Chapter \ref{ch.further}
+Finally, in Chapter \ref{ch.further} we mention two further research directions.
+The first is the idea of a bound colimit, which aims to describe why epi-mono
+factorisation systems are useful for constructing corelation categories of
+semantics for open systems. The second research direction pertains to
+applications of the black box functor for passive linear networks, discussing
+the work of Jekel on the inverse problem for electric circuits \cite{Jek} and
+the work of Baez, Fong, and Pollard on open Markov processes \cite{BFP,
+Pol16}.
 
+\subsection*{Related work}
+%\addcontentsline{toc}{section}{Related work}
+
+The work here is underpinned not just by philosophical precedent, but by a rich
+tradition in mathematics, physics, and computer science. Here we make some
+remarks on work on our broad theme of categorical network theory; more specific
+references are included in each chapter. 
+
+With its emphasis on composition, category theory is an attractive framework for
+modelling open systems, and the present work is not the first attempt at develop
+this idea. Notably from as early as the 1960s Goguen and Rosen both led efforts,
+Goguen from a computer science perspective \cite{Go}, while Rosen from
+biology \cite{Ros12}. Goguen in particular promoted the idea, which we take up,
+that composition of systems should be modelled by colimits \cite{Gog91}. This
+manifests in our emphasis on cospans.
+
+Indeed, cospans are well known as a formalism for making entities with an
+arbitrarily designated `input end' and `output end' into the morphisms of a
+category. This has roots in topological quantum field theory, where a particular
+type of cospan known as a `cobordism' is used to describe pieces of spacetime
+\cite{BL,BaezStay}. The general idea of using functors to associate algebraic
+semantics to topological diagrams has also long been a technique associated with
+topological quantum field theory, dating back to \cite{At}.  
+
+Developed around the same time, the work of Joyal and Street showing the tight
+connection between string diagrams and monoidal categories \cite{JS91,JS93} is
+also a critical aspect of the work here. This rigorous link inspires our use of
+hypergraph categories---a type of monoidal category---in modelling network-style
+diagrammatic languages.
+
+The work of Walters, Sabadini, and collaborators also makes use of cospans to
+model interconnection of systems, including electric circuits, as well as
+automata, Petri nets, transition systems, and Markov processes \cite{KSW,KSW2,
+RSW05,RSW08,ASW}. Indeed, the definition of a hypergraph category is due to
+Walters and Carboni \cite{Car91}. A difference and original contribution is our
+present use of decorations. One paper the deserves particular mention is that of
+Rosebrugh, Sabadini, and Walters on calculating colimits compositionally
+\cite{RSW08}, which develops the beginnings of some of the present ideas on
+corelations. Their discussion of automata and the proof of Kleene's theorem is
+reminscent of our proof of the functoriality of the black box functor, and the
+precise relationship deserves to be pinned down.
+
+At the present time, the work of Bonchi, Soboc\'inski, and Zanasi on signal flow
+diagrams and graphical linear algebra \cite{BSZ,BSZ2,BSZ3,Za} has heavily
+influenced the work here. Indeed, Chapter \ref{ch.sigflow} is built upon the
+foundation they created.
+
+Spivak and collaborators use operads to study networked systems
+diagrammatically. Although a more general framework, capable of studying
+diagrammatic languages with more flexible syntax than that of hypergraph
+categories, Spivak studies an operad of so-called wiring diagrams built from
+cospans of labelled finite sets in a number of papers, including \cite{VSL,Sp,SSR}.
+
+Finally, this thesis fits into the categorical network theory programme led by
+Baez, together with Erbele, Pollard, Courser and others. In particular, the
+papers \cite{BE,Erb16,BFP,Pol16,Cou16} on signal flow diagrams, open Markov
+processes, and decorated cospans have been developed alongside and influenced
+the work here.
 
 \subsection*{Statement of work}
 %\addcontentsline{toc}{section}{Statement of work}
@@ -330,8 +398,9 @@ shall submit a clear statement of the extent of his or her own contribution.}
 \end{quote}
 I address this now. 
 
-The first four chapters are my own work. The applications chapters were
-developed with collaborators. 
+The first four chapters, on hypergraph categories and decorated corelations, are
+my own work. (Chapter \ref{ch.deccospans} has been previously published as
+\cite{Fon15}.) The applications chapters were developed with collaborators. 
 
 Chapter \ref{ch.sigflow} arises from a weekly seminar with Paolo Rapisarda and
 Pawe\l\ Soboc\'inski at Southampton in the Spring of 2015. The text is a minor
@@ -351,28 +420,28 @@ the text for publication.
 
 \subsection*{Acknowledgements}
 %\addcontentsline{toc}{section}{Acknowledgements}
-I thank my supervisors John Baez, Bob Coecke. Rob Ghrist, Jamie Vicary 
+This work could not have been completed alone, and I am grateful for the
+assistance of so many people, indeed far more than I list here. Foremost
+deserving of mention are my supervisors John Baez, Bob Coecke, and Rob Ghrist.
+John's influence on this work cannot be understated; he has been tireless in
+patiently explaining new mathematics to me, in sharing his vision for this great
+project, and in supporting, reading, promoting, and encouraging my work. Bob is
+the reason I started this work in the first place, and with Rob they have both
+provided fantastic research environments, a generous amount of freedom to pursue
+my passions and, most importantly, encouragement and faith.
 
-My coauthors
-John, again
-Brandon Coya
-Hugo Nava-Kopp
-Blake Pollard
-Pawe\l\ Soboc\'inski
-Paolo Rapisarda
+Jamie Vicary, too, has always been available for advice and encouragement. My
+coauthors, including John, but also Brandon Coya, Hugo Nava-Kopp, Blake Pollard,
+Paolo Rapisarda, Pawe\l\ Soboc\'inski, have been teachers in the process.
+And valuable comments and conversations on the present work have come, not only
+from all of the above, but also from Rashmi Kumar, Omar Camarena, Dan Marsden,
+Bernhard Reinke, Jason Erbele, Stefano Gogioso.
 
-Writing adviser Rashmi Kumar
+I am grateful for the generous support of a number of institutions.  This work
+was supported by the Clarendon Fund, Hertford College, and the Queen Elizabeth
+Scholarships, Oxford, and completed at the University of Oxford, the Centre for
+Quantum Technologies, Singapore, and the University of Pennsylvania.
 
-comments on drafts:
-all of the above plus Omar Camarena, Dan Marsden, Bernhard Reinke, Jason Erbele,
-Stefano Gogioso,
-
-My partner, Stephanie Lin
-
-And my family Mum, Dad, Justin, Calvin, Tania.
-
-All the organisations: not only the Department of Computer Science and the
-University of Oxford, who gave me space to work and, but the Clarendon Fund,
-Hertford College, the Queen Elizabeth Scholarships, the Centre for Quantum
-Technologies, Singapore, the Department of Mathematics at the University of Pennsylvania
+Finally, I thank my partner, Stephanie, and my family---Mum, Dad, Justin,
+Calvin, Tania---for their love and patience.
 
