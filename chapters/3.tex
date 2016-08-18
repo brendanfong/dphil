@@ -696,13 +696,17 @@ are our so-called corelations.
 
 Relations and, equivalently, multi-valued functions have long been a structure
 of mathematical interest, with their formalisation going back to De Morgan
-\cite{DeM60} and Pierce \cite{Pie70} in the 1800s. One hundred years later,
-Klein \cite{Kle70} provided a category theoretic generalisation of the
-concept---albeit one slightly more restrictive than that which we use here---and
-by now the categorical theory of relations is well studied \cite{Mil00, JW00}.
-The key insight is the definition of a factorisation system. We begin this section
-by introducing this idea, before developing the theory of not just categories
-of relations, but monoidal categories of (co)relations.
+\cite{DeM60} and Pierce \cite{Pie70} in the nineteenth century. One hundred
+years later, their category theoretic generalisation as subobjects of pairwise
+products was introduced by Puppe \cite{Pup62} and Mac Lane \cite{Mac63} in the
+setting of abelian categories, and Barr \cite{Bar70} for regular categories.
+Subsequently, Klein \cite{Kle70} provided conditions under which these relations
+can be given an associative composition rule---albeit conditions slightly more
+restrictive than that which we use here---and by now the categorical theory of
+relations is well studied \cite{FS90, Mil00, JW00}.  The key insight is the
+definition of a factorisation system. We begin this section by introducing this
+idea, before developing the theory of not just categories of relations, but
+monoidal categories of (co)relations.
 
 \subsection{Factorisation systems}
 The relevant properties of jointly monic spans come from the fact that
@@ -758,15 +762,15 @@ and monoidal factorisation systems.
       write $\mathrm{Sur}$ for the subcategory of surjections in $\Set$, and
       $\mathrm{Inj}$ for the subcategory of injections. 
       
-      Recall that split monomorphism is a map $m\colon X\to Y$ such that there
+      Recall that a split monomorphism is a map $m\colon X\to Y$ such that there
       exists a one-sided inverse, i.e. a map $m'\colon Y\to X$ such that
-      $m'm=\idn_X$. Observe that all monos in $\Set$ split.  One way of proving
-      the above is a factorisation system on $\Set$ is via the more general
-      fact, true in any category: if every arrow can be factorised as an epi
-      followed by a split mono, then epimorphisms and split monomorphisms form
-      the factors of a factorisation system.  The only non-trivial part to check
-      is the uniqueness condition: given epis $e_1,e_2$, split monos $m_1,m_2$,
-      and commutative diagram
+      $m'm=\idn_X$. Observe that, assuming the axiom of choice, all monos in
+      $\Set$ split.  One way of proving that the above is a factorisation system
+      on $\Set$ is via the more general fact, true in any category: if every
+      arrow can be factorised as an epi followed by a split mono, then
+      epimorphisms and split monomorphisms form the factors of a factorisation
+      system.  The only non-trivial part to check is the uniqueness condition:
+      given epis $e_1,e_2$, split monos $m_1,m_2$, and commutative diagram
       \[
 	\xymatrixcolsep{3pc}
 	\xymatrixrowsep{3pc}
@@ -788,7 +792,7 @@ and monoidal factorisation systems.
       \] 
       Uniqueness is immediate, since, $e_1$ is epi and $m_2$ is mono. 
     
-    \item Recall that a regular epimorphism in an epimorphism that is the
+    \item Recall that a regular epimorphism is an epimorphism that is the
       coequaliser for some pair of parallel morphisms. (Dually, a regular
       monomorphism is an equaliser for some pair of parallel morphisms.) In any
       so-called regular category the regular epimorphisms and monomorphisms form
@@ -895,7 +899,7 @@ monoidal factorisation systems. This is implied by the following lemma.
 
 \subsection{Corelations}
 Now that we have introduced factorisation systems, observe that relations are
-just cospans $X \leftarrow N \to Y$ in $\Set$ such that $N \to X \times Y$ is an
+just spans $X \leftarrow N \to Y$ in $\Set$ such that $N \to X \times Y$ is an
 element of $\mathrm{Inj}$, the right factor in the factorisation system
 $(\mathrm{Sur},\mathrm{Inj})$. Relations may thus be generalised as spans such
 that the span maps jointly belong to some class $\mc M$ of an $(\mc E,\mc
@@ -917,7 +921,7 @@ We also say that a cospan $X \stackrel{i}\longrightarrow N
 X+Y \to N$ lies in $\mathcal E$ is \define{jointly} $\mathcal E$\define{-like}.
 Note that if a cospan is jointly $\mc E$-like then so are all isomorphic
 cospans. Thus the property of being a corelation is closed under isomorphism of
-cospans, and we again are often lazy with out language, referring to both
+cospans, and we again are often lazy with our language, referring to both
 jointly $\mc E$-like cospans and their isomorphism classes as corelations. 
 
 If $f\maps A \to N$ is a morphism with factorisation $f = m \circ e$, write
@@ -951,8 +955,8 @@ write $e\maps X+Y \to \overline N$ for the same corelation.
 
     \item Note that the category $\Set$ has finite colimits and an epi-mono
       factorisation system $(\mathrm{Sur},\mathrm{Inj})$. Epi-mono corelations
-      from $X \to Y$ in $\mathrm{Set}$ surjective functions $X+Y \to N$; thus
-      their isomorphism classes are partitions, or equivalence relations on
+      from $X \to Y$ in $\mathrm{Set}$ are surjective functions $X+Y \to N$;
+      thus their isomorphism classes are partitions, or equivalence relations on
       $X+Y$. 
 
       While this compositional structure on equivalence relations has not the
@@ -968,7 +972,7 @@ write $e\maps X+Y \to \overline N$ for the same corelation.
 
 Our next task is to define a composition rule on corelations.
 
-\subsection{Categories of corelations}
+\subsection{Categories of corelations} \label{ssec.corelcats}
 We begin this subsection by defining a composition rule on isomorphism classes
 of corelations. The end goal, however, is to define a hypergraph category in
 which the morphism are corelations. Here we will explain how to define such a
@@ -1184,8 +1188,8 @@ the monoidal product of two corelations is their monoidal product as cospans.
 
 \begin{theorem} \label{thm.cospantocorel}
   Let $\mathcal C$ be a category with finite colimits, and let $(\mathcal E,
-  \mathcal M)$ be factorisation system on $\mathcal C$ such that $\mathcal M$ is
-  stable under pushout. Then there exists a hypergraph category
+  \mathcal M)$ be a factorisation system on $\mathcal C$ such that $\mathcal M$
+  is stable under pushout. Then there exists a hypergraph category
   $\mathrm{Corel}_{(\mc E,\mc M)}(\mathcal C)$ with 
   \smallskip
 
@@ -1211,7 +1215,7 @@ Again, we will drop explicit reference to the factorisation system when context 
 \begin{examples} \label{ex.corelcats}
 In each factorisation system of Examples \ref{ex.corels} the right factor
 $\mathcal M$ is stable under pushout. The hypergraph category 
-$\corel_{(\mc C,\mc I_{\mc C})}(\mc C)$ is the just the hypergraph category of
+$\corel_{(\mc C,\mc I_{\mc C})}(\mc C)$ is just the hypergraph category of
 cospans in $\mc C$. In the hypergraph category $\corel_{(\mc I_{\mc C},\mc
 C)}(\mc C)$, the only morphism between any two objects $X$ and $Y$ is the
 isomorphism class of the corelation $X \xrightarrow{\iota_X} X+Y
@@ -1321,12 +1325,11 @@ will use it once again for \emph{decorated} corelations, to great economy.
 
 \section{Functors between corelation categories} \label{sec.corelfunctors}
 We have seen that to construct a functor between cospan categories one may start
-with a colimit-preserving functor between the underlying categories. Corelation
-categories are similar to cospan categories, but we remove the part of each
-cospan that lies in $\mc M$. Hence for functors between corelation categories,
-we require not just a colimit-preserving functor between the underlying
-categories with finite colimits, but also that the part that is removed from the
-image is greater than the part removed in the source category.
+with a colimit-preserving functor between the underlying categories. Corelations
+are cospans where we forget the $\mc M$-part of each cospan. Hence for functors
+between corelation categories, we require not just a colimit-preserving functor
+but, loosely speaking, also that we don't forget too much in the domain category
+compared to the codomain category.
 
 We devote the next few pages to proving the following proposition. Along the way
 we prove, as promised, that corelation categories are well-defined hypergraph
@@ -1347,8 +1350,8 @@ categories.
   \]
   to the $\mc E'$-part
   \[
-    AX \stackrel{Ai_X}{\longrightarrow} \overline{AN}
-    \stackrel{Ao_Y}{\longleftarrow} AY.
+    AX \xrightarrow{e'\circ\iota_{AX}} \overline{AN}
+    \xleftarrow{e'\circ\iota_{AY}} AY.
   \]
   of the image cospan. The coherence maps are the $\mc E'$-part
   $\overline{\kappa_{X,Y}}$ of the isomorphisms $\kappa_{X,Y}\maps AX+AY \to
@@ -1424,7 +1427,8 @@ This first lemma is also useful in proving the second important lemma: the
 naturality of $\overline{\kappa}$.
 
 \begin{lemma} \label{lem.corelfunmonoidal}
-  The maps $\overline{\kappa_{X,Y}}$ above are natural.
+  The maps $\overline{\kappa_{X,Y}}$, as defined in Proposition
+  \ref{prop.corelfunctors}, are natural.
 \end{lemma}
 \begin{proof}
   Let $f = (X \longrightarrow N \longleftarrow Y)$, $g= (Z \longrightarrow M
@@ -1559,38 +1563,39 @@ category.
 \end{proof}
 
 \begin{example}
-Note that if both $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$
-are epi-split mono factorisations, then we always have that $F(\mathcal M)
-\subseteq \mathcal M'$. Indeed, if an (one-sided) inverse exists in the domain
-category, it exists in the codomain category. Thus colimit-preserving functors
-between categories with finite colimits and epi-split mono factorisation systems
-also induce a functor between the epi-split mono corelation categories. We will
-use this in Chapter \ref{ch.sigflow}.
+  In the notation of Proposition \ref{prop.corelfunctors}, note that if both
+  $(\mathcal E, \mathcal M)$ and $(\mathcal E', \mathcal M')$ are epi-split mono
+  factorisations, then we always have that $A(\mathcal M) \subseteq \mathcal
+  M'$. Indeed, if an (one-sided) inverse exists in the domain category, it
+  exists in the codomain category. Thus colimit-preserving functors between
+  categories with finite colimits and epi-split mono factorisation systems also
+  induce a functor between the epi-split mono corelation categories. We will use
+  this in Chapter \ref{ch.sigflow}.
 \end{example}
 
 \begin{remark} \label{rem.corelposet}
-On any category $\mc C$ with finite colimits, reverse inclusions of the right factor
-$\mc M$ defines a partial order on the set of factorisation systems $(\mc E,\mc
-M)$ with $\mc M$ stable under pushout. That is, we write $(\mc E,\mc M) \ge (\mc
-E,\mc M')$ whenever $\mc M \subseteq \mc M'$.  The trivial factorisation
-systems $(\mc C,\mc I_{\mc C})$ and $(\mc I_{\mc C},\mc C)$ are the top and
-bottom elements of this poset respectively.
+  On any category $\mc C$ with finite colimits, reverse inclusions of the right factor
+  $\mc M$ defines a partial order on the set of factorisation systems $(\mc E,\mc
+  M)$ with $\mc M$ stable under pushout. That is, we write $(\mc E,\mc M) \ge (\mc
+  E,\mc M')$ whenever $\mc M \subseteq \mc M'$.  The trivial factorisation
+  systems $(\mc C,\mc I_{\mc C})$ and $(\mc I_{\mc C},\mc C)$ are the top and
+  bottom elements of this poset respectively.
 
-Corelation categories realise this poset as a subcategory of the category of
-hypergraph categories. One way to understand this is that corelations are
-cospans with the $\mc M$-part `factored out'. Using an morphism-isomorphism
-factorisation system nothing is factored out, so cospans result. Using the
-isomorphism-morphism factorisation system everything is factored out, so there
-is a unique corelation between any two objects.
+  Corelation categories realise this poset as a subcategory of the category of
+  hypergraph categories. One way to understand this is that corelations are
+  cospans with the $\mc M$-part `forgotten'. Using a morphism-isomorphism
+  factorisation system nothing is forgotten, so these corelations are just
+  cospans. Using the isomorphism-morphism factorisation system everything is
+  forgotten, so there is a unique corelation between any two objects.
 
-We can construct a decorated corelation functor between two corelation
-categories if the codomain factors out more than the domain: i.e. if the
-codomain is less than the domain in the poset. In particular, this implies
-there is always a functor from the cospan category $\corel_{(\mc C,\mc I_{\mc
-C})}(\mc C)= \cospan(\mc C)$ to any other corelation category $\corel_{(\mc
-E,\mc M)}(\mc C)$, and from $\corel_{(\mc E,\mc M)}(\mc C)$ any corelation
-category to the indiscrete category $\corel_{(\mc I_{\mc C},\mc C)}(\mc C)$ on
-the objects of $\mc C$.
+  We can construct a hypergraph functor between two corelation categories if the
+  codomain forgets more than the domain: i.e. if the codomain is less than
+  the domain in the poset. In particular, this implies there is always a
+  hypergraph functor from the cospan category $\corel_{(\mc C,\mc I_{\mc
+  C})}(\mc C)= \cospan(\mc C)$ to any other corelation category $\corel_{(\mc
+  E,\mc M)}(\mc C)$, and from $\corel_{(\mc E,\mc M)}(\mc C)$ any corelation
+  category to the indiscrete category $\corel_{(\mc I_{\mc C},\mc C)}(\mc C)$ on
+  the objects of $\mc C$.
 \end{remark}
 
 \section{Examples} \label{sec.corelexs}
@@ -2057,19 +2062,20 @@ of the spider theorem for special commutative Frobenius monoids.
 
 \subsection{Linear relations as corelations in $\Vect$} \label{ssec.linrel}
 
-Recall that a linear relation $L\maps U \leadsto V$ is a subspace $L \subseteq
-U \oplus V$. We compose linear relations as we do relations, and vector spaces
-and linear relations form a category $\LinRel$. It is well known that this
-category can be constructed as the category of relations in the category $\Vect$
-of vector spaces and linear maps with respect to epi-mono factorisations. We
-show that they may also be constructed as corelations in $\Vect$ with respect to
-epi-mono factorisations.
+Recall that a linear relation $L\maps U \leadsto V$ is a subspace $L \subseteq U
+\oplus V$. We compose linear relations as we do relations, and vector spaces and
+linear relations form a category $\LinRel$. It is straightforward to show that
+this category can be constructed as the category of relations in the category
+$\Vect$ of vector spaces and linear maps with respect to epi-mono
+factorisations: monos in $\Vect$ are simply injective linear maps, and hence
+subspace inclusions. We show that they may also be constructed as corelations in
+$\Vect$ with respect to epi-mono factorisations.
 
 If we restrict to the full subcategory $\FinVect$ of finite dimensional vector
-spaces this is easy to see: after picking a basis for each vector space the
-transpose yields an equivalence of $\FinVect$ with its opposite category, so
-the category of $(\mathcal E,\mathcal M)$-corelations (jointly epic cospans)
-is isomorphic to the category of $(\mathcal E,\mathcal M)$-relations
+spaces duality makes this easy to see: after picking a basis for each vector
+space the transpose yields an equivalence of $\FinVect$ with its opposite
+category, so the category of $(\mathcal E,\mathcal M)$-corelations (jointly epic
+cospans) is isomorphic to the category of $(\mathcal E,\mathcal M)$-relations
 (jointly monic spans) in $\FinVect$. This fact has been fundamental in work on
 finite dimensional linear systems and signal flow diagrams \cite{BE,BSZ,FRS16}.
 
@@ -2080,7 +2086,7 @@ precisely the surjective linear maps, the monomorphisms are the injective
 linear maps, and the image of a linear map is always a subspace of the
 codomain, and so itself a vector space. Monos are stable under pushout as the
 pushout of a diagram $V \xleftarrow{f} U \xrightarrow{m} W$ is $V \oplus
-W/\im[f\; -g]$. The map $m'\maps V \to V \oplus W/\im[f\; -g]$ into the pushout
+W/\im[f\; -m]$. The map $m'\maps V \to V \oplus W/\im[f\; -m]$ into the pushout
 has kernel $f(\ker m)$. Thus when $m$ is a monomorphism, $m'$ is too.
 
 Thus we have a category of corelations $\corel(\Vect)$. We show that the map

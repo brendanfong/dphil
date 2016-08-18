@@ -7,20 +7,20 @@ But before we get to the category theory, I want to say a few words about the
 scientific tradition in which this thesis is situated.
 
 Mathematics is the language of science. Twinned so intimately with physics, over
-the past centuries mathematics has become superb---indeed, unreasonably
+the past centuries mathematics has become a superb---indeed, unreasonably
 effective---language for understanding planets moving in space, particles in a
 vacuum, the structure of spacetime, and so on.  Yet, while Wigner speaks of the
-unreasonble effectiveness of mathematics in the natural sciences \cite{Wig60},
+unreasonable effectiveness of mathematics in the natural sciences \cite{Wig60},
 equally eminent mathematicians, not least Gelfand, speak of the unreasonable
-\emph{ineffectiveness} of mathematics in biology and related fields. Why such a
-difference?
+\emph{ineffectiveness} of mathematics in biology \cite{Mon07} and related
+fields. Why such a difference?
 
 A contrast between physics and biology is that while physical systems can often
-be studied in isolation---the particle in a vacuum---, biological systems are
-necessarily situated in their environment. A heart belongs in a body, an ant in
-a colony. One of the first to draw attention to this contrast was Ludwig on
-Bertalanffy, biologist and founder of general systems theory, who articulated
-the difference as one between closed and open systems: 
+be studied in isolation---the proverbial particle in a vacuum---, biological
+systems are necessarily situated in their environment. A heart belongs in a
+body, an ant in a colony. One of the first to draw attention to this contrast
+was Ludwig von Bertalanffy, biologist and founder of general systems theory, who
+articulated the difference as one between closed and open systems: 
 \begin{quote}
   Conventional physics deals only with closed systems, i.e. systems which are
   considered to be isolated from their environment. \dots\ However, we find
@@ -31,12 +31,12 @@ the difference as one between closed and open systems:
   equilibrium but maintained in a so-called steady state which is distinct from
   the latter \cite{Ber68}.
 \end{quote}
-While von Bertalanffy's general systems theory is still approaching its
-generalist ambition, his philosophy has had great impact in his home field of
-biology, leading to the modern field of systems biology. Half a century later,
-Dennis Noble, another great pioneer of systems biology and the originator of the
-first mathematical model of a working heart, describes the shift as one from
-reduction to integration.
+While the ambitious generality of general systems theory has proved difficult,
+von Bertalanffy's philosophy has had great impact in his home field of biology,
+leading to the modern field of systems biology. Half a century later, Dennis
+Noble, another great pioneer of systems biology and the originator of the first
+mathematical model of a working heart, describes the shift as one from reduction
+to integration.
 \begin{quote}
   Systems biology\dots\ is about putting together rather than taking apart,
   integration rather than reduction. It requires that we develop ways of
@@ -62,32 +62,32 @@ of an expression in our new language is determined by the meanings of its
 constituent expressions together with the syntactic rules combining them. This
 is known as the principle of compositionality. 
 
-Also commonly known as Frege's principle, the principle of compositionality and
-its precise meaning and applicability both dates back to Ancient Greek and Vedic
-philosophy, and is still the subject of active research today
-\cite{Jan86,Sza13}. More recently, through the work of Montague \cite{Mon70} in
-natural language semantics and Strachey and Scott \cite{SS71} in programming
-languages semantics, the principle of compositionality has found formal
-expression as the dictum that the interpretation of a language should be given
-by a homomorphism between an algebra of syntactic representations and an algebra
-of semantic objects. We too shall follow this route.
+Also commonly known as Frege's principle, the principle of compositionality both
+dates back to Ancient Greek and Vedic philosophy, and is still the subject of
+active research today \cite{Jan86,Sza13}. More recently, through the work of
+Montague \cite{Mon70} in natural language semantics and Strachey and Scott
+\cite{SS71} in programming language semantics, the principle of compositionality
+has found formal expression as the dictum that the interpretation of a language
+should be given by a homomorphism between an algebra of syntactic
+representations and an algebra of semantic objects. We too shall follow this
+route.
 
 The question then arises: what do we mean by algebra? This mathematical question
 leads us back to our scientific objectives: what do we mean by system? Here we
 must narrow, or at least define, our scope. We give some examples. The
-investigations of thesis began with electrical circuits and their diagrams, and
-we will devote significant time to exploring their compositional formulation. We
-discussed biological systems above, and our notion of system includes these,
-modelled say in the form of chemical reaction networks or Markov processes, or
-the compartmental models of epidemiology, population biology, and ecology. From
-computer science, we consider Petri nets, automata, logic circuits, and similar.
-More abstractly, our notion of system encompasses matrices and systems of
-differential equations. 
+investigations of this thesis began with electrical circuits and their diagrams,
+and we will devote significant time to exploring their compositional
+formulation. We discussed biological systems above, and our notion of system
+includes these, modelled say in the form of chemical reaction networks or Markov
+processes, or the compartmental models of epidemiology, population biology, and
+ecology. From computer science, we consider Petri nets, automata, logic
+circuits, and similar.  More abstractly, our notion of system encompasses
+matrices and systems of differential equations. 
 
 Drawing together these notions of system are well-developed diagrammatic
 representations based on network diagrams---that is, topological graphs. We call
 these network-style diagrammatic languages. In the abstract, by system we shall
-simply mean that which can be represented by box with a collection of terminals,
+simply mean that which can be represented by a box with a collection of terminals,
 perhaps of different types, through which it interfaces with the surroundings.
 Concretely, one might envision a circuit diagram with terminals, such as
 \[
@@ -191,16 +191,16 @@ At core, this work is done in the faith that the right language allows deeper
 insight into the underlying structure. Indeed, after setting up such a language
 for open systems there are many questions to be asked: Can we find a sound and
 complete logic for determining when two syntactic expressions have the same
-semantics? Suppose we have systems have some property, like being controllable.
-In what ways can we interconnect controllable systems so that the combined
-system is also controllable? Can we compute the semantics of a large system
-quicker by computing the semantics of subsystems and then composing them?  If I
-want a given system to acheive a specified trajectory, can we interconnect
-another system to make it do so? How do two different notions of system, such as
-circuit diagrams and signal flow graphs, relate to each other? Can we find
-homomorphisms between their syntactic and semantic algebras? In the second part
-of this thesis we explore some applications in depth, providing answers to
-questions of the above sort.
+semantics? Suppose we have systems that have some property, for example
+controllability.  In what ways can we interconnect controllable systems so that
+the combined system is also controllable? Can we compute the semantics of a
+large system quicker by computing the semantics of subsystems and then composing
+them?  If I want a given system to acheive a specified trajectory, can we
+interconnect another system to make it do so? How do two different notions of
+system, such as circuit diagrams and signal flow graphs, relate to each other?
+Can we find homomorphisms between their syntactic and semantic algebras? In the
+second part of this thesis we explore some applications in depth, providing
+answers to questions of the above sort.
 
 
 \subsection*{Organisation of this thesis}
@@ -209,9 +209,9 @@ questions of the above sort.
 This thesis is divided into two parts. Part \ref{part.maths}, comprising
 Chapters \ref{ch.hypcats} to \ref{ch.deccorels}, focusses on mathematical
 foundations. In it we develop the theory of hypergraph categories and a powerful
-tool for constructing and manipulating them: decorated corelations. Part
-\ref{part.apps}, comprising Chapters \ref{ch.sigflow} to \ref{ch.further}, then
-discusses applications of this theory to examples of open systems.
+tool for constructing and manipulating them: decorated corelations.
+Part~\ref{part.apps}, comprising Chapters \ref{ch.sigflow} to \ref{ch.further},
+then discusses applications of this theory to examples of open systems.
 
 The central refrain of this thesis is that the syntax and semantics of
 network-style diagrammatic languages can be modelled by hypergraph categories.
@@ -293,7 +293,7 @@ corelations guide construction of these categories and functors.
 
 
 Having developed these theoretical tools, in the second part we turn to
-demonstrating that the have useful application. Chapter \ref{ch.sigflow}
+demonstrating that they have useful application. Chapter \ref{ch.sigflow}
 uses corelations to formalise signal flow diagrams representing linear
 time-invariant discrete dynamical systems as morphisms in a category.
 Our main result gives an intuitive sound and fully complete equational theory
@@ -339,7 +339,7 @@ references are included in each chapter.
 With its emphasis on composition, category theory is an attractive framework for
 modelling open systems, and the present work is not the first attempt at develop
 this idea. Notably from as early as the 1960s Goguen and Rosen both led efforts,
-Goguen from a computer science perspective \cite{Go}, while Rosen from
+Goguen from a computer science perspective \cite{Go}, Rosen from
 biology \cite{Ros12}. Goguen in particular promoted the idea, which we take up,
 that composition of systems should be modelled by colimits \cite{Gog91}. This
 manifests in our emphasis on cospans.
@@ -363,12 +363,27 @@ model interconnection of systems, including electric circuits, as well as
 automata, Petri nets, transition systems, and Markov processes \cite{KSW,KSW2,
 RSW05,RSW08,ASW}. Indeed, the definition of a hypergraph category is due to
 Walters and Carboni \cite{Car91}. A difference and original contribution is our
-present use of decorations. One paper the deserves particular mention is that of
+present use of decorations. One paper deserving of particular mention is that of
 Rosebrugh, Sabadini, and Walters on calculating colimits compositionally
 \cite{RSW08}, which develops the beginnings of some of the present ideas on
 corelations. Their discussion of automata and the proof of Kleene's theorem is
 reminscent of our proof of the functoriality of the black box functor, and the
 precise relationship deserves to be pinned down.
+
+Lack Soboci\'nski double pushout rewriting?
+
+This link between automata and control systems, however, is not novel. Following
+Goguen, Arbib and Manes categorical machinery for their study of machines in a
+category,
+
+Process algebras. processes as relations
+
+Hoare?
+
+No compositionality.  morphisms as processes Due to Abramsky, interaction categories
+
+Schweimeier categorical models of programming languages based on a graphical
+presentation \cite{Sch01}.
 
 At the present time, the work of Bonchi, Soboc\'inski, and Zanasi on signal flow
 diagrams and graphical linear algebra \cite{BSZ,BSZ2,BSZ3,Za} has heavily
@@ -432,10 +447,11 @@ my passions and, most importantly, encouragement and faith.
 
 Jamie Vicary, too, has always been available for advice and encouragement. My
 coauthors, including John, but also Brandon Coya, Hugo Nava-Kopp, Blake Pollard,
-Paolo Rapisarda, Pawe\l\ Soboc\'inski, have been teachers in the process.
-And valuable comments and conversations on the present work have come, not only
-from all of the above, but also from Rashmi Kumar, Omar Camarena, Dan Marsden,
-Bernhard Reinke, Jason Erbele, Stefano Gogioso.
+Paolo Rapisarda, Pawe\l\ Soboc\'inski, have been teachers in the process.  And
+valuable comments and conversations on the present work have come, not only from
+all of the above, but also from Samson Abramsky, Marcelo Fiore, Sam Staton,
+Bernhard Reinke, Dan Marsden, Rashmi Kumar, Aleks Kissinger, Stefano Gogioso,
+Jason Erbele, Omar Camarena, and a number of anonymous referees.
 
 I am grateful for the generous support of a number of institutions.  This work
 was supported by the Clarendon Fund, Hertford College, and the Queen Elizabeth

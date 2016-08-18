@@ -7,15 +7,15 @@ We close with a few words regarding ongoing research extending these ideas. For
 balance, the first is theoretical, regarding the use of epi-mono factorisation
 systems for black boxing systems, and the second applied, regarding consequences
 of our work on passive linear networks in Chapter \ref{ch.circuits}. In
-particular, in the second section we demonstrate that the existence of the black
-box functor is not just a pretty theoretical result, but creates a language in
-which genuinely applied, novel results can be formulated and proved.
+particular, we include these to illustrate that the existence of the black
+box functor is not just a pretty category theoretic abstraction, but creates a
+language in which genuinely applied, novel results can be formulated and proved.
 
 \section{Bound colimits}
 
 A theme of this thesis is that while cospans in some category $\mc C$ with
 finite colimits are adequate for describing the interconnection of open systems,
-their composition often retains more information than we can `see' from the
+their composition often retains more information than can be observed from the
 boundary. In the cases of ideal wires (\textsection\ref{ssec.equivrels}), linear
 relations (\textsection\ref{ssec.linrel}), and signal flow diagrams (Chapter
 \ref{ch.sigflow}), corelations with respect to an epi-mono factorisation system
@@ -23,6 +23,7 @@ instead provide the right notion of black boxed open system. Why? What do
 different factorisation systems model, and how to choose the right one?
 
 In \cite{RSW08}, Rosebrugh, Sabadini, and Walters describe how composition of
+\linebreak
 cospans can be used to calculate colimits. Here we argue that the idea of an
 open system or, equivalently, a system with boundary, motivates a variant of
 the colimit, which we term the bound colimit.
@@ -41,7 +42,7 @@ In general we can think of specifying an open system in this way: not just as a
 single morphism $B \to T$, but as a diagram in our category, where some objects
 $B_i$ are denoted `boundary' objects, and the remainder $T_j$ `system' objects. It
 helps intuition to add the condition that our diagram cannot contain maps from a
-`system' object to a `boundary' object.
+system object to a boundary object.
 
 We can compute a more efficient representation of our diagrammed open system by
 first taking the colimit of the full subcategory with objects the boundary
@@ -71,18 +72,18 @@ maps $\hom(T,V) \to \hom(B,V)$ and $\hom(T',V) \to \hom(B,V)$ they respectively
 induce.)
 
 Consequently, if we are interested in efficient representations, then we should
-`subtract' the largest split monic we can from T. This `retracts' the redundant
+subtract the largest split monic we can from T. This retracts the redundant
 information. Also note that if we have an epimorphism $e\maps B \to T$ then the
 map $\hom(T,V) \to \hom(B,V)$ is one-to-one.
 
 Thus, if our category has an epi-split mono factorisation system, then
 equivalence classes of open systems can be indexed by epis $e\maps B \to T$. The
-epi $e$ is the `minimal representation', or the `black boxed' system.
+epi $e$ is the minimal representation, or the black boxed system.
 
 Suppose now that we want to compute the interconnection---or colimit---and minimal
 representation---the epi part---simultaneously. This allows us to consider a
 setting where there are only minimal representations: where everything is always
-`black boxed'. This is where bound colimits come in.
+`black boxed'. The object of this computation is the bound colimit. 
 
 To compute the minimal representation we were interested in the image of system
 homset $\hom(T,V)$ in the boundary homset $\hom(B,V)$. What is the universal
@@ -136,20 +137,20 @@ We conclude with brief mentions of two applications of the category of passive
 linear networks, illustrating the further utility of formalising network-style
 diagrammatic languages as hypergraph categories.
 
-The first concerns making explicit use of the compositional structure to study
-networks of linear resistors. In \cite{Jek}, Jekel uses the compositional
-structure to study the inverse problem for these networks. The inverse problem
-seeks to determine the resistances on the edges of a circuit knowing only the
-underlying graph and the behaviour. Jekel defines a notion of elementary
-factorisation of circuits in terms of the compositional structure in $\Circ$,
-and shows that these factorisations can be used to state a sufficient condition
-for the size of connections through the graph to be detectable from the
-linear-algebraic properties of the behaviour.
+The first application concerns explicit use of the compositional structure to
+study networks of linear resistors. In \cite{Jek}, Jekel uses the compositional
+structure on circuits to analyse the inverse problem. Roughly speaking, the
+inverse problem seeks to determine the resistances on the edges of a circuit
+knowing only the underlying graph and the behaviour. Jekel defines a notion of
+elementary factorisation of circuits in terms of the compositional structure in
+$\Circ$, and shows that these factorisations can be used to state a sufficient
+condition for the size of connections through the graph to be detectable from
+the linear-algebraic properties of the behaviour.
 
-The second demonstrates how formalisation of network-style diagrammatic
-languages allows formal exploration of the relationships between them. Work with
-Baez and Pollard \cite{BFP,Pol16} defines a decorated cospan category
-$\mathrm{DetBalMark}$ in which the morphisms are open detailed balanced
+The second application demonstrates how formalisation of network-style
+diagrammatic languages allows formal exploration of the relationships between
+them. Indeed, work with Baez and Pollard \cite{BFP,Pol16} defines a decorated cospan
+category $\mathrm{DetBalMark}$ in which the morphisms are open detailed balanced
 continuous-time Markov chains, or open detailed balanced Markov processes for
 short.  An open Markov process is one where probability can flow in or out of
 certain states called `inputs' and `outputs'. A detailed balanced Markov process
@@ -174,6 +175,7 @@ minimum power and the black box functor, and we show there is a functor $K\maps
 This natural transformation makes precise these analogies, and shows that we can
 model detailed balanced Markov processes with circuits of linear resistors in a
 compositional way.
+
 
 %Finally, note that one straightforward formula for extending the work of this
 %thesis is to take a network-style diagrammatic language and formulate it and its

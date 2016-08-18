@@ -253,10 +253,15 @@ previous section, we thus begin with the following definition.
   is a morphism $n\colon  N \to N'$ of cospans such that $Fn \circ s = s'$.
 \end{definition}
 
+Observe that we may define a category with decorated cospans as objects and
+morphisms of decorated cospans as morphisms.
+
+
 \subsection{Composing decorated cospans}
 
 Our first concern is to show that isomorphism classes of decorated cospans form
-the morphisms of a category.
+the \emph{morphisms} of a category. The objects in this category will be the
+objects of $\mc C$.
 
 \begin{proposition} \label{prop.composingdeccospans}
   There is a category $F\mathrm{Cospan}$ of $F$-decorated cospans, with objects
@@ -308,7 +313,7 @@ the morphisms of a category.
   classes, is associative, and, with the above identity maps, obeys the
   unitality axiom. These are straightforward, but lengthy, exercises in
   using the available colimits and monoidal structure to show that
-  the relevant diagrams of decorations commute.
+  the relevant diagrams of decorations commute. We do this now.
 
 \paragraph{Representation independence for composition of isomorphism
 classes of decorated cospans.}
@@ -326,12 +331,12 @@ and
 \]
 be isomorphisms of decorated cospans. We wish to show that the composite of the
 decorated cospans on the left is isomorphic to the composite of the decorated
-cospans on the right. As discussed, it is well known that the composite cospans
-are isomorphic, and it remains to us to check the decorations agree too. Let $p\colon 
-N+_YM \to N'+_YM'$ be the isomorphism given by the universal property of the
-pushout and the isomorphisms $n\colon N \to N'$ and $m\colon  M \to M'$. Then the two
-decorations in question are given by the top and bottom rows of the following
-diagram.
+cospans on the right. As discussed in \textsection\ref{sec.cospans}, it is well
+known that the composite cospans are isomorphic. It remains for us to check
+the decorations agree too. Let $p\colon N+_YM \to N'+_YM'$ be the isomorphism
+given by the universal property of the pushout and the isomorphisms $n\colon N
+\to N'$ and $m\colon  M \to M'$. Then the two decorations in question are given
+by the top and bottom rows of the following diagram.
 \[
   \xymatrixrowsep{1pc}
   \xymatrixcolsep{1pc}
@@ -442,7 +447,7 @@ edge equal to the aforementioned pushforward.
 \[
   \xymatrixcolsep{.96pc}
   \xymatrix{
-    I \ar[rrrrrrrrrr]^s \ar[ddrr]_{\rho_I^{-1}} &&&&&&&&&& FN \\
+    I \ar[rrrrrrrrrr]^s \ar[ddrr]_{\lambda_I^{-1}} &&&&&&&&&& FN \\
     &&&& \textrm{\tiny(D1)} &&&& \textrm{\tiny(F1)}\\
     && I \otimes I \ar[rr]^{s\otimes 1} \ar[ddrrrr]_{s \otimes (F! \circ
     \varphi_I)} && FN \otimes I \ar[uurrrrrr]^{\rho_{FN}} \ar[rr]^(.57){1_{FN}
@@ -732,9 +737,10 @@ isomorphism of decorated cospans:
     \ar[u]_{F\lambda_{\mathcal C}}
   }
 \]
-Thus the coherence maps are indeed natural transformations. Moreover, they obey
-the required coherence laws as they are images of maps that obey these laws in
-$\mathrm{Cospan(\mathcal{C})}$. 
+Thus $\lambda$ is indeed a natural transformation; again the naturality of the
+remaining coherence maps can be proved similarly. Moreover, the coherence maps
+obey the required coherence laws as they are images of maps that obey these laws
+in $\mathrm{Cospan(\mathcal{C})}$. 
 
 \paragraph{Hypergraph structure.}
 Similarly, to arrive at the hypergraph structure on \linebreak
@@ -791,7 +797,7 @@ $\mathrm{Cospan}(\mc C)$, we `decategorify' this bicategory by discarding
 cospans might also be most naturally thought of as 1-morphisms in a bicategory.
 Indeed this is the case.  
 
-Define a morphism of $F$-decorated cospans to be a morphism $n$ in $\mc C$ such
+Recall that a morphism of $F$-decorated cospans is a morphism $n$ in $\mc C$ such
 that the diagrams
 \[
   \begin{aligned}
@@ -1138,9 +1144,11 @@ functor if and only $(A,\alpha)$ is.
 When the decorating structure comprises some notion of topological diagram, such
 as a graph, these natural transformations $\theta$ might describe some semantic
 interpretation of the decorating structure. In this setting the above theorem
-might be used to construct functorial semantics for the decorated cospan
-category of diagrams. It has the limitation, however, of only being able to
-construct semantic functors to other decorated cospan categories. 
+might be used to construct semantic functors for the decorated cospan category
+of diagrams. It has the limitation, however, of only being able to construct
+semantic functors to other decorated cospan categories. Note that this idea of
+semantic functor is loosely inspired by, but not strictly the same as, Lawvere's
+functorial semantics \cite{Law}.
 
 \section{Decorations in $\Set$ are general} \label{sec.setdecs}
 
@@ -1189,12 +1197,12 @@ Write $1=\{\bullet\}$ for the monoidal unit of $(\Set,\times)$.
 \end{proof}
 
 Composing a decorating functor $F$ with this hom functor produces an isomorphic
-decorated cospan category.
+decorated cospan category. Note that we write $\mc D(I,F-) = \mc D(I,-) \circ
+F$.
 
 \begin{proposition} \label{prop.setdecorations}
   Let $F\maps (\mathcal C, +) \to (\mathcal D, \otimes)$ be a braided lax
-  monoidal functor. Then $F\mathrm{Cospan}$ and $(\mathcal D(I,-)\circ
-  F)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
+  monoidal functor. Then $F\mathrm{Cospan}$ and $\mathcal D(I,F-)\mathrm{Cospan}$ are isomorphic as hypergraph categories.
 \end{proposition}
 \begin{proof}
   We have the commutative-by-definition triangle of braided lax monoidal
@@ -1203,12 +1211,12 @@ decorated cospan category.
     \xymatrixrowsep{2ex}
     \xymatrix{
       && (\mathcal D,\otimes) \ar[dd]^{\mathcal D(I,-)} \\
-      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,-)\circ F} \\
+      (\mathcal C,+) \ar[urr]^{F} \ar[drr]_{\mathcal D(I,F-)} \\
       && (\Set, \times)
     }
   \]
   By Theorem \ref{thm:decoratedfunctors}, this gives a strict hypergraph functor
-  $F\mathrm{Cospan} \to (\mathcal D(I,-)\circ F)\mathrm{Cospan}$. It is easily
+  $F\mathrm{Cospan} \to \mathcal D(I,F-)\mathrm{Cospan}$. It is easily
   observed that this functor is bijective on objects and on morphisms. 
 \end{proof}
 
@@ -1223,8 +1231,7 @@ functors that can be constructed using decorated cospans.
     \xymatrixrowsep{3pc}
     \xymatrix{
       F\mathrm{Cospan} \ar[r]^T \ar[d]_{\sim} & G\mathrm{Cospan} \ar[d]^{\sim}\\ 
-      (\mathcal D(I,-)\circ F)\mathrm{Cospan} \ar[r]^U & (\mathcal D'(I,-)\circ
-      G)\mathrm{Cospan}
+      \mathcal D(I,F-)\mathrm{Cospan} \ar[r]^U & \mathcal D'(I,G-)\mathrm{Cospan}
     }
   \]
   commutes, where the vertical maps are the isomorphisms given by the previous
@@ -1267,7 +1274,7 @@ functors that can be constructed using decorated cospans.
     }
   \]
   To see that the required square of hypergraph functors commutes, observe that
-  both functors $F\mathrm{Cospan} \to (\mc D'(I,-)\circ G)\mathrm{Cospan}$ take
+  both functors $F\mathrm{Cospan} \to \mc D'(I,G-)\mathrm{Cospan}$ take
   objects $X$ to $AX$ and morphisms 
   \[
     (X \stackrel{i}\longrightarrow N \stackrel{o}\longleftarrow Y, \enspace I
@@ -1281,22 +1288,25 @@ functors that can be constructed using decorated cospans.
   \]
 \end{proof}
 
+\begin{remark}
 Note that the braided monoidal categories $(\mc C,+)$ and $(\Set,\times)$ are
-both symmetric monoidal categories. Thus when working with the decorating
-category $\Set$ we may refer to the decorating functors $F$ as symmetric lax
-monoidal, rather than merely braided lax monoidal.
+both symmetric monoidal categories. As symmetric monoidal functors are just
+braided monoidal functors between symmetric monoidal categories, when working
+with the decorating category $\Set$ we may refer to the decorating functors $F$
+as symmetric lax monoidal, rather than merely braided lax monoidal.
+\end{remark}
 
 \begin{remark}
   When $\mc C$ has finite colimits, call a lax symmetric monoidal functor $(\mc
-  C,+) \to (\Set,\times)$ a lax symmetric monoidal presheaf on $\mc C$. A
-  morphism between lax symmetric monoidal presheaves $F$ and $G$ on categories
+  C,+) \to (\Set,\times)$ a lax symmetric monoidal copresheaf on $\mc C$. A
+  morphism between lax symmetric monoidal copresheaves $F$ and $G$ on categories
   $\mc C$ and $\mc C'$ with finite colimits is a colimit preserving functor $A
   \maps F \to G$ together with a monoidal natural transformation $\theta\maps F
   \Rightarrow G \circ A$. This forms a category.
 
   The work in this chapter implies there exists a full and faithful functor from
   this category to the category of hypergraph categories, taking a lax symmetric
-  monoidal presheaf on a category with finite colimits to its decorated cospans
+  monoidal copresheaf on a category with finite colimits to its decorated cospans
   category.
 \end{remark}
 
@@ -1447,7 +1457,7 @@ $\linsub(N) \to \linsub(M)$ induced by the sum of these two relations:
 The above operations on $f$ used in the construction of this map are functorial,
 and so it is readily observed that $\linsub$ is indeed a functor.
 
-It is moreover lax braided monoidal as the sum of linear subspace of $\R^N
+It is moreover lax braided monoidal as the sum of a linear subspace of $\R^N
 \oplus (\R^N)^\ast$ and a linear subspace of $\R^M \oplus (\R^M)^\ast$ may be
 viewed as a subspace of $\R^N \oplus (\R^N)^\ast \oplus \R^M \oplus (\R^M)^\ast
 \cong \R^{N+M} \oplus (\R^{N+M})^\ast \cong \R^{M+N} \oplus (\R^{M+N})^\ast$,
