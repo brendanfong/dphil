@@ -41,7 +41,11 @@ In this picture we have an object under study, referred to as a \emph{system}, w
 \item \textbf{Analysis}: Given a system, what is the relationship it induces between input and output?
 \item \textbf{Synthesis}: Given a target relationship between input and output, how do we build a system that produces this relationship?
 \end{itemize}
-The first, the question of system analysis, provides the basic understanding required to find the inputs that lead to the desired outputs. The second question, the question of synthesis, is the central question of feedback control theory, which aims to design controllers to regulate other systems. We give brief overview of the field, illustrated with some questions of these kinds.
+The first, the question of system analysis, provides the basic understanding
+required to find the inputs that lead to the desired outputs. The second
+question, the question of synthesis, is the central question of feedback control
+theory, which aims to design controllers to regulate other systems. We give a
+brief overview of the field, illustrated with some questions of these kinds.
 
 Control has a long history. Indeed, many systems found in the biology and chemistry of living organisms have interesting interpretations from a control theoretic viewpoint, such as those that are responsible for body temperature regulation or bipedal balance \cite{So2}. Human understanding of control developed alongside engineering, and so dates back at least as far as antiquity, with for example the ancient Romans devising elaborate systems to maintain desired water levels in aqueducts \cite{So}. The origin of formal mathematical control theory, however, is more recent, and in general taken to be James Clerk Maxwell's seminal analysis of centrifugal governors, presented to the Royal Society of London in 1868 \cite{CM}. 
 
@@ -119,7 +123,13 @@ Ideally then, the composite system below, connecting pipe 2 of Tank $A$ to pipe 
     \node at (2,1){Tank $B$};
 \end{tikzpicture}
 \]
-This is rarely the case, and indeed makes little sense: the output of transfer function $H_A$ describes the flow through Tank $A$, while the domain of the transfer function $H_B$ describes pressures through Tank $B$, so taking the output of $H_A$ as the input of $H_B$ runs into data type issues. Instead, here the relationship between the transfer functions $H_A$ and $H_B$, and the transfer function $H_{AB}$ of the composite system can be understood through the fact that connection requires the pressure at pipe 1 of Tank $A$ must be equal to the pressure at pipe 2 of Tank $B$, and that the flow out of the former pipe must equal the flow into the latter---that is, by imposing the relations 
+This is rarely the case, and indeed makes little sense: the output of transfer
+function $H_A$ describes the flow through Tank $A$, while the domain of the
+transfer function $H_B$ describes pressures through Tank $B$, so taking the
+output of $H_A$ as the input of $H_B$ runs into type issues. Instead, here
+the relationship between the transfer functions $H_A$ and $H_B$, and the
+transfer function $H_{AB}$ of the composite system can be understood through the
+fact that connection requires that the pressure at pipe 1 of Tank $A$ must be equal to the pressure at pipe 2 of Tank $B$, and that the flow out of the former pipe must equal the flow into the latter---that is, by imposing the relations 
 \begin{align*}
 p_{A2} &= p_{B1} \\ f_{A2} &= - f_{B1}
 \end{align*}
@@ -214,13 +224,38 @@ a theoretical curiosity: it gives the class of \emph{complete LTI discrete
 dynamical systems}. The interest of systems theorists is due to practical
 considerations: physical systems seldom evolve from zero initial conditions.
 
-Technically, the semantics of diagrams are sets of \emph{biinfinite}
-streams: those sequences of elements of $\k$ that are infinite in the past
-\emph{as well} as in the future---that is, elements of $\k^\z$.  Starting with
-the operational description, one obtains a biinfinite trajectory by executing
-circuits forwards and backwards in time, for some initialisation of the
-registers. The dynamical system defined by a signal flow diagram is the set of
-trajectories obtained by considering all possible executions from all possible initialisations.
+Although previous work~\cite{BSZ2,BSZ3,Za} made the connection between signal
+flow graphs and string diagrams, their operational semantics is more restrictive
+than that considered here, considering only trajectories with finite past and
+demanding that, initially, all the registers contain the value $0$.  Indeed,
+with this restriction, it is not difficult to see that the trajectories
+of~\eqref{eq:examplesfg} are those where the output is \emph{the same} as the
+input. The input/output behaviour is thus that of a stateless wire.  The
+equational presentation in this case is the theory $\ih_{\k[s]}$ of
+interacting Hopf algebras \cite{Za}, and indeed, in $\ih_{\k[s]}$:
+\begin{equation}\label{eq:exampleproof}
+\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
+\end{equation}
+
+Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
+with our more liberal, operational semantics. Indeed, recall that when the
+registers of~\eqref{eq:examplesfg} initially hold values $1$ and $2$, the input
+$-1,1,-1,1,\dots$ results in the output $-2,2,-2,2,\dots$. This trajectory is
+not permitted by a stateless wire, so $\ih_{k[s]}$ is not sound for reasoning
+about LTI systems in general. We have provided a sound
+and complete theory to do just that.
+
+In terms of the algebraic semantics, the difference from previous
+work is that where there streams were handled with Laurent
+(formal power) series, here we use biinfinite streams. These are sequences of
+elements of $\k$ that are infinite in the past \emph{as well} as in the
+future---that is, elements of $\k^\z$.  Starting with the operational
+description, one obtains a biinfinite trajectory by executing circuits forwards
+and backwards in time, for some initialisation of the registers. The dynamical
+system defined by a signal flow diagram is the set of trajectories obtained by
+considering all possible executions from all possible initialisations.  Indeed,
+this is the very extension that allows us to discuss non-controllable
+behaviours; in~\cite{BSZ,BSZ3,Za,BE} all definable behaviours were controllable. 
 
 An equational theory also requires equations between the terms. We obtain the
 equations in two steps. First, we show there is a full, but not faithful,
@@ -228,17 +263,17 @@ morphism from the prop $\cospan\mat\pk$ of cospans of matrices over the ring
 $\pk$ to the prop $\ltids$ of complete LTI discrete dynamical systems.
 Using the presentation of $\cospan\mat\pk$ in~\cite{BSZ2,Za}, the result is a
 sound, but not complete, proof system. The second ingredient is restricting our
-attention from cospans to jointly epic cospans, or \emph{corelations}. This
-gives a faithful morphism, allowing us to present the prop of corelations as a
-symmetric monoidal theory, and hence giving a sound and complete proof system for
-reasoning about LTIs (Theorem \ref{thm.main}).
+attention from cospans to corelations. This gives a faithful morphism, allowing
+us to present the prop of corelations as a symmetric monoidal theory, and hence
+giving a sound and complete proof system for reasoning about LTIs (Theorem
+\ref{thm.main}).
 
 The advantages of the string diagram calculus over the traditional matrix
 calculus are manifold. The operational semantics make the notation intuitive, as
 does the compositional aspect: it is cumbersome to describe connection of
 systems using matrices, whereas with string diagrams you just connect the right
-terminals. Moreover, the calculus unifies the variety of distinct methods for representing
-LTI systems with matrix equations---built from kernel and image
+terminals. Moreover, the calculus unifies the variety of distinct methods for
+representing LTI systems with matrix equations---built from kernel and image
 representations~\cite{Wi,Wi3}---into a single framework, heading off
 possibilities for ambiguity and confusion.
 
@@ -262,9 +297,6 @@ interconnected systems~\cite{OFM}.
 %semantics of signal flow graphs
 %\item a characterisation of controllability
 %\end{itemize}
-
-
-
 
 \section{Linear time-invariant dynamical systems} \label{sec.systems}
 
@@ -966,9 +998,9 @@ Schumacher \cite[pp.7--9]{Sc}.
   preserves factorisations. Since it is a corollary of Proposition \ref{prop.funct}
   that $\theta$ preserves colimits, it follows that $\vectfun$ extends to
    $\Psi\maps\corel\mat\pk \to \corel\vect$. But $\corel\vect$ is
-  isomorphic to $\linrel$ (see Subsection ..). 
+   isomorphic to $\linrel$ (see \textsection\ref{ssec.linrel}). 
   By Theorem \ref{thm.kernelreps}, the image of $\Psi$ is $\ltids$, and taking
-  the corestriction to gives us precisely $\Phi$, which is therefore a full
+  the corestriction to $\ltids$ gives us precisely $\Phi$, which is therefore a full
   morphism of props.
 
   As corelations $n \to m$ are in one-to-one correspondence with epis out of
@@ -1005,7 +1037,7 @@ exactly those cospans that map via $F$ to the same corelation.
 %now is to understand the conditions under which two cospans have the same 
 %jointly epic parts.
 
-In fact, only one new equation is required, the ``white bone law'':
+In fact, only one new equation is required, the `white bone' or `extra' law:
 \begin{equation}\label{eq.whitebone}
   \lower8pt\hbox{$\includegraphics[height=.7cm]{pics/wbone.pdf}$}\qquad\qquad
 \end{equation}
@@ -1075,7 +1107,7 @@ normal form. We summarise the axioms in Figure \ref{fig.ihcoraxioms}.
 
 \begin{remark} \label{rmk.omittedaxs}
  $\ihcor$ %(summarised in Appendix~\ref{app.equations}) 
- can also be described as having the equations of $\ih_\pk$~\cite{BSZ2,Za}, but
+ can also be described as having the equations of $\ih_\pk$ (see \cite{BSZ2,Za}), but
 \emph{without} $\!\!\lower4pt\hbox{$\includegraphics[height=.5cm]{pics/badequation.pdf}$}$,
 $\!\lower7pt\hbox{$\includegraphics[height=.8cm]{pics/badequation2.pdf}$}$,
 and $\!\lower7pt\hbox{$\includegraphics[height=.8cm]{pics/badequation3.pdf}$}$.
@@ -1103,7 +1135,7 @@ and, because of the transpose duality of matrices:
     \end{array}
     \middle|\,r\neq 0\in R\,
   \right\}\\
-  &\cong \mathsf{Rel} \mat R.
+  &\cong \mathrm{Rel} \mat R.
 \end{align*}
 \end{remark}
 
@@ -1259,7 +1291,7 @@ a computation using the operational rules above, but with the rules for delay ha
 
 \begin{definition}
   Given $\tm\colon m \to n \in \syntax$, a \define{biinfinite trace on} $\tm$ is a sequence
-$w \in (\k^m)^\z \oplus (\k^n)^\k$ such that there exists
+$w \in (\k^m)^\z \oplus (\k^n)^\z$ such that there exists
 \begin{enumerate}[(i)]
 \item a register assignment $\sigma$; 
 \item an infinite \emph{forward trace} $\phi_\sigma$ of a computation on $\tm$
@@ -1287,37 +1319,6 @@ For any $\tm\maps m\to n \in \syntax$, we have
 \]
 as subsets of $(\k^m)^\z\times (\k^n)^\z$.
 \end{lemma}
-
-\begin{remark}
-Although previous work~\cite{BSZ2,BSZ3,Za} made the connection between signal
-flow graphs and string diagrams, their operational semantics is more restrictive
-than that considered here, considering only trajectories with finite past and
-demanding that, initially, all the registers contain the value $0$.  Indeed,
-with this restriction, it is not difficult to see that the trajectories
-of~\eqref{eq:examplesfg} are those where the output is \emph{the same} as the
-input. The input/output behaviour is thus that of a stateless wire.  The
-equational presentation in this case is the theory $\ih_{\k[s]}$ of
-interacting Hopf algebras, and indeed, in $\ih_{\k[s]}$:
-\begin{equation}\label{eq:exampleproof}
-\lower12pt\hbox{$\includegraphics[height=2cm]{pics/exampleproof.pdf}$} 
-\end{equation}
-
-Note that~\eqref{eq:exampleproof} is \emph{not sound} for circuits
-with our more liberal, operational semantics. Indeed, recall that when the
-registers of~\eqref{eq:examplesfg} initially hold values $1$ and $2$, the input
-$-1,1,-1,1,\dots$ results in the output $-2,2,-2,2,\dots$. This trajectory is
-not permitted by a stateless wire, so $\ih_{k[s]}$ is not sound for reasoning
-about LTI systems in general. We have provided a sound
-and complete theory to do just that.
-
-In terms of the algebraic semantics, the difference from previous
-work is that where there streams were handled with Laurent
-(formal power) series, here we use the aforementioned biinfinite streams.
-Indeed, this is the very extension that allows us to discuss non-controllable
-behaviours; in~\cite{BSZ,BSZ3,Za,BE} all definable behaviours were
-controllable. 
-\end{remark}
-
 
 \section{Controllability} \label{sec.control}
 
@@ -1388,15 +1389,18 @@ reasoning about controllability of composite systems.
 Among the various equivalent conditions for controllability, the existence of
 \emph{image representations} is most useful for our purposes.
 \begin{proposition}[Willems {\cite[p.86]{Wi}}] \label{thm.imagereps}
-  An LTI behaviour $\bb$ is controllable iff $\exists\; M \in \mat\pk$ such that $\bb = \im \theta M$.
+  An LTI behaviour $\bb$ is controllable iff there exists $M \in \mat\pk$ such
+  that $\bb = \im \theta M$.
 \end{proposition}
 
 Restated in our language, Proposition \ref{thm.imagereps} states that controllable
 systems are precisely those representable as \emph{spans} of matrices. 
 
 \begin{theorem} \label{cor.spanreps}
-  Let $m \xrightarrow{A} d \xleftarrow{B} n$ be a corelation in $\corel\mat\pk$. Then
-  $\Phi(\xrightarrow{A}\xleftarrow{B})$ is controllable iff $\exists$ $R: e \to m$, $S: e\to n$ s.t.
+  Let $m \xrightarrow{A} d \xleftarrow{B} n$ be a corelation in $\corel\mat\pk$.
+  Then the LTI behaviour
+  $\Phi(\xrightarrow{A}\xleftarrow{B})$ is controllable iff there exists $R: e
+  \to m$, $S: e\to n$ such that 
   \[
     m \xleftarrow{R} e \xrightarrow{S} n = m \xrightarrow{A} d \xleftarrow{B} n
   \]
@@ -1461,16 +1465,18 @@ morphism from the pushout to the original cospan, given by the universal
 property of the pushout, describes the way in which the system fails to be
 controllable.
 
-Graphically, the pullback may be computed by using the axioms of the theory of
-interacting Hopf algebras $\ih_\pk$~\cite{BSZ2,Za}. For example, the pullback
-span of the system of Ex. \ref{ex.noncontrol} is simply the identity span, as
-derived in equation \eqref{eq:exampleproof} of the previous section. In the
-traditional matrix calculus for control theory, one derives this by noting the
-system has kernel representation $\ker\theta\begin{bmatrix} s+1 & -(s+1)
-\end{bmatrix}$, and eliminating the common factor $s+1$ between the entries.
-Either way, we conclude that the maximally controllable subsystem of $1
-\xrightarrow{[s+1]} 1 \xleftarrow{[s+1]} 1$ is simply the identity system $1
-\xrightarrow{[1]} 1 \xleftarrow{[1]} 1$.
+To continue Remark \ref{rmk.omittedaxs}, the theory of interacting Hopf
+algebras $\ih_\pk$~\cite{BSZ2,Za} may be viewed as our theory $\ihcor$ of LTI
+systems together with the axioms given by the pullback in $\mat\pk$. Thus,
+graphically, the pullback may be computed by using the axioms of $\ih_\pk$. For
+example, the pullback span of the system of Example \ref{ex.noncontrol} is
+simply the identity span, as derived in equation \eqref{eq:exampleproof} of the
+previous section. In the traditional matrix calculus for control theory, one
+derives this by noting the system has kernel representation
+$\ker\theta\begin{bmatrix} s+1 & -(s+1) \end{bmatrix}$, and eliminating the
+common factor $s+1$ between the entries.  Either way, we conclude that the
+maximally controllable subsystem of $1 \xrightarrow{[s+1]} 1 \xleftarrow{[s+1]}
+1$ is simply the identity system $1 \xrightarrow{[1]} 1 \xleftarrow{[1]} 1$.
 
 % Brendan, I think we should skip this for now, we can bring it back for the journal version
 %\begin{proposition}
