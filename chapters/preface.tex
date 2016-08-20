@@ -203,7 +203,7 @@ second part of this thesis we explore some applications in depth, providing
 answers to questions of the above sort.
 
 
-\subsection*{Organisation of this thesis}
+\subsection*{Outline of this thesis}
 %\addcontentsline{toc}{section}{Organisation of this thesis}
 
 This thesis is divided into two parts. Part \ref{part.maths}, comprising
@@ -370,20 +370,35 @@ corelations. Their discussion of automata and the proof of Kleene's theorem is
 reminscent of our proof of the functoriality of the black box functor, and the
 precise relationship deserves to be pinned down.
 
-Lack Soboci\'nski double pushout rewriting?
+This link between automata and control systems, however, is not novel: Arbib
+was the first to lay out this vision \cite{Arb65}. In fact, the categorical
+approach to this task has been central from the beginning. Following Goguen
+\cite{Gog72}, Arbib and Manes unified state-space based control theory and
+automata theory in their study of machines in a category, showing that examples
+including sequential machines, linear machines, stochastic automata, and tree
+automata and their theories of reachability, observability, and realisation all
+fall under the same general categorical framework \cite{AM74a,AM74b,AM80}.
 
-This link between automata and control systems, however, is not novel. Following
-Goguen, Arbib and Manes categorical machinery for their study of machines in a
-category,
+For the most part, however, the above work starts with categories in which the
+systems are objects, whereas here our systems are morphisms. The idea that
+systems or processes should be modelled by morphisms in a category, with the
+objects becoming interface specifications and composition interaction of
+processes, has roots in Abramsky's work on interaction categories
+\cite{Abr93,Abr94,AGN95}.  Like those here, interaction categories are symmetric
+monoidal categories, with the diagrams providing an intuitive language for
+composition of systems. The tight link between this work and spans has also been
+evident from the beginning \cite{CS94}.
 
-Process algebras. processes as relations
+More broadly, the work of this thesis, talking as it does of semantics for
+diagrams of interacting systems, and particularly semantics in terms of
+relations, is couched in the language of concurrecy theory and process algebra
+\cite{Bae05}. This stems from the 1980s, with Milner's calculus of communicating
+systems \cite{Mil80} and Hoare's communication sequential processes
+\cite{Hoa78}.
 
-Hoare?
 
-No compositionality.  morphisms as processes Due to Abramsky, interaction categories
-
-Schweimeier categorical models of programming languages based on a graphical
-presentation \cite{Sch01}.
+%Schweimeier categorical models of programming languages based on a graphical
+%presentation \cite{Sch01}.
 
 At the present time, the work of Bonchi, Soboc\'inski, and Zanasi on signal flow
 diagrams and graphical linear algebra \cite{BSZ,BSZ2,BSZ3,Za} has heavily

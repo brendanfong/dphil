@@ -146,7 +146,7 @@ developing a graphical language for LTI systems.
 The expressions of this graphical language, closely resembling the signal flow
 graphs of Shannon~\cite{Sh}, will form the morphisms of a category of
 corelations, and its derivation as such will be crucial in developing a sound
-and fully complete equational theory of LTI systems.  
+and complete equational theory of LTI systems.  
 
 To acquaint ourselves with signal flow graphs, we begin with the example below,
 rendered in traditional, directed notation.
@@ -591,7 +591,7 @@ $(\Sigma,E)$ s.t.\ $\mathbb{X} \cong \mathbf{S}_{(\Sigma,E)}$.
 In this section we give a presentation of $\ltids$ as an SMT. This means 
 that (\emph{i}) we obtain a syntax---conveniently expressed using string
 diagrams---for specifying every LTI behaviour, and (\emph{ii}) a sound and
-fully complete equational theory for reasoning about them.
+complete equational theory for reasoning about them.
 
 \subsection{Syntax}
 We start by describing the graphical syntax of dynamical systems, the arrows of
@@ -702,13 +702,13 @@ behaviour in $\ltids$ has a syntactic representation in $\syntax$.
   give details in the next two subsections.
 \end{proof}
 
-Having defined the syntactic prop $\syntax$ to represent arrows in $\ltids$, our
-task for this section is to identify an equational theory that
-\emph{characterises} $\ltids$: i.e. one that is sound and fully complete. The
-first step is to use the existence of $\cospanfun$: with the results
-of~\cite{BSZ2,Za} we can obtain a presentation for $\cospan\mat\pk$. This is
-explained in the next subsection, where we present $\mat\pk$ and
-$\cospan\mat\pk$. 
+Having defined the syntactic prop $\syntax$ capable of representing every
+behaviour in $\ltids$, our task for this section is to identify an equational
+theory that \emph{characterises} equivalent representations in $\ltids$: i.e.
+one that is sound and complete.  The first step is to use the existence of
+$\cospanfun$: with the results of~\cite{BSZ2,Za} we can obtain a presentation
+for $\cospan\mat\pk$. This is explained in the next subsection, where we present
+$\mat\pk$ and $\cospan\mat\pk$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -845,7 +845,7 @@ completeness is our task for the remainder of this section.
 
 In this subsection we identify a factorisation system in $\mat\pk$, and show
 that the induced prop $\corel\mat\pk$ of corelations is isomorphic to $\ltids$.
-We then give a presentation of $\corel\mat\pk$ and arrive at a sound and fully
+We then give a presentation of $\corel\mat\pk$ and arrive at a sound and 
 complete equational theory for $\ltids$.
 
 Recall that split mono is a morphism $m\colon X\to Y$ such that there exists
@@ -1053,10 +1053,10 @@ that is not connected to the terminals. This is precisely what equation
 in \cite{CF}. 
 %
 
-Let $\mathbb{IH}^{\mathsf{Cor}}$ be the SMT obtained
-from the equations of $\mathbb{IH}^{\mathsf{Csp}}$ together with equation~\eqref{eq.whitebone}.
+Let $\mathbb{IH}^{\mathrm{Cor}}$ be the SMT obtained
+from the equations of $\mathbb{IH}^{\mathrm{Csp}}$ together with equation~\eqref{eq.whitebone}.
 \begin{theorem}
-$\corel \mat \pk \cong \mathbb{IH}^{\mathsf{Cor}}$.
+$\corel \mat \pk \cong \mathbb{IH}^{\mathrm{Cor}}$.
 \end{theorem}
 \begin{proof}
 Since equation~\eqref{eq.whitebone} holds in $\corel\mat\pk$, we have
@@ -1067,7 +1067,7 @@ to its corelation. Suppose then that $m \xrightarrow{A} k \xleftarrow{B} n$ is a
 and $m \xrightarrow{A'} k' \xleftarrow{B'} n$ its corelation. Then, by definition, 
 there exists a split mono $M\maps k'\to k$ such that $MA'=A$ and $MB'=B$. Moreover, by the construction
 of the epi-split mono factorisation in $\mat\pk$, $M$ is of the form $\lower10pt\hbox{$\includegraphics[height=1cm]{pics/m.pdf}$}$ where $M'\maps k\to k$ is invertible. We can now give the derivation
-in $\mathbb{IH}^{\mathsf{Cor}}$:
+in $\mathbb{IH}^{\mathrm{Cor}}$:
 \begin{align*}
 \lower7pt\hbox{$\includegraphics[height=.7cm]{pics/cospan1.pdf}$} \quad
 &\stackrel{\ihcsp}{=} \quad
@@ -1095,13 +1095,14 @@ in $\mathbb{IH}^{\mathsf{Cor}}$:
 %the usual laws and the white bone law.  Moreover, two cospans then have the same
 %jointly epic part if and only if the are the same up to such applications.
 
-We therefore have a sound and fully complete equational theory for LTI systems,
-and also a normal form for each LTI system: every such system can be written, in
-an essentially unique way, as a jointly epic cospan of terms in $\ha_\pk$ in
-normal form. We summarise the axioms in Figure \ref{fig.ihcoraxioms}.
+We therefore have a sound and complete equational theory capable of representing
+all LTI systems, and also a normal form for each LTI system: every such system
+can be written, in an essentially unique way, as a jointly epic cospan of terms
+in $\ha_\pk$ in normal form. We summarise the axioms in Figure
+\ref{fig.ihcoraxioms}.
 
 \begin{figure} 
-  \includegraphics[width=.9\textwidth]{pics/ihcor.pdf}
+  \includegraphics[width=.9\textwidth]{pics/ihcorfixed.pdf}
   \caption{The axioms of $\ihcor$.}\label{fig.ihcoraxioms}
 \end{figure}
 
@@ -1126,7 +1127,7 @@ Our results generalise; given any PID $R$ we have (informally speaking):
 \end{align*}
 and, because of the transpose duality of matrices:
 \begin{align*}
-  \ih^{\mathsf{Rel}}_R &= \ih_R - 
+  \ih^{\mathrm{Rel}}_R &= \ih_R - 
   \left\{
     \begin{array}{c} 
       \lower6pt\hbox{$\includegraphics[height=.6cm]{pics/goodequationgen.pdf}$},\\

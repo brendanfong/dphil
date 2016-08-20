@@ -15,11 +15,11 @@ forms from the field $\R$ to the field $\R(s)$ of real rational functions.
 
 The goal of this applications chapter is to show how decorated corelations can
 make these semantics compositional. As a network-style diagrammatic language, it
-should thus be no surprise that we begin by using to decorated cospans to
-construct a hypergraph category of circuits (\textsection\ref{sec:circdef}). At
-the end of this section, however, we show that Dirichlet forms do not provide
-the flexibility to construct a semantic category for circuits.  This
-motivates the development of more powerful machinery.
+should thus be no surprise that we begin by using decorated cospans to construct
+a hypergraph category of circuits (\textsection\ref{sec:circdef}). At the end of
+this section, however, we show that Dirichlet forms do not provide the
+flexibility to construct a semantic category for circuits.  This motivates the
+development of more powerful machinery.
 
 In \textsection\ref{sec:circlagr} we review the basic theory of linear
 Lagrangian relations, giving details to the correspondence we have defined
@@ -40,10 +40,10 @@ theory.  Over the subsequent decades, and especially in the aforementioned work
 of Joyal and Street \cite{JS91,JS93}, it became clear that these developments were
 profoundly linked: as we have seen, monoidal categories have a precise graphical
 representation in terms of string diagrams, and conversely monoidal categories
-provide an algebraic foundation for the intuitions behind Feynman diagrams.  The
-key insight is the use of categories where morphisms describe physical
-processes, rather than structure-preserving maps between mathematical objects
-\cite{BaezStay,CP}.
+provide an algebraic foundation for the intuitions behind Feynman diagrams
+\cite{BaezStay}.  The key insight is the use of categories where morphisms
+describe physical processes, rather than structure-preserving maps between
+mathematical objects \cite{CP}.
 
 But even before physicists began using Feynman diagrams, various branches of
 engineering were using diagrams that in retrospect are closely related. In the
@@ -94,7 +94,7 @@ sake of familiarity. In this section our goal is somewhat limited.  We only stud
 
 While we hope to expand our scope in future work, the class of circuits made from these components has appealing mathematical properties, and is worthy of deep study.  Indeed, this class has been studied intensively for many decades by electrical engineers \cite{AV,Budak,Slepian}.  Even circuits made exclusively of resistors have inspired work by mathematicians of the caliber of Weyl \cite{Weyl} and Smale \cite{Smale}.  
 
-The present work relies on this research.  All we are add here is an emphasis on symplectic geometry and an explicitly `compositional' framework, which clarifies the way a larger circuit can be built from smaller pieces.  This is where monoidal categories become important: the main operations for building circuits from pieces are composition and tensoring.
+The present work relies on this research.  All we add here is an emphasis on symplectic geometry and an explicitly `compositional' framework, which clarifies the way a larger circuit can be built from smaller pieces.  This is where monoidal categories become important: the main operations for building circuits from pieces are composition and tensoring.
  
 Our strategy is most easily illustrated for circuits made of linear resistors.  Such a resistor dissipates power, turning useful energy into heat at a rate determined by the voltage across the resistor.  However, a remarkable fact is that a circuit made of these resistors always acts to \emph{minimize} the power dissipated this way.  This `principle of minimum power' can be seen as the reason symplectic geometry becomes important in understanding circuits made of resistors, just as the principle of least action leads to the role of symplectic geometry in classical mechanics.  
 
@@ -156,7 +156,10 @@ Now, suppose we are unable to see the internal workings of a circuit, and can on
 The Laplace transform allows us to generalize this immediately to circuits that
 can also contain linear inductors and capacitors, simply by changing the field we work over, replacing $\R$ by the field $\R(s)$ of rational functions of a single real variable,
 and talking of `impedance' where we previously talked of resistance.  We obtain
-a category $\Circ$ where an object is a finite set, a morphism $f \maps X \to Y$ is a circuit with input set $X$ and output set $Y$, and composition is given by identifying the outputs of one circuit with the inputs of the next, and taking the resulting union of labelled graphs.  Each such circuit gives rise to a Dirichlet form, now defined over
+a category $\Circ$ where, roughly speaking, an object is a finite set, a
+morphism $X \to Y$ is a circuit with input set $X$ and output set $Y$, and
+composition is given by identifying the outputs of one circuit with the inputs
+of the next, and taking the resulting union of labelled graphs.  Each such circuit gives rise to a Dirichlet form, now defined over
 $\R(s)$, and this Dirichlet form completely describes the externally observable
 behaviour of the circuit.  
 
@@ -172,12 +175,12 @@ symplectic vector spaces.  These generalize quadratic forms via the map
   N} \oplus (\F^{\partial N})^\ast\Big)
 \]
 taking a quadratic form $Q$ on the vector space $\F^{\partial N}$
-over the field $\F$ to the graph
-of its differential $dQ$. Here we think of the symplectic vector space
-$\F^{\partial N} \oplus (\F^{\partial N})^\ast$ as the state space of the
-circuit, and the subspace $\mathrm{Graph}(dQ)$ as the subspace of attainable
-states, with $\psi \in \F^{\partial N}$ describing the potentials at the
-terminals, and $dQ_\psi \in (\F^{\partial N})^\ast$ the currents. 
+over a field $\F$ to the graph of its differential $dQ$. Here we think of the
+symplectic vector space $\F^{\partial N} \oplus (\F^{\partial N})^\ast$ as the
+state space of the circuit, and the subspace $\mathrm{Graph}(dQ)$ as the
+subspace of attainable states, with $\psi \in \F^{\partial N}$ describing the
+potentials at the terminals, and $dQ_\psi \in (\F^{\partial N})^\ast$ the
+currents. 
 
 This construction is well known in classical mechanics \cite{Weinstein}, where the principle of least action plays a role analogous to that of the principle of minimum power here.   The set of Lagrangian subspaces is actually an algebraic variety,
 the `Lagrangian Grassmannian', which serves as a compactification of the
@@ -360,7 +363,7 @@ Put more precisely, the black boxing process is \emph{functorial}: we can
 compute the black boxed version of a circuit made of parts by computing the
 black boxed versions of the parts and then composing them.   In fact we shall 
 prove that $\Circ$ and $\LagrRel$ are dagger compact categories, and
-the black box functor preserves all this extra structure:
+the black box functor preserves all this structure:
 
 \begin{theorem} \label{main_theorem}
   There exists a hypergraph functor, the \define{black box functor}   
@@ -579,7 +582,7 @@ the differences in potentials between adjacent nodes. If Kirchhoff's voltage law
 holds for some voltage $V$, the potential $\phi$ is unique only in the trivial
 case of the empty circuit: when the set of nodes $N$ is empty. Indeed, two
 potentials define the same voltage function if and only if their difference is
-constant on each connected component of the graph $\Gamma$.
+constant on each connected component of the graph.
 
 We say \define{Kirchhoff's current law} holds if for all nonterminal nodes $n
 \in N\setminus \partial N$ we have
@@ -653,8 +656,9 @@ the extended power functional $P$ subject to the constraint that  $\phi$ is an
 extension of $\psi$. 
 \end{definition}
 
-As promised, in the presence of Ohm's law and Kirchhoff's voltage law, the
-principle of minimum power is equivalent to Kirchhoff's current law.
+It is well known that, as we have stated above, in the presence of Ohm's law and
+Kirchhoff's voltage law, the principle of minimum power is equivalent to
+Kirchhoff's current law.
 
 \begin{proposition} \label{minimum_power_implies_kirchhoff_current}
 Let $\phi$ be a potential extending some boundary potential $\psi$. Then $\phi$
@@ -704,7 +708,8 @@ As we shall see, this version of the Dirichlet problem always has a solution.  H
 \] 
 so $\phi + \alpha$ is another solution. We say that a connected component of a circuit \define{touches the boundary} if it contains a vertex in $\partial N$. Note that such an $\alpha$ must vanish on all connected components touching the boundary.
 
-With these preliminaries in hand, we can solve the Dirichlet problem:
+With these preliminaries in hand, standard techniques can be used to solve the
+Dirichlet problem \cite{Fukushima}:
 \begin{proposition} \label{dirichlet_problem}
 For any boundary potential $\psi \in \R^{\partial N}$ there exists a potential $\phi$ obeying the principle of minimum power for $\psi$.  If we also demand that $\phi$ vanish on every connected component of $\Gamma$ not touching the boundary, then $\phi$ is unique. 
 \end{proposition}
@@ -723,7 +728,8 @@ so $\phi+\lambda\alpha$ is an extension of $\psi$ for all $\lambda \in \R$. This
 \[
 f(\lambda) := P(\phi+\lambda\alpha)
 \]
-is a smooth function attaining its minimum value at both $t =0$ and $t =1$. In particular, this implies that $f'(0)=0$. But this means that when writing $f$ as a quadratic, the coefficient of $\lambda$ must be $0$, so we can write
+is a smooth function attaining its minimum value at both $\lambda=0$ and
+$\lambda=1$. In particular, this implies that $f'(0)=0$. But this means that when writing $f$ as a quadratic, the coefficient of $\lambda$ must be $0$, so we can write
 \begin{align*}
 2f(\lambda) &= \sum_{e \in E} \frac1{r(e)}\big((\phi+\lambda\alpha)(t(e))-(\phi+\lambda\alpha)(s(e))\big)^2 \\
 &= \sum_{e \in E} \frac1{r(e)}\Big(\big(\phi(t(e))-\phi(s(e))\big)+\lambda\big(\alpha(t(e))-\alpha(s(e))\big)\Big)^2 \\
@@ -737,7 +743,16 @@ f(1) - f(0)
 \]
 so $\alpha(t(e)) = \alpha(s(e))$ for every edge $e \in E$. This implies that $\a$ is constant on each connected component of the graph $\Gamma$ of our circuit. 
 
-Note that as $\alpha|_{\partial N} = 0$, $\alpha$ vanishes on every connected component of $\Gamma$ touching the boundary. Thus, if we also require that $\phi$ and $\phi'$ vanish on every connected component of $\Gamma$ not touching the boundary, then $\alpha = \phi'-\phi$ vanishes on all connected components of $\Gamma$, and hence is identically zero. Thus $\phi' = \phi$, and this extra condition ensures a unique solution to the Dirichlet problem.
+Note that as $\alpha|_{\partial N} = 0$, $\alpha$ vanishes on every connected
+component of $\Gamma$ touching the boundary. Note also that there always exists
+a solution $\phi$ that vanishes on any connected component of $\Gamma$ not
+touching the boundary: indeed, the total power dissipated is simply the sum of
+the power dissipated on each connected component, and any such vanishing
+potential dissipates zero power away from the boundary.  Restricting our
+attention to solutions $\phi$ and $\phi'$ with this property, we see that
+$\alpha = \phi'-\phi$ vanishes on all connected components of $\Gamma$, and
+hence is identically zero. Thus $\phi' = \phi$, and this extra condition ensures
+a unique solution to the Dirichlet problem.
 \end{proof}
 
 We have also shown the following:
@@ -816,13 +831,15 @@ dQ_\psi(\psi') &= \frac{d}{d\lambda}Q(\phi +\lambda\psi') \bigg|_{\lambda=0} \\
 &= \sum_{n \in N}\overline \iota(n) f\psi'(n) \\
 &= \sum_{n \in \partial N}\iota(n) \psi'(n).
 \end{align*}
-This shows that $dQ_\psi^\ast = \iota$, as claimed.  Note that this calculation explains why we inserted a factor of $\frac{1}{2}$ in the definition of $P$: it cancels the factor of $2$ obtained from differentating a square.
+This shows that $dQ_\psi^\ast = \iota$, as claimed.  Note that this calculation
+explains why we inserted a factor of $\frac{1}{2}$ in the definition of $P$: it
+cancels the factor of $2$ obtained from differentiating a square.
  \end{proof}
 
 Note this only depends on $Q$, which makes no mention of the potentials at
 nonterminals. This is amazing: the way power depends on boundary potentials
 completely characterizes the way boundary currents depend on boundary
-potentials. In particular, in Part  we shall see that this
+potentials. In particular, in \textsection\ref{sec:circdef} we shall see that this
 allows us to define a composition rule for behaviours of circuits.
 
 To demonstrate these notions, we give a basic example of equivalent circuits.
@@ -886,9 +903,10 @@ fact, precisely those quadratic forms known as Dirichlet forms.
 Given a finite set $S$, a \define{Dirichlet form} on $S$ is a quadratic form $Q:
 \mathbb{R}^S \to \mathbb{R}$ given by the formula
 \[
-  Q(\psi) = \sum_{i,j} c_{i j} (\psi_i - \psi_j)^2
+  Q(\psi) = \sum_{i,j \in S} c_{i j} (\psi_i - \psi_j)^2
 \]
-for some nonnegative real numbers $c_{i j}$.  
+for some nonnegative real numbers $c_{i j}$, and where we have written $\psi_i = \psi(i) \in
+\mathbb{R}$.
 \end{definition}
 
 Note that we may assume without loss of generality that $c_{i i} = 0$ and $c_{i
@@ -941,7 +959,7 @@ subspaces of the domain that are generated by subsets of the given finite set.
   $\min_{\nu \in \R^T} Q(-,\nu)$ is well defined as a nonnegative quadratic form
   also attains its minimum on an affine subspace of its domain. Furthermore
   $\min_{\nu \in \R^T} Q(-,\nu)$ is itself a quadratic form, as the partial
-  derivatives of $Q$ are linear, and hence the points at with these minima are
+  derivatives of $Q$ are linear, and hence the points at which these minima are
   attained depend linearly on the argument of $\min_{\nu \in \R^T} Q(-,\nu)$.
 
   Now by Proposition \ref{dirichlet_characterizations}, $Q(\phi) \le Q(\phi')$
@@ -972,7 +990,7 @@ $\partial N$ and an edge of resistance $\frac{1}{2c_{ij}}$ between any $i,j \in
 Dirichlet form. This gives: 
 
 \begin{proposition}
-  A function $Q$ is the power functional for some circuit if and only if $Q$ is a
+  A function is the power functional for some circuit if and only if it is a
   Dirichlet form.
 \end{proposition}
 
@@ -982,7 +1000,7 @@ equivalent to some complete graph of resistors between its terminals. For more
 details see \cite{vLO}. We may interpret the proof of Proposition
 \ref{dirichlet_minimization} as showing that intermediate potentials at minima
 depend linearly on boundary potentials, in fact a weighted average, and that
-substituting these into a quadratic form still gives quadratic form.
+substituting these into a quadratic form still gives a quadratic form.
 
 \bigskip
 
@@ -1116,8 +1134,10 @@ Note that for each component the voltage equals the current times a rational fun
 the real variable $s$, called the \define{impedance} and in general denoted by $Z$.
 Note also that the impedance is a \define{positive real function}, meaning that it lies
 in the set
-\[         \R(s)^+ = \{ Z \in \R(s) : \forall s \in \C \;\; \mathrm{Re}(s) > 0 \implies 
-\mathrm{Re}(Z(s)) > 0 \} . \]
+\[         
+  \{ Z \in \R(s) : \forall s \in \C \;\; \mathrm{Re}(s) > 0 \implies
+  \mathrm{Re}(Z(s)) > 0 \} . 
+\]
 While $Z$ is a quotient of polynomials with real cofficients, in this definition
 we are applying it to complex values of $s$, and demanding that its real part be
 positive in the open left half-plane.  Positive real functions were introduced by Otto 
@@ -1129,25 +1149,34 @@ component with two terminals we have this generalization of Ohm's law:
   V(s)=Z(s)I(s)
 \]
 where $I \in \R(s)$ is the \define{current}, $V \in \R(s)$ is the \define{voltage}
-and $Z \in \R(s)^+$ is the \define{impedance} of the component.   As we shall
+and the positive real function $Z$ is the \define{impedance} of the component.   As we shall
 see, generalizing from circuits of linear resistors to arbitrary passive linear
-circuits is just a matter of formally replacing resistances by  impedances.
-This amounts to replacing the field $\R$ by the larger field $\R(s)$, and
-replacing the set of positive reals, $\R^+ = (0,\infty)$, by the set of positive
-real functions, $\R(s)^+$.  From a mathematical perspective we might as well
-work with any field with a notion of `positive element'. 
+circuits is just a matter of formally replacing resistances by impedances. 
+
+As we consider passive linear circuits with more than two terminals, however,
+the coefficients of our power functionals lie not just in the set of positive
+real functions, but in its closure $\R(s)^+$ under addition, multiplication, and
+division. Note that this closure is strictly smaller than $\R(s)$, as each
+positive real function is takes strictly positive real values on the positive real
+axis, so no matter how we take sums, products, and quotients of positive real
+functions it never results in the zero function $0 \in \R(s)$.  To generalise
+from linear resistors to passive linear circuits, we then replace the field $\R$
+by the larger field $\R(s)$, and replace the set of positive reals, $\R^+ =
+(0,\infty)$, by the set $\R(s)^+$.  From a mathematical perspective we might as
+well work with any field with a notion of `positive element'.
 
 \begin{definition} 
   Given a field $\F$, we define a \define{set of positive elements} for $\F$ to be  
-  any subset $\F^+\subset \F$ not containing $0$.
+  any subset $\F^+\subset \F$ not containing $0$ and closed under addition,
+  multiplication, and division.
 \end{definition}
 
 Our first motivating example arises from circuits made of resistors.  Here $\F =
 \R$ is the field of real numbers and we take $\F^+ = (0,\infty)$.   Our second
 motivating example arises from general passive linear circuits.  Here $\F =
 \R(s)$ is the field of rational functions in one real variable, and we take
-$\F^+ = \R(s)^+$ to be the positive real functions, as defined in the last
-section.  
+$\F^+ = \R(s)^+$ to be the closure of the positive real functions, as defined
+above.  
 
 In all that follows, we fix a field $\F$ of characteristic zero equipped with a
 set of positive elements $\F^+$.  By a `circuit', we shall henceforth mean a
@@ -1236,10 +1265,10 @@ work applies to a wide class of networked systems, not just electrical circuits.
 
 To understand the behaviour of passive linear circuits we need to
 understand how the behaviours of individual components, governed by Ohm's law,
-fit together give the behaviour of an entire network.
+fit together to give the behaviour of an entire network.
 Kirchhoff's laws still hold, and so does a version of the principle of minimum power.
 
-Like before, to each passive linear circuit we associate a generalised Dirichlet
+As before, to each passive linear circuit we associate a generalised Dirichlet
 form.
 
 \begin{definition} Given a field $\F$ and
@@ -1248,7 +1277,7 @@ form.
   \[ 
     Q(\psi) = \sum_{i,j \in S} c_{ij} (\psi_i - \psi_j)^2,
   \]
-  where $c_{i j} \in \F$.  
+  where $c_{i j} \in \F^+$.  
 \end{definition}
 
 Generalizing from circuits of resistors, we define the
@@ -1257,8 +1286,8 @@ Generalizing from circuits of resistors, we define the
   P(\varphi) = \frac{1}{2} \sum_{e \in E}
   \frac1{Z(e)}\big(\varphi(t(e))-\varphi(s(e))\big)^2.
 \]
-and we call $\varphi \in \F^N$ a \define{potential}. Note that $\F$ has
-characteristic not equal to 2, so dividing by 2 is allowed.  Note also that the
+and we call $\varphi \in \F^N$ a \define{potential}. Note have assumed that
+$\F$ has characteristic zero, so dividing by 2 is allowed.  Note also that the
 extended power functional is a Dirichlet form on $N$.
 
 Although it is not clear what it means to minimize over the field $\F$, we can
@@ -1340,7 +1369,8 @@ To prove this theorem, we must first show that $\min_{S \setminus R} P$ is well 
 \end{lemma}
 \begin{proof}
   This follows from the formal version of the multivariable Taylor theorem for
-  polynomial rings over a field of characteristic zero. Let $\tilde\psi$,
+  polynomial rings over a field of characteristic zero (see
+  \cite[\textsection IV.4.5]{Bou90}). Let $\tilde\psi$,
   $\tilde\psi' \in \F^S$ be realizable extensions of $\psi$, and note that
   $dP_{\tilde\psi}(\tilde\psi-\tilde\psi')=0$, since for all $s \in R$ we have
   $\tilde\psi(s) -\tilde\psi'(s) =0$, and for all $s \in S \setminus R$ we have
@@ -1386,7 +1416,9 @@ inductively.
   \[
     \phi_s = \frac{\sum_k c_{ks}\phi_k}{\sum_k c_{ks}}.
   \]
-  Thus $\min_{\{s\}}P$ may be given explicitly by the expression
+  Note that the $c_{ij}$ lie in $\F^+$, and $\F^+$ is closed under addition, so
+  $\sum_k c_{ks} \ne 0$. Thus $\min_{\{s\}}P$ may be given explicitly by the
+  expression
   \[
     \min_{\{s\}} P(\psi) = \sum_{i,j \in S \setminus \{s\}} c_{ij}(\psi_i -\psi_j)^2 +
     \sum_{\ell \in S \setminus \{s\}} c_{\ell s}\left(\psi_\ell - \tfrac{\sum_k
@@ -1809,7 +1841,7 @@ These identifications represent interconnection via ideal, perfectly conductive
 wires: if two terminals are connected by such wires, then the electrical
 behaviour at both terminals must be identical. The Frobenius maps allow us to
 split, combine, and discard wires.  The symmetric monoidal structure allows
-us reorder input and output wires. Derived from these, the compactness captures the
+us to reorder input and output wires. Derived from these, the compactness captures the
 interchangeability between input and outputs of circuits---that is, the fact
 that we can choose any input to our circuit and consider it instead as an
 output, and vice versa---while the dagger structure expresses the fact that we
@@ -1820,7 +1852,7 @@ behaviour, or power functional. Now that we have constructed a hypergraph
 category where our morphisms are circuit diagrams---our `syntactic' category for
 our diagrammatic language---we would also like to construct a hypergraph
 category with morphisms behaviours of circuits, and show that the map from a
-circuit to its behaviour is functorial.
+circuit to its behaviour defines a hypergraph functor.
 
 
 \subsection{An obstruction to black boxing} \label{ssec.noidentities}
@@ -1842,7 +1874,7 @@ compose these Dirichlet forms
 \]
 defined as follows.  Given $P \in D(Y,Z)$ and $Q \in D(X,Y)$, let
 \[ 
-  (P \circ Q)(\alpha, \gamma) = \min_{Y} Q(\alpha, \beta) + P(\beta, \gamma),
+  (P \circ Q)(\alpha, \gamma) = \min_{\beta \in \F^Y} Q(\alpha, \beta) + P(\beta, \gamma),
 \]
 where $\alpha \in \F^X, \gamma \in \F^Z$. This operation has a clear
 interpretation in terms of electrical circuits: the power used by the entire
@@ -1929,7 +1961,7 @@ N+_YM \leftarrow Z$ with the Dirichlet form
   \Big({j_N}_\ast Q_N+ {j_M}_\ast Q_M\Big)\maps \F^{N+_YM} &\longrightarrow \F;\\
   \phi &\longmapsto Q_N(\phi\circ j_N)+Q_M(\phi\circ j_M),
 \end{align*}
-where the $j$ are the maps include $N$ and $M$ into the pushout as usual.
+where the $j$ are the maps that include $N$ and $M$ into the pushout as usual.
 Interpreted in terms of extended power functionals, this simply says that the
 power consumed by the interconnected circuit is just the power consumed by each
 part. These form the morphisms of a decorated cospan category.
@@ -2010,7 +2042,7 @@ function $N$ to $M$. Then both $\mathrm{Dirich}(f) \circ \theta_N$ and $\theta_M
   \big(\psi(f(s(e)))-\psi(f(t(e)))\big)^2.
 \end{align*}
 Thus both methods of constructing a power functional on a set of nodes $M$ from
-a circuit on $N$ and a function $N \to M$ produce the same power functional.
+a circuit on $N$ and a function $f\maps N \to M$ produce the same power functional.
 
 To show that $\theta$ is a monoidal natural transformation, we must check that
 the square
@@ -2176,8 +2208,8 @@ behaviour is uniquely represented, and the map of a circuit to its behaviour
 preserves all compositional structure. Nonetheless, we will not pursue this
 construction in depth, feeling that this construction uses corelations to
 shoehorn in the necessary compositional structure. Instead, we find that a
-cleaner construction, based on the idea of a linear relation, can be given by
-a slight generalisation of our decorations.
+cleaner, more general construction, based on the idea of a linear relation, can
+be given by a slight generalisation of our decorations.
 
 \section{Networks as Lagrangian relations} \label{sec:circlagr}
 %%fakesubsection
@@ -2198,10 +2230,9 @@ subspaces provide a more direct, invariant perspective, comprising precisely the
 set of vectors describing the possible simultaneous potential and current
 readings at all terminals of a given circuit. As we shall see, one immediate and
 important advantage of this setting is that we may model wires of zero
-resistance.
-
-They also have a Willems-esque aesthetic to them, choosing to define physical
-systems by listing their possible states.
+resistance. Moreover, they lie within our Willems-esque aesthetic, choosing to
+define physical systems via a complete list of possible observations at the
+terminals.
 
 Recall that we write $\F$ for some field, which for our applications is
 usually the field $\R$ of real numbers or the field $\R(s)$ of rational
@@ -2268,7 +2299,7 @@ to another symplectic basis is a symplectomorphism.
     \omega\big((\phi,i),(\phi',i')\big) = i'(\phi)-i(\phi').  
   \] 
   Let $\{\phi_n\}_{n \in N}$ be the basis of $\F^N$ consisting of the functions
-  $N \to \F$ mapping $n$ to $1$ and all other elements of $n$ to $0$, and let
+  $N \to \F$ mapping $n$ to $1$ and all other elements of $N$ to $0$, and let
   $\{i_n\}_{n \in N} \subseteq {(\F^N)}^\ast$ be the dual basis. Then
   $\{(\phi_n,0),(0,i_n)\}_{n\in N}$ forms a symplectic basis for $\vectf{N}$.  
 
@@ -2278,15 +2309,15 @@ to another symplectic basis is a symplectomorphism.
   one of this form. 
 \end{example}
 
-There are two common ways we will build symplectic spaces from other
-symplectic spaces: conjugation and summation. Given a symplectic form $\omega$,
-we may define its \define{conjugate} symplectic form $\overline\omega = -
-\omega$, and write the conjugate symplectic space $(V,\overline\omega)$ as
-$\overline V$. Given two symplectic vector spaces $(U, \nu),(V,\omega)$, we
-consider their direct sum $U \oplus V$ a symplectic vector space with the
-symplectic form $\nu+\omega$, and call this the \define{sum} of the two
-symplectic vector spaces. Note that this is not a product in the category of
-symplectic vector spaces and symplectic maps.
+There are two common ways we will build symplectic spaces from other symplectic
+spaces: conjugation and summation. Given a symplectic form $\omega$ on $V$, we
+may define its \define{conjugate} symplectic form $\overline\omega = - \omega$,
+and write the conjugate symplectic space $(V,\overline\omega)$ as $\overline V$.
+Given two symplectic vector spaces $(U, \nu),(V,\omega)$, we consider their
+direct sum $U \oplus V$ a symplectic vector space with the symplectic form
+$\nu+\omega$, and call this the \define{sum} of the two symplectic vector
+spaces. Note that this is not a product in the category of symplectic vector
+spaces and symplectic maps.
 
 \begin{example}
   \label{ex:symplectomorphisms}
@@ -2353,7 +2384,7 @@ subspaces.
 \end{proposition}
 
 From this proposition it follows easily that the direct sum of two Lagrangian
-subspaces in Lagrangian in the sum of their ambient spaces. We also observe that
+subspaces is Lagrangian in the sum of their ambient spaces. We also observe that
 an advantage of isotropy is that there is a good way to take a quotient of a
 symplectic vector space by an isotropic subspace---that is, there is a way to
 put a natural symplectic structure on the quotient space.
@@ -2595,7 +2626,7 @@ our circuits have finitely many nodes, we choose only the finite dimensional
 symplectic vector spaces as objects.
 
 \begin{definition}
-  We write \define{$\LagrRel$} for the category with finite dimensional
+  We write $\LagrRel$ for the category with finite dimensional
   symplectic vector spaces as objects and Lagrangian relations as morphisms. 
 \end{definition}
 
@@ -2657,15 +2688,16 @@ that Kirchhoff's laws follow directly from interpreting these structures in the
 category of linear relations.
 
 A more powerful route to the same conclusion might be to directly define a
-hypergraph structure on $\mathrm{LagrRel}$ and then use Theorem . to obtain a
-decorated corelations construction; we nonetheless favour the following as it
-sheds insight into remarkable links between the corelations and ideal wires, the
-contravariant `free' vector space functor and Kirchhoff's voltage law, and the
-covariant free vector space functor and Kirchhoff's current law. 
+hypergraph structure on $\mathrm{LagrRel}$ and then use
+Theorem~\ref{thm.hypdeccorcats} to obtain a decorated corelations construction;
+we nonetheless favour the following as it sheds insight into remarkable links
+between the corelations and ideal wires, the contravariant `free' vector space
+functor and Kirchhoff's voltage law, and the covariant free vector space functor
+and Kirchhoff's current law. 
 
 \subsection{Ideal wires as corelations}
 
-The term corelation in this section we exclusively refers to epi-mono corelations
+The term corelation in this section exclusively refers to epi-mono corelations
 in $\FinSet$. As such, we write this hypergraph category $\mathrm{Corel}$. 
 
 To motivate the use of this category, let us start with a set of input
@@ -2994,7 +3026,8 @@ these interconnections via the category of sets we must develop an understanding
 of how to compose functions head to head and tail to tail. We have so far used
 cospans and pushouts to address this.  Cospans, however, come with an apex, which
 represents extraneous structure beyond the two sets we wish to specify a
-relationship between. Corelations arise from omitting this information.
+relationship between. Corelations, in line with our `black boxing' intution for
+them, arise from omitting this information.
 
 \subsection{Potentials on corelations} \label{ssec:potentialsoncorelations}
 
@@ -3015,9 +3048,10 @@ Kirchhoff's voltage law: it requires that if two elements are in the same part
 of the corelation partition---that is, if two nodes are connected by ideal
 wires---then the potential at those two points must be the same.
 
-To construct this functor, we recall Subsection , which shows that
-$\LinRel$ is the category of jointly-epic corelations in $\FinVect^\opp$, and
-then appeal to our results on functors between corelation categories.
+To construct this functor, we recall Subsection \ref{ssec.linrel}, where we
+observed that $\LinRel$ is the category of jointly-epic corelations in
+$\FinVect^\opp$, and then appeal to our results on functors between corelation
+categories.
 
 \begin{proposition}
   Define the functor 
@@ -3040,7 +3074,7 @@ mapping a finite set $X$ to the vector space $\F^X$, and the function $f\maps X
 \to Y$ to the linear map $f_\ast\maps \F^Y \to \F^X$ sending $\phi\maps Y \to \F$
 to $\phi \circ f\maps X \to \F$.
 
-This functors maps finite colimits to finite limits. To show this, we need only
+The functor $\Psi$ maps finite colimits to finite limits. To show this, we need only
 check it maps coproducts to products and coequalisers to equalisers. The former
 follows from the same well-known natural isomorphisms as the coherence maps:
 $\F^X \oplus \F^Y \cong \F^{X\times Y}$. To see the latter, write $C = Y/\big(f(x)
@@ -3069,33 +3103,35 @@ that $v(f(x)) = v(g(x))$ for all $x \in X$. But this is precisely the image of
 $c_\ast\maps \F^C \to \F^Y$. Thus $\Psi$ sends coequalisers to equalisers, and
 hence finite colimits to finite limits.
 
-Note also that the image of an injective function $m$ in $\FinSet$ is a
+Note also that the image of an injective function in $\FinSet$ is a
 surjective linear transformation $\F^Y \to \F^X$, and hence a monomorphism in
 $\FinVect^\opp$. Thus, considering $\Psi$ as a covariant functor $\FinSet \to
 \FinVect^\opp$, we have a functor that preserves finite colimits and such that
 the image of the monomorphisms of $\FinSet$ is contained in the monomorphisms of
 $\FinVect^\opp$.
 
-Recall that $\FinVect^\opp$ has an epi-mono factorisation system, and that $\LinRel$
-is the category of corelations with respect to this factorisation system
-(Subsection ). Thus $\Psi$ extends to a functor 
+Recall that $\FinVect$ has an epi-mono factorisation system, and that $\LinRel$
+is the category of relations with respect to it; equivalently, this means that
+$\FinVect^\opp$ has an epi-mono factorisation system, and $\LinRel$ is the its
+category of corelations (Subsection \ref{ssec.linrel}). Thus $\Psi$ extends to a
+functor 
 \[
   \Phi\maps \corel(\FinSet) = \mathrm{Corel} \longrightarrow
   \corel(\FinVect^\opp) \cong \LinRel.
 \]
-This functor maps a corelation $e= [i,o]\maps X+Y \to N$ to the linear relation
-$e_\ast(\F^N) \subset \F^X \oplus \F^Y$ comprising functions $X+Y \to \F$ that
-are constant on each equivalence class of elements of $X+Y$.
+This functor $\Phi$ maps a corelation $e= [i,o]\maps X+Y \to N$ to the linear
+relation $e_\ast(\F^N) \subset \F^X \oplus \F^Y$ comprising functions $X+Y \to
+\F$ that are constant on each equivalence class of elements of $X+Y$.
 \end{proof}
 
 To recap, we have now constructed a functor $\Phi\maps \mathrm{Corel} \to
 \mathrm{LinRel}$ expressing the behaviour of potentials on corelations interpreted
-as ideal wires. We now do the same for currents.
+as ideal wires. Next, we do the same for currents.
 
 \subsection{Currents on corelations}
 
-Next we consider the case of currents, described by a functor $I\maps
-\mathrm{Corel} \to \mathrm{LinRel}$. This functor now expresses Kirchhoff's
+In this subsection we consider the case of currents, described by a functor
+$I\maps \mathrm{Corel} \to \mathrm{LinRel}$. This functor expresses Kirchhoff's
 current law: it requires that the sum of currents flowing into each part of the
 corelation partition must equal to the sum of currents flowing out.  
 \begin{proposition}
@@ -3121,7 +3157,7 @@ corelation partition must equal to the sum of currents flowing out.
   \to (\F^\varnothing)^\ast$.
 \end{proposition}
 \begin{proof}
-  This functor is a generalization of the covariant functor $\FinSet \to
+  The functor $I$ is a generalization of the covariant functor $\FinSet \to
   \FinVect$ that maps a set to the vector space of $\F$-linear combinations of
   elements of that set. We proceed in a similar fashion to the functor for
   potentials. Define the functor $J\maps \FinSet \to \FinVect$ mapping a finite
@@ -3135,7 +3171,7 @@ corelation partition must equal to the sum of currents flowing out.
   \to \Vect$. As the free vector space functor is left adjoint to the forgetful
   functor, it preserves finite colimits. Hence $\FinSet$ also preserves finite
   colimits. Moreover, $J$ maps monomorphisms in $\FinSet$ to monomorphisms in
-  $\FinVect$. By Proposition , $J$ thus extends to a functor
+  $\FinVect$. By Proposition \ref{prop.corelfunctors}, $J$ thus extends to a functor
   \[
     I\maps \corel(\FinSet) = \mathrm{Corel} \longrightarrow \corel(\FinVect) =
     \mathrm{LinRel}.
@@ -3187,7 +3223,7 @@ canonically isomorphic to $\F^X \oplus \F^Y \oplus (\F^X)^\ast \oplus
   itself a strong symmetric monoidal functor $\mathrm{Corel} \to
   \mathrm{LinRel}$. Thus it only remains to be checked that, with respect to the
   symplectic structure we put on the objects $SX$, the image of each
-  corelation $Se$ is Lagrangian. 
+  corelation $e$ is Lagrangian. 
 
   
   This follows from condition (v) of Proposition
@@ -3228,7 +3264,7 @@ canonically isomorphic to $\F^X \oplus \F^Y \oplus (\F^X)^\ast \oplus
   This proves the proposition.
 \end{proof}
 
-We have thus shown we do indeed have a functor $S\maps \mathrm{Corel} \to
+We have thus shown that we do indeed have a functor $S\maps \mathrm{Corel} \to
 \LagrRel$. In the next section we shall see that this functor provides
 the engine of our black box functor. To get there, an understanding of the
 action of $S$ on functions will be helpful.
@@ -3283,13 +3319,21 @@ action of $S$ on functions will be helpful.
 
 \subsection{Lagrangian relations as decorated corelations}
 \label{ssec.lagrrelascorel}
-Recall that every finite dimensional symplectic vector space is isomorphic to
-one of the form $\vectf{X}$. For our finite circuits, Lagrangian relations are
-between these standard symplectic vector spaces are enough to represent the
-behaviours of all circuits. To assist in constructing the black box functor, we
-thus use decorated corelations to construct the full subcategory of the standard
-symplectic spaces in $\LagrRel$. Our functor is based on the monoidal global
-sections functor.
+Recall that symplectic vector spaces of the form $\vectf{X}$ are known as
+standard symplectic spaces. Here we shall use decorated corelations to
+construct a hypergraph category $\mathrm{LagrCorel}$ in which the objects are standard
+symplectic spaces and the morphisms are in one-to-one correspondence with
+Lagrangian relations between them.  As every finite dimensional symplectic
+vector spaces is symplectomorphic to a standrd symplectic space,
+$\mathrm{LagrCorel}$ is equivalent as a symmetric monoidal category to
+$\LagrRel$. This equivalence allows us to endow $\LagrRel$ with a hypergraph
+structure so that the two categories are hypergraph equivalent. 
+
+Analogous with our constructions in \textsection\ref{sec.setdecs} and
+\textsection\ref{sec.allhypergraphs}, we will use the composite of the hom
+functor $\LagrRel(\varnothing,-)\maps \LagrRel \to \Set$, the
+symplectification functor $S\maps\corel \to \LagrRel$, and the functor
+$\cospan(\FinSet) \to \corel$.
 
 \begin{proposition}
 Define 
@@ -3298,7 +3342,7 @@ Define
 \]
 as follows. For objects let $\mathrm{Lagr}$ map a finite set $X$ to the set
 $\mathrm{Lagr}(X)$ of Lagrangian subspaces of the symplectic vector space
-$\vectf{X}$.  For morphisms, given a cospan of finite sets $c\maps X \to Y$ we
+$\vectf{X}$.  For morphisms, given a cospan of finite sets $X \to Y$ we
 take its jointly-epic part $e$, and thus obtain a map $Se\maps \vectf{X} \to
 \vectf{Y}$. As Lagrangian relations map Lagrangian subspaces to Lagrangian
 subspaces (Proposition \ref{prop:lagrangian_composition}), this gives a map: 
@@ -3422,7 +3466,7 @@ of three processes defined above.
 
 Let $\Gamma\maps X \to Y$ be a circuit, that is a cospan of finite sets $X
 \stackrel{i}{\longrightarrow} N \stackrel{o}{\longleftarrow} Y$ decorated by an
-$\F$-graph $(N,E,s,t,r)$. To define the image of $\Gamma$ under our functor
+$\F^+$-graph $(N,E,s,t,r)$. To define the image of $\Gamma$ under our functor
 $\blacksquare$, by definition a Lagrangian relation $\blacksquare(\Gamma):
 \blacksquare(X) \to \blacksquare(Y)$, we must specify a Lagrangian subspace
 $\blacksquare(\Gamma) \subseteq \overline{\F^X \oplus (\F^X)^\ast} \oplus \F^Y
@@ -3468,7 +3512,7 @@ Putting these all together:
   relation
   \[
     \blacksquare(\Gamma) = (\overline{\idn_X}\oplus \idn_Y) \circ S[i,o]^\opp
-    \circ \mathrm{Graph}(P_\Gamma).
+    \circ \mathrm{Graph}(dP_\Gamma).
   \]
   The coherence maps are given by the natural isomorphisms $\F^X \oplus
   (\F^X)^\ast \oplus \F^Y \oplus (\F^Y)^\ast \cong \F^{X+Y} \oplus
@@ -3492,7 +3536,7 @@ we have indeed arrived at the theorem we set out to prove.
 At this point the reader might voice two concerns: firstly, why does the
 \emph{black box} functor refer to the \emph{extended} power functional $P$ and,
 secondly, since it fails to talk about power minimization, how is it the same
-functor as that defined in Theorem \ref{main_theorem}? These fears are allayed
+functor as that defined in Theorem~\ref{main_theorem}? These fears are allayed
 by the remarkable trinity of minimization, the symplectification of functions,
 and Kirchhoff's laws. 
 
